@@ -13,32 +13,41 @@ from scripts.audit_github_repos import (
 
 
 def test_parse_github_repo_from_url_and_name():
-    assert parse_github_repo("https://github.com/example/repo") == ("example", "repo")
-    assert parse_github_repo("example/repo") == ("example", "repo")
+    assert parse_github_repo("https://github.com/antonbabenko/terraform-skill") == (
+        "antonbabenko",
+        "terraform-skill",
+    )
+    assert parse_github_repo("antonbabenko/terraform-skill") == (
+        "antonbabenko",
+        "terraform-skill",
+    )
 
 
 def test_parse_github_repo_rejects_non_github_url():
     with pytest.raises(ValueError, match="not a GitHub repo"):
-        parse_github_repo("https://gitlab.com/example/repo")
+        parse_github_repo("https://gitlab.com/antonbabenko/terraform-skill")
 
 
 def test_audit_repo_captures_metadata_from_gh_json():
     payload = {
-        "nameWithOwner": "example/repo",
-        "url": "https://github.com/example/repo",
+        "nameWithOwner": "antonbabenko/terraform-skill",
+        "url": "https://github.com/antonbabenko/terraform-skill",
         "isArchived": False,
         "isPrivate": False,
         "defaultBranchRef": {"name": "main"},
         "pushedAt": "2026-07-01T00:00:00Z",
         "primaryLanguage": {"name": "Python"},
-        "description": "Example repo",
+        "description": "Terraform skill repo",
         "stargazerCount": 42,
     }
 
     def runner(_cmd):
         return 0, json.dumps(payload), ""
 
-    result = audit_repo({"name": "example/repo", "url": payload["url"]}, runner=runner)
+    result = audit_repo(
+        {"name": "antonbabenko/terraform-skill", "url": payload["url"]},
+        runner=runner,
+    )
 
     assert result.reachable is True
     assert result.default_branch == "main"
@@ -52,7 +61,10 @@ def test_audit_repo_records_unreachable_repo():
         return 1, "", "Could not resolve to a Repository"
 
     result = audit_repo(
-        {"name": "missing/repo", "url": "https://github.com/missing/repo"},
+        {
+            "name": "mcpflow/devops-mcp-servers",
+            "url": "https://github.com/mcpflow/devops-mcp-servers",
+        },
         runner=runner,
     )
 
@@ -62,16 +74,20 @@ def test_audit_repo_records_unreachable_repo():
 
 def test_build_summary_counts_reachability_and_archived_repos():
     results = [
-        AuditResult(name="one/repo", url="https://github.com/one/repo", reachable=True),
         AuditResult(
-            name="two/repo",
-            url="https://github.com/two/repo",
+            name="antonbabenko/terraform-skill",
+            url="https://github.com/antonbabenko/terraform-skill",
+            reachable=True,
+        ),
+        AuditResult(
+            name="microsoft/azure-devops-skills",
+            url="https://github.com/microsoft/azure-devops-skills",
             reachable=True,
             archived=True,
         ),
         AuditResult(
-            name="missing/repo",
-            url="https://github.com/missing/repo",
+            name="mcpflow/devops-mcp-servers",
+            url="https://github.com/mcpflow/devops-mcp-servers",
             reachable=False,
             error="missing",
         ),
@@ -87,8 +103,8 @@ def test_build_summary_counts_reachability_and_archived_repos():
 
 def test_write_report_outputs_json_and_markdown(tmp_path):
     result = AuditResult(
-        name="example/repo",
-        url="https://github.com/example/repo",
+        name="antonbabenko/terraform-skill",
+        url="https://github.com/antonbabenko/terraform-skill",
         reachable=True,
         primary_language="Python",
     )
@@ -101,5 +117,5 @@ def test_write_report_outputs_json_and_markdown(tmp_path):
     markdown = markdown_path.read_text(encoding="utf-8")
 
     assert report["summary"]["total"] == 1
-    assert report["results"][0]["name"] == "example/repo"
-    assert "| example/repo | yes |" in markdown
+    assert report["results"][0]["name"] == "antonbabenko/terraform-skill"
+    assert "| antonbabenko/terraform-skill | yes |" in markdown

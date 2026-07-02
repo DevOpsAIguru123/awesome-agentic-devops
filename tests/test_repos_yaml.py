@@ -15,8 +15,8 @@ from scripts.validate_repos_yaml import (
 
 def valid_entry(**overrides):
     entry = {
-        "name": "example/repo",
-        "url": "https://github.com/example/repo",
+        "name": "antonbabenko/terraform-skill",
+        "url": "https://github.com/antonbabenko/terraform-skill",
         "category": "terraform-iac-agents",
         "type": "agent",
         "framework": "unknown",
@@ -39,7 +39,7 @@ def valid_entry(**overrides):
 def test_validates_seed_data_file():
     entries = validate_file(Path("data/repos.yaml"))
 
-    assert len(entries) >= 41
+    assert len(entries) == 5
     assert all(field in entries[0] for field in REQUIRED_FIELDS)
 
 

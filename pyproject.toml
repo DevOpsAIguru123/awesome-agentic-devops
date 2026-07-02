@@ -1,5 +1,5 @@
 [project]
-name = "awesome-devops-cloud-agents"
+name = "awesome-agentic-devops"
 version = "0.1.0"
 description = "Operator-grade index and build lab for DevOps, Cloud, SRE, and Platform Engineering agents."
 readme = "README.md"
