@@ -343,6 +343,31 @@
     - 💎
     - ⚠️
 
+- name: kubeflow/mcp-server
+  url: https://github.com/kubeflow/mcp-server
+  category: official-platform-agent-toolkits
+  type: mcp-server
+  framework: MCP
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - kubeflow-ai-assisted-development
+    - mlops-workflows
+    - pipeline-and-tool-context
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as a Kubeflow-specific MCP reference for MLOps and platform agents that need pipeline, notebook, and Kubeflow tool context."
+  risk_notes: "Kubeflow workflows can affect ML pipelines and platform resources; require namespace/project scoping and approval for mutations."
+  operator_note: "Official Kubeflow MCP server for AI-assisted development with Kubeflow tools."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 💎
+    - ⚠️
+
 - name: github/github-mcp-server
   url: https://github.com/github/github-mcp-server
   category: official-devops-mcp-servers
@@ -411,6 +436,55 @@
   gemini_opportunity: "Use to connect agentic DevOps workflows to Jira, Jira Service Management, Bitbucket, Compass, and Confluence context."
   risk_notes: "Can create or update Jira/Confluence/Bitbucket artifacts; require OAuth scopes, project defaults, and approval for bulk writes."
   operator_note: "Official Atlassian Rovo MCP server for Jira, Confluence, Jira Service Management, Bitbucket, and Compass."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 💎
+    - ⚠️
+
+- name: SonarSource/sonarqube-mcp-server
+  url: https://github.com/SonarSource/sonarqube-mcp-server
+  category: official-security-mcp-servers
+  type: mcp-server
+  framework: MCP
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - code-quality-analysis
+    - application-security-review
+    - sonarqube-cloud-and-server
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as the official SonarQube MCP source for Gemini or Codex code-quality and application-security review workflows."
+  risk_notes: "Requires SonarQube tokens and project/org scoping; keep project analysis and remediation recommendations separate from automated code changes."
+  operator_note: "Official SonarQube MCP server for code quality and security insights in AI agents."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 💎
+
+- name: okta/okta-mcp-server
+  url: https://github.com/okta/okta-mcp-server
+  category: official-security-mcp-servers
+  type: mcp-server
+  framework: MCP
+  primary_language: Python
+  cloud_provider: Okta
+  use_cases:
+    - identity-management
+    - okta-admin-workflows
+    - access-and-authentication-context
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as the official Okta MCP source for identity-aware DevOps and SRE agents that need governed auth context."
+  risk_notes: "Identity tooling is high impact; require least-privilege OAuth scopes, tenant confirmation, and explicit approval for user, group, or policy mutations."
+  operator_note: "Official Okta self-hosted MCP server for connecting agents to Okta identity workflows."
   labels:
     - 🟢
     - 🔵
@@ -495,6 +569,32 @@
     - 💎
     - ⚠️
 
+- name: getsentry/sentry-mcp
+  url: https://github.com/getsentry/sentry-mcp
+  category: official-sre-mcp-servers
+  type: hosted-mcp-server
+  framework: MCP + skills
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - sentry-issue-debugging
+    - error-and-trace-investigation
+    - developer-workflow-observability
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as the official Sentry MCP source for debugging agents that need issue, error, trace, and performance context."
+  risk_notes: "Sentry tokens can expose sensitive production errors and some write scopes; require org/project scoping and keep debugging human-in-the-loop."
+  operator_note: "Official Sentry MCP service focused on human-in-the-loop coding agents and debugging workflows."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - 💎
+    - ⚠️
+
 - name: datadog-labs/mcp-server
   url: https://github.com/datadog-labs/mcp-server
   category: official-sre-mcp-servers
@@ -513,6 +613,31 @@
   gemini_opportunity: "Use as a source for SRE investigation agents that query metrics, logs, traces, incidents, and LLM observability."
   risk_notes: "Telemetry may include sensitive operational data; scope auth by site/org and keep write actions disabled unless explicitly needed."
   operator_note: "Official Datadog MCP server documentation and examples for connecting AI agents to Datadog observability."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - 💎
+
+- name: Splunk MCP Server
+  url: https://splunkbase.splunk.com/app/7931
+  category: official-sre-mcp-servers
+  type: hosted-mcp-server
+  framework: MCP
+  primary_language: unknown
+  cloud_provider: Splunk
+  use_cases:
+    - splunk-platform-querying
+    - log-and-event-investigation
+    - enterprise-observability
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as the Splunk-supported MCP entry for agents that need Splunk Enterprise or Splunk Cloud observability context."
+  risk_notes: "Splunk data can contain sensitive logs and security events; require index, role, and search-scope controls before connecting agents."
+  operator_note: "Splunkbase listing for the Splunk-supported MCP Server for Splunk Platform, Enterprise, and Cloud customers."
   labels:
     - 🟢
     - 🔵
@@ -543,6 +668,30 @@
     - 🔵
     - 🛡️
     - 📊
+    - 💎
+
+- name: jgraph/drawio-mcp
+  url: https://github.com/jgraph/drawio-mcp
+  category: official-diagramming-mcp-tools
+  type: mcp-server
+  framework: MCP + plugin
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - architecture-diagramming
+    - drawio-shape-search
+    - diagram-generation
+  action_level: proposal
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as the draw.io MCP source for architecture diagrams, cloud diagrams, and DevOps runbook visuals generated by agents."
+  risk_notes: "Diagram content may include sensitive architecture details; prefer local/self-hosted modes for private infrastructure diagrams."
+  operator_note: "draw.io MCP server and Claude Code plugin for generating, opening, and exporting draw.io diagrams with shape search."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
     - 💎
 
 - name: PagerDuty/pagerduty-mcp-server
@@ -686,5 +835,28 @@
   operator_note: "Community engineering skill reference; useful style and structure input for DevOps-specific scaffolds."
   labels:
     - 🟢
+    - 🛡️
+    - 💎
+
+- name: Agents365-ai/drawio-skill
+  url: https://github.com/Agents365-ai/drawio-skill
+  category: community-agent-skills
+  type: skill
+  framework: skills
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - drawio-diagram-generation
+    - codebase-to-diagram
+    - architecture-documentation
+  action_level: proposal
+  human_approval: true
+  evidence_tracing: partial
+  maturity: skill-library
+  gemini_opportunity: "Use as community skill material for generating architecture and DevOps diagrams from code or natural language."
+  risk_notes: "Generated diagrams should be reviewed before publishing because they may reveal architecture, network, or security assumptions."
+  operator_note: "Community draw.io skill for natural-language diagram generation, visual self-checking, and exports."
+  labels:
+    - 🟡
     - 🛡️
     - 💎

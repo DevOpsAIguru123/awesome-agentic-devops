@@ -39,11 +39,13 @@ These agents may touch infrastructure. Prefer read-only or proposal mode first. 
 
 1. Official cloud MCP servers and agent toolkits
 2. Official DevOps and source-control MCP servers
-3. Official SRE and observability MCP servers
+3. Official security and code-quality MCP servers
 4. Official IaC MCP servers
-5. Official platform agent toolkits
+5. Official SRE and observability MCP servers
 6. Official agent skills and agent frameworks
-7. Community discovery and skill references
+7. Official platform agent toolkits
+8. Official diagramming and architecture MCP tools
+9. Community discovery and skill references
 
 ## Top picks by use case
 
@@ -55,6 +57,7 @@ These agents may touch infrastructure. Prefer read-only or proposal mode first. 
 | Source-control DevOps | [github/github-mcp-server](https://github.com/github/github-mcp-server), [GitLab MCP server](https://docs.gitlab.com/user/gitlab_duo/model_context_protocol/mcp_server/), and [atlassian/atlassian-mcp-server](https://github.com/atlassian/atlassian-mcp-server) | Official MCP tool surfaces for repos, issues, PRs, Jira, Bitbucket, and related delivery workflows. |
 | Terraform and IaC | [hashicorp/terraform-mcp-server](https://github.com/hashicorp/terraform-mcp-server) and [Pulumi MCP Server](https://www.pulumi.com/docs/ai/mcp-server/) | Official IaC MCP sources for Terraform Registry/HCP Terraform and Pulumi Cloud automation. |
 | SRE incident response | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana), [datadog-labs/mcp-server](https://github.com/datadog-labs/mcp-server), and [PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | Official observability and incident-management MCPs for metrics, logs, traces, alerts, incidents, and on-call context. |
+| Security and code quality | [SonarSource/sonarqube-mcp-server](https://github.com/SonarSource/sonarqube-mcp-server) and [okta/okta-mcp-server](https://github.com/okta/okta-mcp-server) | Official MCPs for code quality, application security, and identity-aware workflows. |
 | Agent build scaffolds | [google/adk-python](https://github.com/google/adk-python) and [GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack) | Official Google agent framework and production templates with CI/CD, evaluation, and observability. |
 
 ## Curated catalog
@@ -83,6 +86,13 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | [docker/mcp-registry](https://github.com/docker/mcp-registry) | 🟢 🔵 🛡️ 📊 💎 | Official Docker MCP registry and catalog source for verified containerized MCP servers. |
 | [kubernetes-sigs/mcp-lifecycle-operator](https://github.com/kubernetes-sigs/mcp-lifecycle-operator) | 🟡 🔵 🛡️ 💎 ⚠️ | Official Kubernetes SIG operator for declaratively deploying and rolling out MCP servers, not a general kubectl MCP server. |
 
+### Official Security and Code-Quality MCP Servers
+
+| Repo | Labels | Operator note |
+| --- | --- | --- |
+| [SonarSource/sonarqube-mcp-server](https://github.com/SonarSource/sonarqube-mcp-server) | 🟢 🔵 🛡️ 💎 | Official SonarQube MCP server for code quality and security insights in AI agents. |
+| [okta/okta-mcp-server](https://github.com/okta/okta-mcp-server) | 🟢 🔵 🛡️ 💎 ⚠️ | Official Okta self-hosted MCP server for connecting agents to Okta identity workflows. |
+
 ### Official IaC MCP Servers
 
 | Repo | Labels | Operator note |
@@ -95,8 +105,10 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | Repo | Labels | Operator note |
 | --- | --- | --- |
 | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana) | 🟢 🔵 🛡️ 📊 💎 ⚠️ | Official Grafana MCP server for Grafana and surrounding observability ecosystem access. |
+| [getsentry/sentry-mcp](https://github.com/getsentry/sentry-mcp) | 🟢 🔵 🛡️ 📊 💎 ⚠️ | Official Sentry MCP service focused on human-in-the-loop coding agents and debugging workflows. |
 | [datadog-labs/mcp-server](https://github.com/datadog-labs/mcp-server) | 🟢 🔵 🛡️ 📊 💎 | Official Datadog MCP server documentation and examples for connecting AI agents to Datadog observability. |
 | [Datadog MCP Server setup docs](https://docs.datadoghq.com/mcp_server/setup/?tab=chatgpt) | 🟢 🔵 🛡️ 📊 💎 | Official Datadog MCP setup documentation, including the ChatGPT setup path. |
+| [Splunk MCP Server](https://splunkbase.splunk.com/app/7931) | 🟢 🔵 🛡️ 📊 💎 | Splunkbase listing for the Splunk-supported MCP Server for Splunk Platform, Enterprise, and Cloud customers. |
 | [PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | 🟢 🔵 🛡️ 💎 ⚠️ | Official PagerDuty MCP server for incidents, services, schedules, event orchestrations, and embedded incident UIs. |
 
 ### Official Agent Skills and Frameworks
@@ -115,6 +127,13 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | Repo | Labels | Operator note |
 | --- | --- | --- |
 | [databricks-solutions/ai-dev-kit](https://github.com/databricks-solutions/ai-dev-kit) | 🟢 🔵 🛡️ 📊 💎 ⚠️ | Databricks field-engineering AI Dev Kit with Databricks MCP server, Databricks skills, tools core, and builder app support. |
+| [kubeflow/mcp-server](https://github.com/kubeflow/mcp-server) | 🟢 🔵 🛡️ 💎 ⚠️ | Official Kubeflow MCP server for AI-assisted development with Kubeflow tools. |
+
+### Official Diagramming and Architecture MCP Tools
+
+| Repo | Labels | Operator note |
+| --- | --- | --- |
+| [jgraph/drawio-mcp](https://github.com/jgraph/drawio-mcp) | 🟢 🔵 🛡️ 💎 | draw.io MCP server and Claude Code plugin for generating, opening, and exporting draw.io diagrams with shape search. |
 
 ### Community Discovery and Skills
 
@@ -123,6 +142,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | [rohitg00/awesome-devops-mcp-servers](https://github.com/rohitg00/awesome-devops-mcp-servers) | 🔵 🟡 💎 | Community discovery source for MCP ecosystem mapping and candidate integrations. |
 | [antonbabenko/terraform-skill](https://github.com/antonbabenko/terraform-skill) | 🟡 🛡️ 💎 | Community Terraform-specific prompt and workflow seed for the build lab. |
 | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | 🟢 🛡️ 💎 | Community engineering skill reference; useful style and structure input for DevOps-specific scaffolds. |
+| [Agents365-ai/drawio-skill](https://github.com/Agents365-ai/drawio-skill) | 🟡 🛡️ 💎 | Community draw.io skill for natural-language diagram generation, visual self-checking, and exports. |
 
 ### Reference Agent Lab (Coming Soon)
 
