@@ -1,0 +1,21 @@
+[project]
+name = "awesome-devops-cloud-agents"
+version = "0.1.0"
+description = "Operator-grade index and build lab for DevOps, Cloud, SRE, and Platform Engineering agents."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "pyyaml>=6.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.setuptools]
+py-modules = []

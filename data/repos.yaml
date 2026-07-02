@@ -1,0 +1,363 @@
+- name: hammadhaqqani/awesome-devops-ai
+  url: https://github.com/hammadhaqqani/awesome-devops-ai
+  category: broad-devops-ai-curated-lists
+  type: curated-list
+  framework: mixed
+  primary_language: Markdown
+  cloud_provider: multi-cloud
+  use_cases:
+    - ecosystem-discovery
+    - devops-ai-research
+    - tool-shortlisting
+  action_level: read-only
+  human_approval: unknown
+  evidence_tracing: none
+  maturity: curated-list
+  gemini_opportunity: "Use Gemini to classify each listed item by cloud domain, action level, and operator risk."
+  risk_notes: "Curated lists can include unverified tools; inspect individual projects before operational use."
+  operator_note: "Useful broad-map entry point, but not a substitute for hands-on safety evaluation."
+  labels:
+    - 🟡
+    - 💎
+
+- name: rohitg00/awesome-devops-mcp-servers
+  url: https://github.com/rohitg00/awesome-devops-mcp-servers
+  category: devops-mcp-servers
+  type: curated-list
+  framework: MCP
+  primary_language: Markdown
+  cloud_provider: multi-cloud
+  use_cases:
+    - mcp-server-discovery
+    - integration-shortlisting
+    - tool-surface-review
+  action_level: read-only
+  human_approval: unknown
+  evidence_tracing: none
+  maturity: curated-list
+  gemini_opportunity: "Score MCP servers for Gemini-driven DevOps workflows that need explicit tool boundaries."
+  risk_notes: "MCP servers expose tool capabilities; review permissions and command surfaces before connecting real infrastructure."
+  operator_note: "Good source for MCP ecosystem mapping and candidate integrations."
+  labels:
+    - 🔵
+    - 🟡
+    - 💎
+
+- name: agamm/awesome-ai-sre
+  url: https://github.com/agamm/awesome-ai-sre
+  category: sre-incident-response-agents
+  type: curated-list
+  framework: mixed
+  primary_language: Markdown
+  cloud_provider: multi-cloud
+  use_cases:
+    - sre-ai-research
+    - incident-response-patterns
+    - observability-agent-discovery
+  action_level: read-only
+  human_approval: unknown
+  evidence_tracing: none
+  maturity: curated-list
+  gemini_opportunity: "Use Gemini to extract SRE workflows and convert them into evaluation cases."
+  risk_notes: "SRE tooling can drift into remediation; classify each linked project before use."
+  operator_note: "Relevant for understanding the AI-for-SRE landscape and common automation patterns."
+  labels:
+    - 🟡
+    - 💎
+
+- name: talkops-ai/aws-orchestrator-agent
+  url: https://github.com/talkops-ai/aws-orchestrator-agent
+  category: terraform-iac-agents
+  type: multi-agent-system
+  framework: LangGraph
+  primary_language: Python
+  cloud_provider: AWS
+  use_cases:
+    - terraform-module-generation
+    - infrastructure-code-validation
+    - github-commit-workflow
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: active-oss
+  gemini_opportunity: "Rebuild the research to generate to validate to approve loop for GCP Terraform modules using Gemini ADK."
+  risk_notes: "Can generate and commit infrastructure code; require human approval and terraform validation before use."
+  operator_note: "Strong pattern because it treats IaC generation as a pipeline, not a single prompt."
+  labels:
+    - 🟡
+    - 🛡️
+    - 💎
+    - ⚠️
+
+- name: talkops-ai/k8s-autopilot
+  url: https://github.com/talkops-ai/k8s-autopilot
+  category: kubernetes-troubleshooting-and-autopilot-agents
+  type: agent
+  framework: unknown
+  primary_language: Python
+  cloud_provider: Kubernetes
+  use_cases:
+    - kubernetes-troubleshooting
+    - cluster-diagnosis
+    - remediation-planning
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: active-oss
+  gemini_opportunity: "Port read-only triage and approval-gated remediation plans into Gemini ADK."
+  risk_notes: "Kubernetes autopilot agents can mutate workloads; restrict to get, describe, and logs until reviewed."
+  operator_note: "High-value candidate for testing read-only-first Kubernetes incident workflows."
+  labels:
+    - 🟡
+    - 🛡️
+    - 💎
+    - ⚠️
+
+- name: talkops-ai/ci-copilot
+  url: https://github.com/talkops-ai/ci-copilot
+  category: cicd-pipeline-agents
+  type: agent
+  framework: unknown
+  primary_language: Python
+  cloud_provider: multi-cloud
+  use_cases:
+    - ci-failure-analysis
+    - pipeline-repair-suggestions
+    - pull-request-feedback
+  action_level: proposal
+  human_approval: true
+  evidence_tracing: partial
+  maturity: active-oss
+  gemini_opportunity: "Use Gemini to explain CI failures, propose patches, and require PR review for writes."
+  risk_notes: "Pipeline fixes can alter deployment behavior; keep changes in PR proposal mode."
+  operator_note: "Good bridge between developer productivity and production safety."
+  labels:
+    - 🟡
+    - 🛡️
+    - 💎
+
+- name: agenticsorg/devops
+  url: https://github.com/agenticsorg/devops
+  category: agent-skills-prompts-and-runbooks
+  type: agent-collection
+  framework: unknown
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - devops-agent-patterns
+    - prompt-and-workflow-discovery
+    - reference-architecture-review
+  action_level: unknown
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: unknown
+  gemini_opportunity: "Use Gemini to inspect the repository and classify reusable DevOps agent patterns."
+  risk_notes: "Needs hands-on review before categorizing as safe for infrastructure workflows."
+  operator_note: "Track as a candidate source until its runtime behavior and safety model are scored."
+  labels:
+    - 🟡
+    - 💎
+
+- name: alexkroman/ollychat
+  url: https://github.com/alexkroman/ollychat
+  category: observability-and-log-analysis-agents
+  type: chatops-assistant
+  framework: unknown
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - log-analysis
+    - operational-chat
+    - incident-context-summarization
+  action_level: unknown
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: unknown
+  gemini_opportunity: "Evaluate whether Gemini can turn chat and log context into cited incident summaries."
+  risk_notes: "ChatOps agents may ingest sensitive operational data; scrub secrets and verify data retention."
+  operator_note: "Interesting if it preserves evidence links rather than only free-form summaries."
+  labels:
+    - 🟡
+    - 📊
+
+- name: truongnh1992/gke-sre-ai-agent
+  url: https://github.com/truongnh1992/gke-sre-ai-agent
+  category: sre-incident-response-agents
+  type: sre-agent
+  framework: unknown
+  primary_language: Python
+  cloud_provider: GCP
+  use_cases:
+    - gke-troubleshooting
+    - incident-triage
+    - runbook-guidance
+  action_level: proposal
+  human_approval: unknown
+  evidence_tracing: partial
+  maturity: prototype
+  gemini_opportunity: "Use Gemini ADK for GKE read-only diagnostics and cited runbook recommendations."
+  risk_notes: "GKE agents should start with logs, events, get, and describe before any mutation path."
+  operator_note: "Useful GCP-focused reference for Gemini-compatible SRE workflows."
+  labels:
+    - 🟡
+    - 📊
+    - 💎
+
+- name: mstrYoda/sre-ai-agent
+  url: https://github.com/mstrYoda/sre-ai-agent
+  category: sre-incident-response-agents
+  type: sre-agent
+  framework: unknown
+  primary_language: Python
+  cloud_provider: multi-cloud
+  use_cases:
+    - incident-triage
+    - runbook-suggestion
+    - root-cause-analysis
+  action_level: proposal
+  human_approval: unknown
+  evidence_tracing: partial
+  maturity: prototype
+  gemini_opportunity: "Compare Gemini summaries against runbook-grounded SRE evidence requirements."
+  risk_notes: "Root-cause suggestions must cite source evidence and avoid unapproved remediation."
+  operator_note: "Candidate for evaluating incident reasoning quality and hallucination controls."
+  labels:
+    - 🟡
+    - 📊
+    - 💎
+
+- name: vitas/evidra
+  url: https://github.com/vitas/evidra
+  category: safety-audit-approval-and-evidence-frameworks
+  type: evidence-framework
+  framework: unknown
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - evidence-capture
+    - audit-trail-generation
+    - agent-evaluation
+  action_level: read-only
+  human_approval: unknown
+  evidence_tracing: "yes"
+  maturity: unknown
+  gemini_opportunity: "Use Gemini to summarize evidence bundles and identify missing audit context."
+  risk_notes: "Evidence frameworks still need careful redaction of secrets and sensitive infrastructure metadata."
+  operator_note: "Relevant because production-adjacent agents need durable traces, not just chat transcripts."
+  labels:
+    - 📊
+    - 💎
+
+- name: aliyun/alibabacloud-devops-mcp-server
+  url: https://github.com/aliyun/alibabacloud-devops-mcp-server
+  category: devops-mcp-servers
+  type: mcp-server
+  framework: MCP
+  primary_language: unknown
+  cloud_provider: Alibaba Cloud
+  use_cases:
+    - cloud-devops-integration
+    - mcp-tool-access
+    - platform-automation
+  action_level: write-capable
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: active-oss
+  gemini_opportunity: "Map MCP tool methods into Gemini-safe proposal and approval workflows."
+  risk_notes: "Cloud MCP servers may expose write operations; use least-privilege credentials and explicit approval."
+  operator_note: "Good example of provider-specific MCP surface area that needs permission scoring."
+  labels:
+    - 🔵
+    - 🟡
+    - ⚠️
+
+- name: microsoft/azure-devops-skills
+  url: https://github.com/microsoft/azure-devops-skills
+  category: agent-skills-prompts-and-runbooks
+  type: skill-library
+  framework: skills
+  primary_language: Markdown
+  cloud_provider: Azure
+  use_cases:
+    - azure-devops-workflows
+    - task-specific-agent-skills
+    - prompt-reuse
+  action_level: proposal
+  human_approval: true
+  evidence_tracing: partial
+  maturity: skill-library
+  gemini_opportunity: "Translate selected Azure DevOps skills into Gemini-compatible runbook agents."
+  risk_notes: "Skills can guide privileged actions; pair them with explicit approval and audit requirements."
+  operator_note: "Valuable as a structured skill pattern for platform engineering tasks."
+  labels:
+    - 🟢
+    - 🛡️
+    - 💎
+
+- name: antonbabenko/terraform-skill
+  url: https://github.com/antonbabenko/terraform-skill
+  category: terraform-iac-agents
+  type: skill
+  framework: skills
+  primary_language: Markdown
+  cloud_provider: multi-cloud
+  use_cases:
+    - terraform-guidance
+    - iac-review
+    - module-authoring
+  action_level: proposal
+  human_approval: true
+  evidence_tracing: partial
+  maturity: skill-library
+  gemini_opportunity: "Use as source material for a Gemini Terraform plan reviewer with explicit blast-radius scoring."
+  risk_notes: "Terraform guidance must not bypass plan review, provider policy, or human apply approval."
+  operator_note: "Good Terraform-specific prompt and workflow seed for the build lab."
+  labels:
+    - 🟡
+    - 🛡️
+    - 💎
+
+- name: BagelHole/DevOps-Security-Agent-Skills
+  url: https://github.com/BagelHole/DevOps-Security-Agent-Skills
+  category: agent-skills-prompts-and-runbooks
+  type: skill-library
+  framework: skills
+  primary_language: Markdown
+  cloud_provider: multi-cloud
+  use_cases:
+    - devops-security-review
+    - secure-runbook-prompts
+    - agent-skill-reuse
+  action_level: proposal
+  human_approval: true
+  evidence_tracing: partial
+  maturity: skill-library
+  gemini_opportunity: "Adapt security-oriented skills into Gemini eval cases for infrastructure agent refusal behavior."
+  risk_notes: "Security agents can surface sensitive findings; avoid exposing secrets or live credentials."
+  operator_note: "Useful safety-oriented companion to IaC and Kubernetes agent entries."
+  labels:
+    - 🛡️
+    - 🟡
+    - 💎
+
+- name: NotHarshhaa/ai-platform-engineering-handbook
+  url: https://github.com/NotHarshhaa/ai-platform-engineering-handbook
+  category: broad-devops-ai-curated-lists
+  type: handbook
+  framework: mixed
+  primary_language: Markdown
+  cloud_provider: multi-cloud
+  use_cases:
+    - platform-engineering-reference
+    - ai-platform-patterns
+    - learning-paths
+  action_level: read-only
+  human_approval: unknown
+  evidence_tracing: none
+  maturity: curated-list
+  gemini_opportunity: "Use Gemini to turn handbook sections into scored platform-agent patterns and interview artifacts."
+  risk_notes: "Handbook material needs validation before being translated into operational automation."
+  operator_note: "Good portfolio and learning context around platform engineering agents."
+  labels:
+    - 🟡
+    - 💎
