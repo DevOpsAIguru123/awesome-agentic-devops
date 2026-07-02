@@ -48,13 +48,13 @@ These agents may touch infrastructure. Prefer read-only or proposal mode first. 
 
 | Use case | Start with | Why |
 | --- | --- | --- |
-| AWS agentic cloud automation | `aws/agent-toolkit-for-aws` | Official AWS-supported MCP, skills, plugins, IAM-aware controls, CloudWatch metrics, and CloudTrail auditability. |
-| Azure cloud automation | `microsoft/mcp` and `microsoft/azure-skills` | Official Microsoft MCP and skills/plugin sources for Azure resource workflows. |
-| Google Cloud automation | `google/mcp`, `googleapis/gcloud-mcp`, and `google/skills` | Official Google MCP and skills sources for GCP, Cloud Run, GKE, observability, and storage workflows. |
-| Source-control DevOps | `github/github-mcp-server`, `GitLab MCP server`, and `atlassian/atlassian-mcp-server` | Official MCP tool surfaces for repos, issues, PRs, Jira, Bitbucket, and related delivery workflows. |
-| Terraform and IaC | `hashicorp/terraform-mcp-server` and `Pulumi MCP Server` | Official IaC MCP sources for Terraform Registry/HCP Terraform and Pulumi Cloud automation. |
-| SRE incident response | `grafana/mcp-grafana`, `datadog-labs/mcp-server`, and `PagerDuty/pagerduty-mcp-server` | Official observability and incident-management MCPs for metrics, logs, traces, alerts, incidents, and on-call context. |
-| Agent build scaffolds | `google/adk-python` and `GoogleCloudPlatform/agent-starter-pack` | Official Google agent framework and production templates with CI/CD, evaluation, and observability. |
+| AWS agentic cloud automation | [aws/agent-toolkit-for-aws](https://github.com/aws/agent-toolkit-for-aws) | Official AWS-supported MCP, skills, plugins, IAM-aware controls, CloudWatch metrics, and CloudTrail auditability. |
+| Azure cloud automation | [microsoft/mcp](https://github.com/microsoft/mcp) and [microsoft/azure-skills](https://github.com/microsoft/azure-skills) | Official Microsoft MCP and skills/plugin sources for Azure resource workflows. |
+| Google Cloud automation | [google/mcp](https://github.com/google/mcp), [googleapis/gcloud-mcp](https://github.com/googleapis/gcloud-mcp), and [google/skills](https://github.com/google/skills) | Official Google MCP and skills sources for GCP, Cloud Run, GKE, observability, and storage workflows. |
+| Source-control DevOps | [github/github-mcp-server](https://github.com/github/github-mcp-server), [GitLab MCP server](https://docs.gitlab.com/user/gitlab_duo/model_context_protocol/mcp_server/), and [atlassian/atlassian-mcp-server](https://github.com/atlassian/atlassian-mcp-server) | Official MCP tool surfaces for repos, issues, PRs, Jira, Bitbucket, and related delivery workflows. |
+| Terraform and IaC | [hashicorp/terraform-mcp-server](https://github.com/hashicorp/terraform-mcp-server) and [Pulumi MCP Server](https://www.pulumi.com/docs/ai/mcp-server/) | Official IaC MCP sources for Terraform Registry/HCP Terraform and Pulumi Cloud automation. |
+| SRE incident response | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana), [datadog-labs/mcp-server](https://github.com/datadog-labs/mcp-server), and [PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | Official observability and incident-management MCPs for metrics, logs, traces, alerts, incidents, and on-call context. |
+| Agent build scaffolds | [google/adk-python](https://github.com/google/adk-python) and [GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack) | Official Google agent framework and production templates with CI/CD, evaluation, and observability. |
 
 ## Framework build lab
 
