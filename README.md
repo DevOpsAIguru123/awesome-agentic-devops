@@ -1,6 +1,6 @@
 # Awesome Agentic DevOps
 
-**Awesome Agentic DevOps** is a curated map and build lab for DevOps, Cloud, SRE, and Platform Engineering agents across Claude Code, Gemini ADK, OpenAI Agents SDK, and MCP.
+**Awesome Agentic DevOps** is a curated map for DevOps, Cloud, SRE, and Platform Engineering agents across Claude Code, Gemini ADK, OpenAI Agents SDK, and MCP.
 
 This repository evaluates which agents are safe, useful, and production-adjacent for infrastructure automation.
 
@@ -55,33 +55,6 @@ These agents may touch infrastructure. Prefer read-only or proposal mode first. 
 | Terraform and IaC | [hashicorp/terraform-mcp-server](https://github.com/hashicorp/terraform-mcp-server) and [Pulumi MCP Server](https://www.pulumi.com/docs/ai/mcp-server/) | Official IaC MCP sources for Terraform Registry/HCP Terraform and Pulumi Cloud automation. |
 | SRE incident response | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana), [datadog-labs/mcp-server](https://github.com/datadog-labs/mcp-server), and [PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | Official observability and incident-management MCPs for metrics, logs, traces, alerts, incidents, and on-call context. |
 | Agent build scaffolds | [google/adk-python](https://github.com/google/adk-python) and [GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack) | Official Google agent framework and production templates with CI/CD, evaluation, and observability. |
-
-## Framework build lab
-
-The build lab starts with one shared pattern: **Terraform Plan Reviewer Agent**.
-
-Input: Terraform plan output.
-
-Output: Risk summary, security findings, estimated blast radius, approval recommendation, and next safe action.
-
-Scaffolds:
-
-- [Claude Code Terraform Plan Reviewer](frameworks/claude-code/terraform-plan-reviewer/README.md)
-- [Gemini ADK Terraform Plan Reviewer](frameworks/gemini-adk/terraform-plan-reviewer/README.md)
-- [OpenAI Agents SDK Terraform Plan Reviewer](frameworks/openai-agents-sdk/terraform-plan-reviewer/README.md)
-- [MCP Terraform Plan Reviewer](frameworks/mcp/terraform-plan-reviewer/README.md)
-
-Supporting docs:
-
-- [Framework comparison](docs/framework-comparison.md)
-- [Safety model](docs/safety-model.md)
-- [Curation strategy](docs/curation-strategy.md)
-
-Templates:
-
-- [Agent scorecard](templates/agent-scorecard.md)
-- [Evaluation cases](templates/eval-cases.md)
-- [Runbook agent spec](templates/runbook-agent-spec.md)
 
 ## Curated catalog
 
@@ -142,6 +115,35 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | [rohitg00/awesome-devops-mcp-servers](https://github.com/rohitg00/awesome-devops-mcp-servers) | 🔵 🟡 💎 | Community discovery source for MCP ecosystem mapping and candidate integrations. |
 | [antonbabenko/terraform-skill](https://github.com/antonbabenko/terraform-skill) | 🟡 🛡️ 💎 | Community Terraform-specific prompt and workflow seed for the build lab. |
 | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | 🟢 🛡️ 💎 | Community engineering skill reference; useful style and structure input for DevOps-specific scaffolds. |
+
+### Reference Agent Lab (Coming Soon)
+
+This repo will include optional reference scaffolds for comparing the same DevOps workflow across agent frameworks. These are local examples, not upstream projects.
+
+Planned first pattern: **Terraform Plan Reviewer Agent**.
+
+Input: Terraform plan output.
+
+Output: Risk summary, security findings, estimated blast radius, approval recommendation, and next safe action.
+
+Scaffolds:
+
+- [Claude Code Terraform Plan Reviewer](frameworks/claude-code/terraform-plan-reviewer/README.md)
+- [Gemini ADK Terraform Plan Reviewer](frameworks/gemini-adk/terraform-plan-reviewer/README.md)
+- [OpenAI Agents SDK Terraform Plan Reviewer](frameworks/openai-agents-sdk/terraform-plan-reviewer/README.md)
+- [MCP Terraform Plan Reviewer](frameworks/mcp/terraform-plan-reviewer/README.md)
+
+Supporting docs:
+
+- [Framework comparison](docs/framework-comparison.md)
+- [Safety model](docs/safety-model.md)
+- [Curation strategy](docs/curation-strategy.md)
+
+Templates:
+
+- [Agent scorecard](templates/agent-scorecard.md)
+- [Evaluation cases](templates/eval-cases.md)
+- [Runbook agent spec](templates/runbook-agent-spec.md)
 
 ## How to contribute
 
