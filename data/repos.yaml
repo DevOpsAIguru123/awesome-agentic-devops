@@ -67,30 +67,6 @@
     - 🛡️
     - 💎
 
-- name: mcpflow/devops-mcp-servers
-  url: https://github.com/mcpflow/devops-mcp-servers
-  category: devops-mcp-servers
-  type: mcp-server-collection
-  framework: MCP
-  primary_language: Python
-  cloud_provider: multi-cloud
-  use_cases:
-    - devops-mcp-server-discovery
-    - integration-catalog
-    - tool-surface-review
-  action_level: unknown
-  human_approval: unknown
-  evidence_tracing: unknown
-  maturity: prototype
-  gemini_opportunity: "Use Gemini to normalize server metadata into action-level and safety labels."
-  risk_notes: "Server collection can include infrastructure automation; score each server and tool surface independently."
-  operator_note: "Prototype DevOps MCP server collection for expanding the server map."
-  labels:
-    - 🔵
-    - 🟡
-    - 💎
-    - ⚠️
-
 - name: addyosmani/agent-skills
   url: https://github.com/addyosmani/agent-skills
   category: agent-skills-prompts-and-runbooks

@@ -62,8 +62,8 @@ def test_audit_repo_records_unreachable_repo():
 
     result = audit_repo(
         {
-            "name": "mcpflow/devops-mcp-servers",
-            "url": "https://github.com/mcpflow/devops-mcp-servers",
+            "name": "rohitg00/awesome-devops-mcp-servers",
+            "url": "https://github.com/rohitg00/awesome-devops-mcp-servers",
         },
         runner=runner,
     )
@@ -86,8 +86,8 @@ def test_build_summary_counts_reachability_and_archived_repos():
             archived=True,
         ),
         AuditResult(
-            name="mcpflow/devops-mcp-servers",
-            url="https://github.com/mcpflow/devops-mcp-servers",
+            name="rohitg00/awesome-devops-mcp-servers",
+            url="https://github.com/rohitg00/awesome-devops-mcp-servers",
             reachable=False,
             error="missing",
         ),

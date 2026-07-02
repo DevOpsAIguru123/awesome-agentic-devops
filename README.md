@@ -46,7 +46,7 @@ These agents may touch infrastructure. Prefer read-only or proposal mode first. 
 | Use case | Start with | Why |
 | --- | --- | --- |
 | Terraform generation and review | `antonbabenko/terraform-skill` | Terraform-specific skill material for plan review, module authoring, and blast-radius review patterns. |
-| MCP integration mapping | `rohitg00/awesome-devops-mcp-servers`, `mcpflow/devops-mcp-servers` | Helps compare DevOps MCP discovery sources, server collections, and tool-boundary review needs. |
+| MCP integration mapping | `rohitg00/awesome-devops-mcp-servers` | Helps compare DevOps MCP discovery sources and tool-boundary review needs. |
 | Azure DevOps skills | `microsoft/azure-devops-skills` | Good source for Azure DevOps skill patterns, with write-capable behavior requiring approval review. |
 | General agent skill structure | `addyosmani/agent-skills` | Production-oriented engineering skill examples that can inform DevOps-specific runbooks. |
 
@@ -79,7 +79,7 @@ Templates:
 
 ## Curated catalog
 
-The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a readable index of the current five focused research-backed entries.
+The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a readable index of the current four focused research-backed entries.
 
 ### Terraform / IaC Agents
 
@@ -92,7 +92,6 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | Repo | Labels | Operator note |
 | --- | --- | --- |
 | [rohitg00/awesome-devops-mcp-servers](https://github.com/rohitg00/awesome-devops-mcp-servers) | 🔵 🟡 💎 | Good source for MCP ecosystem mapping and candidate integrations. |
-| [mcpflow/devops-mcp-servers](https://github.com/mcpflow/devops-mcp-servers) | 🔵 🟡 💎 ⚠️ | Prototype DevOps MCP server collection for expanding the server map. |
 
 ### Agent Skills, Prompts, and Runbooks
 
