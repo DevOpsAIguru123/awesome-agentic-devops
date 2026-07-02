@@ -72,6 +72,19 @@ def test_audit_repo_records_unreachable_repo():
     assert result.error == "Could not resolve to a Repository"
 
 
+def test_audit_repo_skips_non_github_urls():
+    result = audit_repo(
+        {
+            "name": "GitLab MCP server",
+            "url": "https://docs.gitlab.com/user/gitlab_duo/model_context_protocol/mcp_server/",
+        },
+    )
+
+    assert result.reachable is False
+    assert result.skipped is True
+    assert result.warnings == ["skipped: not a GitHub repository"]
+
+
 def test_build_summary_counts_reachability_and_archived_repos():
     results = [
         AuditResult(
@@ -91,13 +104,20 @@ def test_build_summary_counts_reachability_and_archived_repos():
             reachable=False,
             error="missing",
         ),
+        AuditResult(
+            name="GitLab MCP server",
+            url="https://docs.gitlab.com/user/gitlab_duo/model_context_protocol/mcp_server/",
+            reachable=False,
+            skipped=True,
+        ),
     ]
 
     summary = build_summary(results)
 
-    assert summary["total"] == 3
+    assert summary["total"] == 4
     assert summary["reachable"] == 2
     assert summary["unreachable"] == 1
+    assert summary["skipped"] == 1
     assert summary["archived"] == 1
 
 

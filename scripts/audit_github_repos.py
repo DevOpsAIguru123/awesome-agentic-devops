@@ -25,6 +25,7 @@ class AuditResult:
     name: str
     url: str
     reachable: bool
+    skipped: bool = False
     archived: bool | None = None
     private: bool | None = None
     default_branch: str = ""
@@ -82,7 +83,18 @@ def _field_warnings(entry: dict[str, Any], metadata: dict[str, Any]) -> list[str
 def audit_repo(entry: dict[str, Any], runner: Runner = run_command) -> AuditResult:
     name = str(entry["name"])
     url = str(entry["url"])
-    owner, repo = parse_github_repo(url)
+    try:
+        owner, repo = parse_github_repo(url)
+    except ValueError as exc:
+        return AuditResult(
+            name=name,
+            url=url,
+            reachable=False,
+            skipped=True,
+            error=str(exc),
+            warnings=["skipped: not a GitHub repository"],
+        )
+
     repo_ref = f"{owner}/{repo}"
     cmd = ["gh", "repo", "view", repo_ref, "--json", GH_FIELDS]
     returncode, stdout, stderr = runner(cmd)
@@ -143,14 +155,17 @@ def build_summary(results: list[AuditResult]) -> dict[str, int]:
     return {
         "total": len(results),
         "reachable": sum(1 for result in results if result.reachable),
-        "unreachable": sum(1 for result in results if not result.reachable),
+        "unreachable": sum(
+            1 for result in results if not result.reachable and not result.skipped
+        ),
+        "skipped": sum(1 for result in results if result.skipped),
         "archived": sum(1 for result in results if result.archived),
         "with_warnings": sum(1 for result in results if result.warnings),
     }
 
 
 def _markdown_row(result: AuditResult) -> str:
-    reachable = "yes" if result.reachable else "no"
+    reachable = "skipped" if result.skipped else "yes" if result.reachable else "no"
     archived = "yes" if result.archived else "no" if result.archived is False else ""
     warnings = "; ".join(result.warnings) if result.warnings else result.error
     return (
@@ -208,6 +223,7 @@ def main() -> int:
     print(
         "GitHub audit complete: "
         f"{summary['reachable']}/{summary['total']} reachable, "
+        f"{summary['skipped']} skipped, "
         f"{summary['archived']} archived, "
         f"{summary['with_warnings']} with warnings"
     )
