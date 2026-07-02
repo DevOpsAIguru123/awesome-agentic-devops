@@ -41,8 +41,9 @@ These agents may touch infrastructure. Prefer read-only or proposal mode first. 
 2. Official DevOps and source-control MCP servers
 3. Official SRE and observability MCP servers
 4. Official IaC MCP servers
-5. Official agent skills and agent frameworks
-6. Community discovery and skill references
+5. Official platform agent toolkits
+6. Official agent skills and agent frameworks
+7. Community discovery and skill references
 
 ## Top picks by use case
 
@@ -108,6 +109,12 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | [google/skills](https://github.com/google/skills) | 🟢 🛡️ 💎 | Official Google Agent Skills repository for Google products and technologies. |
 | [google/adk-python](https://github.com/google/adk-python) | 🟢 🛡️ 📊 💎 | Official Google Agent Development Kit for building, evaluating, and deploying agents. |
 | [GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack) | 🟢 🛡️ 📊 💎 | Official Google Cloud starter pack for shipping agents with CI/CD, evaluation, observability, and security. |
+
+### Official Platform Agent Toolkits
+
+| Repo | Labels | Operator note |
+| --- | --- | --- |
+| [databricks-solutions/ai-dev-kit](https://github.com/databricks-solutions/ai-dev-kit) | 🟢 🔵 🛡️ 📊 💎 ⚠️ | Databricks field-engineering AI Dev Kit with Databricks MCP server, Databricks skills, tools core, and builder app support. |
 
 ### Community Discovery and Skills
 

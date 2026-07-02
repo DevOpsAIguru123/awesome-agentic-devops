@@ -317,6 +317,32 @@
     - 📊
     - 💎
 
+- name: databricks-solutions/ai-dev-kit
+  url: https://github.com/databricks-solutions/ai-dev-kit
+  category: official-platform-agent-toolkits
+  type: agent-toolkit
+  framework: MCP + skills + tools
+  primary_language: unknown
+  cloud_provider: Databricks
+  use_cases:
+    - databricks-ai-assisted-development
+    - databricks-mcp-tools
+    - genie-code-skills
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as a Databricks-specific toolkit for Gemini, Codex, Claude Code, Cursor, and Copilot workflows that need MCP tools and Databricks skills."
+  risk_notes: "Includes executable Databricks tools and workspace integrations; require profile/workspace confirmation, least-privilege credentials, and approval before jobs, apps, serving, or Unity Catalog changes."
+  operator_note: "Databricks field-engineering AI Dev Kit with Databricks MCP server, Databricks skills, tools core, and builder app support."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - 💎
+    - ⚠️
+
 - name: github/github-mcp-server
   url: https://github.com/github/github-mcp-server
   category: official-devops-mcp-servers
