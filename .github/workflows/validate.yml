@@ -28,3 +28,6 @@ jobs:
 
       - name: Run tests
         run: pytest -q
+
+      - name: Run mock eval scenarios
+        run: python scripts/run_mock_eval_scenarios.py

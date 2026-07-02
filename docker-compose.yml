@@ -1,0 +1,15 @@
+services:
+  mock-evals:
+    build: .
+    command: python scripts/run_mock_eval_scenarios.py
+    volumes:
+      - ./reports:/app/reports
+
+  test:
+    build: .
+    command: >
+      sh -c "python scripts/validate_repos_yaml.py
+      && pytest -q
+      && python scripts/run_mock_eval_scenarios.py"
+    volumes:
+      - ./reports:/app/reports
