@@ -43,10 +43,12 @@ These agents may touch infrastructure. Prefer read-only or proposal mode first. 
 4. SRE incident response agents
 5. Observability and log-analysis agents
 6. Cloud cost optimization agents
-7. DevOps MCP servers
-8. Agent skills, prompts, and runbooks
-9. Safety, audit, approval, and evidence frameworks
-10. Broad DevOps AI curated lists
+7. DevOps / Cloud automation agents
+8. Incident response agents
+9. DevOps MCP servers
+10. Agent skills, prompts, and runbooks
+11. Safety, audit, approval, and evidence frameworks
+12. Broad DevOps AI curated lists
 
 ## Top picks by use case
 
@@ -56,6 +58,8 @@ These agents may touch infrastructure. Prefer read-only or proposal mode first. 
 | Kubernetes triage | `talkops-ai/k8s-autopilot`, `truongnh1992/gke-sre-ai-agent` | Good candidates for read-only-first troubleshooting and approval-gated remediation. |
 | CI/CD failure analysis | `talkops-ai/ci-copilot` | Useful proposal-mode workflow for pipeline repair. |
 | SRE incident response | `agamm/awesome-ai-sre`, `mstrYoda/sre-ai-agent` | Good discovery and evaluation seeds for incident workflows. |
+| DevOps/cloud automation | `agenticsorg/devops`, `Techikrish/OpsAgents` | Good candidates for extracting broad platform-agent patterns. |
+| Incident-response evals | `Venkata-Manoj/Resilience-Ops-Env`, `NikhilRaman12/Incident-Renponse-Env` | Useful for synthetic incident-response evaluation without live infrastructure. |
 | MCP integration mapping | `rohitg00/awesome-devops-mcp-servers`, `aliyun/alibabacloud-devops-mcp-server` | Helps compare MCP tool surfaces and permission boundaries. |
 | Safety and evidence | `vitas/evidra`, `BagelHole/DevOps-Security-Agent-Skills` | Useful references for traces, auditability, and refusal behavior. |
 
@@ -86,9 +90,9 @@ Templates:
 - [Evaluation cases](templates/eval-cases.md)
 - [Runbook agent spec](templates/runbook-agent-spec.md)
 
-## Seed curated list
+## Curated catalog
 
-The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a readable index of the seed entries.
+The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a readable index of the current 41 research-backed entries.
 
 ### Terraform / IaC Agents
 
@@ -96,18 +100,33 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | --- | --- | --- |
 | [talkops-ai/aws-orchestrator-agent](https://github.com/talkops-ai/aws-orchestrator-agent) | 🟡 🛡️ 💎 ⚠️ | Treats IaC generation as a pipeline with validation and approval concerns. |
 | [antonbabenko/terraform-skill](https://github.com/antonbabenko/terraform-skill) | 🟡 🛡️ 💎 | Terraform-specific skill material for plan review and module workflows. |
+| [SrikanthBommadi/Aws-terraform-llm-agent](https://github.com/SrikanthBommadi/Aws-terraform-llm-agent) | 🟡 💎 | AWS-specific Terraform agent candidate. |
+| [shan5a6/iac-ai-agent](https://github.com/shan5a6/iac-ai-agent) | 🟡 💎 | Generic IaC agent candidate for the build lab. |
+| [lindazhang2000/iac-ai-agents](https://github.com/lindazhang2000/iac-ai-agents) | 🟡 💎 | Potential source of IaC workflow patterns. |
+| [MrCaptainDartz/iac-ai-agent](https://github.com/MrCaptainDartz/iac-ai-agent) | 🟡 | Adds Proxmox and local-LLM IaC flavor. |
 
 ### Kubernetes Troubleshooting and Autopilot Agents
 
 | Repo | Labels | Operator note |
 | --- | --- | --- |
 | [talkops-ai/k8s-autopilot](https://github.com/talkops-ai/k8s-autopilot) | 🟡 🛡️ 💎 ⚠️ | High-value candidate for read-only-first Kubernetes incident workflows. |
+| [siloed-project/sre-ai-agent](https://github.com/siloed-project/sre-ai-agent) | 🟡 📊 💎 | Candidate for Kubernetes diagnosis report-quality evaluation. |
+| [andreistefanciprian/sre-ai-agent](https://github.com/andreistefanciprian/sre-ai-agent) | 🟡 📊 💎 ⚠️ | Converts Kubernetes findings into trackable GitHub work. |
 
 ### CI/CD Pipeline Agents
 
 | Repo | Labels | Operator note |
 | --- | --- | --- |
 | [talkops-ai/ci-copilot](https://github.com/talkops-ai/ci-copilot) | 🟡 🛡️ 💎 | Good bridge between developer productivity and deployment safety. |
+
+### DevOps / Cloud Automation Agents
+
+| Repo | Labels | Operator note |
+| --- | --- | --- |
+| [agenticsorg/devops](https://github.com/agenticsorg/devops) | 🟡 💎 | Candidate source for reusable DevOps agent patterns. |
+| [Yash-Kavaiya/Devops-AI-Agents](https://github.com/Yash-Kavaiya/Devops-AI-Agents) | 🟡 💎 | Broad DevOps workflow automation candidate. |
+| [Techikrish/OpsAgents](https://github.com/Techikrish/OpsAgents) | 🟡 💎 | Candidate for production-agent claims and guardrail review. |
+| [rathodkunj2005/Minute0](https://github.com/rathodkunj2005/Minute0) | 🟡 📊 💎 | On-call workflow candidate if it supports traceable triage. |
 
 ### SRE Incident Response Agents
 
@@ -116,6 +135,19 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | [agamm/awesome-ai-sre](https://github.com/agamm/awesome-ai-sre) | 🟡 💎 | Useful map of AI-for-SRE projects and automation patterns. |
 | [truongnh1992/gke-sre-ai-agent](https://github.com/truongnh1992/gke-sre-ai-agent) | 🟡 📊 💎 | GCP-focused reference for Gemini-compatible SRE workflows. |
 | [mstrYoda/sre-ai-agent](https://github.com/mstrYoda/sre-ai-agent) | 🟡 📊 💎 | Candidate for incident reasoning and hallucination-control evaluation. |
+| [anilsharmay/SREnity](https://github.com/anilsharmay/SREnity) | 🟡 💎 | Track for enterprise SRE agent design patterns. |
+| [shahid03/SRE_AI_agent](https://github.com/shahid03/SRE_AI_agent) | 🟡 💎 | Candidate for provider-agnostic SRE reasoning review. |
+| [stevancris/sre-ai-agent](https://github.com/stevancris/sre-ai-agent) | 🟡 📊 💎 | Interesting if incident memory becomes cited guidance. |
+
+### Incident Response Agents
+
+| Repo | Labels | Operator note |
+| --- | --- | --- |
+| [Mary-Preethi/incident-response-ai-agent](https://github.com/Mary-Preethi/incident-response-ai-agent) | 🟡 💎 | Candidate for response-plan quality evaluation. |
+| [redemptionwxy/Incident-Response-AI-Agent](https://github.com/redemptionwxy/Incident-Response-AI-Agent) | 🟡 📊 💎 | Relevant for security incident initial investigation. |
+| [Agrawalers/incidentIQ](https://github.com/Agrawalers/incidentIQ) | 🟡 💎 ⚠️ | Useful as a risk-review candidate for autonomy boundaries. |
+| [Venkata-Manoj/Resilience-Ops-Env](https://github.com/Venkata-Manoj/Resilience-Ops-Env) | 🟡 📊 💎 | Synthetic incident-response benchmark candidate. |
+| [NikhilRaman12/Incident-Renponse-Env](https://github.com/NikhilRaman12/Incident-Renponse-Env) | 🟡 📊 💎 | Test-lab candidate for SRE incident-response environments. |
 
 ### Observability and Log-Analysis Agents
 
@@ -129,14 +161,21 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | --- | --- | --- |
 | [rohitg00/awesome-devops-mcp-servers](https://github.com/rohitg00/awesome-devops-mcp-servers) | 🔵 🟡 💎 | Good source for MCP ecosystem mapping and candidate integrations. |
 | [aliyun/alibabacloud-devops-mcp-server](https://github.com/aliyun/alibabacloud-devops-mcp-server) | 🔵 🟡 ⚠️ | Provider-specific MCP surface area that needs permission scoring. |
+| [stefanskiasan/azure-devops-mcp-server](https://github.com/stefanskiasan/azure-devops-mcp-server) | 🔵 🟡 ⚠️ | Candidate for comparing Azure DevOps MCP implementations. |
+| [aaronsb/ado-mcp](https://github.com/aaronsb/ado-mcp) | 🔵 🟡 ⚠️ | Azure DevOps MCP comparison entry. |
+| [Jordiag/azure-devops-mcp-server](https://github.com/Jordiag/azure-devops-mcp-server) | 🔵 🟡 ⚠️ | C# Azure DevOps MCP implementation candidate. |
+| [wangkanai/devops-mcp](https://github.com/wangkanai/devops-mcp) | 🔵 🟡 ⚠️ | Good for dynamic MCP tool-inventory review. |
+| [mcpflow/devops-mcp-servers](https://github.com/mcpflow/devops-mcp-servers) | 🔵 🟡 💎 | Additional DevOps MCP catalog input. |
+| [talkops-ai/talkops-mcp](https://github.com/talkops-ai/talkops-mcp) | 🔵 🟡 💎 | Complements the TalkOps agent repos with MCP registry context. |
 
 ### Agent Skills, Prompts, and Runbooks
 
 | Repo | Labels | Operator note |
 | --- | --- | --- |
-| [agenticsorg/devops](https://github.com/agenticsorg/devops) | 🟡 💎 | Candidate source for reusable DevOps agent patterns. |
 | [microsoft/azure-devops-skills](https://github.com/microsoft/azure-devops-skills) | 🟢 🛡️ 💎 | Structured skill pattern for Azure DevOps and platform tasks. |
 | [BagelHole/DevOps-Security-Agent-Skills](https://github.com/BagelHole/DevOps-Security-Agent-Skills) | 🛡️ 🟡 💎 | Safety-oriented companion to IaC and Kubernetes agent entries. |
+| [derisk-ai/awesome-devops-skills](https://github.com/derisk-ai/awesome-devops-skills) | 🔵 🟡 💎 | Bridge between DevOps skills, runbooks, and MCP discovery. |
+| [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | 🟢 🛡️ 💎 | Reference for polished, reusable engineering skills. |
 
 ### Safety, Audit, Approval, and Evidence Frameworks
 

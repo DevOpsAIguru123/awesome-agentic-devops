@@ -39,8 +39,15 @@ def valid_entry(**overrides):
 def test_validates_seed_data_file():
     entries = validate_file(Path("data/repos.yaml"))
 
-    assert len(entries) >= 16
+    assert len(entries) >= 41
     assert all(field in entries[0] for field in REQUIRED_FIELDS)
+
+
+def test_seed_data_has_unique_repo_names():
+    entries = validate_file(Path("data/repos.yaml"))
+    names = [entry["name"] for entry in entries]
+
+    assert len(names) == len(set(names))
 
 
 @pytest.mark.parametrize("action_level", sorted(ALLOWED_ACTION_LEVELS))

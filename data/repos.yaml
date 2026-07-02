@@ -361,3 +361,569 @@
   labels:
     - 🟡
     - 💎
+
+- name: derisk-ai/awesome-devops-skills
+  url: https://github.com/derisk-ai/awesome-devops-skills
+  category: agent-skills-prompts-and-runbooks
+  type: curated-list
+  framework: MCP
+  primary_language: Markdown
+  cloud_provider: multi-cloud
+  use_cases:
+    - devops-skill-discovery
+    - mcp-server-discovery
+    - agent-workflow-research
+  action_level: read-only
+  human_approval: unknown
+  evidence_tracing: none
+  maturity: curated-list
+  gemini_opportunity: "Use Gemini to classify DevOps skills by operational domain, permission level, and MCP compatibility."
+  risk_notes: "Curated skill lists can include unreviewed prompts or tools; score each linked item before use."
+  operator_note: "Useful bridge between skills, runbooks, and MCP server discovery."
+  labels:
+    - 🔵
+    - 🟡
+    - 💎
+
+- name: Yash-Kavaiya/Devops-AI-Agents
+  url: https://github.com/Yash-Kavaiya/Devops-AI-Agents
+  category: devops-cloud-automation-agents
+  type: workflow-platform
+  framework: unknown
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - devops-workflow-automation
+    - pipeline-assistance
+    - platform-operations
+  action_level: unknown
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: unknown
+  gemini_opportunity: "Use Gemini to inspect workflow boundaries and identify safe proposal-mode DevOps tasks."
+  risk_notes: "Workflow platforms may span CI/CD and infrastructure actions; review credentials and write surfaces before use."
+  operator_note: "Candidate for broader DevOps workflow automation pattern extraction."
+  labels:
+    - 🟡
+    - 💎
+
+- name: Techikrish/OpsAgents
+  url: https://github.com/Techikrish/OpsAgents
+  category: devops-cloud-automation-agents
+  type: agent-collection
+  framework: unknown
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - cloud-operations
+    - devops-automation
+    - production-agent-patterns
+  action_level: unknown
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: unknown
+  gemini_opportunity: "Use Gemini to compare claimed production-ready agents against safety, approval, and evidence criteria."
+  risk_notes: "Production-ready claims need evidence; keep in evaluation backlog until safety behavior is verified."
+  operator_note: "Potentially useful if the repo demonstrates concrete cloud operations agents and guardrails."
+  labels:
+    - 🟡
+    - 💎
+
+- name: rathodkunj2005/Minute0
+  url: https://github.com/rathodkunj2005/Minute0
+  category: sre-incident-response-agents
+  type: on-call-agent
+  framework: unknown
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - on-call-assistance
+    - incident-triage
+    - operational-handoff
+  action_level: unknown
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: prototype
+  gemini_opportunity: "Use Gemini to evaluate on-call handoff quality, cited evidence, and safe next-action recommendations."
+  risk_notes: "On-call agents can influence incident response; require evidence citations and approval before remediation."
+  operator_note: "Interesting as an on-call workflow artifact if it supports traceable triage."
+  labels:
+    - 🟡
+    - 📊
+    - 💎
+
+- name: anilsharmay/SREnity
+  url: https://github.com/anilsharmay/SREnity
+  category: sre-incident-response-agents
+  type: sre-agent
+  framework: unknown
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - enterprise-sre-assistance
+    - incident-triage
+    - reliability-operations
+  action_level: unknown
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: prototype
+  gemini_opportunity: "Use Gemini to turn enterprise SRE scenarios into safe runbook-agent evals."
+  risk_notes: "Enterprise SRE concepts need concrete permission and approval boundaries before operational use."
+  operator_note: "Track for enterprise SRE agent design patterns and scope boundaries."
+  labels:
+    - 🟡
+    - 💎
+
+- name: shahid03/SRE_AI_agent
+  url: https://github.com/shahid03/SRE_AI_agent
+  category: sre-incident-response-agents
+  type: sre-assistant
+  framework: unknown
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - provider-agnostic-sre
+    - incident-triage
+    - operational-guidance
+  action_level: unknown
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: prototype
+  gemini_opportunity: "Use Gemini to compare provider-agnostic SRE advice against cloud-specific runbooks."
+  risk_notes: "Provider-agnostic advice can miss platform-specific constraints; require citations and operator review."
+  operator_note: "Useful candidate for evaluating generic SRE reasoning quality."
+  labels:
+    - 🟡
+    - 💎
+
+- name: siloed-project/sre-ai-agent
+  url: https://github.com/siloed-project/sre-ai-agent
+  category: kubernetes-troubleshooting-and-autopilot-agents
+  type: kubernetes-diagnosis-agent
+  framework: unknown
+  primary_language: unknown
+  cloud_provider: Kubernetes
+  use_cases:
+    - cluster-diagnosis
+    - incident-reporting
+    - kubernetes-troubleshooting
+  action_level: proposal
+  human_approval: unknown
+  evidence_tracing: partial
+  maturity: prototype
+  gemini_opportunity: "Use Gemini to score Kubernetes diagnosis reports for evidence quality and safe next actions."
+  risk_notes: "Cluster diagnosis should remain read-only unless explicit remediation and approval gates are proven."
+  operator_note: "Good candidate for report-quality evaluation against Kubernetes fixtures."
+  labels:
+    - 🟡
+    - 📊
+    - 💎
+
+- name: stevancris/sre-ai-agent
+  url: https://github.com/stevancris/sre-ai-agent
+  category: sre-incident-response-agents
+  type: sre-agent
+  framework: unknown
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - incident-knowledge-accumulation
+    - incident-triage
+    - sre-assistance
+  action_level: proposal
+  human_approval: unknown
+  evidence_tracing: partial
+  maturity: prototype
+  gemini_opportunity: "Use Gemini to evaluate how accumulated incident knowledge is cited and separated from inference."
+  risk_notes: "Incident memory can contain sensitive data; redact secrets and customer details before model context."
+  operator_note: "Interesting if it turns incident history into reusable evidence-backed guidance."
+  labels:
+    - 🟡
+    - 📊
+    - 💎
+
+- name: andreistefanciprian/sre-ai-agent
+  url: https://github.com/andreistefanciprian/sre-ai-agent
+  category: kubernetes-troubleshooting-and-autopilot-agents
+  type: kubernetes-ticketing-agent
+  framework: unknown
+  primary_language: unknown
+  cloud_provider: Kubernetes
+  use_cases:
+    - kubernetes-issue-detection
+    - github-ticket-creation
+    - incident-triage
+  action_level: write-capable
+  human_approval: unknown
+  evidence_tracing: partial
+  maturity: prototype
+  gemini_opportunity: "Use Gemini to rebuild the K8s issue to GitHub ticket loop with approval-gated ticket creation."
+  risk_notes: "Creating GitHub tickets is a write action; require deduplication and human review to avoid noisy automation."
+  operator_note: "Useful pattern for converting Kubernetes findings into trackable engineering work."
+  labels:
+    - 🟡
+    - 📊
+    - 💎
+    - ⚠️
+
+- name: Mary-Preethi/incident-response-ai-agent
+  url: https://github.com/Mary-Preethi/incident-response-ai-agent
+  category: incident-response-agents
+  type: incident-response-agent
+  framework: unknown
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - incident-response
+    - triage-assistance
+    - response-recommendations
+  action_level: proposal
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: prototype
+  gemini_opportunity: "Use Gemini to evaluate incident response recommendations against safety and evidence criteria."
+  risk_notes: "Incident response agents should not execute containment or remediation actions without approval."
+  operator_note: "Candidate for response-plan quality and refusal-behavior evaluation."
+  labels:
+    - 🟡
+    - 💎
+
+- name: redemptionwxy/Incident-Response-AI-Agent
+  url: https://github.com/redemptionwxy/Incident-Response-AI-Agent
+  category: incident-response-agents
+  type: security-incident-agent
+  framework: unknown
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - security-incident-investigation
+    - initial-triage
+    - evidence-summary
+  action_level: proposal
+  human_approval: unknown
+  evidence_tracing: partial
+  maturity: prototype
+  gemini_opportunity: "Use Gemini to test whether initial investigation summaries cite evidence and avoid premature containment."
+  risk_notes: "Security incident data is sensitive; sanitize logs and require approval for containment actions."
+  operator_note: "Relevant for the security edge of incident-response agent evaluation."
+  labels:
+    - 🟡
+    - 📊
+    - 💎
+
+- name: Agrawalers/incidentIQ
+  url: https://github.com/Agrawalers/incidentIQ
+  category: incident-response-agents
+  type: autonomous-incident-agent
+  framework: unknown
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - autonomous-incident-response
+    - triage
+    - remediation-planning
+  action_level: unknown
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: prototype
+  gemini_opportunity: "Use Gemini to identify which autonomous steps can be downgraded to proposal mode."
+  risk_notes: "Autonomous incident response is high risk; require strict tool permissions and approval gates."
+  operator_note: "Useful as a risk-review candidate for autonomy boundaries."
+  labels:
+    - 🟡
+    - 💎
+    - ⚠️
+
+- name: Venkata-Manoj/Resilience-Ops-Env
+  url: https://github.com/Venkata-Manoj/Resilience-Ops-Env
+  category: incident-response-agents
+  type: evaluation-environment
+  framework: reinforcement-learning
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - incident-response-evaluation
+    - resilience-training
+    - agent-benchmarking
+  action_level: read-only
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: prototype
+  gemini_opportunity: "Use Gemini to turn environment scenarios into deterministic incident-response eval cases."
+  risk_notes: "Evaluation environments are safer than live systems, but scenarios still need realistic safety constraints."
+  operator_note: "Useful for building repeatable incident-response benchmarks without real infrastructure."
+  labels:
+    - 🟡
+    - 📊
+    - 💎
+
+- name: NikhilRaman12/Incident-Renponse-Env
+  url: https://github.com/NikhilRaman12/Incident-Renponse-Env
+  category: incident-response-agents
+  type: evaluation-environment
+  framework: reinforcement-learning
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - sre-incident-response-evaluation
+    - agent-training-environment
+    - benchmark-scenarios
+  action_level: read-only
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: prototype
+  gemini_opportunity: "Use Gemini to generate and judge safe response policies in synthetic incident environments."
+  risk_notes: "The repository name appears to contain a typo; verify project status and scope during review."
+  operator_note: "Candidate for test-lab work rather than live incident automation."
+  labels:
+    - 🟡
+    - 📊
+    - 💎
+
+- name: stefanskiasan/azure-devops-mcp-server
+  url: https://github.com/stefanskiasan/azure-devops-mcp-server
+  category: devops-mcp-servers
+  type: mcp-server
+  framework: MCP
+  primary_language: unknown
+  cloud_provider: Azure
+  use_cases:
+    - azure-devops-integration
+    - work-item-automation
+    - repository-and-pipeline-access
+  action_level: write-capable
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: unknown
+  gemini_opportunity: "Use Gemini to map Azure DevOps MCP tools into read-only, proposal, and write-capable groups."
+  risk_notes: "Azure DevOps MCP servers may expose work item, repo, or pipeline writes; use least-privilege tokens."
+  operator_note: "Candidate for comparing Azure DevOps MCP implementations."
+  labels:
+    - 🔵
+    - 🟡
+    - ⚠️
+
+- name: aaronsb/ado-mcp
+  url: https://github.com/aaronsb/ado-mcp
+  category: devops-mcp-servers
+  type: mcp-server
+  framework: MCP
+  primary_language: unknown
+  cloud_provider: Azure
+  use_cases:
+    - azure-devops-integration
+    - mcp-tooling
+    - platform-workflow-access
+  action_level: write-capable
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: unknown
+  gemini_opportunity: "Use Gemini to compare ADO MCP permissions and recommend safe client defaults."
+  risk_notes: "Azure DevOps tokens can alter code and pipelines; isolate write tools behind approval."
+  operator_note: "Useful in the Azure DevOps MCP comparison set."
+  labels:
+    - 🔵
+    - 🟡
+    - ⚠️
+
+- name: Jordiag/azure-devops-mcp-server
+  url: https://github.com/Jordiag/azure-devops-mcp-server
+  category: devops-mcp-servers
+  type: mcp-server
+  framework: MCP
+  primary_language: "C#"
+  cloud_provider: Azure
+  use_cases:
+    - azure-devops-integration
+    - mcp-tooling
+    - work-item-and-pipeline-access
+  action_level: write-capable
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: unknown
+  gemini_opportunity: "Use Gemini to evaluate a C# Azure DevOps MCP implementation against tool-safety criteria."
+  risk_notes: "Review exposed MCP methods carefully; pipeline and repo writes need approval gates."
+  operator_note: "Adds language diversity to the Azure DevOps MCP comparison set."
+  labels:
+    - 🔵
+    - 🟡
+    - ⚠️
+
+- name: wangkanai/devops-mcp
+  url: https://github.com/wangkanai/devops-mcp
+  category: devops-mcp-servers
+  type: mcp-server
+  framework: MCP
+  primary_language: unknown
+  cloud_provider: Azure
+  use_cases:
+    - dynamic-azure-devops-tools
+    - mcp-integration
+    - devops-platform-access
+  action_level: write-capable
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: unknown
+  gemini_opportunity: "Use Gemini to inspect dynamic tool registration and classify operations by risk."
+  risk_notes: "Dynamic MCP servers need extra scrutiny because available tools may vary by configuration."
+  operator_note: "Good candidate for testing MCP tool inventory and permission documentation."
+  labels:
+    - 🔵
+    - 🟡
+    - ⚠️
+
+- name: mcpflow/devops-mcp-servers
+  url: https://github.com/mcpflow/devops-mcp-servers
+  category: devops-mcp-servers
+  type: mcp-server-collection
+  framework: MCP
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - devops-mcp-server-discovery
+    - integration-catalog
+    - tool-surface-review
+  action_level: unknown
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: curated-list
+  gemini_opportunity: "Use Gemini to normalize server metadata into action-level and safety labels."
+  risk_notes: "Collections may include servers with very different permission models; score each server independently."
+  operator_note: "Useful MCP catalog input for expanding the DevOps server map."
+  labels:
+    - 🔵
+    - 🟡
+    - 💎
+
+- name: talkops-ai/talkops-mcp
+  url: https://github.com/talkops-ai/talkops-mcp
+  category: devops-mcp-servers
+  type: mcp-registry
+  framework: MCP
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - talkops-workflow-integration
+    - mcp-registry
+    - devops-tool-discovery
+  action_level: unknown
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: active-oss
+  gemini_opportunity: "Use Gemini to map TalkOps workflow MCP tools to safe reference-agent patterns."
+  risk_notes: "Registry entries may expose write-capable operations; evaluate each tool surface before use."
+  operator_note: "Complements the TalkOps agent repos by showing their MCP integration layer."
+  labels:
+    - 🔵
+    - 🟡
+    - 💎
+
+- name: SrikanthBommadi/Aws-terraform-llm-agent
+  url: https://github.com/SrikanthBommadi/Aws-terraform-llm-agent
+  category: terraform-iac-agents
+  type: terraform-agent
+  framework: unknown
+  primary_language: unknown
+  cloud_provider: AWS
+  use_cases:
+    - aws-terraform-generation
+    - iac-assistance
+    - terraform-review
+  action_level: proposal
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: prototype
+  gemini_opportunity: "Use Gemini to compare AWS Terraform generation against plan-review and safety-gate requirements."
+  risk_notes: "Generated Terraform can create privileged or costly resources; require plan validation and review."
+  operator_note: "Candidate for AWS-specific Terraform agent evaluation."
+  labels:
+    - 🟡
+    - 💎
+
+- name: shan5a6/iac-ai-agent
+  url: https://github.com/shan5a6/iac-ai-agent
+  category: terraform-iac-agents
+  type: iac-agent
+  framework: unknown
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - iac-generation
+    - iac-review
+    - infrastructure-planning
+  action_level: proposal
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: prototype
+  gemini_opportunity: "Use Gemini to classify IaC changes by blast radius and generate review comments."
+  risk_notes: "IaC agents must be constrained to proposal mode until plans and policies pass."
+  operator_note: "Generic IaC agent candidate for the Terraform Plan Reviewer build lab."
+  labels:
+    - 🟡
+    - 💎
+
+- name: lindazhang2000/iac-ai-agents
+  url: https://github.com/lindazhang2000/iac-ai-agents
+  category: terraform-iac-agents
+  type: iac-agent-collection
+  framework: unknown
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - iac-agent-patterns
+    - terraform-review
+    - infrastructure-automation
+  action_level: unknown
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: prototype
+  gemini_opportunity: "Use Gemini to extract common IaC agent roles and convert them into eval cases."
+  risk_notes: "Collection needs repo-by-repo review before any operational recommendation."
+  operator_note: "Potential source of IaC workflow patterns for comparison."
+  labels:
+    - 🟡
+    - 💎
+
+- name: MrCaptainDartz/iac-ai-agent
+  url: https://github.com/MrCaptainDartz/iac-ai-agent
+  category: terraform-iac-agents
+  type: iac-agent
+  framework: Ollama
+  primary_language: unknown
+  cloud_provider: Proxmox
+  use_cases:
+    - proxmox-iac
+    - local-llm-infrastructure-assistance
+    - homelab-automation
+  action_level: unknown
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: prototype
+  gemini_opportunity: "Use Gemini to compare local-LLM IaC workflows with cloud-hosted model safety patterns."
+  risk_notes: "Homelab IaC still needs plan review and credential isolation; local models do not remove operational risk."
+  operator_note: "Adds Proxmox and local-LLM flavor to the IaC agent map."
+  labels:
+    - 🟡
+
+- name: addyosmani/agent-skills
+  url: https://github.com/addyosmani/agent-skills
+  category: agent-skills-prompts-and-runbooks
+  type: skill-library
+  framework: skills
+  primary_language: Markdown
+  cloud_provider: multi-cloud
+  use_cases:
+    - engineering-skills
+    - production-agent-workflows
+    - reusable-agent-instructions
+  action_level: proposal
+  human_approval: true
+  evidence_tracing: partial
+  maturity: skill-library
+  gemini_opportunity: "Use Gemini to adapt production-grade engineering skills into DevOps runbook-agent patterns."
+  risk_notes: "General engineering skills need infrastructure-specific permission and approval constraints."
+  operator_note: "Good reference for writing polished, reusable skills that can inform DevOps agent scaffolds."
+  labels:
+    - 🟢
+    - 🛡️
+    - 💎
