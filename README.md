@@ -202,10 +202,3 @@ pytest -q
 python scripts/run_mock_eval_scenarios.py
 python scripts/audit_github_repos.py --workers 12 --fail-on-unreachable
 ```
-
-Run the deterministic mock evals in Docker:
-
-```bash
-docker compose run --rm mock-evals
-docker compose run --rm test
-```

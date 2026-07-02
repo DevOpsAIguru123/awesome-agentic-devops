@@ -6,6 +6,7 @@ __pycache__/
 .mypy_cache/
 .coverage
 htmlcov/
+reports/
 .DS_Store
 .env
 .env.*

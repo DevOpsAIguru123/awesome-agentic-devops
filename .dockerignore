@@ -1,9 +1,0 @@
-.git
-.venv
-__pycache__
-*.pyc
-.pytest_cache
-.DS_Store
-reports/*.json
-reports/*.md
-awesome_devops_cloud_agents.egg-info
