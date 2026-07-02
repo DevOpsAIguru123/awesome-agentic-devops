@@ -95,6 +95,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | --- | --- | --- |
 | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana) | 🟢 🔵 🛡️ 📊 💎 ⚠️ | Official Grafana MCP server for Grafana and surrounding observability ecosystem access. |
 | [datadog-labs/mcp-server](https://github.com/datadog-labs/mcp-server) | 🟢 🔵 🛡️ 📊 💎 | Official Datadog MCP server documentation and examples for connecting AI agents to Datadog observability. |
+| [Datadog MCP Server setup docs](https://docs.datadoghq.com/mcp_server/setup/?tab=chatgpt) | 🟢 🔵 🛡️ 📊 💎 | Official Datadog MCP setup documentation, including the ChatGPT setup path. |
 | [PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | 🟢 🔵 🛡️ 💎 ⚠️ | Official PagerDuty MCP server for incidents, services, schedules, event orchestrations, and embedded incident UIs. |
 
 ### Official Agent Skills and Frameworks

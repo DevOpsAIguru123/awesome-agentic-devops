@@ -494,6 +494,31 @@
     - 📊
     - 💎
 
+- name: Datadog MCP Server setup docs
+  url: https://docs.datadoghq.com/mcp_server/setup/?tab=chatgpt
+  category: official-sre-mcp-servers
+  type: documentation
+  framework: MCP
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - chatgpt-mcp-setup
+    - datadog-mcp-configuration
+    - observability-agent-onboarding
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as the official setup reference when configuring Datadog MCP access for ChatGPT or other MCP-compatible agents."
+  risk_notes: "Setup connects agents to observability data; scope authentication carefully and confirm workspace/site before enabling access."
+  operator_note: "Official Datadog MCP setup documentation, including the ChatGPT setup path."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - 💎
+
 - name: PagerDuty/pagerduty-mcp-server
   url: https://github.com/PagerDuty/pagerduty-mcp-server
   category: official-sre-mcp-servers
