@@ -769,6 +769,302 @@
     - 💎
     - ⚠️
 
+- name: jenkinsci/mcp-server-plugin
+  url: https://github.com/jenkinsci/mcp-server-plugin
+  category: official-ci-cd-mcp-servers
+  type: mcp-server-plugin
+  framework: MCP + Jenkins
+  primary_language: Java
+  cloud_provider: multi-cloud
+  use_cases:
+    - jenkins-job-context
+    - ci-cd-automation
+    - build-and-pipeline-investigation
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as a CI/CD MCP integration for Gemini agents that investigate Jenkins jobs, builds, logs, and pipeline state before proposing fixes."
+  risk_notes: "Jenkins access can expose build logs, credentials, job configuration, and deployment controls; require folder/job scoping and approval before triggering or mutating jobs."
+  operator_note: "Official Jenkins plugin that enables Jenkins to act as an MCP server for LLM-powered clients."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 💎
+    - ⚠️
+
+- name: argoproj-labs/mcp-for-argocd
+  url: https://github.com/argoproj-labs/mcp-for-argocd
+  category: official-gitops-mcp-servers
+  type: mcp-server
+  framework: MCP + Argo CD
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - gitops-application-context
+    - argocd-sync-investigation
+    - kubernetes-deployment-triage
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: prototype
+  gemini_opportunity: "Use as a GitOps control-plane integration for Gemini SRE agents that inspect Argo CD applications, sync state, health, and deployment drift."
+  risk_notes: "Argo CD workflows can affect live Kubernetes deployments; start with read-only app/status inspection and require approval for sync, rollback, or mutation actions."
+  operator_note: "Argo Project Labs MCP server implementation for Argo CD, filling the GitOps/CD gap in the catalog."
+  labels:
+    - 🟡
+    - 🔵
+    - 🛡️
+    - 💎
+    - ⚠️
+
+- name: Snyk Studio MCP docs
+  url: https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio
+  category: official-security-mcp-servers
+  type: documentation
+  framework: MCP + Snyk Studio
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - agentic-security-scanning
+    - ai-coding-assistant-security
+    - secure-code-generation-workflows
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as the official Snyk setup reference for securing Gemini, Copilot, Claude, and other agentic coding workflows through Snyk's MCP server."
+  risk_notes: "Security scans may include repository and dependency context; require account, org, and project scoping before connecting agent clients."
+  operator_note: "Official Snyk documentation for Snyk Studio agentic security workflows and Snyk MCP Server usage."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - 💎
+
+- name: snyk/agent-scan
+  url: https://github.com/snyk/agent-scan
+  category: official-agent-security-tools
+  type: agent-security-scanner
+  framework: security-scanner
+  primary_language: Python
+  cloud_provider: multi-cloud
+  use_cases:
+    - ai-agent-security-review
+    - mcp-server-risk-detection
+    - agent-skill-security-scanning
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  gemini_opportunity: "Use as a security evaluation layer for Gemini-built DevOps agents and MCP servers before connecting them to infrastructure."
+  risk_notes: "Scanner output should be treated as security evidence, not an automatic approval to deploy; findings need human review and remediation."
+  operator_note: "Official Snyk security scanner for AI agents, MCP servers, and agent skills."
+  labels:
+    - 🟢
+    - 🛡️
+    - 📊
+    - 💎
+
+- name: Wiz WIN MCP Server docs
+  url: https://docs.wiz.io/dev/win-mcp-server
+  category: official-cloud-security-mcp-servers
+  type: documentation
+  framework: MCP + Wiz
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - cloud-security-posture-context
+    - vulnerability-and-risk-investigation
+    - cnapp-agent-workflows
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as the official Wiz MCP reference for Gemini security agents that need cloud risk, vulnerability, and posture context."
+  risk_notes: "Cloud security posture data can expose sensitive asset and vulnerability details; require tenant scoping and read-only access by default."
+  operator_note: "Official Wiz documentation for the WIN MCP server, adding CNAPP and cloud-security coverage."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - 💎
+
+- name: Docker MCP Catalog and Toolkit docs
+  url: https://docs.docker.com/ai/mcp-catalog-and-toolkit/
+  category: official-devops-mcp-platforms
+  type: documentation
+  framework: MCP + Docker
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - containerized-mcp-management
+    - mcp-server-profiles
+    - mcp-gateway-governance
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as a reproducible packaging and governance layer for testing Gemini-compatible DevOps MCP servers in containers."
+  risk_notes: "Containerized MCP servers still expose tools and credentials; require image trust, profile scoping, OAuth review, and permission boundaries."
+  operator_note: "Official Docker documentation for MCP Toolkit, MCP Catalog, profiles, CLI, and MCP Gateway."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 💎
+    - ⚠️
+
+- name: Docker MCP Gateway docs
+  url: https://docs.docker.com/ai/mcp-catalog-and-toolkit/mcp-gateway/
+  category: official-devops-mcp-platforms
+  type: documentation
+  framework: MCP + Docker Gateway
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - centralized-mcp-governance
+    - mcp-tool-orchestration
+    - ai-tool-security-boundaries
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as a governance reference for centralizing Gemini agent access to approved MCP servers and tool profiles."
+  risk_notes: "Gateway configuration can broaden agent tool access; require profile review, server allowlists, credential boundaries, and audit controls."
+  operator_note: "Official Docker MCP Gateway documentation for secure, centralized orchestration of containerized MCP tools."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 💎
+    - ⚠️
+
+- name: modelcontextprotocol/servers
+  url: https://github.com/modelcontextprotocol/servers
+  category: official-mcp-reference-implementations
+  type: reference-implementations
+  framework: MCP
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - mcp-feature-reference
+    - server-implementation-patterns
+    - sdk-usage-examples
+  action_level: proposal
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as the official MCP reference baseline when building Gemini-compatible DevOps tool servers and evaluating protocol behavior."
+  risk_notes: "Reference servers are educational starting points; production DevOps servers still need permission review, secrets handling, and destructive-tool approval gates."
+  operator_note: "Official MCP reference server implementations and ecosystem pointers."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 💎
+
+- name: modelcontextprotocol/python-sdk
+  url: https://github.com/modelcontextprotocol/python-sdk
+  category: official-mcp-sdks
+  type: sdk
+  framework: MCP
+  primary_language: Python
+  cloud_provider: multi-cloud
+  use_cases:
+    - mcp-server-development
+    - python-devops-tool-servers
+    - agent-tool-boundary-design
+  action_level: proposal
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use to build fixture-first Gemini-compatible DevOps MCP servers such as Terraform plan review, CI log analysis, or read-only cloud inventory."
+  risk_notes: "SDK is safe by itself, but servers built with it need explicit tool allowlists, credential isolation, and destructive-action approval gates."
+  operator_note: "Official Python SDK for building MCP servers and clients."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 💎
+
+- name: modelcontextprotocol/typescript-sdk
+  url: https://github.com/modelcontextprotocol/typescript-sdk
+  category: official-mcp-sdks
+  type: sdk
+  framework: MCP
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - mcp-server-development
+    - typescript-devops-tool-servers
+    - agent-client-integration
+  action_level: proposal
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as the TypeScript SDK baseline for Gemini-compatible DevOps MCP servers and web-native MCP integrations."
+  risk_notes: "SDK examples must be wrapped with environment-specific allowlists, credential isolation, and approval checks before production use."
+  operator_note: "Official TypeScript SDK for Model Context Protocol servers and clients."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 💎
+
+- name: modelcontextprotocol/registry
+  url: https://github.com/modelcontextprotocol/registry
+  category: official-mcp-registry
+  type: registry
+  framework: MCP
+  primary_language: Go
+  cloud_provider: multi-cloud
+  use_cases:
+    - mcp-server-discovery
+    - catalog-freshness-auditing
+    - server-metadata-review
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  gemini_opportunity: "Use registry metadata to discover, classify, and freshness-check candidate DevOps MCP servers for Gemini build labs."
+  risk_notes: "Registry metadata helps discovery but does not prove safety; each server still needs tool-surface and credential review."
+  operator_note: "Official community-driven registry service for Model Context Protocol servers."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - 💎
+
+- name: aws-samples/sample-cloudops-multi-agent-platform
+  url: https://github.com/aws-samples/sample-cloudops-multi-agent-platform
+  category: official-cloudops-agent-samples
+  type: reference-architecture
+  framework: Amazon Bedrock AgentCore + Strands Agents SDK
+  primary_language: TypeScript
+  cloud_provider: AWS
+  use_cases:
+    - cloudops-multi-agent-platform
+    - aws-operations-assistance
+    - agentic-incident-and-operations-workflows
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: prototype
+  gemini_opportunity: "Use as an AWS CloudOps reference architecture to compare against Gemini ADK multi-agent operations patterns."
+  risk_notes: "Sample CloudOps agents may connect to AWS operations data and actions; require sandbox accounts, least-privilege IAM, and explicit approval before mutations."
+  operator_note: "AWS Samples reference for a hierarchical multi-agent CloudOps platform using Bedrock AgentCore and Strands Agents SDK."
+  labels:
+    - 🟡
+    - 🛡️
+    - 📊
+    - 💎
+    - ⚠️
+
 - name: rohitg00/awesome-devops-mcp-servers
   url: https://github.com/rohitg00/awesome-devops-mcp-servers
   category: community-discovery

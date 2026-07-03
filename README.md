@@ -39,13 +39,15 @@ These agents may touch infrastructure. Prefer read-only or proposal mode first. 
 
 1. Official cloud MCP servers and agent toolkits
 2. Official DevOps and source-control MCP servers
-3. Official security and code-quality MCP servers
-4. Official IaC MCP servers
-5. Official SRE and observability MCP servers
-6. Official agent skills and agent frameworks
-7. Official platform agent toolkits
-8. Official diagramming and architecture MCP tools
-9. Community discovery and skill references
+3. Official CI/CD and GitOps MCP servers
+4. Official security, code-quality, and agent-security resources
+5. Official IaC MCP servers
+6. Official SRE and observability MCP servers
+7. Official agent skills and agent frameworks
+8. Official platform agent toolkits
+9. Official MCP SDKs, references, registries, and governance platforms
+10. Official diagramming and architecture MCP tools
+11. Community discovery and skill references
 
 ## Top picks by use case
 
@@ -57,7 +59,9 @@ These agents may touch infrastructure. Prefer read-only or proposal mode first. 
 | Source-control DevOps | [github/github-mcp-server](https://github.com/github/github-mcp-server), [GitLab MCP server](https://docs.gitlab.com/user/gitlab_duo/model_context_protocol/mcp_server/), and [atlassian/atlassian-mcp-server](https://github.com/atlassian/atlassian-mcp-server) | Official MCP tool surfaces for repos, issues, PRs, Jira, Bitbucket, and related delivery workflows. |
 | Terraform and IaC | [hashicorp/terraform-mcp-server](https://github.com/hashicorp/terraform-mcp-server) and [Pulumi MCP Server](https://www.pulumi.com/docs/ai/mcp-server/) | Official IaC MCP sources for Terraform Registry/HCP Terraform and Pulumi Cloud automation. |
 | SRE incident response | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana), [datadog-labs/mcp-server](https://github.com/datadog-labs/mcp-server), and [PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | Official observability and incident-management MCPs for metrics, logs, traces, alerts, incidents, and on-call context. |
-| Security and code quality | [SonarSource/sonarqube-mcp-server](https://github.com/SonarSource/sonarqube-mcp-server) and [okta/okta-mcp-server](https://github.com/okta/okta-mcp-server) | Official MCPs for code quality, application security, and identity-aware workflows. |
+| Security and code quality | [SonarSource/sonarqube-mcp-server](https://github.com/SonarSource/sonarqube-mcp-server), [okta/okta-mcp-server](https://github.com/okta/okta-mcp-server), [Snyk Studio MCP docs](https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio), and [Wiz WIN MCP Server docs](https://docs.wiz.io/dev/win-mcp-server) | Official MCPs and security resources for code quality, application security, identity-aware workflows, agent security, and cloud-security posture. |
+| CI/CD and GitOps | [jenkinsci/mcp-server-plugin](https://github.com/jenkinsci/mcp-server-plugin) and [argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd) | Official Jenkins and Argo Project resources for pipeline, build, deployment, and GitOps workflows. |
+| MCP development and governance | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk), [modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk), [modelcontextprotocol/registry](https://github.com/modelcontextprotocol/registry), and [Docker MCP Catalog and Toolkit](https://docs.docker.com/ai/mcp-catalog-and-toolkit/) | Official SDKs, registry, and Docker governance surfaces for building, packaging, and controlling DevOps MCP servers. |
 | Agent frameworks and templates | [google/adk-python](https://github.com/google/adk-python) and [GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack) | Official Google agent framework and production templates with CI/CD, evaluation, and observability. |
 
 ## Curated catalog
@@ -92,6 +96,33 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | --- | --- | --- |
 | [SonarSource/sonarqube-mcp-server](https://github.com/SonarSource/sonarqube-mcp-server) | 🟢 🔵 🛡️ 💎 | Official SonarQube MCP server for code quality and security insights in AI agents. |
 | [okta/okta-mcp-server](https://github.com/okta/okta-mcp-server) | 🟢 🔵 🛡️ 💎 ⚠️ | Official Okta self-hosted MCP server for connecting agents to Okta identity workflows. |
+| [Snyk Studio MCP docs](https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio) | 🟢 🔵 🛡️ 📊 💎 | Official Snyk documentation for Snyk Studio agentic security workflows and Snyk MCP Server usage. |
+| [snyk/agent-scan](https://github.com/snyk/agent-scan) | 🟢 🛡️ 📊 💎 | Official Snyk security scanner for AI agents, MCP servers, and agent skills. |
+| [Wiz WIN MCP Server docs](https://docs.wiz.io/dev/win-mcp-server) | 🟢 🔵 🛡️ 📊 💎 | Official Wiz documentation for the WIN MCP server, adding CNAPP and cloud-security coverage. |
+
+### Official CI/CD and GitOps MCP Servers
+
+| Repo | Labels | Operator note |
+| --- | --- | --- |
+| [jenkinsci/mcp-server-plugin](https://github.com/jenkinsci/mcp-server-plugin) | 🟢 🔵 🛡️ 💎 ⚠️ | Official Jenkins plugin that enables Jenkins to act as an MCP server for LLM-powered clients. |
+| [argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd) | 🟡 🔵 🛡️ 💎 ⚠️ | Argo Project Labs MCP server implementation for Argo CD, filling the GitOps/CD gap in the catalog. |
+
+### Official MCP SDKs, Reference Implementations, Registries, and Governance Platforms
+
+| Repo | Labels | Operator note |
+| --- | --- | --- |
+| [Docker MCP Catalog and Toolkit docs](https://docs.docker.com/ai/mcp-catalog-and-toolkit/) | 🟢 🔵 🛡️ 💎 ⚠️ | Official Docker documentation for MCP Toolkit, MCP Catalog, profiles, CLI, and MCP Gateway. |
+| [Docker MCP Gateway docs](https://docs.docker.com/ai/mcp-catalog-and-toolkit/mcp-gateway/) | 🟢 🔵 🛡️ 💎 ⚠️ | Official Docker MCP Gateway documentation for secure, centralized orchestration of containerized MCP tools. |
+| [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) | 🟢 🔵 🛡️ 💎 | Official MCP reference server implementations and ecosystem pointers. |
+| [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | 🟢 🔵 🛡️ 💎 | Official Python SDK for building MCP servers and clients. |
+| [modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk) | 🟢 🔵 🛡️ 💎 | Official TypeScript SDK for Model Context Protocol servers and clients. |
+| [modelcontextprotocol/registry](https://github.com/modelcontextprotocol/registry) | 🟢 🔵 🛡️ 📊 💎 | Official community-driven registry service for Model Context Protocol servers. |
+
+### Official CloudOps Agent Samples
+
+| Repo | Labels | Operator note |
+| --- | --- | --- |
+| [aws-samples/sample-cloudops-multi-agent-platform](https://github.com/aws-samples/sample-cloudops-multi-agent-platform) | 🟡 🛡️ 📊 💎 ⚠️ | AWS Samples reference for a hierarchical multi-agent CloudOps platform using Bedrock AgentCore and Strands Agents SDK. |
 
 ### Official IaC MCP Servers
 
