@@ -820,7 +820,7 @@
     - ⚠️
 
 - name: Snyk Studio MCP docs
-  url: https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio
+  url: https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio
   category: official-security-mcp-servers
   type: documentation
   framework: MCP + Snyk Studio
