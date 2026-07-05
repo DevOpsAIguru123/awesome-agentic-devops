@@ -6,10 +6,11 @@
 
 **Awesome Agentic DevOps** is a curated map for DevOps, Cloud, SRE, and Platform Engineering agents across Claude Code, Gemini ADK, OpenAI Agents SDK, and MCP.
 
-This repository evaluates which agents are safe, useful, and production-adjacent for infrastructure automation.
+This repository evaluates which agents are safe, useful, and production-adjacent for infrastructure automation. Every link is re-audited by scheduled CI for reachability, archival, and freshness.
 
 ## Contents
 
+- [Recently added](#recently-added)
 - [Why this exists](#why-this-exists)
 - [Who it is for](#who-it-is-for)
 - [Safety-first disclaimer](#safety-first-disclaimer)
@@ -19,6 +20,16 @@ This repository evaluates which agents are safe, useful, and production-adjacent
 - [Top picks by use case](#top-picks-by-use-case)
 - [Curated catalog](#curated-catalog)
 - [How to contribute](#how-to-contribute)
+
+## Recently added
+
+| Date | Entry | Category |
+| --- | --- | --- |
+| 2026-07-05 | [hashicorp/vault-mcp-server](https://github.com/hashicorp/vault-mcp-server) | IaC / secrets management |
+| 2026-07-05 | [cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare) | Cloud / edge |
+| 2026-07-05 | [CircleCI-Public/mcp-server-circleci](https://github.com/CircleCI-Public/mcp-server-circleci) | CI/CD |
+| 2026-07-05 | [mongodb-js/mongodb-mcp-server](https://github.com/mongodb-js/mongodb-mcp-server) | Data platform |
+| 2026-07-05 | [backstage/backstage (mcp-actions-backend)](https://github.com/backstage/backstage/tree/master/plugins/mcp-actions-backend) | Platform toolkits |
 
 ## Why this exists
 
