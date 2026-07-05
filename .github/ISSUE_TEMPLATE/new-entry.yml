@@ -1,0 +1,64 @@
+name: Suggest a new catalog entry
+description: Propose an official MCP server, agent skill, or agent toolkit for DevOps, Cloud, SRE, or Platform Engineering.
+title: "New entry: "
+labels:
+  - new-entry
+body:
+  - type: input
+    id: repo-url
+    attributes:
+      label: Repo or docs URL
+      description: Must be public and reachable.
+      placeholder: https://github.com/org/repo
+    validations:
+      required: true
+
+  - type: input
+    id: category
+    attributes:
+      label: Proposed category
+      description: One of the categories in the README, or a new one if none fit.
+      placeholder: official-sre-mcp-servers
+    validations:
+      required: true
+
+  - type: dropdown
+    id: action-level
+    attributes:
+      label: Action level
+      description: Can this tool only read data, propose changes, or write/mutate directly?
+      options:
+        - read-only
+        - proposal
+        - write-capable
+        - unknown
+    validations:
+      required: true
+
+  - type: textarea
+    id: operator-note
+    attributes:
+      label: Why should an infrastructure operator care?
+      description: The real DevOps/Cloud/SRE/platform-engineering use case. No hype-only entries.
+    validations:
+      required: true
+
+  - type: textarea
+    id: risk-notes
+    attributes:
+      label: What could go wrong?
+      description: Safety, approval gates, credential scope, or blast-radius notes.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Entry checklist (see CONTRIBUTING.md)
+      options:
+        - label: The repo URL is public and reachable.
+          required: true
+        - label: This is an official vendor/maintainer resource, not a hype-only or unmaintained fork.
+          required: true
+        - label: I disclosed if the project is commercial-only or has OSS-limited functionality.
+          required: false
