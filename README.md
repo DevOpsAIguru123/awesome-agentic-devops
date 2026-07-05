@@ -1,8 +1,23 @@
 # Awesome Agentic DevOps
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![CI](https://github.com/DevOpsAIguru123/awesome-agentic-devops/actions/workflows/validate.yml/badge.svg)](https://github.com/DevOpsAIguru123/awesome-agentic-devops/actions/workflows/validate.yml)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
 **Awesome Agentic DevOps** is a curated map for DevOps, Cloud, SRE, and Platform Engineering agents across Claude Code, Gemini ADK, OpenAI Agents SDK, and MCP.
 
 This repository evaluates which agents are safe, useful, and production-adjacent for infrastructure automation.
+
+## Contents
+
+- [Why this exists](#why-this-exists)
+- [Who it is for](#who-it-is-for)
+- [Safety-first disclaimer](#safety-first-disclaimer)
+- [Evaluation labels](#evaluation-labels)
+- [Categories](#categories)
+- [Top picks by use case](#top-picks-by-use-case)
+- [Curated catalog](#curated-catalog)
+- [How to contribute](#how-to-contribute)
 
 ## Why this exists
 
@@ -47,7 +62,8 @@ These agents may touch infrastructure. Prefer read-only or proposal mode first. 
 8. Official platform agent toolkits
 9. Official MCP SDKs, references, registries, and governance platforms
 10. Official diagramming and architecture MCP tools
-11. Community discovery and skill references
+11. Official data platform MCP servers
+12. Community discovery and skill references
 
 ## Top picks by use case
 
@@ -78,6 +94,8 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | [google/mcp](https://github.com/google/mcp) | 🟢 🔵 🛡️ 💎 ⚠️ | Official Google MCP repository listing managed and open-source MCP servers for Google and Google Cloud. |
 | [googleapis/gcloud-mcp](https://github.com/googleapis/gcloud-mcp) | 🟢 🔵 🛡️ 💎 ⚠️ | Official Google API repository for gcloud, observability, storage, and backup/disaster-recovery MCP servers. |
 | [GoogleCloudPlatform/cloud-run-mcp](https://github.com/GoogleCloudPlatform/cloud-run-mcp) | 🟢 🔵 🛡️ 💎 ⚠️ | Official Google Cloud Platform MCP server for deploying apps to Cloud Run. |
+| [cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare) | 🟢 🔵 🛡️ 💎 ⚠️ | Official Cloudflare MCP servers for account, Workers, and edge configuration workflows. |
+| [vercel/vercel-mcp-overview](https://github.com/vercel/vercel-mcp-overview) | 🟢 🔵 🛡️ 💎 ⚠️ | Official public overview of Vercel's hosted MCP server for project and deployment context. |
 
 ### Official DevOps MCP Servers
 
@@ -106,6 +124,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | --- | --- | --- |
 | [jenkinsci/mcp-server-plugin](https://github.com/jenkinsci/mcp-server-plugin) | 🟢 🔵 🛡️ 💎 ⚠️ | Official Jenkins plugin that enables Jenkins to act as an MCP server for LLM-powered clients. |
 | [argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd) | 🟡 🔵 🛡️ 💎 ⚠️ | Argo Project Labs MCP server implementation for Argo CD, filling the GitOps/CD gap in the catalog. |
+| [CircleCI-Public/mcp-server-circleci](https://github.com/CircleCI-Public/mcp-server-circleci) | 🟢 🔵 🛡️ 📊 💎 | Official CircleCI MCP server for build failure logs, pipeline status, flaky test detection, and usage analysis. |
 
 ### Official MCP SDKs, Reference Implementations, Registries, and Governance Platforms
 
@@ -130,6 +149,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | --- | --- | --- |
 | [hashicorp/terraform-mcp-server](https://github.com/hashicorp/terraform-mcp-server) | 🟢 🔵 🛡️ 📊 💎 ⚠️ | Official HashiCorp Terraform MCP server with registry, HCP Terraform, Terraform Enterprise, and OTel support. |
 | [Pulumi MCP Server](https://www.pulumi.com/docs/ai/mcp-server/) | 🟢 🔵 🛡️ 💎 ⚠️ | Official Pulumi hosted MCP server for Pulumi Cloud resources, registry lookup, policies, and Pulumi Neo workflows. |
+| [hashicorp/vault-mcp-server](https://github.com/hashicorp/vault-mcp-server) | 🟢 🔵 🛡️ 💎 ⚠️ | Official HashiCorp Vault MCP server (beta) for secrets and mount management alongside Terraform-driven IaC workflows. |
 
 ### Official SRE MCP Servers
 
@@ -141,6 +161,8 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | [Datadog MCP Server setup docs](https://docs.datadoghq.com/mcp_server/setup/?tab=chatgpt) | 🟢 🔵 🛡️ 📊 💎 | Official Datadog MCP setup documentation, including the ChatGPT setup path. |
 | [Splunk MCP Server](https://splunkbase.splunk.com/app/7931) | 🟢 🔵 🛡️ 📊 💎 | Splunkbase listing for the Splunk-supported MCP Server for Splunk Platform, Enterprise, and Cloud customers. |
 | [PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | 🟢 🔵 🛡️ 💎 ⚠️ | Official PagerDuty MCP server for incidents, services, schedules, event orchestrations, and embedded incident UIs. |
+| [newrelic/mcp-server](https://github.com/newrelic/mcp-server) | 🟢 🔵 🛡️ 📊 💎 | Official New Relic MCP server for APM, dashboard, and NRQL-based observability context. |
+| [elastic/mcp-server-elasticsearch](https://github.com/elastic/mcp-server-elasticsearch) | 🟢 🔵 🛡️ 💎 | Official Elastic MCP server for Elasticsearch search and mapping access; deprecated in favor of Elastic Agent Builder MCP. |
 
 ### Official Agent Skills and Frameworks
 
@@ -159,12 +181,19 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | --- | --- | --- |
 | [databricks-solutions/ai-dev-kit](https://github.com/databricks-solutions/ai-dev-kit) | 🟢 🔵 🛡️ 📊 💎 ⚠️ | Databricks field-engineering AI Dev Kit with Databricks MCP server, Databricks skills, tools core, and builder app support. |
 | [kubeflow/mcp-server](https://github.com/kubeflow/mcp-server) | 🟢 🔵 🛡️ 💎 ⚠️ | Official Kubeflow MCP server for AI-assisted development with Kubeflow tools. |
+| [backstage/backstage (mcp-actions-backend)](https://github.com/backstage/backstage/tree/master/plugins/mcp-actions-backend) | 🟢 🔵 🛡️ 💎 ⚠️ | Official CNCF Backstage plugin that exposes Internal Developer Portal actions as MCP tools for AI agents. |
 
 ### Official Diagramming and Architecture MCP Tools
 
 | Repo | Labels | Operator note |
 | --- | --- | --- |
 | [jgraph/drawio-mcp](https://github.com/jgraph/drawio-mcp) | 🟢 🔵 🛡️ 💎 | draw.io MCP server and Claude Code plugin for generating, opening, and exporting draw.io diagrams with shape search. |
+
+### Official Data Platform MCP Servers
+
+| Repo | Labels | Operator note |
+| --- | --- | --- |
+| [mongodb-js/mongodb-mcp-server](https://github.com/mongodb-js/mongodb-mcp-server) | 🟢 🔵 🛡️ 💎 ⚠️ | Official MongoDB MCP server (public preview) connecting agents to MongoDB Community, Enterprise, and Atlas deployments. |
 
 ### Community Discovery and Skills
 

@@ -1156,3 +1156,202 @@
     - 🟡
     - 🛡️
     - 💎
+
+- name: newrelic/mcp-server
+  url: https://github.com/newrelic/mcp-server
+  category: official-sre-mcp-servers
+  type: mcp-server
+  framework: MCP
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - apm-and-dashboard-context
+    - nrql-querying
+    - incident-and-alert-investigation
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as the official New Relic MCP source for Gemini SRE copilots that need APM, dashboard, and NRQL context."
+  risk_notes: "Telemetry may include sensitive application and infrastructure data; scope API keys per account and prefer read-only queries."
+  operator_note: "Official New Relic MCP server for connecting AI agents to APM, dashboards, and NRQL-based observability data."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - 💎
+
+- name: elastic/mcp-server-elasticsearch
+  url: https://github.com/elastic/mcp-server-elasticsearch
+  category: official-sre-mcp-servers
+  type: mcp-server
+  framework: MCP
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - elasticsearch-index-search
+    - log-and-mapping-investigation
+    - query-dsl-generation
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as a reference for Gemini agents that need natural-language Elasticsearch search, but plan a migration path to Elastic Agent Builder MCP."
+  risk_notes: "Deprecated: Elastic has moved active development to the Agent Builder MCP endpoint (Elastic 9.2+/Serverless); this repo receives critical security fixes only, so pin versions and plan migration."
+  operator_note: "Official Elastic MCP server for Elasticsearch search and mapping access; deprecated in favor of Elastic Agent Builder MCP."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 💎
+
+- name: cloudflare/mcp-server-cloudflare
+  url: https://github.com/cloudflare/mcp-server-cloudflare
+  category: official-cloud-mcp-servers
+  type: mcp-server-collection
+  framework: MCP
+  primary_language: TypeScript
+  cloud_provider: Cloudflare
+  use_cases:
+    - cloudflare-account-automation
+    - edge-and-worker-configuration
+    - security-and-performance-tuning
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as the official Cloudflare MCP source for Gemini or Codex agents that configure Workers, DNS, or edge security settings."
+  risk_notes: "Domain-specific servers can read and mutate live Cloudflare account configuration; scope API tokens per zone/account and require approval before write actions."
+  operator_note: "Official Cloudflare MCP servers for account, Workers, and edge configuration workflows, with both curated domain servers and a code-mode server."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 💎
+    - ⚠️
+
+- name: CircleCI-Public/mcp-server-circleci
+  url: https://github.com/CircleCI-Public/mcp-server-circleci
+  category: official-ci-cd-mcp-servers
+  type: mcp-server
+  framework: MCP
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - build-failure-investigation
+    - flaky-test-identification
+    - pipeline-and-usage-analysis
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as the official CircleCI MCP source for Gemini agents that triage build failures, flaky tests, and pipeline usage before proposing fixes."
+  risk_notes: "Access exposes build logs and usage data; scope CircleCI API tokens per project and keep write-capable pipeline triggers behind explicit approval."
+  operator_note: "Official CircleCI MCP server for build failure logs, pipeline status, flaky test detection, and usage analysis."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - 💎
+
+- name: mongodb-js/mongodb-mcp-server
+  url: https://github.com/mongodb-js/mongodb-mcp-server
+  category: official-data-platform-mcp-servers
+  type: mcp-server
+  framework: MCP
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - mongodb-atlas-administration
+    - database-schema-and-query-inspection
+    - data-platform-agent-workflows
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as the official MongoDB MCP source for Gemini or Codex agents that inspect schemas, run queries, or manage Atlas clusters."
+  risk_notes: "Public preview; can run database operations and Atlas API actions, so require least-privilege connection strings and disable destructive operations by default."
+  operator_note: "Official MongoDB MCP server connecting agents to MongoDB Community, Enterprise, and Atlas deployments."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 💎
+    - ⚠️
+
+- name: vercel/vercel-mcp-overview
+  url: https://github.com/vercel/vercel-mcp-overview
+  category: official-cloud-mcp-servers
+  type: hosted-mcp-server
+  framework: MCP
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - vercel-project-and-deployment-context
+    - serverless-app-automation
+    - remote-mcp-hosting
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as the official Vercel MCP overview when connecting Gemini or Codex agents to the hosted mcp.vercel.com endpoint for project and deployment context."
+  risk_notes: "The hosted remote MCP can read and mutate live Vercel projects and deployments; use OAuth-scoped access and require approval before deploy or config changes."
+  operator_note: "Official public overview of Vercel's hosted MCP server, documented at vercel.com/docs/mcp/vercel-mcp; this repo tracks the docs, not a standalone local server."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 💎
+    - ⚠️
+
+- name: hashicorp/vault-mcp-server
+  url: https://github.com/hashicorp/vault-mcp-server
+  category: official-iac-mcp-servers
+  type: mcp-server
+  framework: MCP
+  primary_language: Go
+  cloud_provider: multi-cloud
+  use_cases:
+    - secrets-and-mount-inspection
+    - vault-policy-review
+    - secrets-management-automation
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: prototype
+  gemini_opportunity: "Use as the official HashiCorp Vault MCP baseline for Gemini agents that need governed secrets-management context alongside Terraform MCP workflows."
+  risk_notes: "Beta; tools can touch live secrets engines and mounts, so run locally only, avoid exposing it to other network users, and require approval before write operations."
+  operator_note: "Official HashiCorp Vault MCP server for secrets and mount management, complementing the Terraform MCP server for IaC workflows."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 💎
+    - ⚠️
+
+- name: backstage/backstage (plugins/mcp-actions-backend)
+  url: https://github.com/backstage/backstage/tree/master/plugins/mcp-actions-backend
+  category: official-platform-agent-toolkits
+  type: mcp-plugin
+  framework: MCP + Backstage
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - internal-developer-portal-actions
+    - software-catalog-automation
+    - agent-exposed-plugin-actions
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  gemini_opportunity: "Use as the official Backstage MCP actions bridge for Gemini agents that need to discover and invoke Internal Developer Portal actions from the software catalog."
+  risk_notes: "Exposes registered plugin actions, some of which can mutate catalog entities or trigger scaffolder templates; scope static tokens or OAuth per environment and review each action's write scope."
+  operator_note: "Official CNCF Backstage plugin that exposes registered plugin actions as MCP tools for AI agents like Claude, Cursor, and internal assistants."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 💎
+    - ⚠️
