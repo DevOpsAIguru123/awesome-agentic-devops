@@ -15,7 +15,6 @@ Each entry is scored by:
 - Human approval gates.
 - Tracing, evidence, and eval support.
 - Maturity.
-- Gemini-compatible rebuild opportunity.
 
 ## 3. Extract patterns
 
@@ -32,10 +31,6 @@ The goal is not only to list repos. The goal is to identify repeatable agent pat
 
 Promising patterns should become scaffolded implementations across Claude Code, Gemini ADK, OpenAI Agents SDK, and MCP. The first pattern is the Terraform Plan Reviewer Agent.
 
-## 5. Use daily Gemini workloads
-
-Gemini can help classify entries, summarize docs, extract risk notes, build eval cases, and compare framework implementations. Each Gemini task should produce reviewed changes to `data/repos.yaml`, docs, or build-lab scaffolds.
-
-## 6. Turn it into an interview and portfolio artifact
+## 5. Turn it into an interview and portfolio artifact
 
 This repo should demonstrate practical judgment: infrastructure safety, agent design, DevOps workflows, and framework comparison. The best future version includes scored entries, runnable evals, and reference agents that never require real credentials by default.

@@ -67,10 +67,6 @@ What real DevOps, Cloud, SRE, Kubernetes, Terraform, CI/CD, or platform engineer
 - Kubernetes:
 - Multi-cloud:
 
-## Gemini build opportunity
-
-What would be valuable to rebuild or evaluate with Gemini ADK?
-
 ## Final verdict
 
 - Labels:

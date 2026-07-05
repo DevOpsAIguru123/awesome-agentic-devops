@@ -21,7 +21,6 @@ REQUIRED_FIELDS = (
     "human_approval",
     "evidence_tracing",
     "maturity",
-    "gemini_opportunity",
     "risk_notes",
     "operator_note",
     "labels",

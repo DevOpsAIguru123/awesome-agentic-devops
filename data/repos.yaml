@@ -13,7 +13,6 @@
   human_approval: true
   evidence_tracing: "yes"
   maturity: production-adjacent
-  gemini_opportunity: "Use as the primary AWS source for Gemini-compatible cloud runbooks with IAM, CloudTrail, and CloudWatch guardrails."
   risk_notes: "Can act on AWS resources through authenticated tooling; require least-privilege IAM, read-only first runs, and explicit write approval."
   operator_note: "Official AWS-supported toolkit that bundles MCP server configuration, skills, plugins, and DevSecOps agent workflows."
   labels:
@@ -21,7 +20,6 @@
     - 🔵
     - 🛡️
     - 📊
-    - 💎
     - ⚠️
 
 - name: awslabs/mcp
@@ -39,14 +37,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Compare AWS Labs MCP servers against the newer AWS Agent Toolkit when designing Gemini cloud workflows."
   risk_notes: "AWS identifies Agent Toolkit for AWS as the successor path; pin versions and prefer read-only or proposal mode before write tools."
   operator_note: "Official AWS Labs MCP server collection; useful legacy/source reference while AWS transitions capabilities into Agent Toolkit."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: microsoft/mcp
@@ -64,14 +60,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the official Microsoft MCP catalog when mapping Azure tools into Gemini or Codex workflows."
   risk_notes: "Azure MCP tools may query or mutate live Azure resources; require tenant scoping, RBAC review, and explicit write approval."
   operator_note: "Official Microsoft MCP catalog, including Azure cloud and infrastructure MCP references."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: microsoft/azure-devops-mcp
@@ -89,14 +83,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use for Gemini or Codex agents that need governed Azure Boards, repos, PR, or pipeline context."
   risk_notes: "Can interact with Azure DevOps work items and pipelines; separate read-only investigation from ticket or pipeline mutations."
   operator_note: "Official Azure DevOps MCP server with remote-first onboarding and local server option."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: microsoft/azure-devops-skills
@@ -114,12 +106,10 @@
   human_approval: unknown
   evidence_tracing: unknown
   maturity: skill-library
-  gemini_opportunity: "Translate selected Azure DevOps skills into Gemini-compatible runbook agents."
   risk_notes: "Some skills can create or assign Azure DevOps work; require explicit review before using write-capable skills."
   operator_note: "Official Microsoft Azure DevOps skill examples; approval gates should be verified per skill."
   labels:
     - 🟢
-    - 💎
     - ⚠️
 
 - name: microsoft/skills
@@ -137,14 +127,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: skill-library
-  gemini_opportunity: "Mine official Microsoft skills for reusable architecture, MCP-builder, and Azure SDK grounding patterns."
   risk_notes: "General skill material should be paired with environment-specific approval and credential boundaries before live automation."
   operator_note: "Official Microsoft skills, MCP configurations, custom agents, and AGENTS.md guidance for coding agents."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
 
 - name: microsoft/azure-skills
   url: https://github.com/microsoft/azure-skills
@@ -161,14 +149,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as a model for packaged Azure capability layers combining guidance skills and live MCP tools."
   risk_notes: "Bundles live Azure MCP tools; validate RBAC, tenant selection, pricing impact, and write approvals before use."
   operator_note: "Official Azure skills plugin with Azure skills, Azure MCP tools, and Foundry MCP coverage."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: google/mcp
@@ -186,14 +172,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the canonical Google MCP map for Gemini-driven GCP operations and Cloud Run-hosted MCP deployments."
   risk_notes: "Remote Google MCP servers can touch cloud resources; require project scoping, IAM boundaries, and audit logging."
   operator_note: "Official Google MCP repository listing managed and open-source MCP servers for Google and Google Cloud."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: googleapis/gcloud-mcp
@@ -211,14 +195,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use for Gemini CLI or Codex scenarios that need natural-language gcloud, observability, or storage workflows."
   risk_notes: "Can issue gcloud-backed operations; pin packages, require project/region confirmation, and start in read-only diagnostics."
   operator_note: "Official Google API repository for gcloud, observability, storage, and backup/disaster-recovery MCP servers."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: GoogleCloudPlatform/cloud-run-mcp
@@ -236,14 +218,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as a concrete reference for deploying and securing Cloud Run-backed MCP workflows."
   risk_notes: "Deployment tools can create or update Cloud Run services; require IAM-authenticated endpoints and no unauthenticated remote MCP access."
   operator_note: "Official Google Cloud Platform MCP server for deploying apps to Cloud Run."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: google/skills
@@ -261,13 +241,11 @@
   human_approval: true
   evidence_tracing: partial
   maturity: skill-library
-  gemini_opportunity: "Use as the canonical Google skill library for Gemini-compatible Google Cloud runbooks."
   risk_notes: "Skills provide guidance rather than enforcement; pair with MCP permissions and deployment approval checks."
   operator_note: "Official Google Agent Skills repository for Google products and technologies."
   labels:
     - 🟢
     - 🛡️
-    - 💎
 
 - name: google/adk-python
   url: https://github.com/google/adk-python
@@ -284,14 +262,12 @@
   human_approval: true
   evidence_tracing: "yes"
   maturity: production-adjacent
-  gemini_opportunity: "Use as the baseline framework for building Gemini-native DevOps and SRE agents with evaluations."
   risk_notes: "Framework code is safe by itself, but deployed agents need tool permission review, eval gates, and environment scoping."
   operator_note: "Official Google Agent Development Kit for building, evaluating, and deploying agents."
   labels:
     - 🟢
     - 🛡️
     - 📊
-    - 💎
 
 - name: GoogleCloudPlatform/agent-starter-pack
   url: https://github.com/GoogleCloudPlatform/agent-starter-pack
@@ -308,14 +284,12 @@
   human_approval: true
   evidence_tracing: "yes"
   maturity: production-adjacent
-  gemini_opportunity: "Use as the build template for production-ready Gemini agents with CI/CD, observability, and evaluation scaffolding."
   risk_notes: "Deployment templates can provision cloud infrastructure; require cost, IAM, and region checks before deploy."
   operator_note: "Official Google Cloud starter pack for shipping agents with CI/CD, evaluation, observability, and security."
   labels:
     - 🟢
     - 🛡️
     - 📊
-    - 💎
 
 - name: databricks-solutions/ai-dev-kit
   url: https://github.com/databricks-solutions/ai-dev-kit
@@ -332,7 +306,6 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as a Databricks-specific toolkit for Gemini, Codex, Claude Code, Cursor, and Copilot workflows that need MCP tools and Databricks skills."
   risk_notes: "Includes executable Databricks tools and workspace integrations; require profile/workspace confirmation, least-privilege credentials, and approval before jobs, apps, serving, or Unity Catalog changes."
   operator_note: "Databricks field-engineering AI Dev Kit with Databricks MCP server, Databricks skills, tools core, and builder app support."
   labels:
@@ -340,7 +313,6 @@
     - 🔵
     - 🛡️
     - 📊
-    - 💎
     - ⚠️
 
 - name: kubeflow/mcp-server
@@ -358,14 +330,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as a Kubeflow-specific MCP reference for MLOps and platform agents that need pipeline, notebook, and Kubeflow tool context."
   risk_notes: "Kubeflow workflows can affect ML pipelines and platform resources; require namespace/project scoping and approval for mutations."
   operator_note: "Official Kubeflow MCP server for AI-assisted development with Kubeflow tools."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: github/github-mcp-server
@@ -383,14 +353,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the official GitHub tool surface for agentic DevOps workflows around issues, PRs, code, and workflows."
   risk_notes: "Repository write actions, issue changes, and workflow interactions must be scoped by token permissions and branch protections."
   operator_note: "Official GitHub MCP server for repository, issue, pull request, code, and workflow automation."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: GitLab MCP server
@@ -408,14 +376,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use the official hosted GitLab MCP endpoint for Gemini or Codex workflows that need GitLab project, issue, and MR context."
   risk_notes: "GitLab warns to guard against prompt injection; use trusted project scopes, OAuth, and least-privilege permissions."
   operator_note: "Official GitLab MCP server is documented as a GitLab-hosted endpoint rather than a standalone GitHub repo."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: atlassian/atlassian-mcp-server
@@ -433,14 +399,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use to connect agentic DevOps workflows to Jira, Jira Service Management, Bitbucket, Compass, and Confluence context."
   risk_notes: "Can create or update Jira/Confluence/Bitbucket artifacts; require OAuth scopes, project defaults, and approval for bulk writes."
   operator_note: "Official Atlassian Rovo MCP server for Jira, Confluence, Jira Service Management, Bitbucket, and Compass."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: SonarSource/sonarqube-mcp-server
@@ -458,14 +422,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the official SonarQube MCP source for Gemini or Codex code-quality and application-security review workflows."
   risk_notes: "Requires SonarQube tokens and project/org scoping; keep project analysis and remediation recommendations separate from automated code changes."
   operator_note: "Official SonarQube MCP server for code quality and security insights in AI agents."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
 
 - name: okta/okta-mcp-server
   url: https://github.com/okta/okta-mcp-server
@@ -482,14 +444,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the official Okta MCP source for identity-aware DevOps and SRE agents that need governed auth context."
   risk_notes: "Identity tooling is high impact; require least-privilege OAuth scopes, tenant confirmation, and explicit approval for user, group, or policy mutations."
   operator_note: "Official Okta self-hosted MCP server for connecting agents to Okta identity workflows."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: hashicorp/terraform-mcp-server
@@ -507,7 +467,6 @@
   human_approval: true
   evidence_tracing: "yes"
   maturity: production-adjacent
-  gemini_opportunity: "Use as the official Terraform MCP baseline for IaC plan review, registry lookup, and HCP Terraform workflows."
   risk_notes: "HCP Terraform and workspace operations can expose or mutate infrastructure data; require token scoping and apply approval."
   operator_note: "Official HashiCorp Terraform MCP server with registry, HCP Terraform, Terraform Enterprise, and OTel support."
   labels:
@@ -515,7 +474,6 @@
     - 🔵
     - 🛡️
     - 📊
-    - 💎
     - ⚠️
 
 - name: Pulumi MCP Server
@@ -533,14 +491,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as a multi-cloud IaC reference for agents that need Pulumi Cloud context and infrastructure workflow delegation."
   risk_notes: "Pulumi workflows can query org resources and delegate infrastructure work; require org scoping, policy checks, and approval."
   operator_note: "Official Pulumi hosted MCP server for Pulumi Cloud resources, registry lookup, policies, and Pulumi Neo workflows."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: grafana/mcp-grafana
@@ -558,7 +514,6 @@
   human_approval: true
   evidence_tracing: "yes"
   maturity: production-adjacent
-  gemini_opportunity: "Use as an official observability MCP for Gemini SRE copilots that need dashboard, alert, and datasource context."
   risk_notes: "Grafana access can expose sensitive telemetry or mutate dashboards; use service accounts, read-only scopes, and audit logs."
   operator_note: "Official Grafana MCP server for Grafana and surrounding observability ecosystem access."
   labels:
@@ -566,7 +521,6 @@
     - 🔵
     - 🛡️
     - 📊
-    - 💎
     - ⚠️
 
 - name: getsentry/sentry-mcp
@@ -584,7 +538,6 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the official Sentry MCP source for debugging agents that need issue, error, trace, and performance context."
   risk_notes: "Sentry tokens can expose sensitive production errors and some write scopes; require org/project scoping and keep debugging human-in-the-loop."
   operator_note: "Official Sentry MCP service focused on human-in-the-loop coding agents and debugging workflows."
   labels:
@@ -592,7 +545,6 @@
     - 🔵
     - 🛡️
     - 📊
-    - 💎
     - ⚠️
 
 - name: datadog-labs/mcp-server
@@ -610,7 +562,6 @@
   human_approval: true
   evidence_tracing: "yes"
   maturity: production-adjacent
-  gemini_opportunity: "Use as a source for SRE investigation agents that query metrics, logs, traces, incidents, and LLM observability."
   risk_notes: "Telemetry may include sensitive operational data; scope auth by site/org and keep write actions disabled unless explicitly needed."
   operator_note: "Official Datadog MCP server documentation and examples for connecting AI agents to Datadog observability."
   labels:
@@ -618,7 +569,6 @@
     - 🔵
     - 🛡️
     - 📊
-    - 💎
 
 - name: Splunk MCP Server
   url: https://splunkbase.splunk.com/app/7931
@@ -635,7 +585,6 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the Splunk-supported MCP entry for agents that need Splunk Enterprise or Splunk Cloud observability context."
   risk_notes: "Splunk data can contain sensitive logs and security events; require index, role, and search-scope controls before connecting agents."
   operator_note: "Splunkbase listing for the Splunk-supported MCP Server for Splunk Platform, Enterprise, and Cloud customers."
   labels:
@@ -643,7 +592,6 @@
     - 🔵
     - 🛡️
     - 📊
-    - 💎
 
 - name: Datadog MCP Server setup docs
   url: https://docs.datadoghq.com/mcp_server/setup/?tab=chatgpt
@@ -660,7 +608,6 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the official setup reference when configuring Datadog MCP access for ChatGPT or other MCP-compatible agents."
   risk_notes: "Setup connects agents to observability data; scope authentication carefully and confirm workspace/site before enabling access."
   operator_note: "Official Datadog MCP setup documentation, including the ChatGPT setup path."
   labels:
@@ -668,7 +615,6 @@
     - 🔵
     - 🛡️
     - 📊
-    - 💎
 
 - name: jgraph/drawio-mcp
   url: https://github.com/jgraph/drawio-mcp
@@ -685,14 +631,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the draw.io MCP source for architecture diagrams, cloud diagrams, and DevOps runbook visuals generated by agents."
   risk_notes: "Diagram content may include sensitive architecture details; prefer local/self-hosted modes for private infrastructure diagrams."
   operator_note: "draw.io MCP server and Claude Code plugin for generating, opening, and exporting draw.io diagrams with shape search."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
 
 - name: PagerDuty/pagerduty-mcp-server
   url: https://github.com/PagerDuty/pagerduty-mcp-server
@@ -709,14 +653,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as an official incident-response tool surface for Gemini SRE agents with explicit write-tool approval."
   risk_notes: "Write tools can create incidents and schedule overrides; keep write tools disabled by default and require approval for changes."
   operator_note: "Official PagerDuty MCP server for incidents, services, schedules, event orchestrations, and embedded incident UIs."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: docker/mcp-registry
@@ -734,7 +676,6 @@
   human_approval: true
   evidence_tracing: "yes"
   maturity: production-adjacent
-  gemini_opportunity: "Use Docker MCP Registry as the safer packaging and discovery source for reproducible MCP test runs."
   risk_notes: "Catalog quality helps but does not replace server-level permission review, image pinning, and tool-surface auditing."
   operator_note: "Official Docker MCP registry and catalog source for verified containerized MCP servers."
   labels:
@@ -742,7 +683,6 @@
     - 🔵
     - 🛡️
     - 📊
-    - 💎
 
 - name: kubernetes-sigs/mcp-lifecycle-operator
   url: https://github.com/kubernetes-sigs/mcp-lifecycle-operator
@@ -759,14 +699,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: prototype
-  gemini_opportunity: "Use as a Kubernetes-native control-plane reference for deploying and managing MCP servers in agentic DevOps labs."
   risk_notes: "Alpha v1alpha1 APIs can change; test only in non-production clusters before considering platform integration."
   operator_note: "Official Kubernetes SIG operator for declaratively deploying and rolling out MCP servers, not a general kubectl MCP server."
   labels:
     - 🟡
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: jenkinsci/mcp-server-plugin
@@ -784,14 +722,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as a CI/CD MCP integration for Gemini agents that investigate Jenkins jobs, builds, logs, and pipeline state before proposing fixes."
   risk_notes: "Jenkins access can expose build logs, credentials, job configuration, and deployment controls; require folder/job scoping and approval before triggering or mutating jobs."
   operator_note: "Official Jenkins plugin that enables Jenkins to act as an MCP server for LLM-powered clients."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: argoproj-labs/mcp-for-argocd
@@ -809,14 +745,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: prototype
-  gemini_opportunity: "Use as a GitOps control-plane integration for Gemini SRE agents that inspect Argo CD applications, sync state, health, and deployment drift."
   risk_notes: "Argo CD workflows can affect live Kubernetes deployments; start with read-only app/status inspection and require approval for sync, rollback, or mutation actions."
   operator_note: "Argo Project Labs MCP server implementation for Argo CD, filling the GitOps/CD gap in the catalog."
   labels:
     - 🟡
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: Snyk Studio MCP docs
@@ -834,7 +768,6 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the official Snyk setup reference for securing Gemini, Copilot, Claude, and other agentic coding workflows through Snyk's MCP server."
   risk_notes: "Security scans may include repository and dependency context; require account, org, and project scoping before connecting agent clients."
   operator_note: "Official Snyk documentation for Snyk Studio agentic security workflows and Snyk MCP Server usage."
   labels:
@@ -842,7 +775,6 @@
     - 🔵
     - 🛡️
     - 📊
-    - 💎
 
 - name: snyk/agent-scan
   url: https://github.com/snyk/agent-scan
@@ -859,14 +791,12 @@
   human_approval: true
   evidence_tracing: "yes"
   maturity: production-adjacent
-  gemini_opportunity: "Use as a security evaluation layer for Gemini-built DevOps agents and MCP servers before connecting them to infrastructure."
   risk_notes: "Scanner output should be treated as security evidence, not an automatic approval to deploy; findings need human review and remediation."
   operator_note: "Official Snyk security scanner for AI agents, MCP servers, and agent skills."
   labels:
     - 🟢
     - 🛡️
     - 📊
-    - 💎
 
 - name: Wiz WIN MCP Server docs
   url: https://docs.wiz.io/dev/win-mcp-server
@@ -883,7 +813,6 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the official Wiz MCP reference for Gemini security agents that need cloud risk, vulnerability, and posture context."
   risk_notes: "Cloud security posture data can expose sensitive asset and vulnerability details; require tenant scoping and read-only access by default."
   operator_note: "Official Wiz documentation for the WIN MCP server, adding CNAPP and cloud-security coverage."
   labels:
@@ -891,7 +820,6 @@
     - 🔵
     - 🛡️
     - 📊
-    - 💎
 
 - name: Docker MCP Catalog and Toolkit docs
   url: https://docs.docker.com/ai/mcp-catalog-and-toolkit/
@@ -908,14 +836,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as a reproducible packaging and governance layer for testing Gemini-compatible DevOps MCP servers in containers."
   risk_notes: "Containerized MCP servers still expose tools and credentials; require image trust, profile scoping, OAuth review, and permission boundaries."
   operator_note: "Official Docker documentation for MCP Toolkit, MCP Catalog, profiles, CLI, and MCP Gateway."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: Docker MCP Gateway docs
@@ -933,14 +859,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as a governance reference for centralizing Gemini agent access to approved MCP servers and tool profiles."
   risk_notes: "Gateway configuration can broaden agent tool access; require profile review, server allowlists, credential boundaries, and audit controls."
   operator_note: "Official Docker MCP Gateway documentation for secure, centralized orchestration of containerized MCP tools."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: modelcontextprotocol/servers
@@ -958,14 +882,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the official MCP reference baseline when building Gemini-compatible DevOps tool servers and evaluating protocol behavior."
   risk_notes: "Reference servers are educational starting points; production DevOps servers still need permission review, secrets handling, and destructive-tool approval gates."
   operator_note: "Official MCP reference server implementations and ecosystem pointers."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
 
 - name: modelcontextprotocol/python-sdk
   url: https://github.com/modelcontextprotocol/python-sdk
@@ -982,14 +904,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use to build fixture-first Gemini-compatible DevOps MCP servers such as Terraform plan review, CI log analysis, or read-only cloud inventory."
   risk_notes: "SDK is safe by itself, but servers built with it need explicit tool allowlists, credential isolation, and destructive-action approval gates."
   operator_note: "Official Python SDK for building MCP servers and clients."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
 
 - name: modelcontextprotocol/typescript-sdk
   url: https://github.com/modelcontextprotocol/typescript-sdk
@@ -1006,14 +926,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the TypeScript SDK baseline for Gemini-compatible DevOps MCP servers and web-native MCP integrations."
   risk_notes: "SDK examples must be wrapped with environment-specific allowlists, credential isolation, and approval checks before production use."
   operator_note: "Official TypeScript SDK for Model Context Protocol servers and clients."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
 
 - name: modelcontextprotocol/registry
   url: https://github.com/modelcontextprotocol/registry
@@ -1030,7 +948,6 @@
   human_approval: true
   evidence_tracing: "yes"
   maturity: production-adjacent
-  gemini_opportunity: "Use registry metadata to discover, classify, and freshness-check candidate DevOps MCP servers for Gemini build labs."
   risk_notes: "Registry metadata helps discovery but does not prove safety; each server still needs tool-surface and credential review."
   operator_note: "Official community-driven registry service for Model Context Protocol servers."
   labels:
@@ -1038,7 +955,6 @@
     - 🔵
     - 🛡️
     - 📊
-    - 💎
 
 - name: aws-samples/sample-cloudops-multi-agent-platform
   url: https://github.com/aws-samples/sample-cloudops-multi-agent-platform
@@ -1055,14 +971,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: prototype
-  gemini_opportunity: "Use as an AWS CloudOps reference architecture to compare against Gemini ADK multi-agent operations patterns."
   risk_notes: "Sample CloudOps agents may connect to AWS operations data and actions; require sandbox accounts, least-privilege IAM, and explicit approval before mutations."
   operator_note: "AWS Samples reference for a hierarchical multi-agent CloudOps platform using Bedrock AgentCore and Strands Agents SDK."
   labels:
     - 🟡
     - 🛡️
     - 📊
-    - 💎
     - ⚠️
 
 - name: rohitg00/awesome-devops-mcp-servers
@@ -1080,13 +994,11 @@
   human_approval: unknown
   evidence_tracing: none
   maturity: curated-list
-  gemini_opportunity: "Score MCP servers for Gemini-driven DevOps workflows that need explicit tool boundaries."
   risk_notes: "MCP servers expose tool capabilities; review permissions and command surfaces before connecting real infrastructure."
   operator_note: "Community discovery source for MCP ecosystem mapping and candidate integrations."
   labels:
     - 🔵
     - 🟡
-    - 💎
 
 - name: antonbabenko/terraform-skill
   url: https://github.com/antonbabenko/terraform-skill
@@ -1103,13 +1015,11 @@
   human_approval: true
   evidence_tracing: partial
   maturity: skill-library
-  gemini_opportunity: "Use as source material for a Gemini Terraform plan reviewer with explicit blast-radius scoring."
   risk_notes: "Terraform guidance must not bypass plan review, provider policy, or human apply approval."
   operator_note: "Community Terraform-specific prompt and workflow seed for the build lab."
   labels:
     - 🟡
     - 🛡️
-    - 💎
 
 - name: addyosmani/agent-skills
   url: https://github.com/addyosmani/agent-skills
@@ -1126,13 +1036,11 @@
   human_approval: true
   evidence_tracing: partial
   maturity: skill-library
-  gemini_opportunity: "Use Gemini to adapt production-grade engineering skills into DevOps runbook-agent patterns."
   risk_notes: "General engineering skills need infrastructure-specific permission and approval constraints before DevOps use."
   operator_note: "Community engineering skill reference; useful style and structure input for DevOps-specific scaffolds."
   labels:
     - 🟢
     - 🛡️
-    - 💎
 
 - name: Agents365-ai/drawio-skill
   url: https://github.com/Agents365-ai/drawio-skill
@@ -1149,13 +1057,11 @@
   human_approval: true
   evidence_tracing: partial
   maturity: skill-library
-  gemini_opportunity: "Use as community skill material for generating architecture and DevOps diagrams from code or natural language."
   risk_notes: "Generated diagrams should be reviewed before publishing because they may reveal architecture, network, or security assumptions."
   operator_note: "Community draw.io skill for natural-language diagram generation, visual self-checking, and exports."
   labels:
     - 🟡
     - 🛡️
-    - 💎
 
 - name: newrelic/mcp-server
   url: https://github.com/newrelic/mcp-server
@@ -1172,7 +1078,6 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the official New Relic MCP source for Gemini SRE copilots that need APM, dashboard, and NRQL context."
   risk_notes: "Telemetry may include sensitive application and infrastructure data; scope API keys per account and prefer read-only queries."
   operator_note: "Official New Relic MCP server for connecting AI agents to APM, dashboards, and NRQL-based observability data."
   labels:
@@ -1180,7 +1085,6 @@
     - 🔵
     - 🛡️
     - 📊
-    - 💎
 
 - name: elastic/mcp-server-elasticsearch
   url: https://github.com/elastic/mcp-server-elasticsearch
@@ -1197,14 +1101,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as a reference for Gemini agents that need natural-language Elasticsearch search, but plan a migration path to Elastic Agent Builder MCP."
   risk_notes: "Deprecated: Elastic has moved active development to the Agent Builder MCP endpoint (Elastic 9.2+/Serverless); this repo receives critical security fixes only, so pin versions and plan migration."
   operator_note: "Official Elastic MCP server for Elasticsearch search and mapping access; deprecated in favor of Elastic Agent Builder MCP."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
 
 - name: cloudflare/mcp-server-cloudflare
   url: https://github.com/cloudflare/mcp-server-cloudflare
@@ -1221,14 +1123,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the official Cloudflare MCP source for Gemini or Codex agents that configure Workers, DNS, or edge security settings."
   risk_notes: "Domain-specific servers can read and mutate live Cloudflare account configuration; scope API tokens per zone/account and require approval before write actions."
   operator_note: "Official Cloudflare MCP servers for account, Workers, and edge configuration workflows, with both curated domain servers and a code-mode server."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: CircleCI-Public/mcp-server-circleci
@@ -1246,7 +1146,6 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the official CircleCI MCP source for Gemini agents that triage build failures, flaky tests, and pipeline usage before proposing fixes."
   risk_notes: "Access exposes build logs and usage data; scope CircleCI API tokens per project and keep write-capable pipeline triggers behind explicit approval."
   operator_note: "Official CircleCI MCP server for build failure logs, pipeline status, flaky test detection, and usage analysis."
   labels:
@@ -1254,7 +1153,6 @@
     - 🔵
     - 🛡️
     - 📊
-    - 💎
 
 - name: mongodb-js/mongodb-mcp-server
   url: https://github.com/mongodb-js/mongodb-mcp-server
@@ -1271,14 +1169,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the official MongoDB MCP source for Gemini or Codex agents that inspect schemas, run queries, or manage Atlas clusters."
   risk_notes: "Public preview; can run database operations and Atlas API actions, so require least-privilege connection strings and disable destructive operations by default."
   operator_note: "Official MongoDB MCP server connecting agents to MongoDB Community, Enterprise, and Atlas deployments."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: vercel/vercel-mcp-overview
@@ -1296,14 +1192,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the official Vercel MCP overview when connecting Gemini or Codex agents to the hosted mcp.vercel.com endpoint for project and deployment context."
   risk_notes: "The hosted remote MCP can read and mutate live Vercel projects and deployments; use OAuth-scoped access and require approval before deploy or config changes."
   operator_note: "Official public overview of Vercel's hosted MCP server, documented at vercel.com/docs/mcp/vercel-mcp; this repo tracks the docs, not a standalone local server."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: hashicorp/vault-mcp-server
@@ -1321,14 +1215,12 @@
   human_approval: true
   evidence_tracing: partial
   maturity: prototype
-  gemini_opportunity: "Use as the official HashiCorp Vault MCP baseline for Gemini agents that need governed secrets-management context alongside Terraform MCP workflows."
   risk_notes: "Beta; tools can touch live secrets engines and mounts, so run locally only, avoid exposing it to other network users, and require approval before write operations."
   operator_note: "Official HashiCorp Vault MCP server for secrets and mount management, complementing the Terraform MCP server for IaC workflows."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
 
 - name: backstage/backstage (plugins/mcp-actions-backend)
@@ -1346,12 +1238,10 @@
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  gemini_opportunity: "Use as the official Backstage MCP actions bridge for Gemini agents that need to discover and invoke Internal Developer Portal actions from the software catalog."
   risk_notes: "Exposes registered plugin actions, some of which can mutate catalog entities or trigger scaffolder templates; scope static tokens or OAuth per environment and review each action's write scope."
   operator_note: "Official CNCF Backstage plugin that exposes registered plugin actions as MCP tools for AI agents like Claude, Cursor, and internal assistants."
   labels:
     - 🟢
     - 🔵
     - 🛡️
-    - 💎
     - ⚠️
