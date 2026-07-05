@@ -20,7 +20,6 @@ Thanks for helping make this a practical operator-grade index instead of a hype 
 - The entry has a specific category.
 - The `risk_notes` field explains what could go wrong.
 - The `operator_note` field explains why an infrastructure operator should care.
-- The `gemini_opportunity` field describes a concrete Gemini-compatible build or evaluation path.
 - Labels match the observed behavior, not marketing claims.
 
 ## Local validation

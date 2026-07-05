@@ -8,7 +8,6 @@
 - [ ] The entry has a specific category.
 - [ ] The `risk_notes` field explains what could go wrong.
 - [ ] The `operator_note` field explains why an infrastructure operator should care.
-- [ ] The `gemini_opportunity` field describes a concrete Gemini-compatible build or evaluation path.
 - [ ] Labels match the observed behavior, not marketing claims.
 - [ ] `data/repos.yaml` and `README.md` are both updated.
 

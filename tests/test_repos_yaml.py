@@ -27,10 +27,9 @@ def valid_entry(**overrides):
         "human_approval": True,
         "evidence_tracing": "partial",
         "maturity": "prototype",
-        "gemini_opportunity": "Rebuild the workflow in Gemini ADK.",
         "risk_notes": "Requires review before use.",
         "operator_note": "Useful reference pattern.",
-        "labels": ["🟡", "💎"],
+        "labels": ["🟡"],
     }
     entry.update(overrides)
     return entry
