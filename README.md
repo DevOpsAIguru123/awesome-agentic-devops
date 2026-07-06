@@ -25,6 +25,7 @@ This repository evaluates which agents are safe, useful, and production-adjacent
 
 | Date | Entry | Category |
 | --- | --- | --- |
+| 2026-07-06 | [vantage-sh/vantage-mcp-server](https://github.com/vantage-sh/vantage-mcp-server) | FinOps / cloud cost |
 | 2026-07-05 | [hashicorp/vault-mcp-server](https://github.com/hashicorp/vault-mcp-server) | IaC / secrets management |
 | 2026-07-05 | [cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare) | Cloud / edge |
 | 2026-07-05 | [CircleCI-Public/mcp-server-circleci](https://github.com/CircleCI-Public/mcp-server-circleci) | CI/CD |
@@ -105,7 +106,8 @@ Link reachability, archived status, and freshness are checked automatically by [
 9. Official MCP SDKs, references, registries, and governance platforms
 10. Official diagramming and architecture MCP tools
 11. Official data platform MCP servers
-12. Community discovery and skill references
+12. Official FinOps and cloud-cost MCP servers
+13. Community discovery and skill references
 
 ## Top picks by use case
 
@@ -117,6 +119,7 @@ Link reachability, archived status, and freshness are checked automatically by [
 | Source-control DevOps | [github/github-mcp-server](https://github.com/github/github-mcp-server), [GitLab MCP server](https://docs.gitlab.com/user/gitlab_duo/model_context_protocol/mcp_server/), and [atlassian/atlassian-mcp-server](https://github.com/atlassian/atlassian-mcp-server) | Official MCP tool surfaces for repos, issues, PRs, Jira, Bitbucket, and related delivery workflows. |
 | Terraform and IaC | [hashicorp/terraform-mcp-server](https://github.com/hashicorp/terraform-mcp-server) and [Pulumi MCP Server](https://www.pulumi.com/docs/ai/mcp-server/) | Official IaC MCP sources for Terraform Registry/HCP Terraform and Pulumi Cloud automation. |
 | SRE incident response | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana), [datadog-labs/mcp-server](https://github.com/datadog-labs/mcp-server), and [PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | Official observability and incident-management MCPs for metrics, logs, traces, alerts, incidents, and on-call context. |
+| FinOps and cloud cost | [vantage-sh/vantage-mcp-server](https://github.com/vantage-sh/vantage-mcp-server) | Official Vantage MCP server for cloud spend analysis, budgets, anomalies, reports, and provider-resource cost context across Vantage-connected providers. |
 | Security and code quality | [SonarSource/sonarqube-mcp-server](https://github.com/SonarSource/sonarqube-mcp-server), [okta/okta-mcp-server](https://github.com/okta/okta-mcp-server), [Snyk Studio MCP docs](https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio), and [Wiz WIN MCP Server docs](https://docs.wiz.io/dev/win-mcp-server) | Official MCPs and security resources for code quality, application security, identity-aware workflows, agent security, and cloud-security posture. |
 | CI/CD and GitOps | [jenkinsci/mcp-server-plugin](https://github.com/jenkinsci/mcp-server-plugin) and [argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd) | Official Jenkins and Argo Project resources for pipeline, build, deployment, and GitOps workflows. |
 | MCP development and governance | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk), [modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk), [modelcontextprotocol/registry](https://github.com/modelcontextprotocol/registry), and [Docker MCP Catalog and Toolkit](https://docs.docker.com/ai/mcp-catalog-and-toolkit/) | Official SDKs, registry, and Docker governance surfaces for building, packaging, and controlling DevOps MCP servers. |
@@ -236,6 +239,12 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | Repo | Labels | Operator note |
 | --- | --- | --- |
 | [mongodb-js/mongodb-mcp-server](https://github.com/mongodb-js/mongodb-mcp-server) | 🟢 🔵 🛡️ ⚠️ | Official MongoDB MCP server (public preview) connecting agents to MongoDB Community, Enterprise, and Atlas deployments. |
+
+### Official FinOps and Cloud-Cost MCP Servers
+
+| Repo | Labels | Operator note |
+| --- | --- | --- |
+| [vantage-sh/vantage-mcp-server](https://github.com/vantage-sh/vantage-mcp-server) | 🟢 🔵 🛡️ 📊 ⚠️ | Official Vantage MCP server for natural-language FinOps workflows over Vantage cloud spend, budgets, anomalies, reports, and provider resources. |
 
 ### Community Discovery and Skills
 
