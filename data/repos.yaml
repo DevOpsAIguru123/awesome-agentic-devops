@@ -1245,3 +1245,27 @@
     - 🔵
     - 🛡️
     - ⚠️
+
+- name: vantage-sh/vantage-mcp-server
+  url: https://github.com/vantage-sh/vantage-mcp-server
+  category: official-finops-mcp-servers
+  type: mcp-server
+  framework: MCP + Vantage API
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - cloud-cost-analysis
+    - finops-reporting
+    - budget-and-anomaly-investigation
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  risk_notes: "Can create and delete Vantage reports, folders, notifications, and cost-allocation objects; rely on Vantage account/workspace permissions, OAuth/API-key scoping, audit logs, and explicit approval before write or irreversible delete tools."
+  operator_note: "Official Vantage MCP server for natural-language FinOps workflows over Vantage cloud spend, budgets, anomalies, reports, and provider resources."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - ⚠️
