@@ -1,0 +1,32 @@
+name: Terraform Cloud GCS Sample
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frameworks/gemini-adk/terraform-plan-reviewer/terraform/gcs-sample
+    env:
+      TF_TOKEN_app_terraform_io: ${{ secrets.TFC_TOKEN }}
+      TF_IN_AUTOMATION: "true"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.15.7
+
+      - name: Initialize Terraform Cloud
+        run: terraform init -input=false
+
+      - name: Apply via Terraform Cloud
+        run: terraform apply -input=false -auto-approve -no-color
