@@ -18,6 +18,7 @@ This repository evaluates which agents are safe, useful, and production-adjacent
 - [How entries are scored](#how-entries-are-scored)
 - [Categories](#categories)
 - [Top picks by use case](#top-picks-by-use-case)
+- [Local reference agents](#local-reference-agents)
 - [Curated catalog](#curated-catalog)
 - [How to contribute](#how-to-contribute)
 
@@ -126,6 +127,15 @@ Link reachability, archived status, and freshness are checked automatically by [
 | CI/CD and GitOps | [jenkinsci/mcp-server-plugin](https://github.com/jenkinsci/mcp-server-plugin) and [argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd) | Official Jenkins and Argo Project resources for pipeline, build, deployment, and GitOps workflows. |
 | MCP development and governance | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk), [modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk), [modelcontextprotocol/registry](https://github.com/modelcontextprotocol/registry), and [Docker MCP Catalog and Toolkit](https://docs.docker.com/ai/mcp-catalog-and-toolkit/) | Official SDKs, registry, and Docker governance surfaces for building, packaging, and controlling DevOps MCP servers. |
 | Agent frameworks and templates | [google/adk-python](https://github.com/google/adk-python) and [GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack) | Official Google agent framework and production templates with CI/CD, evaluation, and observability. |
+
+## Local Reference Agents
+
+This repo keeps runnable reference agents under [`agents/`](agents/).
+
+| Path | Purpose |
+| --- | --- |
+| [`agents/adk/terraform-plan-reviewer`](agents/adk/terraform-plan-reviewer) | Gemini ADK agent that reviews Terraform plan output and returns structured risk findings. |
+| [`agents/adk/terraform-drift-detector`](agents/adk/terraform-drift-detector) | Gemini ADK agent that reviews Terraform Cloud refresh-only plans and sends Discord-ready drift alerts. |
 
 ## Curated catalog
 
