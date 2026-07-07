@@ -189,8 +189,6 @@ python run_drift_review.py < drift-plan.txt
 
 ## Operational Note
 
-The Terraform Cloud Google provider is currently using
-`GOOGLE_OAUTH_ACCESS_TOKEN`, which is short-lived. Scheduled runs can fail when
-that token expires. For a durable production setup, replace this with Terraform
-Cloud dynamic credentials, workload identity federation, or a service account
-impersonation flow.
+Use Terraform Cloud dynamic credentials with Google Cloud Workload Identity
+Federation for scheduled drift detection. See
+[Terraform Cloud to Google Cloud Workload Identity Setup](TERRAFORM_CLOUD_GCP_WORKLOAD_IDENTITY.md).
