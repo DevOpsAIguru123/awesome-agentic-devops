@@ -1292,3 +1292,26 @@
     - 🛡️
     - 📊
     - ⚠️
+- name: skyhook-io/radar
+  url: https://github.com/skyhook-io/radar
+  category: community-mcp-servers
+  type: mcp-server
+  framework: MCP + Kubernetes
+  primary_language: Go
+  cloud_provider: multi-cloud
+  use_cases:
+    - kubernetes-cluster-visibility
+    - gitops-and-helm-operations
+    - ai-assisted-cluster-triage
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  risk_notes: "Write tools (restart, scale, GitOps sync/rollback, Helm writes) act on live clusters and can disrupt workloads; they run under the cluster's RBAC and carry destructive-action hints, and Helm/terminal/MCP surfaces can be disabled via flags. Community (non-official) project - scope RBAC per identity and require approval before mutating tools."
+  operator_note: "Community open-source Kubernetes UI with a built-in MCP server exposing read-only cluster/topology/event queries plus RBAC-scoped write and GitOps/Helm tools for AI-assisted operations."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - ⚠️
