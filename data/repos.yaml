@@ -452,6 +452,29 @@
     - 🛡️
     - ⚠️
 
+- name: OWASP MCP Top 10
+  url: https://owasp.org/www-project-mcp-top-10/
+  category: official-security-mcp-servers
+  type: security-guidance
+  framework: MCP
+  primary_language: Markdown
+  cloud_provider: multi-cloud
+  use_cases:
+    - mcp-threat-modeling
+    - agent-security-review
+    - control-gap-assessment
+  action_level: proposal
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  risk_notes: "Guidance only, but should be applied before connecting write-capable MCP servers; explicitly review token handling, scope creep, tool poisoning, authz, telemetry, shadow servers, and context over-sharing."
+  operator_note: "Official OWASP MCP Top 10 documentation for assessing Model Context Protocol security risks across agentic DevOps integrations."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+
 - name: hashicorp/terraform-mcp-server
   url: https://github.com/hashicorp/terraform-mcp-server
   category: official-iac-mcp-servers
