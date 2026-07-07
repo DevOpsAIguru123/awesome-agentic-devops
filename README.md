@@ -25,6 +25,7 @@ This repository evaluates which agents are safe, useful, and production-adjacent
 
 | Date | Entry | Category |
 | --- | --- | --- |
+| 2026-07-07 | [skyhook-io/radar](https://github.com/skyhook-io/radar) | Kubernetes / community MCP |
 | 2026-07-07 | [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) | Agent security / MCP risk framework |
 | 2026-07-06 | [vantage-sh/vantage-mcp-server](https://github.com/vantage-sh/vantage-mcp-server) | FinOps / cloud cost |
 | 2026-07-05 | [hashicorp/vault-mcp-server](https://github.com/hashicorp/vault-mcp-server) | IaC / secrets management |
@@ -256,6 +257,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | [antonbabenko/terraform-skill](https://github.com/antonbabenko/terraform-skill) | 🟡 🛡️ | Community Terraform-specific prompt and workflow reference. |
 | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | 🟢 🛡️ | Community engineering skill reference; useful style and structure input for DevOps-specific skills. |
 | [Agents365-ai/drawio-skill](https://github.com/Agents365-ai/drawio-skill) | 🟡 🛡️ | Community draw.io skill for natural-language diagram generation, visual self-checking, and exports. |
+| [skyhook-io/radar](https://github.com/skyhook-io/radar) | 🟢 🔵 🛡️ 📊 ⚠️ | Community open-source Kubernetes UI with a built-in MCP server: read-only cluster/topology/event queries plus RBAC-scoped write and GitOps/Helm tools for AI-assisted operations. |
 
 ## How to contribute
 
