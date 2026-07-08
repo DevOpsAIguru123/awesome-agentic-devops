@@ -1109,27 +1109,28 @@
     - 🛡️
     - 📊
 
-- name: elastic/mcp-server-elasticsearch
-  url: https://github.com/elastic/mcp-server-elasticsearch
+- name: Elastic Agent Builder MCP server docs
+  url: https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server
   category: official-sre-mcp-servers
-  type: mcp-server
-  framework: MCP
+  type: documentation
+  framework: MCP + Elastic Agent Builder
   primary_language: unknown
   cloud_provider: multi-cloud
   use_cases:
-    - elasticsearch-index-search
-    - log-and-mapping-investigation
-    - query-dsl-generation
+    - elastic-observability-querying
+    - log-and-index-investigation
+    - agent-builder-tool-access
   action_level: read-only
   human_approval: true
   evidence_tracing: partial
   maturity: production-adjacent
-  risk_notes: "Deprecated: Elastic has moved active development to the Agent Builder MCP endpoint (Elastic 9.2+/Serverless); this repo receives critical security fixes only, so pin versions and plan migration."
-  operator_note: "Official Elastic MCP server for Elasticsearch search and mapping access; deprecated in favor of Elastic Agent Builder MCP."
+  risk_notes: "MCP tools execute with API-key scope and can expose sensitive logs, metrics, traces, and indexed business data; restrict API keys to required spaces and index patterns."
+  operator_note: "Official Elastic documentation for exposing Agent Builder tools through MCP with Kibana URL and API-key authentication."
   labels:
     - 🟢
     - 🔵
     - 🛡️
+    - 📊
 
 - name: cloudflare/mcp-server-cloudflare
   url: https://github.com/cloudflare/mcp-server-cloudflare

@@ -26,6 +26,7 @@ This repository evaluates which agents are safe, useful, and production-adjacent
 
 | Date | Entry | Category |
 | --- | --- | --- |
+| 2026-07-08 | [Elastic Agent Builder MCP server docs](https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server) | SRE / observability |
 | 2026-07-07 | [skyhook-io/radar](https://github.com/skyhook-io/radar) | Kubernetes / community MCP |
 | 2026-07-07 | [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) | Agent security / MCP risk framework |
 | 2026-07-06 | [vantage-sh/vantage-mcp-server](https://github.com/vantage-sh/vantage-mcp-server) | FinOps / cloud cost |
@@ -121,7 +122,7 @@ Link reachability, archived status, and freshness are checked automatically by [
 | Google Cloud automation | [google/mcp](https://github.com/google/mcp), [googleapis/gcloud-mcp](https://github.com/googleapis/gcloud-mcp), and [google/skills](https://github.com/google/skills) | Official Google MCP and skills sources for GCP, Cloud Run, GKE, observability, and storage workflows. |
 | Source-control DevOps | [github/github-mcp-server](https://github.com/github/github-mcp-server), [GitLab MCP server](https://docs.gitlab.com/user/gitlab_duo/model_context_protocol/mcp_server/), and [atlassian/atlassian-mcp-server](https://github.com/atlassian/atlassian-mcp-server) | Official MCP tool surfaces for repos, issues, PRs, Jira, Bitbucket, and related delivery workflows. |
 | Terraform and IaC | [hashicorp/terraform-mcp-server](https://github.com/hashicorp/terraform-mcp-server) and [Pulumi MCP Server](https://www.pulumi.com/docs/ai/mcp-server/) | Official IaC MCP sources for Terraform Registry/HCP Terraform and Pulumi Cloud automation. |
-| SRE incident response | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana), [datadog-labs/mcp-server](https://github.com/datadog-labs/mcp-server), and [PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | Official observability and incident-management MCPs for metrics, logs, traces, alerts, incidents, and on-call context. |
+| SRE incident response | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana), [datadog-labs/mcp-server](https://github.com/datadog-labs/mcp-server), [Elastic Agent Builder MCP server docs](https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server), and [PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | Official observability and incident-management MCPs for metrics, logs, traces, indexed operational data, alerts, incidents, and on-call context. |
 | FinOps and cloud cost | [vantage-sh/vantage-mcp-server](https://github.com/vantage-sh/vantage-mcp-server) | Official Vantage MCP server for cloud spend analysis, budgets, anomalies, reports, and provider-resource cost context across Vantage-connected providers. |
 | Security and code quality | [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/), [SonarSource/sonarqube-mcp-server](https://github.com/SonarSource/sonarqube-mcp-server), [okta/okta-mcp-server](https://github.com/okta/okta-mcp-server), [Snyk Studio MCP docs](https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio), and [Wiz WIN MCP Server docs](https://docs.wiz.io/dev/win-mcp-server) | Official MCPs and security resources for MCP threat modeling, code quality, application security, identity-aware workflows, agent security, and cloud-security posture. |
 | CI/CD and GitOps | [jenkinsci/mcp-server-plugin](https://github.com/jenkinsci/mcp-server-plugin) and [argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd) | Official Jenkins and Argo Project resources for pipeline, build, deployment, and GitOps workflows. |
@@ -220,7 +221,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | [Splunk MCP Server](https://splunkbase.splunk.com/app/7931) | 🟢 🔵 🛡️ 📊 | Splunkbase listing for the Splunk-supported MCP Server for Splunk Platform, Enterprise, and Cloud customers. |
 | [PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | 🟢 🔵 🛡️ ⚠️ | Official PagerDuty MCP server for incidents, services, schedules, event orchestrations, and embedded incident UIs. |
 | [newrelic/mcp-server](https://github.com/newrelic/mcp-server) | 🟢 🔵 🛡️ 📊 | Official New Relic MCP server for APM, dashboard, and NRQL-based observability context. |
-| [elastic/mcp-server-elasticsearch](https://github.com/elastic/mcp-server-elasticsearch) | 🟢 🔵 🛡️ | Official Elastic MCP server for Elasticsearch search and mapping access; deprecated in favor of Elastic Agent Builder MCP. |
+| [Elastic Agent Builder MCP server docs](https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server) | 🟢 🔵 🛡️ 📊 | Official Elastic documentation for exposing Agent Builder tools through MCP with Kibana URL and API-key authentication. |
 
 ### Official Agent Skills and Frameworks
 
