@@ -1132,6 +1132,30 @@
     - 🛡️
     - 📊
 
+- name: Aient
+  url: https://docs.aient.ai
+  category: official-sre-mcp-servers
+  type: hosted-mcp-server
+  framework: MCP + OpenTelemetry + remediation agent
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - error-and-crash-detection
+    - automated-root-cause-analysis
+    - remediation-pull-requests
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: prototype
+  risk_notes: "Commercial, closed-source, early-access product (not GA). Connecting it ingests application logs, metrics, and traces that can contain sensitive data; with the aient.mcp.write scope an agent can request remediation, resolve/mute problems, and create API keys or telemetry drains. Remediation lands as a GitHub pull request for human review and merge rather than a direct production write, and post-merge verification is a passive telemetry-recurrence check, not causal proof. Scope publishable/API keys per environment and keep the write scope gated."
+  operator_note: "Commercial agentic SRE product with a hosted MCP server: ingests OpenTelemetry logs, metrics, and traces, groups errors into problems, and an AI agent opens GitHub remediation pull requests it then monitors for recurrence. OTel-native with structured per-run thread records/artifacts and a CloudEvents webhook stream. Early access; closed source."
+  labels:
+    - 🟡
+    - 🔵
+    - 🛡️
+    - 📊
+    - ⚠️
+
 - name: cloudflare/mcp-server-cloudflare
   url: https://github.com/cloudflare/mcp-server-cloudflare
   category: official-cloud-mcp-servers

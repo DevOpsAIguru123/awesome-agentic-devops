@@ -26,6 +26,7 @@ This repository evaluates which agents are safe, useful, and production-adjacent
 
 | Date | Entry | Category |
 | --- | --- | --- |
+| 2026-07-09 | [Aient](https://docs.aient.ai) | SRE / observability (agentic remediation) |
 | 2026-07-08 | [Elastic Agent Builder MCP server docs](https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server) | SRE / observability |
 | 2026-07-07 | [skyhook-io/radar](https://github.com/skyhook-io/radar) | Kubernetes / community MCP |
 | 2026-07-07 | [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) | Agent security / MCP risk framework |
@@ -222,6 +223,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | [PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | 🟢 🔵 🛡️ ⚠️ | Official PagerDuty MCP server for incidents, services, schedules, event orchestrations, and embedded incident UIs. |
 | [newrelic/mcp-server](https://github.com/newrelic/mcp-server) | 🟢 🔵 🛡️ 📊 | Official New Relic MCP server for APM, dashboard, and NRQL-based observability context. |
 | [Elastic Agent Builder MCP server docs](https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server) | 🟢 🔵 🛡️ 📊 | Official Elastic documentation for exposing Agent Builder tools through MCP with Kibana URL and API-key authentication. |
+| [Aient](https://docs.aient.ai) | 🟡 🔵 🛡️ 📊 ⚠️ | Commercial agentic SRE product with a hosted MCP server: ingests OpenTelemetry logs, metrics, and traces, groups errors into problems, and an AI agent opens GitHub remediation pull requests it then monitors for recurrence. Early access; closed source. |
 
 ### Official Agent Skills and Frameworks
 
