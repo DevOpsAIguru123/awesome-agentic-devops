@@ -1201,6 +1201,29 @@
     - 🛡️
     - ⚠️
 
+- name: redis/mcp-redis
+  url: https://github.com/redis/mcp-redis
+  category: official-data-platform-mcp-servers
+  type: mcp-server
+  framework: MCP
+  primary_language: Python
+  cloud_provider: multi-cloud
+  use_cases:
+    - redis-data-management
+    - cache-and-session-operations
+    - vector-search-and-stream-workflows
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  risk_notes: "Can set, update, delete, publish, and stream data in live Redis instances; enforce Redis ACLs such as read-only users for diagnostics, scope credentials per database, and require approval for writes."
+  operator_note: "Official Redis MCP Server for natural-language Redis data management, cache/session workflows, vector search, streams, pub/sub, and Redis documentation lookup."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - ⚠️
+
 - name: vercel/vercel-mcp-overview
   url: https://github.com/vercel/vercel-mcp-overview
   category: official-cloud-mcp-servers
