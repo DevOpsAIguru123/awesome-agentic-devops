@@ -1,0 +1,6 @@
+---
+description: Operator-grade DevOps MCP and agent workflow guidance
+alwaysApply: true
+---
+
+Read `devops-ai/DEVOPS_SKILL.md` before DevOps/SRE/Cloud work. Use the `awesome-agentic-devops-catalog` MCP server to compare official MCP servers by action level, approval gates, tracing evidence, maturity, and risk notes. Never expose secrets or bypass human approval for production writes.
