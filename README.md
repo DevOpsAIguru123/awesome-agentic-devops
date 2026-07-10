@@ -134,26 +134,31 @@ Link reachability, archived status, and freshness are checked automatically by [
 
 ## Install official skills into your coding agent
 
-Install official [Agent Skills](https://github.com/anthropics/skills) — sourced from the `official-agent-skills` repos in this catalog (`google/skills`, `microsoft/skills`, and more) — into your coding agent with **one command**. Each agent has its own installer; pick your agent's line, or use `all`. Every source can hold hundreds of skills, so scope with `--filter <substring>` and pick a source (`--source owner/repo`, or `--source all`).
+Install official [Agent Skills](https://github.com/anthropics/skills) — sourced from the `official-agent-skills` repos in this catalog (`google/skills`, `microsoft/skills`, and more) — into your coding agent with **one command**. Copy the line for your agent and run it. Each command below installs the Google Cloud skills; change `--source` (e.g. `--source microsoft/skills`, or `--source all`) and `--filter` to install something else.
 
-**macOS / Linux** — `curl … | sh -s -- --source <repo> [--filter <substr>]`:
-
-| Agent | Command (append `--source google/skills --filter cloud`) |
-| --- | --- |
-| Claude Code | `curl -fsSL …/install/claude-code/install.sh \| sh -s --` |
-| Cursor | `curl -fsSL …/install/cursor/install.sh \| sh -s --` |
-| Codex | `curl -fsSL …/install/codex/install.sh \| sh -s --` |
-| Antigravity | `curl -fsSL …/install/antigravity/install.sh \| sh -s --` |
-| VS Code | `curl -fsSL …/install/vscode/install.sh \| sh -s --` |
-| **All agents** | `curl -fsSL …/install/all/install.sh \| sh -s --` |
-
-`…` is `https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main`. Example:
+**macOS / Linux** — copy, paste, run:
 
 ```bash
+# Claude Code
 curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source google/skills --filter cloud
+
+# Cursor
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/cursor/install.sh | sh -s -- --source google/skills --filter cloud
+
+# Codex
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/codex/install.sh | sh -s -- --source google/skills --filter cloud
+
+# Antigravity
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/antigravity/install.sh | sh -s -- --source google/skills --filter cloud
+
+# VS Code
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/vscode/install.sh | sh -s -- --source google/skills --filter cloud
+
+# All agents at once
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/all/install.sh | sh -s -- --source google/skills --filter cloud
 ```
 
-**Windows** — download then run (so you can pass options):
+**Windows (PowerShell)** — download, then run (swap `claude-code` for `cursor`, `codex`, `antigravity`, `vscode`, or `all`):
 
 ```powershell
 irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.ps1 -OutFile install.ps1
