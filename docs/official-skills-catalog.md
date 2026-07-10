@@ -9,6 +9,15 @@ Every skill the [skills installer](../README.md#install-official-skills-into-you
 
 ---
 
+## Everything, every source
+
+```bash
+# Every official skill below, deduped — several hundred skills
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source all
+```
+
+Or pick a company/product below to install just that set.
+
 ## Google — `google/skills` (72)
 
 ```bash
@@ -76,11 +85,4 @@ curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-dev
 ```bash
 # Everything from Azure DevOps — 6 skills
 curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source microsoft/azure-devops-skills
-```
-
-## Everything, every source
-
-```bash
-# Every official skill above, deduped — several hundred skills
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source all
 ```
