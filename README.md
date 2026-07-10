@@ -26,6 +26,7 @@ This repository evaluates which agents are safe, useful, and production-adjacent
 
 | Date | Entry | Category |
 | --- | --- | --- |
+| 2026-07-09 | [redis/mcp-redis](https://github.com/redis/mcp-redis) | Data platform / Redis |
 | 2026-07-08 | [Elastic Agent Builder MCP server docs](https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server) | SRE / observability |
 | 2026-07-07 | [skyhook-io/radar](https://github.com/skyhook-io/radar) | Kubernetes / community MCP |
 | 2026-07-07 | [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) | Agent security / MCP risk framework |
@@ -125,6 +126,7 @@ Link reachability, archived status, and freshness are checked automatically by [
 | SRE incident response | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana), [datadog-labs/mcp-server](https://github.com/datadog-labs/mcp-server), [Elastic Agent Builder MCP server docs](https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server), and [PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | Official observability and incident-management MCPs for metrics, logs, traces, indexed operational data, alerts, incidents, and on-call context. |
 | FinOps and cloud cost | [vantage-sh/vantage-mcp-server](https://github.com/vantage-sh/vantage-mcp-server) | Official Vantage MCP server for cloud spend analysis, budgets, anomalies, reports, and provider-resource cost context across Vantage-connected providers. |
 | Security and code quality | [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/), [SonarSource/sonarqube-mcp-server](https://github.com/SonarSource/sonarqube-mcp-server), [okta/okta-mcp-server](https://github.com/okta/okta-mcp-server), [Snyk Studio MCP docs](https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio), and [Wiz WIN MCP Server docs](https://docs.wiz.io/dev/win-mcp-server) | Official MCPs and security resources for MCP threat modeling, code quality, application security, identity-aware workflows, agent security, and cloud-security posture. |
+| Data platform operations | [mongodb-js/mongodb-mcp-server](https://github.com/mongodb-js/mongodb-mcp-server) and [redis/mcp-redis](https://github.com/redis/mcp-redis) | Official database MCP servers for MongoDB and Redis operational context, cache/session data, vector search, streams, and data-platform agent workflows. |
 | CI/CD and GitOps | [jenkinsci/mcp-server-plugin](https://github.com/jenkinsci/mcp-server-plugin) and [argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd) | Official Jenkins and Argo Project resources for pipeline, build, deployment, and GitOps workflows. |
 | MCP development and governance | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk), [modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk), [modelcontextprotocol/registry](https://github.com/modelcontextprotocol/registry), and [Docker MCP Catalog and Toolkit](https://docs.docker.com/ai/mcp-catalog-and-toolkit/) | Official SDKs, registry, and Docker governance surfaces for building, packaging, and controlling DevOps MCP servers. |
 | Agent frameworks and templates | [google/adk-python](https://github.com/google/adk-python) and [GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack) | Official Google agent framework and production templates with CI/CD, evaluation, and observability. |
@@ -253,6 +255,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a r
 | Repo | Labels | Operator note |
 | --- | --- | --- |
 | [mongodb-js/mongodb-mcp-server](https://github.com/mongodb-js/mongodb-mcp-server) | 🟢 🔵 🛡️ ⚠️ | Official MongoDB MCP server (public preview) connecting agents to MongoDB Community, Enterprise, and Atlas deployments. |
+| [redis/mcp-redis](https://github.com/redis/mcp-redis) | 🟢 🔵 🛡️ ⚠️ | Official Redis MCP Server for natural-language Redis data management, cache/session workflows, vector search, streams, pub/sub, and Redis documentation lookup. |
 
 ### Official FinOps and Cloud-Cost MCP Servers
 
