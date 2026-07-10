@@ -134,55 +134,55 @@ Link reachability, archived status, and freshness are checked automatically by [
 
 ## Install official skills into your coding agent
 
-Install official [Agent Skills](https://github.com/anthropics/skills) into your coding agent with **one command**. Skills come from every `official-agent-skills` repo in this catalog — Google, Microsoft, Azure, and Azure DevOps — browse them all in the **[skills catalog by company & product](docs/official-skills-catalog.md)** and copy the exact `--source …` for what you want.
+Install official [Agent Skills](https://github.com/anthropics/skills) into your coding agent with **one command**. Skills come from every `official-agent-skills` repo in this catalog — Google, Microsoft, Azure, and Azure DevOps.
 
-The commands below use `--source google/skills` as an example (72 Google skills). Swap in any source from the catalog — `--source microsoft/skills`, `--source microsoft/azure-skills`, `--source microsoft/azure-devops-skills`, or `--source all` — and add `--filter <substring>` to install just one product (e.g. `--filter azure-sdk-python`, or `--filter cloud`).
+The commands below use `--source all` to install **every** official skill (several hundred). To install just one company or product instead, use the ready-to-run commands in the **[skills catalog by company & product](docs/official-skills-catalog.md)** — or swap `--source all` for a specific source, e.g. `--source microsoft/skills --filter azure-sdk-python` or `--source google/skills --filter cloud`.
 
 **macOS / Linux** — copy, paste, run:
 
 ```bash
 # Claude Code
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source google/skills
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source all
 
 # Cursor
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/cursor/install.sh | sh -s -- --source google/skills
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/cursor/install.sh | sh -s -- --source all
 
 # Codex
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/codex/install.sh | sh -s -- --source google/skills
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/codex/install.sh | sh -s -- --source all
 
 # Antigravity
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/antigravity/install.sh | sh -s -- --source google/skills
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/antigravity/install.sh | sh -s -- --source all
 
 # VS Code
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/vscode/install.sh | sh -s -- --source google/skills
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/vscode/install.sh | sh -s -- --source all
 
 # All agents at once
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/all/install.sh | sh -s -- --source google/skills
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/all/install.sh | sh -s -- --source all
 ```
 
 **Windows (PowerShell)** — copy, paste, run:
 
 ```powershell
 # Claude Code
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.ps1 -OutFile install.ps1; ./install.ps1 --source google/skills
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.ps1 -OutFile install.ps1; ./install.ps1 --source all
 
 # Cursor
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/cursor/install.ps1 -OutFile install.ps1; ./install.ps1 --source google/skills
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/cursor/install.ps1 -OutFile install.ps1; ./install.ps1 --source all
 
 # Codex
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/codex/install.ps1 -OutFile install.ps1; ./install.ps1 --source google/skills
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/codex/install.ps1 -OutFile install.ps1; ./install.ps1 --source all
 
 # Antigravity
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/antigravity/install.ps1 -OutFile install.ps1; ./install.ps1 --source google/skills
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/antigravity/install.ps1 -OutFile install.ps1; ./install.ps1 --source all
 
 # VS Code
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/vscode/install.ps1 -OutFile install.ps1; ./install.ps1 --source google/skills
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/vscode/install.ps1 -OutFile install.ps1; ./install.ps1 --source all
 
 # All agents at once
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/all/install.ps1 -OutFile install.ps1; ./install.ps1 --source google/skills
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/all/install.ps1 -OutFile install.ps1; ./install.ps1 --source all
 ```
 
-**What can I install?** See the **[official skills catalog by company & product](docs/official-skills-catalog.md)** — Google (72), Microsoft (191), Azure (33), and Azure DevOps (6), each with the exact `--source …`/`--filter …` to install it. The example commands above install the 72 Google skills; `--source all` pulls every source.
+**What gets installed?** The commands above (`--source all`) install every official skill — Google (72), Microsoft (191), Azure (33), and Azure DevOps (6). To install just one company or product, use the ready-to-run commands in the **[official skills catalog by company & product](docs/official-skills-catalog.md)**.
 
 **How each agent gets skills:**
 
@@ -195,7 +195,7 @@ irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/mai
 
 Only Claude Code loads `SKILL.md` folders natively; the others get the real skill folders once in `./.agent-skills/` plus a pointer written into that agent's own always-on instructions file (existing content is preserved — the pointer is a managed block).
 
-**Safety:** installs directly (skill folders are additive and reversible); pass `--dry-run` to preview first. It only writes skill folders and the pointer file — never secrets or other settings. `--list-sources` / `--list` show what's available. Prefer not to pipe a remote script to your shell? Read [`scripts/install_skills.py`](scripts/install_skills.py) and run it from a clone: `python3 scripts/install_skills.py --agent claude-code --source google/skills`.
+**Safety:** installs directly (skill folders are additive and reversible); pass `--dry-run` to preview first. It only writes skill folders and the pointer file — never secrets or other settings. `--list-sources` / `--list` show what's available. Prefer not to pipe a remote script to your shell? Read [`scripts/install_skills.py`](scripts/install_skills.py) and run it from a clone: `python3 scripts/install_skills.py --agent claude-code --source all`.
 
 > Claude Code loads skills natively; the other agents get the same skill folders plus a pointer into their own instructions file (a lossy but useful adaptation, since only Claude Code has a native skills mechanism).
 
