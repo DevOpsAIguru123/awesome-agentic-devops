@@ -1,6 +1,6 @@
-# One-command installer: official agent skills -> claude-code.
+# One-command installer: official agent skills -> codex.
 #
-#   iwr https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.ps1 -OutFile install.ps1
+#   iwr https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/codex/install.ps1 -OutFile install.ps1
 #   ./install.ps1 --source google/skills --filter cloud
 #
 # Installs immediately. Add --dry-run to preview, --source all for every source.
@@ -14,6 +14,6 @@ New-Item -ItemType Directory -Path $tmp | Out-Null
 try {
     Invoke-WebRequest "$raw/scripts/install_skills.py" -OutFile (Join-Path $tmp "install_skills.py")
     Invoke-WebRequest "$raw/data/repos.yaml" -OutFile (Join-Path $tmp "repos.yaml")
-    & $py.Path (Join-Path $tmp "install_skills.py") --agent claude-code --repos (Join-Path $tmp "repos.yaml") @args
+    & $py.Path (Join-Path $tmp "install_skills.py") --agent codex --repos (Join-Path $tmp "repos.yaml") @args
 }
 finally { Remove-Item -Recurse -Force $tmp }

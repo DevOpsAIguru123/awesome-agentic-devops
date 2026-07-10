@@ -1,7 +1,7 @@
 #!/bin/sh
-# One-command installer: official agent skills -> claude-code.
+# One-command installer: official agent skills -> all.
 #
-#   curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source google/skills --filter cloud
+#   curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/all/install.sh | sh -s -- --source google/skills --filter cloud
 #
 # Installs immediately. Add --dry-run to preview, --source all for every source.
 set -eu
@@ -14,4 +14,4 @@ tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 curl -fsSL "$RAW/scripts/install_skills.py" -o "$tmp/install_skills.py"
 curl -fsSL "$RAW/data/repos.yaml" -o "$tmp/repos.yaml"
-exec python3 "$tmp/install_skills.py" --agent claude-code --repos "$tmp/repos.yaml" "$@"
+exec python3 "$tmp/install_skills.py" --agent all --repos "$tmp/repos.yaml" "$@"
