@@ -18,6 +18,7 @@ This repository evaluates which agents are safe, useful, and production-adjacent
 - [How entries are scored](#how-entries-are-scored)
 - [Categories](#categories)
 - [Top picks by use case](#top-picks-by-use-case)
+- [Install official skills into your coding agent](#install-official-skills-into-your-coding-agent)
 - [Local reference agents](#local-reference-agents)
 - [Curated catalog](#curated-catalog)
 - [How to contribute](#how-to-contribute)
@@ -130,6 +131,32 @@ Link reachability, archived status, and freshness are checked automatically by [
 | CI/CD and GitOps | [jenkinsci/mcp-server-plugin](https://github.com/jenkinsci/mcp-server-plugin) and [argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd) | Official Jenkins and Argo Project resources for pipeline, build, deployment, and GitOps workflows. |
 | MCP development and governance | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk), [modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk), [modelcontextprotocol/registry](https://github.com/modelcontextprotocol/registry), and [Docker MCP Catalog and Toolkit](https://docs.docker.com/ai/mcp-catalog-and-toolkit/) | Official SDKs, registry, and Docker governance surfaces for building, packaging, and controlling DevOps MCP servers. |
 | Agent frameworks and templates | [google/adk-python](https://github.com/google/adk-python) and [GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack) | Official Google agent framework and production templates with CI/CD, evaluation, and observability. |
+
+## Install official skills into your coding agent
+
+Install official [Agent Skills](https://github.com/anthropics/skills) — sourced from the `official-agent-skills` repos in this catalog (`google/skills`, `microsoft/skills`, and more) — into your coding agent with one command. Skills are copied as real skill folders (each a directory with a `SKILL.md`).
+
+**Claude Code** (installs into `~/.claude/skills/`):
+
+```bash
+# macOS / Linux — preview available sources (writes nothing):
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh
+
+# then install a source you picked (add --yes to actually write):
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source google/skills --filter cloud --yes
+```
+
+```powershell
+# Windows — download then run so you can pass options:
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.ps1 -OutFile install.ps1
+./install.ps1 --source google/skills --filter cloud --yes
+```
+
+**Safety:** dry-run by default — nothing is written until you pass `--yes`. It only writes skill folders under the agent's skills directory (`--project` targets `./.claude/skills` instead of the global one); it never touches secrets or other settings. Because a single source can hold hundreds of skills, use `--filter <substring>` to scope what you install, and `--list-sources` / `--list` to look before you leap.
+
+Prefer not to pipe a remote script to your shell? Read [`scripts/install_skills.py`](scripts/install_skills.py) and run it directly from a clone: `python3 scripts/install_skills.py --agent claude-code --source google/skills --filter cloud --yes`.
+
+> Claude Code is supported today (it has a native skills mechanism). Other agents (Cursor, Codex, VS Code, Antigravity) are planned as compatibility adapters into their rules/instructions files.
 
 ## Local Reference Agents
 
