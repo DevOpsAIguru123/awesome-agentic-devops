@@ -1,0 +1,1252 @@
+{
+  "entries": [
+    {
+      "name": "microsoft/azure-skills",
+      "url": "https://github.com/microsoft/azure-skills",
+      "category": "official-agent-skills",
+      "type": "agent-plugin",
+      "framework": "skills + MCP + plugin",
+      "primary_language": "unknown",
+      "cloud_provider": "Azure",
+      "use_cases": [
+        "azure-deployment",
+        "cloud-diagnostics",
+        "cost-and-rbac-review"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Bundles live Azure MCP tools; validate RBAC, tenant selection, pricing impact, and write approvals before use.",
+      "operator_note": "Official Azure skills plugin with Azure skills, Azure MCP tools, and Foundry MCP coverage.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "microsoft/skills",
+      "url": "https://github.com/microsoft/skills",
+      "category": "official-agent-skills",
+      "type": "skill-library",
+      "framework": "skills + MCP",
+      "primary_language": "unknown",
+      "cloud_provider": "Azure",
+      "use_cases": [
+        "azure-cloud-architecture",
+        "mcp-builder-skills",
+        "microsoft-agent-framework"
+      ],
+      "action_level": "proposal",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "skill-library",
+      "risk_notes": "General skill material should be paired with environment-specific approval and credential boundaries before live automation.",
+      "operator_note": "Official Microsoft skills, MCP configurations, custom agents, and AGENTS.md guidance for coding agents.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️"
+      ]
+    },
+    {
+      "name": "CircleCI-Public/mcp-server-circleci",
+      "url": "https://github.com/CircleCI-Public/mcp-server-circleci",
+      "category": "official-ci-cd-mcp-servers",
+      "type": "mcp-server",
+      "framework": "MCP",
+      "primary_language": "TypeScript",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "build-failure-investigation",
+        "flaky-test-identification",
+        "pipeline-and-usage-analysis"
+      ],
+      "action_level": "read-only",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Access exposes build logs and usage data; scope CircleCI API tokens per project and keep write-capable pipeline triggers behind explicit approval.",
+      "operator_note": "Official CircleCI MCP server for build failure logs, pipeline status, flaky test detection, and usage analysis.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "📊"
+      ]
+    },
+    {
+      "name": "jenkinsci/mcp-server-plugin",
+      "url": "https://github.com/jenkinsci/mcp-server-plugin",
+      "category": "official-ci-cd-mcp-servers",
+      "type": "mcp-server-plugin",
+      "framework": "MCP + Jenkins",
+      "primary_language": "Java",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "jenkins-job-context",
+        "ci-cd-automation",
+        "build-and-pipeline-investigation"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Jenkins access can expose build logs, credentials, job configuration, and deployment controls; require folder/job scoping and approval before triggering or mutating jobs.",
+      "operator_note": "Official Jenkins plugin that enables Jenkins to act as an MCP server for LLM-powered clients.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "aws/agent-toolkit-for-aws",
+      "url": "https://github.com/aws/agent-toolkit-for-aws",
+      "category": "official-cloud-agent-toolkits",
+      "type": "agent-toolkit",
+      "framework": "MCP + skills + plugins",
+      "primary_language": "unknown",
+      "cloud_provider": "AWS",
+      "use_cases": [
+        "aws-cloud-automation",
+        "agent-skills",
+        "devsecops-agent-workflows"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "yes",
+      "maturity": "production-adjacent",
+      "risk_notes": "Can act on AWS resources through authenticated tooling; require least-privilege IAM, read-only first runs, and explicit write approval.",
+      "operator_note": "Official AWS-supported toolkit that bundles MCP server configuration, skills, plugins, and DevSecOps agent workflows.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "📊",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "awslabs/mcp",
+      "url": "https://github.com/awslabs/mcp",
+      "category": "official-cloud-mcp-servers",
+      "type": "mcp-server-collection",
+      "framework": "MCP",
+      "primary_language": "unknown",
+      "cloud_provider": "AWS",
+      "use_cases": [
+        "aws-service-context",
+        "cloud-native-development",
+        "infrastructure-management"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "AWS identifies Agent Toolkit for AWS as the successor path; pin versions and prefer read-only or proposal mode before write tools.",
+      "operator_note": "Official AWS Labs MCP server collection; useful legacy/source reference while AWS transitions capabilities into Agent Toolkit.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "cloudflare/mcp-server-cloudflare",
+      "url": "https://github.com/cloudflare/mcp-server-cloudflare",
+      "category": "official-cloud-mcp-servers",
+      "type": "mcp-server-collection",
+      "framework": "MCP",
+      "primary_language": "TypeScript",
+      "cloud_provider": "Cloudflare",
+      "use_cases": [
+        "cloudflare-account-automation",
+        "edge-and-worker-configuration",
+        "security-and-performance-tuning"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Domain-specific servers can read and mutate live Cloudflare account configuration; scope API tokens per zone/account and require approval before write actions.",
+      "operator_note": "Official Cloudflare MCP servers for account, Workers, and edge configuration workflows, with both curated domain servers and a code-mode server.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "google/mcp",
+      "url": "https://github.com/google/mcp",
+      "category": "official-cloud-mcp-servers",
+      "type": "mcp-server-catalog",
+      "framework": "MCP",
+      "primary_language": "unknown",
+      "cloud_provider": "Google Cloud",
+      "use_cases": [
+        "google-cloud-mcp-discovery",
+        "managed-remote-mcp",
+        "cloud-run-mcp-hosting"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Remote Google MCP servers can touch cloud resources; require project scoping, IAM boundaries, and audit logging.",
+      "operator_note": "Official Google MCP repository listing managed and open-source MCP servers for Google and Google Cloud.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "googleapis/gcloud-mcp",
+      "url": "https://github.com/googleapis/gcloud-mcp",
+      "category": "official-cloud-mcp-servers",
+      "type": "mcp-server-collection",
+      "framework": "MCP",
+      "primary_language": "unknown",
+      "cloud_provider": "Google Cloud",
+      "use_cases": [
+        "gcloud-automation",
+        "observability-querying",
+        "storage-management"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Can issue gcloud-backed operations; pin packages, require project/region confirmation, and start in read-only diagnostics.",
+      "operator_note": "Official Google API repository for gcloud, observability, storage, and backup/disaster-recovery MCP servers.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "GoogleCloudPlatform/cloud-run-mcp",
+      "url": "https://github.com/GoogleCloudPlatform/cloud-run-mcp",
+      "category": "official-cloud-mcp-servers",
+      "type": "mcp-server",
+      "framework": "MCP",
+      "primary_language": "unknown",
+      "cloud_provider": "Google Cloud",
+      "use_cases": [
+        "cloud-run-deployments",
+        "serverless-app-deployment",
+        "remote-mcp-hosting"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Deployment tools can create or update Cloud Run services; require IAM-authenticated endpoints and no unauthenticated remote MCP access.",
+      "operator_note": "Official Google Cloud Platform MCP server for deploying apps to Cloud Run.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "microsoft/mcp",
+      "url": "https://github.com/microsoft/mcp",
+      "category": "official-cloud-mcp-servers",
+      "type": "mcp-server-catalog",
+      "framework": "MCP",
+      "primary_language": "unknown",
+      "cloud_provider": "Azure",
+      "use_cases": [
+        "azure-resource-management",
+        "cloud-and-infrastructure-tools",
+        "microsoft-mcp-discovery"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Azure MCP tools may query or mutate live Azure resources; require tenant scoping, RBAC review, and explicit write approval.",
+      "operator_note": "Official Microsoft MCP catalog, including Azure cloud and infrastructure MCP references.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "vercel/vercel-mcp-overview",
+      "url": "https://github.com/vercel/vercel-mcp-overview",
+      "category": "official-cloud-mcp-servers",
+      "type": "hosted-mcp-server",
+      "framework": "MCP",
+      "primary_language": "unknown",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "vercel-project-and-deployment-context",
+        "serverless-app-automation",
+        "remote-mcp-hosting"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "The hosted remote MCP can read and mutate live Vercel projects and deployments; use OAuth-scoped access and require approval before deploy or config changes.",
+      "operator_note": "Official public overview of Vercel's hosted MCP server, documented at vercel.com/docs/mcp/vercel-mcp; this repo tracks the docs, not a standalone local server.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "Wiz WIN MCP Server docs",
+      "url": "https://docs.wiz.io/dev/win-mcp-server",
+      "category": "official-cloud-security-mcp-servers",
+      "type": "documentation",
+      "framework": "MCP + Wiz",
+      "primary_language": "unknown",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "cloud-security-posture-context",
+        "vulnerability-and-risk-investigation",
+        "cnapp-agent-workflows"
+      ],
+      "action_level": "read-only",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Cloud security posture data can expose sensitive asset and vulnerability details; require tenant scoping and read-only access by default.",
+      "operator_note": "Official Wiz documentation for the WIN MCP server, adding CNAPP and cloud-security coverage.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "📊"
+      ]
+    },
+    {
+      "name": "mongodb-js/mongodb-mcp-server",
+      "url": "https://github.com/mongodb-js/mongodb-mcp-server",
+      "category": "official-data-platform-mcp-servers",
+      "type": "mcp-server",
+      "framework": "MCP",
+      "primary_language": "TypeScript",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "mongodb-atlas-administration",
+        "database-schema-and-query-inspection",
+        "data-platform-agent-workflows"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Public preview; can run database operations and Atlas API actions, so require least-privilege connection strings and disable destructive operations by default.",
+      "operator_note": "Official MongoDB MCP server connecting agents to MongoDB Community, Enterprise, and Atlas deployments.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "redis/mcp-redis",
+      "url": "https://github.com/redis/mcp-redis",
+      "category": "official-data-platform-mcp-servers",
+      "type": "mcp-server",
+      "framework": "MCP",
+      "primary_language": "Python",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "redis-data-management",
+        "cache-and-session-operations",
+        "vector-search-and-stream-workflows"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Can set, update, delete, publish, and stream data in live Redis instances; enforce Redis ACLs such as read-only users for diagnostics, scope credentials per database, and require approval for writes.",
+      "operator_note": "Official Redis MCP Server for natural-language Redis data management, cache/session workflows, vector search, streams, pub/sub, and Redis documentation lookup.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "Docker MCP Catalog and Toolkit docs",
+      "url": "https://docs.docker.com/ai/mcp-catalog-and-toolkit/",
+      "category": "official-devops-mcp-platforms",
+      "type": "documentation",
+      "framework": "MCP + Docker",
+      "primary_language": "unknown",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "containerized-mcp-management",
+        "mcp-server-profiles",
+        "mcp-gateway-governance"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Containerized MCP servers still expose tools and credentials; require image trust, profile scoping, OAuth review, and permission boundaries.",
+      "operator_note": "Official Docker documentation for MCP Toolkit, MCP Catalog, profiles, CLI, and MCP Gateway.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "Docker MCP Gateway docs",
+      "url": "https://docs.docker.com/ai/mcp-catalog-and-toolkit/mcp-gateway/",
+      "category": "official-devops-mcp-platforms",
+      "type": "documentation",
+      "framework": "MCP + Docker Gateway",
+      "primary_language": "unknown",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "centralized-mcp-governance",
+        "mcp-tool-orchestration",
+        "ai-tool-security-boundaries"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Gateway configuration can broaden agent tool access; require profile review, server allowlists, credential boundaries, and audit controls.",
+      "operator_note": "Official Docker MCP Gateway documentation for secure, centralized orchestration of containerized MCP tools.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "atlassian/atlassian-mcp-server",
+      "url": "https://github.com/atlassian/atlassian-mcp-server",
+      "category": "official-devops-mcp-servers",
+      "type": "hosted-mcp-server",
+      "framework": "MCP",
+      "primary_language": "unknown",
+      "cloud_provider": "Atlassian",
+      "use_cases": [
+        "jira-workflows",
+        "service-management",
+        "confluence-and-bitbucket-context"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Can create or update Jira/Confluence/Bitbucket artifacts; require OAuth scopes, project defaults, and approval for bulk writes.",
+      "operator_note": "Official Atlassian Rovo MCP server for Jira, Confluence, Jira Service Management, Bitbucket, and Compass.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "docker/mcp-registry",
+      "url": "https://github.com/docker/mcp-registry",
+      "category": "official-devops-mcp-servers",
+      "type": "mcp-registry",
+      "framework": "MCP + Docker",
+      "primary_language": "unknown",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "containerized-mcp-discovery",
+        "mcp-server-packaging",
+        "verified-mcp-images"
+      ],
+      "action_level": "read-only",
+      "human_approval": true,
+      "evidence_tracing": "yes",
+      "maturity": "production-adjacent",
+      "risk_notes": "Catalog quality helps but does not replace server-level permission review, image pinning, and tool-surface auditing.",
+      "operator_note": "Official Docker MCP registry and catalog source for verified containerized MCP servers.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "📊"
+      ]
+    },
+    {
+      "name": "github/github-mcp-server",
+      "url": "https://github.com/github/github-mcp-server",
+      "category": "official-devops-mcp-servers",
+      "type": "mcp-server",
+      "framework": "MCP",
+      "primary_language": "unknown",
+      "cloud_provider": "GitHub",
+      "use_cases": [
+        "repository-automation",
+        "issue-and-pr-management",
+        "ci-cd-workflow-context"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Repository write actions, issue changes, and workflow interactions must be scoped by token permissions and branch protections.",
+      "operator_note": "Official GitHub MCP server for repository, issue, pull request, code, and workflow automation.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "GitLab MCP server",
+      "url": "https://docs.gitlab.com/user/gitlab_duo/model_context_protocol/mcp_server/",
+      "category": "official-devops-mcp-servers",
+      "type": "hosted-mcp-server",
+      "framework": "MCP",
+      "primary_language": "unknown",
+      "cloud_provider": "GitLab",
+      "use_cases": [
+        "gitlab-project-access",
+        "merge-request-and-issue-context",
+        "gitlab-api-operations"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "GitLab warns to guard against prompt injection; use trusted project scopes, OAuth, and least-privilege permissions.",
+      "operator_note": "Official GitLab MCP server is documented as a GitLab-hosted endpoint rather than a standalone GitHub repo.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "kubernetes-sigs/mcp-lifecycle-operator",
+      "url": "https://github.com/kubernetes-sigs/mcp-lifecycle-operator",
+      "category": "official-devops-mcp-servers",
+      "type": "mcp-operator",
+      "framework": "Kubernetes + MCP",
+      "primary_language": "Go",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "mcp-server-lifecycle",
+        "kubernetes-operator",
+        "production-rollout-management"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "prototype",
+      "risk_notes": "Alpha v1alpha1 APIs can change; test only in non-production clusters before considering platform integration.",
+      "operator_note": "Official Kubernetes SIG operator for declaratively deploying and rolling out MCP servers, not a general kubectl MCP server.",
+      "labels": [
+        "🟡",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "microsoft/azure-devops-mcp",
+      "url": "https://github.com/microsoft/azure-devops-mcp",
+      "category": "official-devops-mcp-servers",
+      "type": "mcp-server",
+      "framework": "MCP",
+      "primary_language": "unknown",
+      "cloud_provider": "Azure",
+      "use_cases": [
+        "azure-devops-work-items",
+        "azure-pipelines",
+        "ai-agent-devops-tooling"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Can interact with Azure DevOps work items and pipelines; separate read-only investigation from ticket or pipeline mutations.",
+      "operator_note": "Official Azure DevOps MCP server with remote-first onboarding and local server option.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "jgraph/drawio-mcp",
+      "url": "https://github.com/jgraph/drawio-mcp",
+      "category": "official-diagramming-mcp-tools",
+      "type": "mcp-server",
+      "framework": "MCP + plugin",
+      "primary_language": "unknown",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "architecture-diagramming",
+        "drawio-shape-search",
+        "diagram-generation"
+      ],
+      "action_level": "proposal",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Diagram content may include sensitive architecture details; prefer local/self-hosted modes for private infrastructure diagrams.",
+      "operator_note": "draw.io MCP server and Claude Code plugin for generating, opening, and exporting draw.io diagrams with shape search.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️"
+      ]
+    },
+    {
+      "name": "vantage-sh/vantage-mcp-server",
+      "url": "https://github.com/vantage-sh/vantage-mcp-server",
+      "category": "official-finops-mcp-servers",
+      "type": "mcp-server",
+      "framework": "MCP + Vantage API",
+      "primary_language": "TypeScript",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "cloud-cost-analysis",
+        "finops-reporting",
+        "budget-and-anomaly-investigation"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "yes",
+      "maturity": "production-adjacent",
+      "risk_notes": "Can create and delete Vantage reports, folders, notifications, and cost-allocation objects; rely on Vantage account/workspace permissions, OAuth/API-key scoping, audit logs, and explicit approval before write or irreversible delete tools.",
+      "operator_note": "Official Vantage MCP server for natural-language FinOps workflows over Vantage cloud spend, budgets, anomalies, reports, and provider resources.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "📊",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "argoproj-labs/mcp-for-argocd",
+      "url": "https://github.com/argoproj-labs/mcp-for-argocd",
+      "category": "official-gitops-mcp-servers",
+      "type": "mcp-server",
+      "framework": "MCP + Argo CD",
+      "primary_language": "TypeScript",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "gitops-application-context",
+        "argocd-sync-investigation",
+        "kubernetes-deployment-triage"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "prototype",
+      "risk_notes": "Argo CD workflows can affect live Kubernetes deployments; start with read-only app/status inspection and require approval for sync, rollback, or mutation actions.",
+      "operator_note": "Argo Project Labs MCP server implementation for Argo CD, filling the GitOps/CD gap in the catalog.",
+      "labels": [
+        "🟡",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "hashicorp/terraform-mcp-server",
+      "url": "https://github.com/hashicorp/terraform-mcp-server",
+      "category": "official-iac-mcp-servers",
+      "type": "mcp-server",
+      "framework": "MCP",
+      "primary_language": "Go",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "terraform-registry-search",
+        "hcp-terraform-workspaces",
+        "iac-automation"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "yes",
+      "maturity": "production-adjacent",
+      "risk_notes": "HCP Terraform and workspace operations can expose or mutate infrastructure data; require token scoping and apply approval.",
+      "operator_note": "Official HashiCorp Terraform MCP server with registry, HCP Terraform, Terraform Enterprise, and OTel support.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "📊",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "hashicorp/vault-mcp-server",
+      "url": "https://github.com/hashicorp/vault-mcp-server",
+      "category": "official-iac-mcp-servers",
+      "type": "mcp-server",
+      "framework": "MCP",
+      "primary_language": "Go",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "secrets-and-mount-inspection",
+        "vault-policy-review",
+        "secrets-management-automation"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "prototype",
+      "risk_notes": "Beta; tools can touch live secrets engines and mounts, so run locally only, avoid exposing it to other network users, and require approval before write operations.",
+      "operator_note": "Official HashiCorp Vault MCP server for secrets and mount management, complementing the Terraform MCP server for IaC workflows.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "Pulumi MCP Server",
+      "url": "https://www.pulumi.com/docs/ai/mcp-server/",
+      "category": "official-iac-mcp-servers",
+      "type": "hosted-mcp-server",
+      "framework": "MCP",
+      "primary_language": "unknown",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "pulumi-cloud-resource-query",
+        "infrastructure-code-generation",
+        "automated-infra-workflows"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Pulumi workflows can query org resources and delegate infrastructure work; require org scoping, policy checks, and approval.",
+      "operator_note": "Official Pulumi hosted MCP server for Pulumi Cloud resources, registry lookup, policies, and Pulumi Neo workflows.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "modelcontextprotocol/servers",
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "category": "official-mcp-reference-implementations",
+      "type": "reference-implementations",
+      "framework": "MCP",
+      "primary_language": "TypeScript",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "mcp-feature-reference",
+        "server-implementation-patterns",
+        "sdk-usage-examples"
+      ],
+      "action_level": "proposal",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Reference servers are educational starting points; production DevOps servers still need permission review, secrets handling, and destructive-tool approval gates.",
+      "operator_note": "Official MCP reference server implementations and ecosystem pointers.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️"
+      ]
+    },
+    {
+      "name": "modelcontextprotocol/registry",
+      "url": "https://github.com/modelcontextprotocol/registry",
+      "category": "official-mcp-registry",
+      "type": "registry",
+      "framework": "MCP",
+      "primary_language": "Go",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "mcp-server-discovery",
+        "catalog-freshness-auditing",
+        "server-metadata-review"
+      ],
+      "action_level": "read-only",
+      "human_approval": true,
+      "evidence_tracing": "yes",
+      "maturity": "production-adjacent",
+      "risk_notes": "Registry metadata helps discovery but does not prove safety; each server still needs tool-surface and credential review.",
+      "operator_note": "Official community-driven registry service for Model Context Protocol servers.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "📊"
+      ]
+    },
+    {
+      "name": "modelcontextprotocol/python-sdk",
+      "url": "https://github.com/modelcontextprotocol/python-sdk",
+      "category": "official-mcp-sdks",
+      "type": "sdk",
+      "framework": "MCP",
+      "primary_language": "Python",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "mcp-server-development",
+        "python-devops-tool-servers",
+        "agent-tool-boundary-design"
+      ],
+      "action_level": "proposal",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "SDK is safe by itself, but servers built with it need explicit tool allowlists, credential isolation, and destructive-action approval gates.",
+      "operator_note": "Official Python SDK for building MCP servers and clients.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️"
+      ]
+    },
+    {
+      "name": "modelcontextprotocol/typescript-sdk",
+      "url": "https://github.com/modelcontextprotocol/typescript-sdk",
+      "category": "official-mcp-sdks",
+      "type": "sdk",
+      "framework": "MCP",
+      "primary_language": "TypeScript",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "mcp-server-development",
+        "typescript-devops-tool-servers",
+        "agent-client-integration"
+      ],
+      "action_level": "proposal",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "SDK examples must be wrapped with environment-specific allowlists, credential isolation, and approval checks before production use.",
+      "operator_note": "Official TypeScript SDK for Model Context Protocol servers and clients.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️"
+      ]
+    },
+    {
+      "name": "backstage/backstage (plugins/mcp-actions-backend)",
+      "url": "https://github.com/backstage/backstage/tree/master/plugins/mcp-actions-backend",
+      "category": "official-platform-agent-toolkits",
+      "type": "mcp-plugin",
+      "framework": "MCP + Backstage",
+      "primary_language": "TypeScript",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "internal-developer-portal-actions",
+        "software-catalog-automation",
+        "agent-exposed-plugin-actions"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Exposes registered plugin actions, some of which can mutate catalog entities or trigger scaffolder templates; scope static tokens or OAuth per environment and review each action's write scope.",
+      "operator_note": "Official CNCF Backstage plugin that exposes registered plugin actions as MCP tools for AI agents like Claude, Cursor, and internal assistants.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "databricks-solutions/ai-dev-kit",
+      "url": "https://github.com/databricks-solutions/ai-dev-kit",
+      "category": "official-platform-agent-toolkits",
+      "type": "agent-toolkit",
+      "framework": "MCP + skills + tools",
+      "primary_language": "unknown",
+      "cloud_provider": "Databricks",
+      "use_cases": [
+        "databricks-ai-assisted-development",
+        "databricks-mcp-tools",
+        "genie-code-skills"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Includes executable Databricks tools and workspace integrations; require profile/workspace confirmation, least-privilege credentials, and approval before jobs, apps, serving, or Unity Catalog changes.",
+      "operator_note": "Databricks field-engineering AI Dev Kit with Databricks MCP server, Databricks skills, tools core, and builder app support.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "📊",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "kubeflow/mcp-server",
+      "url": "https://github.com/kubeflow/mcp-server",
+      "category": "official-platform-agent-toolkits",
+      "type": "mcp-server",
+      "framework": "MCP",
+      "primary_language": "unknown",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "kubeflow-ai-assisted-development",
+        "mlops-workflows",
+        "pipeline-and-tool-context"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Kubeflow workflows can affect ML pipelines and platform resources; require namespace/project scoping and approval for mutations.",
+      "operator_note": "Official Kubeflow MCP server for AI-assisted development with Kubeflow tools.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "okta/okta-mcp-server",
+      "url": "https://github.com/okta/okta-mcp-server",
+      "category": "official-security-mcp-servers",
+      "type": "mcp-server",
+      "framework": "MCP",
+      "primary_language": "Python",
+      "cloud_provider": "Okta",
+      "use_cases": [
+        "identity-management",
+        "okta-admin-workflows",
+        "access-and-authentication-context"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Identity tooling is high impact; require least-privilege OAuth scopes, tenant confirmation, and explicit approval for user, group, or policy mutations.",
+      "operator_note": "Official Okta self-hosted MCP server for connecting agents to Okta identity workflows.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "OWASP MCP Top 10",
+      "url": "https://owasp.org/www-project-mcp-top-10/",
+      "category": "official-security-mcp-servers",
+      "type": "security-guidance",
+      "framework": "MCP",
+      "primary_language": "Markdown",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "mcp-threat-modeling",
+        "agent-security-review",
+        "control-gap-assessment"
+      ],
+      "action_level": "proposal",
+      "human_approval": true,
+      "evidence_tracing": "yes",
+      "maturity": "production-adjacent",
+      "risk_notes": "Guidance only, but should be applied before connecting write-capable MCP servers; explicitly review token handling, scope creep, tool poisoning, authz, telemetry, shadow servers, and context over-sharing.",
+      "operator_note": "Official OWASP MCP Top 10 documentation for assessing Model Context Protocol security risks across agentic DevOps integrations.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "📊"
+      ]
+    },
+    {
+      "name": "Snyk Studio MCP docs",
+      "url": "https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio",
+      "category": "official-security-mcp-servers",
+      "type": "documentation",
+      "framework": "MCP + Snyk Studio",
+      "primary_language": "unknown",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "agentic-security-scanning",
+        "ai-coding-assistant-security",
+        "secure-code-generation-workflows"
+      ],
+      "action_level": "read-only",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Security scans may include repository and dependency context; require account, org, and project scoping before connecting agent clients.",
+      "operator_note": "Official Snyk documentation for Snyk Studio agentic security workflows and Snyk MCP Server usage.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "📊"
+      ]
+    },
+    {
+      "name": "SonarSource/sonarqube-mcp-server",
+      "url": "https://github.com/SonarSource/sonarqube-mcp-server",
+      "category": "official-security-mcp-servers",
+      "type": "mcp-server",
+      "framework": "MCP",
+      "primary_language": "unknown",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "code-quality-analysis",
+        "application-security-review",
+        "sonarqube-cloud-and-server"
+      ],
+      "action_level": "read-only",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Requires SonarQube tokens and project/org scoping; keep project analysis and remediation recommendations separate from automated code changes.",
+      "operator_note": "Official SonarQube MCP server for code quality and security insights in AI agents.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️"
+      ]
+    },
+    {
+      "name": "Datadog MCP Server setup docs",
+      "url": "https://docs.datadoghq.com/mcp_server/setup/?tab=chatgpt",
+      "category": "official-sre-mcp-servers",
+      "type": "documentation",
+      "framework": "MCP",
+      "primary_language": "unknown",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "chatgpt-mcp-setup",
+        "datadog-mcp-configuration",
+        "observability-agent-onboarding"
+      ],
+      "action_level": "read-only",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Setup connects agents to observability data; scope authentication carefully and confirm workspace/site before enabling access.",
+      "operator_note": "Official Datadog MCP setup documentation, including the ChatGPT setup path.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "📊"
+      ]
+    },
+    {
+      "name": "datadog-labs/mcp-server",
+      "url": "https://github.com/datadog-labs/mcp-server",
+      "category": "official-sre-mcp-servers",
+      "type": "hosted-mcp-server",
+      "framework": "MCP",
+      "primary_language": "unknown",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "logs-metrics-traces",
+        "incident-investigation",
+        "observability-agent-examples"
+      ],
+      "action_level": "read-only",
+      "human_approval": true,
+      "evidence_tracing": "yes",
+      "maturity": "production-adjacent",
+      "risk_notes": "Telemetry may include sensitive operational data; scope auth by site/org and keep write actions disabled unless explicitly needed.",
+      "operator_note": "Official Datadog MCP server documentation and examples for connecting AI agents to Datadog observability.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "📊"
+      ]
+    },
+    {
+      "name": "Elastic Agent Builder MCP server docs",
+      "url": "https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server",
+      "category": "official-sre-mcp-servers",
+      "type": "documentation",
+      "framework": "MCP + Elastic Agent Builder",
+      "primary_language": "unknown",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "elastic-observability-querying",
+        "log-and-index-investigation",
+        "agent-builder-tool-access"
+      ],
+      "action_level": "read-only",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "MCP tools execute with API-key scope and can expose sensitive logs, metrics, traces, and indexed business data; restrict API keys to required spaces and index patterns.",
+      "operator_note": "Official Elastic documentation for exposing Agent Builder tools through MCP with Kibana URL and API-key authentication.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "📊"
+      ]
+    },
+    {
+      "name": "getsentry/sentry-mcp",
+      "url": "https://github.com/getsentry/sentry-mcp",
+      "category": "official-sre-mcp-servers",
+      "type": "hosted-mcp-server",
+      "framework": "MCP + skills",
+      "primary_language": "unknown",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "sentry-issue-debugging",
+        "error-and-trace-investigation",
+        "developer-workflow-observability"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Sentry tokens can expose sensitive production errors and some write scopes; require org/project scoping and keep debugging human-in-the-loop.",
+      "operator_note": "Official Sentry MCP service focused on human-in-the-loop coding agents and debugging workflows.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "📊",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "grafana/mcp-grafana",
+      "url": "https://github.com/grafana/mcp-grafana",
+      "category": "official-sre-mcp-servers",
+      "type": "mcp-server",
+      "framework": "MCP",
+      "primary_language": "Go",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "grafana-dashboard-access",
+        "alert-investigation",
+        "observability-querying"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "yes",
+      "maturity": "production-adjacent",
+      "risk_notes": "Grafana access can expose sensitive telemetry or mutate dashboards; use service accounts, read-only scopes, and audit logs.",
+      "operator_note": "Official Grafana MCP server for Grafana and surrounding observability ecosystem access.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "📊",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "newrelic/mcp-server",
+      "url": "https://github.com/newrelic/mcp-server",
+      "category": "official-sre-mcp-servers",
+      "type": "mcp-server",
+      "framework": "MCP",
+      "primary_language": "unknown",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "apm-and-dashboard-context",
+        "nrql-querying",
+        "incident-and-alert-investigation"
+      ],
+      "action_level": "read-only",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Telemetry may include sensitive application and infrastructure data; scope API keys per account and prefer read-only queries.",
+      "operator_note": "Official New Relic MCP server for connecting AI agents to APM, dashboards, and NRQL-based observability data.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "📊"
+      ]
+    },
+    {
+      "name": "PagerDuty/pagerduty-mcp-server",
+      "url": "https://github.com/PagerDuty/pagerduty-mcp-server",
+      "category": "official-sre-mcp-servers",
+      "type": "mcp-server",
+      "framework": "MCP",
+      "primary_language": "Python",
+      "cloud_provider": "multi-cloud",
+      "use_cases": [
+        "incident-management",
+        "on-call-schedules",
+        "service-and-escalation-workflows"
+      ],
+      "action_level": "write-capable",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Write tools can create incidents and schedule overrides; keep write tools disabled by default and require approval for changes.",
+      "operator_note": "Official PagerDuty MCP server for incidents, services, schedules, event orchestrations, and embedded incident UIs.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "⚠️"
+      ]
+    },
+    {
+      "name": "Splunk MCP Server",
+      "url": "https://splunkbase.splunk.com/app/7931",
+      "category": "official-sre-mcp-servers",
+      "type": "hosted-mcp-server",
+      "framework": "MCP",
+      "primary_language": "unknown",
+      "cloud_provider": "Splunk",
+      "use_cases": [
+        "splunk-platform-querying",
+        "log-and-event-investigation",
+        "enterprise-observability"
+      ],
+      "action_level": "read-only",
+      "human_approval": true,
+      "evidence_tracing": "partial",
+      "maturity": "production-adjacent",
+      "risk_notes": "Splunk data can contain sensitive logs and security events; require index, role, and search-scope controls before connecting agents.",
+      "operator_note": "Splunkbase listing for the Splunk-supported MCP Server for Splunk Platform, Enterprise, and Cloud customers.",
+      "labels": [
+        "🟢",
+        "🔵",
+        "🛡️",
+        "📊"
+      ]
+    }
+  ]
+}

@@ -18,6 +18,7 @@ This repository evaluates which agents are safe, useful, and production-adjacent
 - [How entries are scored](#how-entries-are-scored)
 - [Categories](#categories)
 - [Top picks by use case](#top-picks-by-use-case)
+- [One-command DevOps AI client setup](#one-command-devops-ai-client-setup)
 - [Local reference agents](#local-reference-agents)
 - [Curated catalog](#curated-catalog)
 - [How to contribute](#how-to-contribute)
@@ -130,6 +131,16 @@ Link reachability, archived status, and freshness are checked automatically by [
 | CI/CD and GitOps | [jenkinsci/mcp-server-plugin](https://github.com/jenkinsci/mcp-server-plugin) and [argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd) | Official Jenkins and Argo Project resources for pipeline, build, deployment, and GitOps workflows. |
 | MCP development and governance | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk), [modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk), [modelcontextprotocol/registry](https://github.com/modelcontextprotocol/registry), and [Docker MCP Catalog and Toolkit](https://docs.docker.com/ai/mcp-catalog-and-toolkit/) | Official SDKs, registry, and Docker governance surfaces for building, packaging, and controlling DevOps MCP servers. |
 | Agent frameworks and templates | [google/adk-python](https://github.com/google/adk-python) and [GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack) | Official Google agent framework and production templates with CI/CD, evaluation, and observability. |
+
+## One-command DevOps AI client setup
+
+Use the bootstrap utility to give Claude Code, Codex, Cursor, Antigravity, and VS Code the same local DevOps operating skill plus a lightweight MCP catalog server for official DevOps/SRE/Cloud MCP discovery.
+
+```bash
+python3 scripts/setup_devops_ai_clients.py --clients all --write
+```
+
+The command writes project-local files only: `CLAUDE.md`, `AGENTS.md`, Cursor rules, client MCP config files, `devops-ai/DEVOPS_SKILL.md`, and `devops-ai/official-devops-mcp-catalog.json`. It does **not** install third-party MCP servers, mutate global settings, or store secrets; connect real vendor MCP servers only after reviewing `action_level`, approval gates, evidence, and `risk_notes`.
 
 ## Local Reference Agents
 

@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "awesome-agentic-devops-catalog": {
+      "command": "python3",
+      "args": [
+        "scripts/devops_catalog_mcp_server.py",
+        "--catalog",
+        "devops-ai/official-devops-mcp-catalog.json"
+      ],
+      "env": {}
+    }
+  }
+}
