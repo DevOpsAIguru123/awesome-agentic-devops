@@ -134,36 +134,53 @@ Link reachability, archived status, and freshness are checked automatically by [
 
 ## Install official skills into your coding agent
 
-Install official [Agent Skills](https://github.com/anthropics/skills) — sourced from the `official-agent-skills` repos in this catalog (`google/skills`, `microsoft/skills`, and more) — into your coding agent with **one command**. Copy the line for your agent and run it. Each command below installs the Google Cloud skills; change `--source` (e.g. `--source microsoft/skills`, or `--source all`) and `--filter` to install something else.
+Install official [Agent Skills](https://github.com/anthropics/skills) — sourced from the `official-agent-skills` repos in this catalog (`google/skills`, `microsoft/skills`, and more) — into your coding agent with **one command**. Copy the line for your agent and run it. Each command below installs the full [`google/skills`](docs/google-skills-included.md) set (**72 skills** — [see the complete list](docs/google-skills-included.md)); change `--source` (e.g. `--source microsoft/skills`, or `--source all`) to install something else, or add `--filter <substring>` (e.g. `--filter cloud`) to install only part.
 
 **macOS / Linux** — copy, paste, run:
 
 ```bash
 # Claude Code
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source google/skills --filter cloud
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source google/skills
 
 # Cursor
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/cursor/install.sh | sh -s -- --source google/skills --filter cloud
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/cursor/install.sh | sh -s -- --source google/skills
 
 # Codex
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/codex/install.sh | sh -s -- --source google/skills --filter cloud
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/codex/install.sh | sh -s -- --source google/skills
 
 # Antigravity
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/antigravity/install.sh | sh -s -- --source google/skills --filter cloud
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/antigravity/install.sh | sh -s -- --source google/skills
 
 # VS Code
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/vscode/install.sh | sh -s -- --source google/skills --filter cloud
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/vscode/install.sh | sh -s -- --source google/skills
 
 # All agents at once
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/all/install.sh | sh -s -- --source google/skills --filter cloud
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/all/install.sh | sh -s -- --source google/skills
 ```
 
-**Windows (PowerShell)** — download, then run (swap `claude-code` for `cursor`, `codex`, `antigravity`, `vscode`, or `all`):
+**Windows (PowerShell)** — copy, paste, run:
 
 ```powershell
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.ps1 -OutFile install.ps1
-./install.ps1 --source google/skills --filter cloud
+# Claude Code
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.ps1 -OutFile install.ps1; ./install.ps1 --source google/skills
+
+# Cursor
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/cursor/install.ps1 -OutFile install.ps1; ./install.ps1 --source google/skills
+
+# Codex
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/codex/install.ps1 -OutFile install.ps1; ./install.ps1 --source google/skills
+
+# Antigravity
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/antigravity/install.ps1 -OutFile install.ps1; ./install.ps1 --source google/skills
+
+# VS Code
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/vscode/install.ps1 -OutFile install.ps1; ./install.ps1 --source google/skills
+
+# All agents at once
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/all/install.ps1 -OutFile install.ps1; ./install.ps1 --source google/skills
 ```
+
+**What gets installed:** the full `google/skills` set — **[72 skills across Cloud/DevOps, Analytics, and Ads](docs/google-skills-included.md)**. Want only the DevOps subset? Add `--filter cloud` (59 skills). Want everything from every official source? Use `--source all`.
 
 **How each agent gets skills:**
 
@@ -176,9 +193,9 @@ irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/mai
 
 Only Claude Code loads `SKILL.md` folders natively; the others get the real skill folders once in `./.agent-skills/` plus a pointer written into that agent's own always-on instructions file (existing content is preserved — the pointer is a managed block).
 
-**Safety:** installs directly (skill folders are additive and reversible); pass `--dry-run` to preview first. It only writes skill folders and the pointer file — never secrets or other settings. `--list-sources` / `--list` show what's available. Prefer not to pipe a remote script to your shell? Read [`scripts/install_skills.py`](scripts/install_skills.py) and run it from a clone: `python3 scripts/install_skills.py --agent claude-code --source google/skills --filter cloud`.
+**Safety:** installs directly (skill folders are additive and reversible); pass `--dry-run` to preview first. It only writes skill folders and the pointer file — never secrets or other settings. `--list-sources` / `--list` show what's available. Prefer not to pipe a remote script to your shell? Read [`scripts/install_skills.py`](scripts/install_skills.py) and run it from a clone: `python3 scripts/install_skills.py --agent claude-code --source google/skills`.
 
-> Claude Code is supported today (it has a native skills mechanism). Other agents (Cursor, Codex, VS Code, Antigravity) are planned as compatibility adapters into their rules/instructions files.
+> Claude Code loads skills natively; the other agents get the same skill folders plus a pointer into their own instructions file (a lossy but useful adaptation, since only Claude Code has a native skills mechanism).
 
 ## Local Reference Agents
 
