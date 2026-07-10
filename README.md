@@ -134,7 +134,9 @@ Link reachability, archived status, and freshness are checked automatically by [
 
 ## Install official skills into your coding agent
 
-Install official [Agent Skills](https://github.com/anthropics/skills) — sourced from the `official-agent-skills` repos in this catalog (`google/skills`, `microsoft/skills`, and more) — into your coding agent with **one command**. Copy the line for your agent and run it. Each command below installs the full [`google/skills`](docs/google-skills-included.md) set (**72 skills** — [see the complete list](docs/google-skills-included.md)); change `--source` (e.g. `--source microsoft/skills`, or `--source all`) to install something else, or add `--filter <substring>` (e.g. `--filter cloud`) to install only part.
+Install official [Agent Skills](https://github.com/anthropics/skills) into your coding agent with **one command**. Skills come from every `official-agent-skills` repo in this catalog — Google, Microsoft, Azure, and Azure DevOps — browse them all in the **[skills catalog by company & product](docs/official-skills-catalog.md)** and copy the exact `--source …` for what you want.
+
+The commands below use `--source google/skills` as an example (72 Google skills). Swap in any source from the catalog — `--source microsoft/skills`, `--source microsoft/azure-skills`, `--source microsoft/azure-devops-skills`, or `--source all` — and add `--filter <substring>` to install just one product (e.g. `--filter azure-sdk-python`, or `--filter cloud`).
 
 **macOS / Linux** — copy, paste, run:
 
@@ -180,7 +182,7 @@ irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/mai
 irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/all/install.ps1 -OutFile install.ps1; ./install.ps1 --source google/skills
 ```
 
-**What gets installed:** the full `google/skills` set — **[72 skills across Cloud/DevOps, Analytics, and Ads](docs/google-skills-included.md)**. Want only the DevOps subset? Add `--filter cloud` (59 skills). Want everything from every official source? Use `--source all`.
+**What can I install?** See the **[official skills catalog by company & product](docs/official-skills-catalog.md)** — Google (72), Microsoft (191), Azure (33), and Azure DevOps (6), each with the exact `--source …`/`--filter …` to install it. The example commands above install the 72 Google skills; `--source all` pulls every source.
 
 **How each agent gets skills:**
 

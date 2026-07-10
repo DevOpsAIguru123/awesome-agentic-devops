@@ -153,9 +153,17 @@ def download_source(owner_repo: str, dest: Path) -> Path:
 # ---------------------------------------------------------------------------
 # Skill discovery / plan / copy
 # ---------------------------------------------------------------------------
+# Folder names that hold a SKILL.md but are scaffolding, not a real skill.
+SKILL_NAME_IGNORE = {"template", "templates", "example", "examples"}
+
+
 def discover_skills(root: Path) -> list[tuple[str, Path]]:
     """Return sorted, name-deduplicated (skill_name, folder) pairs under root."""
-    found = [(skill_md.parent.name, skill_md.parent) for skill_md in root.rglob("SKILL.md")]
+    found = [
+        (skill_md.parent.name, skill_md.parent)
+        for skill_md in root.rglob("SKILL.md")
+        if skill_md.parent.name.lower() not in SKILL_NAME_IGNORE
+    ]
     seen: set[str] = set()
     unique: list[tuple[str, Path]] = []
     for name, path in sorted(found, key=lambda item: item[0]):
