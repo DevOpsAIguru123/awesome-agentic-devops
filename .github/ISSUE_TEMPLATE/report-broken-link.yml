@@ -1,0 +1,65 @@
+name: Report a broken or stale catalog link
+description: Report unreachable, archived, renamed, or stale entries in the catalog.
+title: "Broken/stale link: "
+labels:
+  - broken-link
+  - catalog-maintenance
+body:
+  - type: input
+    id: entry
+    attributes:
+      label: Catalog entry
+      description: Name of the affected entry from README.md or data/repos.yaml.
+      placeholder: github/github-mcp-server
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Current URL
+      description: Paste the current URL that is broken, stale, archived, or redirected.
+      placeholder: https://github.com/org/repo
+    validations:
+      required: true
+
+  - type: dropdown
+    id: problem
+    attributes:
+      label: What is wrong?
+      options:
+        - Unreachable or 404
+        - Archived or deprecated
+        - Redirected or renamed
+        - Documentation moved
+        - Safety/risk notes are stale
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: replacement
+    attributes:
+      label: Replacement URL, if known
+      description: Prefer official/vendor docs or repositories.
+      placeholder: https://docs.vendor.example/mcp
+    validations:
+      required: false
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Add HTTP status, archive notice, deprecation notice, vendor docs link, or other proof.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Reporter checklist
+      options:
+        - label: I checked that the issue affects the current README.md or data/repos.yaml entry.
+          required: true
+        - label: I did not paste secrets, tokens, private URLs, or internal logs.
+          required: true
