@@ -35,42 +35,6 @@ jobs:
       - name: Run mock eval scenarios
         run: python scripts/run_mock_eval_scenarios.py
 
-  # Keeps the README intro's entry/category counts in sync with data/repos.yaml
-  # without depending on contributors: every push to main (including any merged
-  # PR) gets the fix committed directly to main. This deliberately does not run
-  # on PR branches — commits pushed with GITHUB_TOKEN trigger no new workflow
-  # runs, so under required status checks a bot commit would strand the PR.
-  sync-readme-counts:
-    if: github.event_name == 'push'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install PyYAML
-        run: python -m pip install pyyaml
-
-      - name: Sync README counts from data/repos.yaml
-        run: python scripts/sync_readme_counts.py
-
-      - name: Commit and push the fix if counts were stale
-        run: |
-          if git diff --quiet README.md; then
-            echo "README counts already in sync."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -am "chore: sync README catalog counts from data/repos.yaml"
-          git push
-
   audit-links:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
