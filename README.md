@@ -184,20 +184,19 @@ irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/mai
 
 **What gets installed?** The commands above (`--source all`) install every official skill — Google (72), Microsoft (191), Azure (33), and Azure DevOps (6). To install just one company or product, use the ready-to-run commands in the **[official skills catalog by company & product](docs/official-skills-catalog.md)**.
 
-**How each agent gets skills:**
+**Where skills land** — each agent installs real skill folders into its own global skills directory:
 
-| Agent | Where skills land |
+| Agent | Skills folder |
 | --- | --- |
-| Claude Code | real skill folders in `~/.claude/skills/` (native; `--project` → `./.claude/skills/`) |
-| Cursor | folders in `./.agent-skills/` + a `.cursor/rules/*.mdc` pointer |
-| Codex / Antigravity | folders in `./.agent-skills/` + an `AGENTS.md` pointer block |
-| VS Code | folders in `./.agent-skills/` + a `.github/copilot-instructions.md` pointer block |
+| Claude Code | `~/.claude/skills/` |
+| Codex | `~/.codex/skills/` |
+| Cursor | `~/.cursor/skills/` |
+| VS Code Copilot | `~/.copilot/skills/` |
+| Antigravity | `~/.gemini/antigravity/skills/` |
 
-Only Claude Code loads `SKILL.md` folders natively; the others get the real skill folders once in `./.agent-skills/` plus a pointer written into that agent's own always-on instructions file (existing content is preserved — the pointer is a managed block).
+Add `--project` to install into the same layout under the current directory instead (e.g. `./.claude/skills/`), or `--target <dir>` to choose an explicit path.
 
-**Safety:** installs directly (skill folders are additive and reversible); pass `--dry-run` to preview first. It only writes skill folders and the pointer file — never secrets or other settings. `--list-sources` / `--list` show what's available. Prefer not to pipe a remote script to your shell? Read [`scripts/install_skills.py`](scripts/install_skills.py) and run it from a clone: `python3 scripts/install_skills.py --agent claude-code --source all`.
-
-> Claude Code loads skills natively; the other agents get the same skill folders plus a pointer into their own instructions file (a lossy but useful adaptation, since only Claude Code has a native skills mechanism).
+**Safety:** installs directly (skill folders are additive and reversible); pass `--dry-run` to preview first. It only writes skill folders — never secrets or other settings. `--list-sources` / `--list` show what's available. Prefer not to pipe a remote script to your shell? Read [`scripts/install_skills.py`](scripts/install_skills.py) and run it from a clone: `python3 scripts/install_skills.py --agent claude-code --source all`.
 
 ## Local Reference Agents
 
