@@ -4,13 +4,24 @@
 [![CI](https://github.com/DevOpsAIguru123/awesome-agentic-devops/actions/workflows/validate.yml/badge.svg)](https://github.com/DevOpsAIguru123/awesome-agentic-devops/actions/workflows/validate.yml)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-**Awesome Agentic DevOps** is a curated map for DevOps, Cloud, SRE, and Platform Engineering agents across Claude Code, Gemini ADK, OpenAI Agents SDK, and MCP.
+**Awesome Agentic DevOps** is an operator-grade map of MCP servers and AI agents for DevOps, Cloud, SRE, Platform Engineering, Terraform, Kubernetes, CI/CD, observability, and security.
 
 This repository evaluates which agents are safe, useful, and production-adjacent for infrastructure automation. Every link is re-audited by scheduled CI for reachability, archival, and freshness.
+
+> Find DevOps MCP servers and agent frameworks without guessing their production blast radius.
+
+## ⭐ Why star this repo?
+
+- Find official MCP servers for DevOps, Cloud, SRE, security, GitOps, FinOps, and platform engineering.
+- Compare tools by production blast radius: `read-only`, `proposal`, or `write-capable`.
+- Use safety labels for approval gates, audit evidence, maturity, and operator risk.
+- Track new vendor-backed MCP and agent releases as the ecosystem changes.
+- Reuse templates for scorecards, safe runbooks, eval scenarios, and reference agents.
 
 ## Contents
 
 - [Recently added](#recently-added)
+- [⭐ Why star this repo?](#-why-star-this-repo)
 - [Why this exists](#why-this-exists)
 - [Who it is for](#who-it-is-for)
 - [Safety-first disclaimer](#safety-first-disclaimer)
