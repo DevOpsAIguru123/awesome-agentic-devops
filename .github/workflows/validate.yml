@@ -27,6 +27,9 @@ jobs:
       - name: Validate repo data
         run: python scripts/validate_repos_yaml.py
 
+      - name: Check README catalog counts
+        run: python scripts/sync_readme_counts.py --check
+
       - name: Run tests
         run: pytest -q
 
