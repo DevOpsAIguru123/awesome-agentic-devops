@@ -6,7 +6,13 @@
 
 A curated catalog of **official** DevOps, Cloud, SRE, and Platform Engineering MCP servers and agent skills, for teams evaluating AI automation against real infrastructure.
 
-Most agent lists stop at discovery. Every entry here is verified as an official vendor source and scored on operational risk, human approval gates, tracing evidence, and maturity — see [how entries are scored](docs/scoring.md). Links are re-audited by scheduled CI for reachability, archival, and freshness.
+Most agent lists stop at discovery. This one is built for operators:
+
+- **Official sources only** — 59 entries across 14 categories, each verified as the vendor's own repo or docs, never a community lookalike.
+- **Scored, not just listed** — every entry rates production access, human approval gates, tracing evidence, and maturity ([how entries are scored](docs/scoring.md)).
+- **Audited by CI** — every link is re-checked weekly for reachability, archival, and freshness.
+- **Installable, not just readable** — [one command](#install-official-skills-into-your-coding-agent) puts 300+ official skills from Google, Microsoft, and Azure into Claude Code, Cursor, Codex, VS Code, or Antigravity.
+- **Runnable, not just theoretical** — working [reference agents](#local-reference-agents) for Terraform plan review and drift detection.
 
 **Safety first:** these agents may touch infrastructure. Prefer read-only or proposal mode, require human approval before write actions, and use least-privilege credentials — full guidance in the [safety model](docs/safety-model.md).
 
