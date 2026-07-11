@@ -16,6 +16,7 @@ This repository evaluates which agents are safe, useful, and production-adjacent
 - [Safety-first disclaimer](#safety-first-disclaimer)
 - [Evaluation labels](#evaluation-labels)
 - [How entries are scored](#how-entries-are-scored)
+- [Compliance evidence checklist](#compliance-evidence-checklist)
 - [Categories](#categories)
 - [Top picks by use case](#top-picks-by-use-case)
 - [Install official skills into your coding agent](#install-official-skills-into-your-coding-agent)
@@ -98,6 +99,12 @@ Read as: safe to connect for incident context today, but flip on its write tools
 ### What is automated and what is judgment
 
 Link reachability, archived status, and freshness are checked automatically by [scripts/audit_github_repos.py](scripts/audit_github_repos.py) and enforced in CI. The safety scores themselves are curator judgment from reviewing each project's docs and tool surface at the time of entry. Verify against your own environment before connecting anything to real infrastructure — [templates/agent-scorecard.md](templates/agent-scorecard.md) is the full per-project checklist used for deep review.
+
+## Compliance evidence checklist
+
+Production-adjacent agent runs need a reviewable evidence packet, not just a chat transcript. Use the [compliance evidence checklist](docs/compliance-evidence.md) to capture request context, identity and data boundaries, tool calls, redacted evidence inputs, approval records, validation output, and follow-ups for MCP servers, skills, incident copilots, Terraform reviewers, and other DevOps agents.
+
+At minimum, record an explicit approval before any write-capable agent mutates infrastructure, source control, CI/CD, identity, secrets, incidents, or production telemetry configuration. If the approval cannot be captured, keep the agent in read-only or proposal mode.
 
 ## Categories
 
