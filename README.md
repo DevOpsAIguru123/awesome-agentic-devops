@@ -4,24 +4,68 @@
 [![CI](https://github.com/DevOpsAIguru123/awesome-agentic-devops/actions/workflows/validate.yml/badge.svg)](https://github.com/DevOpsAIguru123/awesome-agentic-devops/actions/workflows/validate.yml)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-**Awesome Agentic DevOps** is a curated map for DevOps, Cloud, SRE, and Platform Engineering agents across Claude Code, Gemini ADK, OpenAI Agents SDK, and MCP.
+A curated catalog of **official** DevOps, Cloud, SRE, and Platform Engineering MCP servers and agent skills, for teams evaluating AI automation against real infrastructure.
 
-This repository evaluates which agents are safe, useful, and production-adjacent for infrastructure automation. Every link is re-audited by scheduled CI for reachability, archival, and freshness.
+Most agent lists stop at discovery. This one is built for operators:
+
+- **Official-first** — 59 entries across 14 categories, all but a clearly labeled [community section](#community-discovery-and-skills) verified as the vendor's own repo or docs.
+- **Scored, not just listed** — every entry rates production access, human approval gates, tracing evidence, and maturity ([how entries are scored](docs/scoring.md)).
+- **Audited by CI** — every link is re-checked weekly for reachability, archival, and freshness.
+- **Installable, not just readable** — [one command](#install-official-skills-into-your-coding-agent) puts 300+ official skills from Google, Microsoft, and Azure into Claude Code, Cursor, Codex, VS Code, or Antigravity.
+- **Runnable, not just theoretical** — working [reference agents](#local-reference-agents) for Terraform plan review and drift detection (more agents coming soon).
+
+**Safety first:** these agents may touch infrastructure. Prefer read-only or proposal mode, require human approval before write actions, and use least-privilege credentials — full guidance in the [safety model](docs/safety-model.md).
 
 ## Contents
 
-- [Recently added](#recently-added)
-- [Why this exists](#why-this-exists)
-- [Who it is for](#who-it-is-for)
-- [Safety-first disclaimer](#safety-first-disclaimer)
 - [Evaluation labels](#evaluation-labels)
-- [How entries are scored](#how-entries-are-scored)
-- [Categories](#categories)
 - [Top picks by use case](#top-picks-by-use-case)
 - [Install official skills into your coding agent](#install-official-skills-into-your-coding-agent)
+- [Recently added](#recently-added)
 - [Local reference agents](#local-reference-agents)
 - [Curated catalog](#curated-catalog)
 - [How to contribute](#how-to-contribute)
+
+## Evaluation labels
+
+| Label | Meaning |
+| --- | --- |
+| 🟢 | production-adjacent OSS |
+| 🟡 | useful prototype |
+| 🔵 | MCP/server integration |
+| 🛡️ | has approval/safety controls |
+| 📊 | has tracing/evidence/evals |
+| ⚠️ | write-capable; review before use |
+
+Labels are shorthand for structured fields recorded on every entry in [data/repos.yaml](data/repos.yaml) — [how entries are scored](docs/scoring.md) explains each field and how it is verified.
+
+## Top picks by use case
+
+| Use case | Start with | Why |
+| --- | --- | --- |
+| AWS agentic cloud automation | [aws/agent-toolkit-for-aws](https://github.com/aws/agent-toolkit-for-aws) | Official AWS-supported MCP, skills, plugins, IAM-aware controls, CloudWatch metrics, and CloudTrail auditability. |
+| Azure cloud automation | [microsoft/mcp](https://github.com/microsoft/mcp)<br>[microsoft/azure-skills](https://github.com/microsoft/azure-skills) | Official Microsoft MCP and skills/plugin sources for Azure resource workflows. |
+| Google Cloud automation | [google/mcp](https://github.com/google/mcp)<br>[googleapis/gcloud-mcp](https://github.com/googleapis/gcloud-mcp)<br>[google/skills](https://github.com/google/skills) | Official Google MCP and skills sources for GCP, Cloud Run, GKE, observability, and storage workflows. |
+| Source-control DevOps | [github/github-mcp-server](https://github.com/github/github-mcp-server)<br>[GitLab MCP server](https://docs.gitlab.com/user/gitlab_duo/model_context_protocol/mcp_server/)<br>[atlassian/atlassian-mcp-server](https://github.com/atlassian/atlassian-mcp-server) | Official MCP tool surfaces for repos, issues, PRs, Jira, Bitbucket, and related delivery workflows. |
+| Terraform and IaC | [hashicorp/terraform-mcp-server](https://github.com/hashicorp/terraform-mcp-server)<br>[Pulumi MCP Server](https://www.pulumi.com/docs/ai/mcp-server/) | Official IaC MCP sources for Terraform Registry/HCP Terraform and Pulumi Cloud automation. |
+| SRE incident response | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana)<br>[datadog-labs/mcp-server](https://github.com/datadog-labs/mcp-server)<br>[Elastic Agent Builder MCP server docs](https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server)<br>[PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | Official observability and incident-management MCPs for metrics, logs, traces, indexed operational data, alerts, incidents, and on-call context. |
+| FinOps and cloud cost | [vantage-sh/vantage-mcp-server](https://github.com/vantage-sh/vantage-mcp-server) | Official Vantage MCP server for cloud spend analysis, budgets, anomalies, reports, and provider-resource cost context across Vantage-connected providers. |
+| Security and code quality | [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/)<br>[SonarSource/sonarqube-mcp-server](https://github.com/SonarSource/sonarqube-mcp-server)<br>[okta/okta-mcp-server](https://github.com/okta/okta-mcp-server)<br>[Snyk Studio MCP docs](https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio)<br>[Wiz WIN MCP Server docs](https://docs.wiz.io/dev/win-mcp-server) | Official MCPs and security resources for MCP threat modeling, code quality, application security, identity-aware workflows, agent security, and cloud-security posture. |
+| Data platform operations | [mongodb-js/mongodb-mcp-server](https://github.com/mongodb-js/mongodb-mcp-server)<br>[redis/mcp-redis](https://github.com/redis/mcp-redis) | Official database MCP servers for MongoDB and Redis operational context, cache/session data, vector search, streams, and data-platform agent workflows. |
+| CI/CD and GitOps | [jenkinsci/mcp-server-plugin](https://github.com/jenkinsci/mcp-server-plugin)<br>[argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd) | Official Jenkins and Argo Project resources for pipeline, build, deployment, and GitOps workflows. |
+| MCP development and governance | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk)<br>[modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk)<br>[modelcontextprotocol/registry](https://github.com/modelcontextprotocol/registry)<br>[Docker MCP Catalog and Toolkit](https://docs.docker.com/ai/mcp-catalog-and-toolkit/) | Official SDKs, registry, and Docker governance surfaces for building, packaging, and controlling DevOps MCP servers. |
+| Agent frameworks and templates | [google/adk-python](https://github.com/google/adk-python)<br>[GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack) | Official Google agent framework and production templates with CI/CD, evaluation, and observability. |
+
+## Install official skills into your coding agent
+
+Install official [Agent Skills](https://github.com/anthropics/skills) from every `official-agent-skills` source in this catalog — Google (72), Microsoft (191), Azure (33), and Azure DevOps (6) — with one command:
+
+```bash
+# Claude Code, macOS/Linux — installs every official skill into ~/.claude/skills/
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source all
+```
+
+Pass `--dry-run` to preview first. Commands for Cursor, Codex, VS Code, Antigravity, and Windows — plus target folders and safety notes — are in the [install guide](docs/install-skills.md). To install just one company or product, use the [skills catalog by company & product](docs/official-skills-catalog.md).
 
 ## Recently added
 
@@ -38,169 +82,7 @@ This repository evaluates which agents are safe, useful, and production-adjacent
 | 2026-07-05 | [mongodb-js/mongodb-mcp-server](https://github.com/mongodb-js/mongodb-mcp-server) | Data platform |
 | 2026-07-05 | [backstage/backstage (mcp-actions-backend)](https://github.com/backstage/backstage/tree/master/plugins/mcp-actions-backend) | Platform toolkits |
 
-## Why this exists
-
-Most agent lists stop at discovery. Infrastructure teams need more than discovery: they need to know whether an agent can touch production, whether it has approval gates, whether it preserves evidence, and whether it can be rebuilt as a safe reference workflow.
-
-This repo is intentionally operator-grade. Each entry is scored by real infrastructure usefulness, operational risk, human approval gates, tracing/evidence, and maturity.
-
-## Who it is for
-
-- DevOps and platform engineers evaluating AI automation.
-- SREs designing incident-response copilots.
-- Cloud engineers comparing agent frameworks.
-- Security reviewers assessing infrastructure-agent risk.
-- Builders creating portfolio-grade reference agents.
-- Interview candidates who want a practical DevOps AI artifact.
-
-## Safety-first disclaimer
-
-These agents may touch infrastructure. Prefer read-only or proposal mode first. Require human approval before write actions. Never expose secrets to model context. Use least-privilege credentials, dry runs, Terraform plans before applies, and CI checks before merge.
-
-## Evaluation labels
-
-| Label | Meaning |
-| --- | --- |
-| 🟢 | production-adjacent OSS |
-| 🟡 | useful prototype |
-| 🔵 | MCP/server integration |
-| 🛡️ | has approval/safety controls |
-| 📊 | has tracing/evidence/evals |
-| ⚠️ | write-capable; review before use |
-
-Labels are shorthand for structured fields recorded on every entry in [data/repos.yaml](data/repos.yaml): ⚠️ maps to `action_level: write-capable`, 🛡️ to `human_approval: true`, 📊 to tracing or eval evidence, and 🟢/🟡 to `maturity`.
-
-## How entries are scored
-
-Every entry records five verifiable dimensions. They are assessed by reading each project's documentation and exposed tool surface, not its marketing.
-
-| Field | Question it answers | How it is verified |
-| --- | --- | --- |
-| `action_level` | Can it touch production? | Read the project's exposed tool list. Only query tools (`get`, `list`, `search`) means `read-only`. Suggesting changes for a human to execute means `proposal`. Any tool that mutates real state (`create`, `deploy`, `delete`, `sync`) means `write-capable` and the entry gets ⚠️. |
-| `human_approval` | Does a human gate write actions? | Look for gates in the server (write tools disabled by default, dry-run modes, confirmation flags) or in the client (permission prompts). Server-side gates are stronger because they hold no matter which client connects. |
-| `evidence_tracing` | Can you prove what it did afterward? | Check for audit logs, OpenTelemetry support, structured run records, or evaluation output. Scored `yes`, `partial`, or `none`. |
-| `maturity` | Is it stable enough to depend on? | Observable signals only: vendor support status, API stability (GA versus alpha), and recent activity. The audit script checks freshness and archived status automatically. |
-| `risk_notes` | What is the blast radius if it goes wrong? | Combines the above with what the tool connects to. Write-capable identity tooling is treated very differently from a read-only diagram generator. |
-
-### Example: reading one entry
-
-```yaml
-- name: PagerDuty/pagerduty-mcp-server
-  action_level: write-capable    # tools can create incidents and schedule overrides
-  human_approval: true           # write tools ship disabled by default
-  evidence_tracing: partial      # logs exist, but no structured trace guarantee
-  maturity: production-adjacent  # official vendor server
-  risk_notes: "Keep write tools disabled by default and require approval for changes."
-```
-
-Read as: safe to connect for incident context today, but flip on its write tools only after you have decided who approves an agent-created incident.
-
-### What is automated and what is judgment
-
-Link reachability, archived status, and freshness are checked automatically by [scripts/audit_github_repos.py](scripts/audit_github_repos.py) and enforced in CI. The safety scores themselves are curator judgment from reviewing each project's docs and tool surface at the time of entry. Verify against your own environment before connecting anything to real infrastructure — [templates/agent-scorecard.md](templates/agent-scorecard.md) is the full per-project checklist used for deep review.
-
-## Categories
-
-1. Official cloud MCP servers and agent toolkits
-2. Official DevOps and source-control MCP servers
-3. Official CI/CD and GitOps MCP servers
-4. Official security, code-quality, and agent-security resources
-5. Official IaC MCP servers
-6. Official SRE and observability MCP servers
-7. Official agent skills and agent frameworks
-8. Official platform agent toolkits
-9. Official MCP SDKs, references, registries, and governance platforms
-10. Official diagramming and architecture MCP tools
-11. Official data platform MCP servers
-12. Official FinOps and cloud-cost MCP servers
-13. Community discovery and skill references
-
-## Top picks by use case
-
-| Use case | Start with | Why |
-| --- | --- | --- |
-| AWS agentic cloud automation | [aws/agent-toolkit-for-aws](https://github.com/aws/agent-toolkit-for-aws) | Official AWS-supported MCP, skills, plugins, IAM-aware controls, CloudWatch metrics, and CloudTrail auditability. |
-| Azure cloud automation | [microsoft/mcp](https://github.com/microsoft/mcp) and [microsoft/azure-skills](https://github.com/microsoft/azure-skills) | Official Microsoft MCP and skills/plugin sources for Azure resource workflows. |
-| Google Cloud automation | [google/mcp](https://github.com/google/mcp), [googleapis/gcloud-mcp](https://github.com/googleapis/gcloud-mcp), and [google/skills](https://github.com/google/skills) | Official Google MCP and skills sources for GCP, Cloud Run, GKE, observability, and storage workflows. |
-| Source-control DevOps | [github/github-mcp-server](https://github.com/github/github-mcp-server), [GitLab MCP server](https://docs.gitlab.com/user/gitlab_duo/model_context_protocol/mcp_server/), and [atlassian/atlassian-mcp-server](https://github.com/atlassian/atlassian-mcp-server) | Official MCP tool surfaces for repos, issues, PRs, Jira, Bitbucket, and related delivery workflows. |
-| Terraform and IaC | [hashicorp/terraform-mcp-server](https://github.com/hashicorp/terraform-mcp-server) and [Pulumi MCP Server](https://www.pulumi.com/docs/ai/mcp-server/) | Official IaC MCP sources for Terraform Registry/HCP Terraform and Pulumi Cloud automation. |
-| SRE incident response | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana), [datadog-labs/mcp-server](https://github.com/datadog-labs/mcp-server), [Elastic Agent Builder MCP server docs](https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server), and [PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | Official observability and incident-management MCPs for metrics, logs, traces, indexed operational data, alerts, incidents, and on-call context. |
-| FinOps and cloud cost | [vantage-sh/vantage-mcp-server](https://github.com/vantage-sh/vantage-mcp-server) | Official Vantage MCP server for cloud spend analysis, budgets, anomalies, reports, and provider-resource cost context across Vantage-connected providers. |
-| Security and code quality | [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/), [SonarSource/sonarqube-mcp-server](https://github.com/SonarSource/sonarqube-mcp-server), [okta/okta-mcp-server](https://github.com/okta/okta-mcp-server), [Snyk Studio MCP docs](https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio), and [Wiz WIN MCP Server docs](https://docs.wiz.io/dev/win-mcp-server) | Official MCPs and security resources for MCP threat modeling, code quality, application security, identity-aware workflows, agent security, and cloud-security posture. |
-| Data platform operations | [mongodb-js/mongodb-mcp-server](https://github.com/mongodb-js/mongodb-mcp-server) and [redis/mcp-redis](https://github.com/redis/mcp-redis) | Official database MCP servers for MongoDB and Redis operational context, cache/session data, vector search, streams, and data-platform agent workflows. |
-| CI/CD and GitOps | [jenkinsci/mcp-server-plugin](https://github.com/jenkinsci/mcp-server-plugin) and [argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd) | Official Jenkins and Argo Project resources for pipeline, build, deployment, and GitOps workflows. |
-| MCP development and governance | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk), [modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk), [modelcontextprotocol/registry](https://github.com/modelcontextprotocol/registry), and [Docker MCP Catalog and Toolkit](https://docs.docker.com/ai/mcp-catalog-and-toolkit/) | Official SDKs, registry, and Docker governance surfaces for building, packaging, and controlling DevOps MCP servers. |
-| Agent frameworks and templates | [google/adk-python](https://github.com/google/adk-python) and [GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack) | Official Google agent framework and production templates with CI/CD, evaluation, and observability. |
-
-## Install official skills into your coding agent
-
-Install official [Agent Skills](https://github.com/anthropics/skills) into your coding agent with **one command**. Skills come from every `official-agent-skills` repo in this catalog — Google, Microsoft, Azure, and Azure DevOps.
-
-The commands below use `--source all` to install **every** official skill (several hundred). To install just one company or product instead, use the ready-to-run commands in the **[skills catalog by company & product](docs/official-skills-catalog.md)** — or swap `--source all` for a specific source, e.g. `--source microsoft/skills --filter azure-sdk-python` or `--source google/skills --filter cloud`.
-
-**macOS / Linux** — copy, paste, run:
-
-```bash
-# Claude Code
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source all
-
-# Cursor
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/cursor/install.sh | sh -s -- --source all
-
-# Codex
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/codex/install.sh | sh -s -- --source all
-
-# Antigravity
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/antigravity/install.sh | sh -s -- --source all
-
-# VS Code
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/vscode/install.sh | sh -s -- --source all
-
-# All agents at once
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/all/install.sh | sh -s -- --source all
-```
-
-**Windows (PowerShell)** — copy, paste, run:
-
-```powershell
-# Claude Code
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.ps1 -OutFile install.ps1; ./install.ps1 --source all
-
-# Cursor
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/cursor/install.ps1 -OutFile install.ps1; ./install.ps1 --source all
-
-# Codex
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/codex/install.ps1 -OutFile install.ps1; ./install.ps1 --source all
-
-# Antigravity
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/antigravity/install.ps1 -OutFile install.ps1; ./install.ps1 --source all
-
-# VS Code
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/vscode/install.ps1 -OutFile install.ps1; ./install.ps1 --source all
-
-# All agents at once
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/all/install.ps1 -OutFile install.ps1; ./install.ps1 --source all
-```
-
-**What gets installed?** The commands above (`--source all`) install every official skill — Google (72), Microsoft (191), Azure (33), and Azure DevOps (6). To install just one company or product, use the ready-to-run commands in the **[official skills catalog by company & product](docs/official-skills-catalog.md)**.
-
-**Where skills land** — each agent installs real skill folders into its own global skills directory:
-
-| Agent | Skills folder |
-| --- | --- |
-| Claude Code | `~/.claude/skills/` |
-| Codex | `~/.codex/skills/` |
-| Cursor | `~/.cursor/skills/` |
-| VS Code Copilot | `~/.copilot/skills/` |
-| Antigravity | `~/.gemini/antigravity/skills/` |
-
-Add `--project` to install into the same layout under the current directory instead (e.g. `./.claude/skills/`), or `--target <dir>` to choose an explicit path.
-
-> **Other folders some agents read.** Cursor can also load skills from `~/.agents/skills/`, `~/.claude/skills/`, and `~/.codex/skills/`; VS Code Copilot can also read `~/.agents/skills/` and `~/.claude/skills/`. Antigravity's path is `~/.gemini/antigravity-cli/skills/` on some versions — install there with `--target ~/.gemini/antigravity-cli/skills`. Use `--target` for any folder not in the table above.
-
-**Safety:** installs directly (skill folders are additive and reversible); pass `--dry-run` to preview first. It only writes skill folders — never secrets or other settings. `--list-sources` / `--list` show what's available. Prefer not to pipe a remote script to your shell? Read [`scripts/install_skills.py`](scripts/install_skills.py) and run it from a clone: `python3 scripts/install_skills.py --agent claude-code --source all`.
-
-## Local Reference Agents
+## Local reference agents
 
 This repo keeps runnable reference agents under [`agents/`](agents/).
 
@@ -350,6 +232,7 @@ Run validation before opening a PR:
 
 ```bash
 python scripts/validate_repos_yaml.py
+python scripts/sync_readme_counts.py   # refreshes the intro's entry/category counts
 pytest -q
 python scripts/run_mock_eval_scenarios.py
 python scripts/audit_github_repos.py --workers 12 --fail-on-unreachable
