@@ -196,6 +196,8 @@ irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/mai
 
 Add `--project` to install into the same layout under the current directory instead (e.g. `./.claude/skills/`), or `--target <dir>` to choose an explicit path.
 
+> **Other folders some agents read.** Cursor can also load skills from `~/.agents/skills/`, `~/.claude/skills/`, and `~/.codex/skills/`; VS Code Copilot can also read `~/.agents/skills/` and `~/.claude/skills/`. Antigravity's path is `~/.gemini/antigravity-cli/skills/` on some versions — install there with `--target ~/.gemini/antigravity-cli/skills`. Use `--target` for any folder not in the table above.
+
 **Safety:** installs directly (skill folders are additive and reversible); pass `--dry-run` to preview first. It only writes skill folders — never secrets or other settings. `--list-sources` / `--list` show what's available. Prefer not to pipe a remote script to your shell? Read [`scripts/install_skills.py`](scripts/install_skills.py) and run it from a clone: `python3 scripts/install_skills.py --agent claude-code --source all`.
 
 ## Local Reference Agents
