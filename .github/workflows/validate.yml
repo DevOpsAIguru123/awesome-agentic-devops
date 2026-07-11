@@ -36,22 +36,18 @@ jobs:
         run: python scripts/run_mock_eval_scenarios.py
 
   # Keeps the README intro's entry/category counts in sync with data/repos.yaml
-  # without depending on contributors: same-repo PRs get the fix pushed onto the
-  # PR branch; pushes to main (including merged fork PRs, whose branches the
-  # token cannot write to) get fixed directly on main.
+  # without depending on contributors: every push to main (including any merged
+  # PR) gets the fix committed directly to main. This deliberately does not run
+  # on PR branches — commits pushed with GITHUB_TOKEN trigger no new workflow
+  # runs, so under required status checks a bot commit would strand the PR.
   sync-readme-counts:
-    if: >-
-      github.event_name == 'push' ||
-      (github.event_name == 'pull_request' &&
-       github.event.pull_request.head.repo.full_name == github.repository)
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
