@@ -30,3 +30,15 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python scripts/audit_github_repos.py --workers 12 --fail-on-unreachable
+
+      # Publish results even when the audit fails — that is when they matter most.
+      - name: Post report to the run summary
+        if: always()
+        run: cat reports/github-repo-audit.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-repo-audit
+          path: reports/
