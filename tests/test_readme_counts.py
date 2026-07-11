@@ -16,8 +16,17 @@ from scripts.sync_readme_counts import COUNTS_PATTERN, README, expected_counts_p
 def test_readme_intro_counts_match_catalog():
     phrase = expected_counts_phrase()
     found = COUNTS_PATTERN.findall(README.read_text())
-    assert found, "README.md lost its '<N> entries across <M> categories' phrase"
+    assert found, (
+        "README.md lost its "
+        "'<N> entries organized into <M> catalog sections' phrase"
+    )
     assert found == [phrase], (
         f"README counts {found} are stale, expected '{phrase}'. "
         "Run: python scripts/sync_readme_counts.py"
     )
+
+
+def test_counts_phrase_describes_readme_sections_not_yaml_categories():
+    phrase = expected_counts_phrase()
+    assert phrase.endswith("entries organized into 14 catalog sections")
+    assert COUNTS_PATTERN.fullmatch(phrase)

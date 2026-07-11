@@ -4,17 +4,17 @@
 [![CI](https://github.com/DevOpsAIguru123/awesome-agentic-devops/actions/workflows/validate.yml/badge.svg)](https://github.com/DevOpsAIguru123/awesome-agentic-devops/actions/workflows/validate.yml)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-A curated catalog of **official** DevOps, Cloud, SRE, and Platform Engineering MCP servers and agent skills, for teams evaluating AI automation against real infrastructure.
+A curated, **official-first** catalog of MCP servers, agent skills, AI agents, frameworks, and supporting resources for DevOps, Cloud, SRE, and Platform Engineering. It includes vendor and open-source project resources alongside a clearly labeled community-driven section.
 
 Most agent lists stop at discovery. This one is built for operators:
 
-- **Official-first** — 59 entries across 14 categories, all but a clearly labeled [community section](#community-discovery-and-skills) verified as the vendor's own repo or docs.
-- **Scored, not just listed** — every entry rates production access, human approval gates, tracing evidence, and maturity ([how entries are scored](docs/scoring.md)).
-- **Audited by CI** — every link is re-checked weekly for reachability, archival, and freshness.
-- **Installable, not just readable** — [one command](#install-official-skills-into-your-coding-agent) puts 300+ official skills from Google, Microsoft, and Azure into Claude Code, Cursor, Codex, VS Code, or Antigravity.
-- **Runnable, not just theoretical** — working [reference agents](#local-reference-agents) for Terraform plan review and drift detection (more agents coming soon).
+- **Official-first, community-inclusive** — 59 entries organized into 14 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
+- **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
+- **Audited by CI** — GitHub repository entries are checked weekly for reachability and archived status; non-GitHub documentation links are outside this automated check and require curator review.
+- **Installable, not just readable** — [one command](#install-official-skills-into-your-coding-agent) installs hundreds of official skills from cataloged Google, Microsoft, Azure, and Azure DevOps sources into Claude Code, Cursor, Codex, VS Code, or Antigravity.
+- **Runnable, not just theoretical** — documented [reference-agent examples](#local-reference-agents) cover Terraform plan review and drift detection.
 
-**Safety first:** these agents may touch infrastructure. Prefer read-only or proposal mode, require human approval before write actions, and use least-privilege credentials — full guidance in the [safety model](docs/safety-model.md).
+**Safety first:** some cataloged tools and agents can change infrastructure. Prefer read-only or proposal mode, require human approval before write actions, and use least-privilege credentials — full guidance in the [safety model](docs/safety-model.md).
 
 ## Contents
 
@@ -30,10 +30,10 @@ Most agent lists stop at discovery. This one is built for operators:
 
 | Label | Meaning |
 | --- | --- |
-| 🟢 | production-adjacent OSS |
-| 🟡 | useful prototype |
+| 🟢 | assessed as production-adjacent; not a readiness guarantee |
+| 🟡 | assessed as a useful prototype |
 | 🔵 | MCP/server integration |
-| 🛡️ | has approval/safety controls |
+| 🛡️ | documents an approval or safety mechanism; enforcement varies |
 | 📊 | has tracing/evidence/evals |
 | ⚠️ | write-capable; review before use |
 
@@ -58,7 +58,7 @@ Labels are shorthand for structured fields recorded on every entry in [data/repo
 
 ## Install official skills into your coding agent
 
-Install official [Agent Skills](https://github.com/anthropics/skills) from every `official-agent-skills` source in this catalog — Google (72), Microsoft (191), Azure (33), and Azure DevOps (6) — with one command:
+Install hundreds of official [Agent Skills](https://github.com/anthropics/skills) from the cataloged Google, Microsoft, Azure, and Azure DevOps sources with one command:
 
 ```bash
 # Claude Code, macOS/Linux — installs every official skill into ~/.claude/skills/
@@ -93,7 +93,7 @@ This repo keeps runnable reference agents under [`agents/`](agents/).
 
 ## Curated catalog
 
-The source of truth is [data/repos.yaml](data/repos.yaml). The list below is a readable index of the current official and community research-backed entries.
+The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines official vendor and open-source project resources with a dedicated section for community-driven tools and references. Entries include executable software as well as SDKs, documentation, security frameworks, registries, and other ecosystem resources.
 
 ### Official Cloud MCP Servers and Agent Toolkits
 

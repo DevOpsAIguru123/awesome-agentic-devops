@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Keep the README intro's catalog counts in sync with data/repos.yaml.
 
-The intro pitch states "<N> entries across <M> categories". N is the number of
-entries in data/repos.yaml; M is the number of `###` category tables in the
+The intro pitch states "<N> entries organized into <M> catalog sections". N is
+the number of entries in data/repos.yaml; M is the number of `###` tables in the
 README's Curated catalog section. Run with no arguments to rewrite the README
 in place, or with --check (used by tests/CI) to fail if the numbers are stale.
 """
@@ -19,7 +19,9 @@ ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
 REPOS_YAML = ROOT / "data" / "repos.yaml"
 
-COUNTS_PATTERN = re.compile(r"\d+ entries across \d+ categories")
+COUNTS_PATTERN = re.compile(
+    r"\d+ entries organized into \d+ catalog sections"
+)
 
 
 def expected_counts_phrase() -> str:
@@ -30,8 +32,8 @@ def expected_counts_phrase() -> str:
     )
     if not catalog_match:
         raise SystemExit("README.md has no '## Curated catalog' section")
-    categories = re.findall(r"^### ", catalog_match.group(1), re.MULTILINE)
-    return f"{len(entries)} entries across {len(categories)} categories"
+    sections = re.findall(r"^### ", catalog_match.group(1), re.MULTILINE)
+    return f"{len(entries)} entries organized into {len(sections)} catalog sections"
 
 
 def main() -> int:

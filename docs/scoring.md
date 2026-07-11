@@ -1,20 +1,20 @@
 # How entries are scored
 
-Most agent lists stop at discovery. Infrastructure teams need more: whether an agent can touch production, whether it has approval gates, whether it preserves evidence, and whether it is stable enough to depend on. Every entry in [data/repos.yaml](../data/repos.yaml) records five verifiable dimensions, assessed by reading each project's documentation and exposed tool surface — not its marketing.
+Most agent lists stop at discovery. Infrastructure teams need more: whether a tool can perform write actions, whether it has approval gates, whether it preserves evidence, and whether it is stable enough to depend on. Every entry in [data/repos.yaml](../data/repos.yaml) records five dimensions, assessed from project documentation and exposed tool surfaces rather than marketing claims.
 
 ## The five fields
 
 | Field | Question it answers | How it is verified |
 | --- | --- | --- |
-| `action_level` | Can it touch production? | Read the project's exposed tool list. Only query tools (`get`, `list`, `search`) means `read-only`. Suggesting changes for a human to execute means `proposal`. Any tool that mutates real state (`create`, `deploy`, `delete`, `sync`) means `write-capable` and the entry gets ⚠️. |
+| `action_level` | What kinds of actions can it perform? | Read the project's exposed tool list. Only query tools (`get`, `list`, `search`) means `read-only`. Suggesting changes for a human to execute means `proposal`. Any tool that mutates real state (`create`, `deploy`, `delete`, `sync`) means `write-capable` and the entry gets ⚠️. This classification does not prove the tool has access to a production environment. |
 | `human_approval` | Does a human gate write actions? | Look for gates in the server (write tools disabled by default, dry-run modes, confirmation flags) or in the client (permission prompts). Server-side gates are stronger because they hold no matter which client connects. |
 | `evidence_tracing` | Can you prove what it did afterward? | Check for audit logs, OpenTelemetry support, structured run records, or evaluation output. Scored `yes`, `partial`, or `none`. |
-| `maturity` | Is it stable enough to depend on? | Observable signals only: vendor support status, API stability (GA versus alpha), and recent activity. The audit script checks freshness and archived status automatically. |
+| `maturity` | How mature does the project appear? | Observable signals include vendor support status, API stability (GA versus alpha), and recent activity. A production-adjacent rating is curator judgment, not a production-readiness guarantee. The weekly audit automatically checks GitHub reachability and archived status. |
 | `risk_notes` | What is the blast radius if it goes wrong? | Combines the above with what the tool connects to. Write-capable identity tooling is treated very differently from a read-only diagram generator. |
 
 ## How fields map to README labels
 
-The emoji labels in the README catalog are shorthand for these fields: ⚠️ maps to `action_level: write-capable`, 🛡️ to `human_approval: true`, 📊 to tracing or eval evidence, and 🟢/🟡 to `maturity`.
+The emoji labels in the README catalog are shorthand for these fields: ⚠️ maps to `action_level: write-capable`, 🛡️ to `human_approval: true`, 📊 to tracing or eval evidence, and 🟢/🟡 to `maturity`. A 🛡️ may represent a server-enforced gate, a client permission prompt, or another documented safety mechanism; consult the entry and upstream documentation to determine enforcement strength.
 
 ## Example: reading one entry
 
@@ -31,4 +31,4 @@ Read as: safe to connect for incident context today, but flip on its write tools
 
 ## What is automated and what is judgment
 
-Link reachability, archived status, and freshness are checked automatically by [scripts/audit_github_repos.py](../scripts/audit_github_repos.py) and enforced in CI. The safety scores themselves are curator judgment from reviewing each project's docs and tool surface at the time of entry. Verify against your own environment before connecting anything to real infrastructure — [templates/agent-scorecard.md](../templates/agent-scorecard.md) is the full per-project checklist used for deep review.
+GitHub repository reachability and archived status are checked weekly by [scripts/audit_github_repos.py](../scripts/audit_github_repos.py). The audit records each repository's latest push timestamp but does not apply a freshness threshold, and it skips non-GitHub documentation links. Those links and all safety scores require curator review. Verify every entry against your own environment before connecting it to real infrastructure — [templates/agent-scorecard.md](../templates/agent-scorecard.md) is the full per-project checklist used for deep review.
