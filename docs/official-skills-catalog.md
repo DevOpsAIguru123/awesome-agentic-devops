@@ -1,6 +1,6 @@
 # Official agent skills catalog — by company & product
 
-Every skill the [skills installer](../README.md#install-official-skills-into-your-coding-agent) can pull, grouped by **company and product**. Sources are the `official-agent-skills` repos in [`data/repos.yaml`](../data/repos.yaml). Counts are `SKILL.md` folders at time of writing; run the command with `--dry-run` to preview or `--list` for the live count.
+Every skill the [skills installer](install-skills.md) can pull, grouped by **company and product**. Sources are the `official-agent-skills` repos in [`data/repos.yaml`](../data/repos.yaml). Counts are `SKILL.md` folders at time of writing; run the command with `--dry-run` to preview or `--list` for the live count.
 
 **The commands below are complete — copy the one you want and run it.** They install into **Claude Code on macOS/Linux**. For a different setup, change only the start of the line:
 
