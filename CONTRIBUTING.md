@@ -29,8 +29,7 @@ python -m venv .venv
 source .venv/bin/activate
 python -m pip install -e ".[dev]"
 python scripts/validate_repos_yaml.py
-python scripts/sync_readme_counts.py
 pytest -q
 ```
 
-`sync_readme_counts.py` refreshes the entry/category counts in the README intro from `data/repos.yaml`, so you never edit those numbers by hand.
+You do not need to touch the entry/category counts in the README intro: the `sync-readme-counts` CI job recomputes them from `data/repos.yaml` and commits the fix automatically. To sync them locally anyway, run `python scripts/sync_readme_counts.py`.

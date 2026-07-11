@@ -232,7 +232,6 @@ Run validation before opening a PR:
 
 ```bash
 python scripts/validate_repos_yaml.py
-python scripts/sync_readme_counts.py   # refreshes the intro's entry/category counts
 pytest -q
 python scripts/run_mock_eval_scenarios.py
 python scripts/audit_github_repos.py --workers 12 --fail-on-unreachable

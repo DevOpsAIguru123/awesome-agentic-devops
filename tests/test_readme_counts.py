@@ -1,8 +1,9 @@
-"""The README intro's catalog counts must match data/repos.yaml.
+"""Guard the README intro's counts phrase without blocking contributors.
 
-Companion tripwire to the entry-count assertion in test_repos_yaml.py: adding
-a catalog entry without refreshing the intro pitch numbers fails here with the
-exact fix (run scripts/sync_readme_counts.py).
+Staleness of the numbers is repaired automatically by the sync-readme-counts
+CI job (it runs scripts/sync_readme_counts.py and commits the fix), so these
+tests only assert the phrase the script rewrites still exists and that the
+expected value is computable — deleting either would silently disable the sync.
 """
 
 import sys
@@ -13,11 +14,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from scripts.sync_readme_counts import COUNTS_PATTERN, README, expected_counts_phrase  # noqa: E402
 
 
-def test_readme_intro_counts_match_catalog():
-    phrase = expected_counts_phrase()
+def test_readme_keeps_the_counts_phrase():
     found = COUNTS_PATTERN.findall(README.read_text())
-    assert found, "README.md lost its '<N> entries across <M> categories' phrase"
-    assert found == [phrase], (
-        f"README counts {found} are stale, expected '{phrase}'. "
-        "Run: python scripts/sync_readme_counts.py"
+    assert len(found) == 1, (
+        f"README.md must contain exactly one '<N> entries across <M> categories' "
+        f"phrase for sync_readme_counts.py to rewrite; found {found}"
     )
+
+
+def test_expected_counts_are_computable():
+    assert COUNTS_PATTERN.fullmatch(expected_counts_phrase())
