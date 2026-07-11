@@ -5,11 +5,13 @@ resolution, and pointer-file rendering against a local fake skill source, so
 they run deterministically without network access.
 """
 
+import argparse
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+import scripts.install_skills as install_skills  # noqa: E402
 from scripts.install_skills import (  # noqa: E402
     AGENTS,
     POINTER_BEGIN,
@@ -21,6 +23,7 @@ from scripts.install_skills import (  # noqa: E402
     load_catalog_sources,
     plan_installs,
     render_pointer,
+    resolve_sources,
     write_pointer,
 )
 
@@ -131,3 +134,22 @@ def test_catalog_sources_returns_official_skill_repos():
     assert "google/skills" in sources.values()
     for owner_repo in sources.values():
         assert owner_repo.count("/") == 1
+
+
+def test_explicit_owner_repo_source_never_loads_catalog(monkeypatch):
+    """The stdlib-only path: an explicit owner/repo must not touch the YAML
+    catalog (which needs PyYAML), even when --repos points at a real file."""
+
+    def fail_if_called(*_args, **_kwargs):
+        raise AssertionError("catalog loaded for an explicit owner/repo source")
+
+    monkeypatch.setattr(install_skills, "load_catalog_sources", fail_if_called)
+    args = argparse.Namespace(source="google/skills", repos="data/repos.yaml")
+
+    assert resolve_sources(args) == ["google/skills"]
+
+
+def test_source_all_still_expands_via_catalog():
+    args = argparse.Namespace(source="all", repos="data/repos.yaml")
+    sources = resolve_sources(args)
+    assert "google/skills" in sources and len(sources) > 1

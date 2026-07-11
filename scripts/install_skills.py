@@ -276,6 +276,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 
 def resolve_sources(args: argparse.Namespace) -> list[str]:
+    # An explicit owner/repo needs no catalog — resolve it before importing PyYAML
+    # so the advertised stdlib-only path works on a bare Python (no PyYAML).
+    if args.source and args.source != "all" and args.source.count("/") == 1:
+        return [args.source]
+    # Only these paths need the catalog: 'all' expansion and alias lookup.
     catalog = load_catalog_sources(Path(args.repos)) if Path(args.repos).exists() else {}
     if args.source == "all":
         if not catalog:
@@ -283,8 +288,6 @@ def resolve_sources(args: argparse.Namespace) -> list[str]:
         return sorted(set(catalog.values()))
     if args.source in catalog:
         return [catalog[args.source]]
-    if args.source and args.source.count("/") == 1:
-        return [args.source]
     raise SystemExit(f"unrecognized --source {args.source!r}; try --list-sources")
 
 
