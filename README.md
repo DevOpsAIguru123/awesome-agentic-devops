@@ -12,7 +12,7 @@ Most agent lists stop at discovery. This one is built for operators:
 - **Scored, not just listed** — every entry rates production access, human approval gates, tracing evidence, and maturity ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — every link is re-checked weekly for reachability, archival, and freshness.
 - **Installable, not just readable** — [one command](#install-official-skills-into-your-coding-agent) puts 300+ official skills from Google, Microsoft, and Azure into Claude Code, Cursor, Codex, VS Code, or Antigravity.
-- **Runnable, not just theoretical** — working [reference agents](#local-reference-agents) for Terraform plan review and drift detection.
+- **Runnable, not just theoretical** — working [reference agents](#local-reference-agents) for Terraform plan review and drift detection (more agents coming soon).
 
 **Safety first:** these agents may touch infrastructure. Prefer read-only or proposal mode, require human approval before write actions, and use least-privilege credentials — full guidance in the [safety model](docs/safety-model.md).
 
