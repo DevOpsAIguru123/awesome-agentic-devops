@@ -8,7 +8,7 @@ A curated catalog of **official** DevOps, Cloud, SRE, and Platform Engineering M
 
 Most agent lists stop at discovery. This one is built for operators:
 
-- **Official-first** — 59 entries across 14 categories: 54 verified as the vendor's own repo or docs, plus a clearly labeled [community section](#community-discovery-and-skills) for standout community projects.
+- **Official-first** — 59 entries across 14 categories, all but a clearly labeled [community section](#community-discovery-and-skills) verified as the vendor's own repo or docs.
 - **Scored, not just listed** — every entry rates production access, human approval gates, tracing evidence, and maturity ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — every link is re-checked weekly for reachability, archival, and freshness.
 - **Installable, not just readable** — [one command](#install-official-skills-into-your-coding-agent) puts 300+ official skills from Google, Microsoft, and Azure into Claude Code, Cursor, Codex, VS Code, or Antigravity.
@@ -232,6 +232,7 @@ Run validation before opening a PR:
 
 ```bash
 python scripts/validate_repos_yaml.py
+python scripts/sync_readme_counts.py   # refreshes the intro's entry/category counts
 pytest -q
 python scripts/run_mock_eval_scenarios.py
 python scripts/audit_github_repos.py --workers 12 --fail-on-unreachable

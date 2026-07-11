@@ -29,5 +29,8 @@ python -m venv .venv
 source .venv/bin/activate
 python -m pip install -e ".[dev]"
 python scripts/validate_repos_yaml.py
+python scripts/sync_readme_counts.py
 pytest -q
 ```
+
+`sync_readme_counts.py` refreshes the entry/category counts in the README intro from `data/repos.yaml`, so you never edit those numbers by hand.
