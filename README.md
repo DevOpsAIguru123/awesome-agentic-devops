@@ -8,7 +8,7 @@ A curated, **official-first** catalog of MCP servers, agent skills, AI agents, f
 
 Most agent lists stop at discovery. This one is built for operators:
 
-- **Official-first, community-inclusive** — 61 entries organized into 14 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
+- **Official-first, community-inclusive** — 62 entries organized into 14 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — GitHub repository entries are checked weekly for reachability and archived status; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-official-skills-into-your-coding-agent) installs hundreds of official skills from cataloged Google, Microsoft, Azure, and Azure DevOps sources into Claude Code, Cursor, Codex, VS Code, or Antigravity.
@@ -130,6 +130,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) | 🟢 🔵 🛡️ 📊 | Official OWASP MCP Top 10 documentation for assessing Model Context Protocol security risks across agentic DevOps integrations. |
 | [Snyk Studio MCP docs](https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio) | 🟢 🔵 🛡️ 📊 | Official Snyk documentation for Snyk Studio agentic security workflows and Snyk MCP Server usage. |
 | [snyk/agent-scan](https://github.com/snyk/agent-scan) | 🟢 🛡️ 📊 | Official Snyk security scanner for AI agents, MCP servers, and agent skills. |
+| [shieldly-io/cli](https://github.com/shieldly-io/cli) | 🟢 🛡️ 📊 | Official Shieldly agent-scan CLI that grades the AWS blast radius of AI agent credentials; offline by default, SARIF output, CI budget enforcement. |
 | [Wiz WIN MCP Server docs](https://docs.wiz.io/dev/win-mcp-server) | 🟢 🔵 🛡️ 📊 | Official Wiz documentation for the WIN MCP server, adding CNAPP and cloud-security coverage. |
 
 ### Official CI/CD and GitOps MCP Servers

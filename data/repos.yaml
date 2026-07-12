@@ -821,6 +821,28 @@
     - 🛡️
     - 📊
 
+- name: shieldly-io/cli
+  url: https://github.com/shieldly-io/cli
+  category: official-agent-security-tools
+  type: agent-security-scanner
+  framework: security-scanner
+  primary_language: JavaScript
+  cloud_provider: aws
+  use_cases:
+    - ai-agent-aws-permission-review
+    - agent-credential-blast-radius-analysis
+    - least-privilege-policy-generation
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  risk_notes: "Scan reads local agent configs and AWS policies; findings are advisory and need human review before tightening production IAM policies. Offline by default; optional upload sends results to Shieldly's SaaS."
+  operator_note: "Official Shieldly CLI (agent-scan) that grades the AWS blast radius of AI agent credentials — destructive, exfiltration, privilege-escalation, and unbounded-cost actions — from auto-discovered agent/MCP configs, a policy file, role ARN, or CloudFormation template; SARIF output and CI budget enforcement."
+  labels:
+    - 🟢
+    - 🛡️
+    - 📊
+
 - name: Wiz WIN MCP Server docs
   url: https://docs.wiz.io/dev/win-mcp-server
   category: official-cloud-security-mcp-servers
