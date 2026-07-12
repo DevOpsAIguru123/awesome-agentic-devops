@@ -38,7 +38,7 @@ def valid_entry(**overrides):
 def test_validates_seed_data_file():
     entries = validate_file(Path("data/repos.yaml"))
 
-    assert len(entries) == 59
+    assert len(entries) == 61
     assert all(field in entries[0] for field in REQUIRED_FIELDS)
 
 

@@ -8,7 +8,7 @@ A curated, **official-first** catalog of MCP servers, agent skills, AI agents, f
 
 Most agent lists stop at discovery. This one is built for operators:
 
-- **Official-first, community-inclusive** — 59 entries organized into 14 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
+- **Official-first, community-inclusive** — 61 entries organized into 14 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — GitHub repository entries are checked weekly for reachability and archived status; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-official-skills-into-your-coding-agent) installs hundreds of official skills from cataloged Google, Microsoft, Azure, and Azure DevOps sources into Claude Code, Cursor, Codex, VS Code, or Antigravity.
@@ -52,7 +52,7 @@ Labels are shorthand for structured fields recorded on every entry in [data/repo
 | FinOps and cloud cost | [vantage-sh/vantage-mcp-server](https://github.com/vantage-sh/vantage-mcp-server) | Official Vantage MCP server for cloud spend analysis, budgets, anomalies, reports, and provider-resource cost context across Vantage-connected providers. |
 | Security and code quality | [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/)<br>[SonarSource/sonarqube-mcp-server](https://github.com/SonarSource/sonarqube-mcp-server)<br>[okta/okta-mcp-server](https://github.com/okta/okta-mcp-server)<br>[Snyk Studio MCP docs](https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio)<br>[Wiz WIN MCP Server docs](https://docs.wiz.io/dev/win-mcp-server) | Official MCPs and security resources for MCP threat modeling, code quality, application security, identity-aware workflows, agent security, and cloud-security posture. |
 | Data platform operations | [mongodb-js/mongodb-mcp-server](https://github.com/mongodb-js/mongodb-mcp-server)<br>[redis/mcp-redis](https://github.com/redis/mcp-redis) | Official database MCP servers for MongoDB and Redis operational context, cache/session data, vector search, streams, and data-platform agent workflows. |
-| CI/CD and GitOps | [jenkinsci/mcp-server-plugin](https://github.com/jenkinsci/mcp-server-plugin)<br>[argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd) | Official Jenkins and Argo Project resources for pipeline, build, deployment, and GitOps workflows. |
+| CI/CD and GitOps | [jenkinsci/mcp-server-plugin](https://github.com/jenkinsci/mcp-server-plugin)<br>[argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd)<br>[harness/mcp-server](https://github.com/harness/mcp-server) | Official Jenkins, Argo Project, and Harness resources for pipeline, build, deployment, rollback, and GitOps workflows. |
 | MCP development and governance | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk)<br>[modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk)<br>[modelcontextprotocol/registry](https://github.com/modelcontextprotocol/registry)<br>[Docker MCP Catalog and Toolkit](https://docs.docker.com/ai/mcp-catalog-and-toolkit/) | Official SDKs, registry, and Docker governance surfaces for building, packaging, and controlling DevOps MCP servers. |
 | Agent frameworks and templates | [google/adk-python](https://github.com/google/adk-python)<br>[GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack) | Official Google agent framework and production templates with CI/CD, evaluation, and observability. |
 
@@ -71,6 +71,8 @@ Pass `--dry-run` to preview first. Commands for Cursor, Codex, VS Code, Antigrav
 
 | Date | Entry | Category |
 | --- | --- | --- |
+| 2026-07-12 | [harness/mcp-server](https://github.com/harness/mcp-server) | CI/CD / Harness |
+| 2026-07-12 | [harness/harness-skills](https://github.com/harness/harness-skills) | Agent skills / Harness |
 | 2026-07-09 | [redis/mcp-redis](https://github.com/redis/mcp-redis) | Data platform / Redis |
 | 2026-07-08 | [Elastic Agent Builder MCP server docs](https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server) | SRE / observability |
 | 2026-07-07 | [skyhook-io/radar](https://github.com/skyhook-io/radar) | Kubernetes / community MCP |
@@ -137,6 +139,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | [jenkinsci/mcp-server-plugin](https://github.com/jenkinsci/mcp-server-plugin) | 🟢 🔵 🛡️ ⚠️ | Official Jenkins plugin that enables Jenkins to act as an MCP server for LLM-powered clients. |
 | [argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd) | 🟡 🔵 🛡️ ⚠️ | Argo Project Labs MCP server implementation for Argo CD, filling the GitOps/CD gap in the catalog. |
 | [CircleCI-Public/mcp-server-circleci](https://github.com/CircleCI-Public/mcp-server-circleci) | 🟢 🔵 🛡️ 📊 | Official CircleCI MCP server for build failure logs, pipeline status, flaky test detection, and usage analysis. |
+| [harness/mcp-server](https://github.com/harness/mcp-server) | 🟢 🔵 🛡️ ⚠️ | Official Harness MCP server (Go) for CI/CD pipelines, deployments, connectors, feature flags, and infrastructure operations; risk-tiered model blocks destructive ops without confirmation. |
 
 ### Official MCP SDKs, Reference Implementations, Registries, and Governance Platforms
 
@@ -186,6 +189,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | [google/skills](https://github.com/google/skills) | 🟢 🛡️ | Official Google Agent Skills repository for Google products and technologies. |
 | [google/adk-python](https://github.com/google/adk-python) | 🟢 🛡️ 📊 | Official Google Agent Development Kit for building, evaluating, and deploying agents. |
 | [GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack) | 🟢 🛡️ 📊 | Official Google Cloud starter pack for shipping agents with CI/CD, evaluation, observability, and security. |
+| [harness/harness-skills](https://github.com/harness/harness-skills) | 🟢 🛡️ ⚠️ | Official Harness agent skills for Claude Code, Cursor, and GitHub Copilot enabling natural-language CI/CD automation via harness/mcp-server. |
 
 ### Official Platform Agent Toolkits
 

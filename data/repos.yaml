@@ -1178,6 +1178,51 @@
     - 🛡️
     - 📊
 
+- name: harness/mcp-server
+  url: https://github.com/harness/mcp-server
+  category: official-ci-cd-mcp-servers
+  type: mcp-server
+  framework: MCP + Harness API
+  primary_language: Go
+  cloud_provider: multi-cloud
+  use_cases:
+    - ci-cd-pipeline-automation
+    - deployment-and-rollback-workflows
+    - connector-and-feature-flag-management
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  risk_notes: "Risk-tiered operation model blocks medium_write, high_write, and destructive operations when confirmation cannot be obtained; rate limiting and CORS same-origin enforcement are built in. Require PAT/SAT scoped to the minimum needed Harness account and avoid HARNESS_AUTO_APPROVE_RISK in non-autonomous workflows."
+  operator_note: "Official Harness MCP server (Go) for CI/CD pipelines, deployments, connectors, feature flags, and infrastructure operations; pairs with harness/harness-skills for natural-language /deploy, /rollback, and /triage workflows."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - ⚠️
+
+- name: harness/harness-skills
+  url: https://github.com/harness/harness-skills
+  category: official-agent-skills
+  type: skill-library
+  framework: skills + MCP
+  primary_language: Markdown
+  cloud_provider: multi-cloud
+  use_cases:
+    - ci-cd-natural-language-workflows
+    - deployment-triage-and-rollback
+    - feature-flag-and-pipeline-agent-skills
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: skill-library
+  risk_notes: "Skills wrap write-capable Harness MCP tools (/deploy, /rollback); review each skill's tool calls and require approval before triggering deployment mutations."
+  operator_note: "Official Harness agent skills for Claude Code, Cursor, and GitHub Copilot that enable natural-language CI/CD automation through the harness/mcp-server."
+  labels:
+    - 🟢
+    - 🛡️
+    - ⚠️
+
 - name: mongodb-js/mongodb-mcp-server
   url: https://github.com/mongodb-js/mongodb-mcp-server
   category: official-data-platform-mcp-servers
