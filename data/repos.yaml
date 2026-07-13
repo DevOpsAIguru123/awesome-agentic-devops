@@ -1384,3 +1384,27 @@
     - 🛡️
     - 📊
     - ⚠️
+- name: control-theory/dstl8
+  url: https://github.com/control-theory/dstl8
+  category: official-sre-mcp-servers
+  type: mcp-server
+  framework: MCP + skills + plugins
+  primary_language: Shell
+  cloud_provider: multi-cloud
+  use_cases:
+    - incident-investigation
+    - log-pattern-and-anomaly-analysis
+    - deploy-verification
+    - cross-environment-correlation
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  risk_notes: "Org-scoped API token exposes log telemetry that may contain sensitive data; write tools can create, update, and delete incidents, annotations, and knowledge-graph entries (not infrastructure). Token creation and account setup are human-driven; scope tokens per org and review write actions. Hosted commercial platform; the CLI, Claude Code plugin, and skill are public, the backend is not OSS."
+  operator_note: "Official Dstl8 CLI and per-org MCP server for incident investigation, log pattern and anomaly analysis, sentiment/severity context, and deploy verification across Kubernetes, AWS, Vercel, Supabase, and OpenTelemetry sources."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - ⚠️
