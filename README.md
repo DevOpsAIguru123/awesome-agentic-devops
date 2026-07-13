@@ -65,7 +65,7 @@ Install hundreds of official [Agent Skills](https://github.com/anthropics/skills
 curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source all
 ```
 
-Pass `--dry-run` to preview first. Commands for Cursor, Codex, VS Code, Antigravity, and Windows — plus target folders and safety notes — are in the [install guide](docs/install-skills.md). To install just one company or product, use the [skills catalog by company & product](docs/official-skills-catalog.md).
+Pass `--dry-run` to preview first. Commands for Cursor, Codex, VS Code, Antigravity(Mac and Windows) — plus target folders and safety notes — are in the [install guide](docs/install-skills.md). To install just one company or product, use the [skills catalog by company & product](docs/official-skills-catalog.md).
 
 ## Recently added
 
