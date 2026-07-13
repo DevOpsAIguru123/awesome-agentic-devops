@@ -776,6 +776,31 @@
     - 🛡️
     - ⚠️
 
+- name: controlplaneio-fluxcd/flux-operator (MCP)
+  url: https://github.com/controlplaneio-fluxcd/flux-operator/tree/main/cmd/mcp
+  category: official-gitops-mcp-servers
+  type: mcp-server
+  framework: MCP + Flux CD
+  primary_language: Go
+  cloud_provider: multi-cloud
+  use_cases:
+    - gitops-pipeline-debugging
+    - flux-kustomization-management
+    - kubernetes-drift-detection
+    - multi-cluster-gitops-operations
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  risk_notes: "Flux MCP can trigger reconciliations, suspend/resume Flux resources, and interact with live Kubernetes clusters via kubeconfig; use read-only mode (--read-only=true) for observation-only sessions and scope kubeconfig RBAC to least privilege."
+  operator_note: "Official Flux Operator MCP server from CNCF Flux core maintainers at ControlPlane; Go single-binary with read-only mode, kubeconfig scoping, and Kubernetes impersonation support. Covers Kustomizations, HelmReleases, drift detection, root cause analysis, and multi-cluster comparison."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - ⚠️
+
 - name: Snyk Studio MCP docs
   url: https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio
   category: official-security-mcp-servers
