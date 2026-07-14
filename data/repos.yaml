@@ -1134,6 +1134,32 @@
     - 🛡️
     - 📊
 
+- name: dynatrace-oss/dynatrace-mcp
+  url: https://github.com/dynatrace-oss/dynatrace-mcp
+  category: official-sre-mcp-servers
+  type: mcp-server
+  framework: MCP
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - dynatrace-observability-querying
+    - incident-and-anomaly-investigation
+    - natural-language-dql-generation
+    - deployment-health-gates
+    - security-vulnerability-tracking
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  risk_notes: "Automation tools can send Slack messages, emails, and create Dynatrace notebooks; DQL queries against Grail may incur consumption costs; scope Platform Token to least-privilege scopes and require approval before write/notification actions. Community-backed under dynatrace-oss; in maintenance mode — prefer the official Dynatrace-hosted MCP for new deployments."
+  operator_note: "Official Dynatrace open-source MCP server (dynatrace-oss org) for Dynatrace SaaS observability: DQL querying, problem/vulnerability/Kubernetes event listing, Davis Copilot AI chat, and deployment automation. 131 stars; MIT license; npm package @dynatrace-oss/dynatrace-mcp-server."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - ⚠️
+
 - name: Elastic Agent Builder MCP server docs
   url: https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server
   category: official-sre-mcp-servers
