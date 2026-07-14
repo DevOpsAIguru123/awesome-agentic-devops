@@ -8,7 +8,7 @@ A curated, **official-first** catalog of MCP servers, agent skills, AI agents, f
 
 Most agent lists stop at discovery. This one is built for operators:
 
-- **Official-first, community-inclusive** — 61 entries organized into 14 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
+- **Official-first, community-inclusive** — 62 entries organized into 14 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — GitHub repository entries are checked weekly for reachability and archived status; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-official-skills-into-your-coding-agent) installs hundreds of official skills from cataloged Google, Microsoft, Azure, and Azure DevOps sources into Claude Code, Cursor, Codex, VS Code, or Antigravity.
@@ -138,6 +138,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | --- | --- | --- |
 | [jenkinsci/mcp-server-plugin](https://github.com/jenkinsci/mcp-server-plugin) | 🟢 🔵 🛡️ ⚠️ | Official Jenkins plugin that enables Jenkins to act as an MCP server for LLM-powered clients. |
 | [argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd) | 🟡 🔵 🛡️ ⚠️ | Argo Project Labs MCP server implementation for Argo CD, filling the GitOps/CD gap in the catalog. |
+| [controlplaneio-fluxcd/flux-operator (MCP)](https://github.com/controlplaneio-fluxcd/flux-operator/tree/main/cmd/mcp) | 🟢 🔵 🛡️ 📊 ⚠️ | Official Flux Operator MCP server from CNCF Flux core maintainers; Go single-binary with read-only mode, kubeconfig scoping, and Kubernetes impersonation. Covers Kustomizations, HelmReleases, drift detection, root cause analysis, and multi-cluster comparison. |
 | [CircleCI-Public/mcp-server-circleci](https://github.com/CircleCI-Public/mcp-server-circleci) | 🟢 🔵 🛡️ 📊 | Official CircleCI MCP server for build failure logs, pipeline status, flaky test detection, and usage analysis. |
 | [harness/mcp-server](https://github.com/harness/mcp-server) | 🟢 🔵 🛡️ ⚠️ | Official Harness MCP server (Go) for CI/CD pipelines, deployments, connectors, feature flags, and infrastructure operations; risk-tiered model blocks destructive ops without confirmation. |
 
