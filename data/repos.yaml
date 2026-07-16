@@ -824,6 +824,32 @@
     - 🛡️
     - 📊
 
+- name: snyk/studio-mcp
+  url: https://github.com/snyk/studio-mcp
+  category: official-security-mcp-servers
+  type: mcp-server
+  framework: MCP + Snyk CLI
+  primary_language: Go
+  cloud_provider: multi-cloud
+  use_cases:
+    - sca-vulnerability-scanning
+    - sast-code-scanning
+    - iac-security-scanning
+    - container-vulnerability-scanning
+    - sbom-generation
+    - secret-detection
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  risk_notes: "Scans invoke local ecosystem tools (Gradle, Maven, npm) on the developer machine; require explicit Snyk auth, scope per project/org, and treat scan output as security evidence requiring human review before remediation."
+  operator_note: "Official Snyk MCP server (Go) providing snyk_sca_scan, snyk_code_scan, snyk_iac_scan, snyk_container_scan, snyk_sbom_scan, snyk_secret_scan, and snyk_aibom tools via the `snyk mcp` CLI command; Apache-2.0 license; closed to public contributions."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+
 - name: snyk/agent-scan
   url: https://github.com/snyk/agent-scan
   category: official-agent-security-tools
