@@ -8,7 +8,7 @@ A curated, **official-first** catalog of MCP servers, agent skills, AI agents, f
 
 Most agent lists stop at discovery. This one is built for operators:
 
-- **Official-first, community-inclusive** — 62 entries organized into 14 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
+- **Official-first, community-inclusive** — 65 entries organized into 14 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — GitHub repository entries are checked weekly for reachability and archived status; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-official-skills-into-your-coding-agent) installs hundreds of official skills from cataloged Google, Microsoft, Azure, and Azure DevOps sources into Claude Code, Cursor, Codex, VS Code, or Antigravity.
@@ -50,7 +50,7 @@ Labels are shorthand for structured fields recorded on every entry in [data/repo
 | Terraform and IaC | [hashicorp/terraform-mcp-server](https://github.com/hashicorp/terraform-mcp-server)<br>[Pulumi MCP Server](https://www.pulumi.com/docs/ai/mcp-server/) | Official IaC MCP sources for Terraform Registry/HCP Terraform and Pulumi Cloud automation. |
 | SRE incident response | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana)<br>[datadog-labs/mcp-server](https://github.com/datadog-labs/mcp-server)<br>[Elastic Agent Builder MCP server docs](https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server)<br>[PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | Official observability and incident-management MCPs for metrics, logs, traces, indexed operational data, alerts, incidents, and on-call context. |
 | FinOps and cloud cost | [vantage-sh/vantage-mcp-server](https://github.com/vantage-sh/vantage-mcp-server) | Official Vantage MCP server for cloud spend analysis, budgets, anomalies, reports, and provider-resource cost context across Vantage-connected providers. |
-| Security and code quality | [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/)<br>[SonarSource/sonarqube-mcp-server](https://github.com/SonarSource/sonarqube-mcp-server)<br>[okta/okta-mcp-server](https://github.com/okta/okta-mcp-server)<br>[Snyk Studio MCP docs](https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio)<br>[Wiz WIN MCP Server docs](https://docs.wiz.io/dev/win-mcp-server) | Official MCPs and security resources for MCP threat modeling, code quality, application security, identity-aware workflows, agent security, and cloud-security posture. |
+| Security and code quality | [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/)<br>[SonarSource/sonarqube-mcp-server](https://github.com/SonarSource/sonarqube-mcp-server)<br>[okta/okta-mcp-server](https://github.com/okta/okta-mcp-server)<br>[Snyk Studio MCP docs](https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio)<br>[snyk/studio-mcp](https://github.com/snyk/studio-mcp)<br>[Wiz WIN MCP Server docs](https://docs.wiz.io/dev/win-mcp-server)<br>[CrowdStrike/falcon-mcp](https://github.com/CrowdStrike/falcon-mcp) | Official MCPs and security resources for MCP threat modeling, code quality, application security, identity-aware workflows, agent security, cloud-security posture, and Falcon-platform SOC automation. |
 | Data platform operations | [mongodb-js/mongodb-mcp-server](https://github.com/mongodb-js/mongodb-mcp-server)<br>[redis/mcp-redis](https://github.com/redis/mcp-redis) | Official database MCP servers for MongoDB and Redis operational context, cache/session data, vector search, streams, and data-platform agent workflows. |
 | CI/CD and GitOps | [jenkinsci/mcp-server-plugin](https://github.com/jenkinsci/mcp-server-plugin)<br>[argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd)<br>[harness/mcp-server](https://github.com/harness/mcp-server) | Official Jenkins, Argo Project, and Harness resources for pipeline, build, deployment, rollback, and GitOps workflows. |
 | MCP development and governance | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk)<br>[modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk)<br>[modelcontextprotocol/registry](https://github.com/modelcontextprotocol/registry)<br>[Docker MCP Catalog and Toolkit](https://docs.docker.com/ai/mcp-catalog-and-toolkit/) | Official SDKs, registry, and Docker governance surfaces for building, packaging, and controlling DevOps MCP servers. |
@@ -71,6 +71,8 @@ Pass `--dry-run` to preview first. Commands for Cursor, Codex, VS Code, Antigrav
 
 | Date | Entry | Category |
 | --- | --- | --- |
+| 2026-07-17 | [CrowdStrike/falcon-mcp](https://github.com/CrowdStrike/falcon-mcp) | Security / CrowdStrike Falcon SOC automation |
+| 2026-07-14 | [dynatrace-oss/dynatrace-mcp](https://github.com/dynatrace-oss/dynatrace-mcp) | SRE / Dynatrace observability |
 | 2026-07-12 | [harness/mcp-server](https://github.com/harness/mcp-server) | CI/CD / Harness |
 | 2026-07-12 | [harness/harness-skills](https://github.com/harness/harness-skills) | Agent skills / Harness |
 | 2026-07-09 | [redis/mcp-redis](https://github.com/redis/mcp-redis) | Data platform / Redis |
@@ -129,8 +131,10 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | [okta/okta-mcp-server](https://github.com/okta/okta-mcp-server) | 🟢 🔵 🛡️ ⚠️ | Official Okta self-hosted MCP server for connecting agents to Okta identity workflows. |
 | [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) | 🟢 🔵 🛡️ 📊 | Official OWASP MCP Top 10 documentation for assessing Model Context Protocol security risks across agentic DevOps integrations. |
 | [Snyk Studio MCP docs](https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio) | 🟢 🔵 🛡️ 📊 | Official Snyk documentation for Snyk Studio agentic security workflows and Snyk MCP Server usage. |
+| [snyk/studio-mcp](https://github.com/snyk/studio-mcp) | 🟢 🔵 🛡️ 📊 | Official Snyk MCP server (Go) providing snyk_sca_scan, snyk_code_scan, snyk_iac_scan, snyk_container_scan, snyk_sbom_scan, snyk_secret_scan, and snyk_aibom tools via the `snyk mcp` CLI command. |
 | [snyk/agent-scan](https://github.com/snyk/agent-scan) | 🟢 🛡️ 📊 | Official Snyk security scanner for AI agents, MCP servers, and agent skills. |
 | [Wiz WIN MCP Server docs](https://docs.wiz.io/dev/win-mcp-server) | 🟢 🔵 🛡️ 📊 | Official Wiz documentation for the WIN MCP server, adding CNAPP and cloud-security coverage. |
+| [CrowdStrike/falcon-mcp](https://github.com/CrowdStrike/falcon-mcp) | 🟡 🔵 🛡️ ⚠️ | Official CrowdStrike MCP server (Python, public preview) for threat detection, incident investigation, threat intelligence, endpoint inventory, identity protection, NG-SIEM, and cloud security (CSPM/CSVM). Use least-privilege API scopes; write-capable modules can change endpoint policy and detection rules. |
 
 ### Official CI/CD and GitOps MCP Servers
 
@@ -178,6 +182,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | [Splunk MCP Server](https://splunkbase.splunk.com/app/7931) | 🟢 🔵 🛡️ 📊 | Splunkbase listing for the Splunk-supported MCP Server for Splunk Platform, Enterprise, and Cloud customers. |
 | [PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | 🟢 🔵 🛡️ ⚠️ | Official PagerDuty MCP server for incidents, services, schedules, event orchestrations, and embedded incident UIs. |
 | [newrelic/mcp-server](https://github.com/newrelic/mcp-server) | 🟢 🔵 🛡️ 📊 | Official New Relic MCP server for APM, dashboard, and NRQL-based observability context. |
+| [dynatrace-oss/dynatrace-mcp](https://github.com/dynatrace-oss/dynatrace-mcp) | 🟢 🔵 🛡️ 📊 ⚠️ | Official Dynatrace open-source MCP server for DQL querying, anomaly/incident/Kubernetes investigation, Davis Copilot AI chat, and deployment automation. |
 | [Elastic Agent Builder MCP server docs](https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server) | 🟢 🔵 🛡️ 📊 | Official Elastic documentation for exposing Agent Builder tools through MCP with Kibana URL and API-key authentication. |
 
 ### Official Agent Skills and Frameworks

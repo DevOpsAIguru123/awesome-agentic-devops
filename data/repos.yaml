@@ -824,6 +824,32 @@
     - 🛡️
     - 📊
 
+- name: snyk/studio-mcp
+  url: https://github.com/snyk/studio-mcp
+  category: official-security-mcp-servers
+  type: mcp-server
+  framework: MCP + Snyk CLI
+  primary_language: Go
+  cloud_provider: multi-cloud
+  use_cases:
+    - sca-vulnerability-scanning
+    - sast-code-scanning
+    - iac-security-scanning
+    - container-vulnerability-scanning
+    - sbom-generation
+    - secret-detection
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  risk_notes: "Scans invoke local ecosystem tools (Gradle, Maven, npm) on the developer machine; require explicit Snyk auth, scope per project/org, and treat scan output as security evidence requiring human review before remediation."
+  operator_note: "Official Snyk MCP server (Go) providing snyk_sca_scan, snyk_code_scan, snyk_iac_scan, snyk_container_scan, snyk_sbom_scan, snyk_secret_scan, and snyk_aibom tools via the `snyk mcp` CLI command; Apache-2.0 license; closed to public contributions."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+
 - name: snyk/agent-scan
   url: https://github.com/snyk/agent-scan
   category: official-agent-security-tools
@@ -845,6 +871,32 @@
     - 🟢
     - 🛡️
     - 📊
+
+- name: CrowdStrike/falcon-mcp
+  url: https://github.com/CrowdStrike/falcon-mcp
+  category: official-security-mcp-servers
+  type: mcp-server
+  framework: MCP + CrowdStrike Falcon
+  primary_language: Python
+  cloud_provider: multi-cloud
+  use_cases:
+    - soc-threat-detection-and-investigation
+    - endpoint-security-and-inventory
+    - threat-intelligence
+    - identity-protection
+    - cloud-security-posture
+    - vulnerability-management
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: prototype
+  risk_notes: "Public preview; avoid production deployments until 1.0 stable. Write-capable modules (RTR, policies, exclusions, custom IOA) can change endpoint configuration and detection rules. Use least-privilege API scopes and enable only the modules you need. Requires FALCON_CLIENT_ID and FALCON_CLIENT_SECRET env vars — keep out of agent context."
+  operator_note: "Official CrowdStrike-maintained MCP server (Python, MIT) connecting AI agents to the Falcon platform for threat detection, incident investigation, threat intelligence, endpoint inventory, identity protection (IDP), cloud security (CSPM/CSVM), vulnerability spotlight, NG-SIEM correlation rules, and real-time response triage. Registered in the official MCP Registry. Currently in public preview (pre-1.0). Full docs at developer.crowdstrike.com/falcon-mcp."
+  labels:
+    - 🟡
+    - 🔵
+    - 🛡️
+    - ⚠️
 
 - name: Wiz WIN MCP Server docs
   url: https://docs.wiz.io/dev/win-mcp-server
@@ -1133,6 +1185,32 @@
     - 🔵
     - 🛡️
     - 📊
+
+- name: dynatrace-oss/dynatrace-mcp
+  url: https://github.com/dynatrace-oss/dynatrace-mcp
+  category: official-sre-mcp-servers
+  type: mcp-server
+  framework: MCP
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - dynatrace-observability-querying
+    - incident-and-anomaly-investigation
+    - natural-language-dql-generation
+    - deployment-health-gates
+    - security-vulnerability-tracking
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  risk_notes: "Automation tools can send Slack messages, emails, and create Dynatrace notebooks; DQL queries against Grail may incur consumption costs; scope Platform Token to least-privilege scopes and require approval before write/notification actions. Community-backed under dynatrace-oss; in maintenance mode — prefer the official Dynatrace-hosted MCP for new deployments."
+  operator_note: "Official Dynatrace open-source MCP server (dynatrace-oss org) for Dynatrace SaaS observability: DQL querying, problem/vulnerability/Kubernetes event listing, Davis Copilot AI chat, and deployment automation. 131 stars; MIT license; npm package @dynatrace-oss/dynatrace-mcp-server."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - ⚠️
 
 - name: Elastic Agent Builder MCP server docs
   url: https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server
