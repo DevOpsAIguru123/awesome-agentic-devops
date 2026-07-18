@@ -2,4 +2,4 @@ google-adk
 python-dotenv
 pydantic
 idna>=3.18
-python-multipart>=0.0.31
+python-multipart>=0.0.32
