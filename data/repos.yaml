@@ -1464,6 +1464,30 @@
     - 🛡️
     - 📊
     - ⚠️
+- name: DopplerHQ/mcp-server
+  url: https://github.com/DopplerHQ/mcp-server
+  category: official-security-mcp-servers
+  type: mcp-server
+  framework: MCP + Doppler API
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - secrets-management
+    - secrets-rotation
+    - environment-configuration
+    - developer-secrets-workflow
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: prototype
+  risk_notes: "Experimental/pre-production by Doppler's own advisory; outputs are non-deterministic. DOPPLER_TOKEN grants broad API access — scope token to minimum required projects and environments. Write tools (create/delete secrets, configs) act on live secret stores. Keep DOPPLER_TOKEN out of agent context and use service tokens scoped per config."
+  operator_note: "Official Doppler MCP server (DopplerHQ org, Apache-2.0, TypeScript) providing AI assistants with tools to list projects/configs/environments, read secret names, and manage Doppler secrets via the Doppler API. Authentication via DOPPLER_TOKEN env var or interactive login. Intended for dev/test workflows; Doppler explicitly flags production use as requiring careful scope and review."
+  labels:
+    - 🟡
+    - 🔵
+    - 🛡️
+    - ⚠️
+
 - name: skyhook-io/radar
   url: https://github.com/skyhook-io/radar
   category: community-mcp-servers
