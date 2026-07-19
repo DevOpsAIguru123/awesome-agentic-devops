@@ -2,19 +2,21 @@
   url: https://github.com/aws/agent-toolkit-for-aws
   category: official-cloud-agent-toolkits
   type: agent-toolkit
-  framework: MCP + skills + plugins
+  framework: MCP + skills + plugins + rules
   primary_language: unknown
   cloud_provider: AWS
   use_cases:
     - aws-cloud-automation
     - agent-skills
+    - mcp-managed-server
     - devsecops-agent-workflows
+    - project-rules-and-guardrails
   action_level: write-capable
   human_approval: true
   evidence_tracing: "yes"
   maturity: production-adjacent
-  risk_notes: "Can act on AWS resources through authenticated tooling; require least-privilege IAM, read-only first runs, and explicit write approval."
-  operator_note: "Official AWS-supported toolkit that bundles MCP server configuration, skills, plugins, and DevSecOps agent workflows."
+  risk_notes: "Can execute authenticated AWS API calls and sandboxed scripts through the AWS MCP Server; require least-privilege IAM, read-only guardrails, CloudTrail/CloudWatch monitoring, and explicit approval before mutations."
+  operator_note: "Official AWS-supported toolkit with managed MCP server access, current AWS docs/API knowledge tools, on-demand agent skills, Claude Code/Codex plugins, and project rules for Kiro, Claude Code, Cursor, Codex, and other MCP-compatible agents."
   labels:
     - 🟢
     - 🔵
