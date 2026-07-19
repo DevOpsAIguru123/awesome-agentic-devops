@@ -11,7 +11,7 @@ Most agent lists stop at discovery. This one is built for operators:
 - **Official-first, community-inclusive** — 66 entries organized into 14 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — GitHub repository entries are checked weekly for reachability and archived status; non-GitHub documentation links are outside this automated check and require curator review.
-- **Installable, not just readable** — [one command](#install-official-skills-into-your-coding-agent) installs hundreds of official skills from cataloged Google, Microsoft, Azure, and Azure DevOps sources into Claude Code, Cursor, Codex, VS Code, or Antigravity.
+- **Installable, not just readable** — [one command](#install-skills-into-your-coding-agent) installs hundreds of skills from cataloged Google, Microsoft, Azure, Azure DevOps, and Harness sources — plus a separate community set — into Claude Code, Cursor, Codex, VS Code, or Antigravity.
 - **Runnable, not just theoretical** — documented [reference-agent examples](#local-reference-agents) cover Terraform plan review and drift detection.
 
 **Safety first:** some cataloged tools and agents can change infrastructure. Prefer read-only or proposal mode, require human approval before write actions, and use least-privilege credentials — full guidance in the [safety model](docs/safety-model.md).
@@ -20,7 +20,7 @@ Most agent lists stop at discovery. This one is built for operators:
 
 - [Evaluation labels](#evaluation-labels)
 - [Top picks by use case](#top-picks-by-use-case)
-- [Install official skills into your coding agent](#install-official-skills-into-your-coding-agent)
+- [Install skills into your coding agent](#install-skills-into-your-coding-agent)
 - [Recently added](#recently-added)
 - [Local reference agents](#local-reference-agents)
 - [Curated catalog](#curated-catalog)
@@ -56,16 +56,18 @@ Labels are shorthand for structured fields recorded on every entry in [data/repo
 | MCP development and governance | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk)<br>[modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk)<br>[modelcontextprotocol/registry](https://github.com/modelcontextprotocol/registry)<br>[Docker MCP Catalog and Toolkit](https://docs.docker.com/ai/mcp-catalog-and-toolkit/) | Official SDKs, registry, and Docker governance surfaces for building, packaging, and controlling DevOps MCP servers. |
 | Agent frameworks and templates | [google/adk-python](https://github.com/google/adk-python)<br>[GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack) | Official Google agent framework and production templates with CI/CD, evaluation, and observability. |
 
-## Install official skills into your coding agent
+## Install skills into your coding agent
 
-Install hundreds of official [Agent Skills](https://github.com/anthropics/skills) from the cataloged Google, Microsoft, Azure, and Azure DevOps sources with one command:
+Install hundreds of [Agent Skills](https://github.com/anthropics/skills) from the cataloged Google, Microsoft, Azure, Azure DevOps, and Harness sources with one command:
 
 ```bash
 # Claude Code, macOS/Linux — installs every official skill into ~/.claude/skills/
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source all
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --official
 ```
 
-Pass `--dry-run` to preview first. Commands for Cursor, Codex, VS Code, Antigravity(Mac and Windows) — plus target folders and safety notes — are in the [install guide](docs/install-skills.md). To install just one company or product, use the [skills catalog by company & product](docs/official-skills-catalog.md).
+Choose breadth with a flag: `--official` (361 skills), `--community` (26), or `--all` (387). Python 3 is the only requirement — there is no `pip install` step.
+
+Pass `--dry-run` to preview first. Commands for Cursor, Codex, VS Code, Antigravity (Mac and Windows) — plus target folders and safety notes — are in the [install guide](docs/install-skills.md). To install just one company or product, use the [official skills catalog](docs/official-skills-catalog.md) or the [community skills catalog](docs/community-skills-catalog.md).
 
 ## Recently added
 
