@@ -17,10 +17,10 @@ For vendor-published skills, see the [official skills catalog](official-skills-c
 
 ```bash
 # Every community skill below, deduped — 26 skills
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source community
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --community
 
 # Official + community together — 387 skills
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source everything
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --all
 ```
 
 Or pick a single source below.

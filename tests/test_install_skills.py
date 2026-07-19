@@ -198,6 +198,44 @@ def test_source_keywords_select_official_community_or_both():
     assert sources_for("all") == official
 
 
+def flag_args(**flags):
+    """A Namespace as parse_args would produce it for the selection flags."""
+    base = {"source": None, "repos": "data/repos.yaml",
+            "official": False, "community": False, "all_skills": False}
+    return argparse.Namespace(**{**base, **flags})
+
+
+def test_selection_flags_pick_official_community_or_both():
+    official = resolve_sources(flag_args(official=True))
+    community = resolve_sources(flag_args(community=True))
+    everything = resolve_sources(flag_args(all_skills=True))
+
+    assert official and community
+    assert not set(official) & set(community)
+    assert sorted(everything) == sorted(official + community)
+
+
+def test_official_and_community_flags_compose_like_all():
+    both = resolve_sources(flag_args(official=True, community=True))
+    assert sorted(both) == sorted(resolve_sources(flag_args(all_skills=True)))
+
+
+def test_all_flag_is_broader_than_the_legacy_source_all():
+    """--all includes community; --source all is a published official-only alias."""
+    flag = resolve_sources(flag_args(all_skills=True))
+    legacy = resolve_sources(argparse.Namespace(source="all", repos="data/repos.yaml"))
+    assert set(legacy) < set(flag)
+
+
+def test_selection_flags_conflict_with_source():
+    try:
+        resolve_sources(flag_args(official=True, source="google/skills"))
+    except SystemExit as exc:
+        assert "cannot be combined" in str(exc)
+    else:
+        raise AssertionError("combining --source with a selection flag must fail")
+
+
 def test_explicit_owner_repo_still_wins_over_a_keyword_name(monkeypatch):
     """A repo literally named e.g. 'community/skills' must resolve as itself."""
 

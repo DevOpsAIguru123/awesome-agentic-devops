@@ -3,8 +3,8 @@
 #   iwr https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.ps1 -OutFile install.ps1
 #   ./install.ps1 --source google/skills --filter cloud
 #
-# Installs immediately. Add --dry-run to preview. Use --source official,
-# --source community, or --source everything to install a whole set.
+# Installs immediately. Add --dry-run to preview. Use --official, --community,
+# or --all to install a whole set.
 $ErrorActionPreference = "Stop"
 $raw = "https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main"
 $py = Get-Command python3 -ErrorAction SilentlyContinue

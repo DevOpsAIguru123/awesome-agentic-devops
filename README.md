@@ -62,10 +62,10 @@ Install hundreds of [Agent Skills](https://github.com/anthropics/skills) from th
 
 ```bash
 # Claude Code, macOS/Linux — installs every official skill into ~/.claude/skills/
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source official
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --official
 ```
 
-Choose breadth with `--source`: `official` (361 skills), `community` (26), or `everything` (387). Python 3 is the only requirement — there is no `pip install` step.
+Choose breadth with a flag: `--official` (361 skills), `--community` (26), or `--all` (387). Python 3 is the only requirement — there is no `pip install` step.
 
 Pass `--dry-run` to preview first. Commands for Cursor, Codex, VS Code, Antigravity (Mac and Windows) — plus target folders and safety notes — are in the [install guide](docs/install-skills.md). To install just one company or product, use the [official skills catalog](docs/official-skills-catalog.md) or the [community skills catalog](docs/community-skills-catalog.md).
 

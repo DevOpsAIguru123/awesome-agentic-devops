@@ -4,68 +4,69 @@ Install [Agent Skills](https://github.com/anthropics/skills) into your coding ag
 
 ## Choose what to install
 
-`--source` decides breadth:
+Pass a flag to pick how much you want:
 
-| `--source` | Installs | Count |
+| Flag | Installs | Count |
 | --- | --- | --- |
-| `official` | every official skill repo | 361 skills |
-| `community` | every community skill repo | 26 skills |
-| `everything` | both | 387 skills |
-| `owner/repo` | one specific repo, e.g. `google/skills` | varies |
+| `--official` | every official skill repo | 361 skills |
+| `--community` | every community skill repo | 26 skills |
+| `--all` | both | 387 skills |
 
-`--source all` is a long-standing alias for `official` and still works.
+The flags compose, so `--official --community` is the same as `--all`.
 
-To install just one company or product, use the ready-to-run commands in the [official skills catalog](official-skills-catalog.md) or the [community skills catalog](community-skills-catalog.md) — or add `--filter`, e.g. `--source microsoft/skills --filter azure-sdk-python` or `--source google/skills --filter cloud`.
+For a single repo, use `--source owner/repo` instead, e.g. `--source google/skills`. To install just one company or product, use the ready-to-run commands in the [official skills catalog](official-skills-catalog.md) or the [community skills catalog](community-skills-catalog.md) — or add `--filter`, e.g. `--source microsoft/skills --filter azure-sdk-python` or `--source google/skills --filter cloud`.
+
+> `--source` also accepts the keywords `official`, `community` and `everything`. Note that `--source all` is a long-standing alias for `official`, so unlike the `--all` flag it does **not** include community skills.
 
 ## macOS / Linux
 
 ```bash
 # Claude Code
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source official
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --official
 
 # Cursor
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/cursor/install.sh | sh -s -- --source official
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/cursor/install.sh | sh -s -- --official
 
 # Codex
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/codex/install.sh | sh -s -- --source official
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/codex/install.sh | sh -s -- --official
 
 # Antigravity
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/antigravity/install.sh | sh -s -- --source official
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/antigravity/install.sh | sh -s -- --official
 
 # VS Code
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/vscode/install.sh | sh -s -- --source official
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/vscode/install.sh | sh -s -- --official
 
 # All agents at once
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/all/install.sh | sh -s -- --source official
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/all/install.sh | sh -s -- --official
 ```
 
-Swap `--source official` for `--source community` or `--source everything` as needed.
+Swap `--official` for `--community` or `--all` as needed.
 
 ## Windows (PowerShell)
 
 ```powershell
 # Claude Code
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.ps1 -OutFile install.ps1; ./install.ps1 --source official
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.ps1 -OutFile install.ps1; ./install.ps1 --official
 
 # Cursor
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/cursor/install.ps1 -OutFile install.ps1; ./install.ps1 --source official
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/cursor/install.ps1 -OutFile install.ps1; ./install.ps1 --official
 
 # Codex
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/codex/install.ps1 -OutFile install.ps1; ./install.ps1 --source official
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/codex/install.ps1 -OutFile install.ps1; ./install.ps1 --official
 
 # Antigravity
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/antigravity/install.ps1 -OutFile install.ps1; ./install.ps1 --source official
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/antigravity/install.ps1 -OutFile install.ps1; ./install.ps1 --official
 
 # VS Code
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/vscode/install.ps1 -OutFile install.ps1; ./install.ps1 --source official
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/vscode/install.ps1 -OutFile install.ps1; ./install.ps1 --official
 
 # All agents at once
-irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/all/install.ps1 -OutFile install.ps1; ./install.ps1 --source official
+irm https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/all/install.ps1 -OutFile install.ps1; ./install.ps1 --official
 ```
 
 ## What gets installed
 
-`--source official` installs every official skill — Google (80), Microsoft (188), Azure (32), Azure DevOps (7), and Harness (54), deduped to 361. `--source community` adds 26 more. To install just one company or product, use the [official](official-skills-catalog.md) or [community](community-skills-catalog.md) catalog.
+`--official` installs every official skill — Google (80), Microsoft (188), Azure (32), Azure DevOps (7), and Harness (54), deduped to 361. `--community` adds 26 more. To install just one company or product, use the [official](official-skills-catalog.md) or [community](community-skills-catalog.md) catalog.
 
 Installing everything is a lot of skills, and every installed skill's description is loaded by your agent in each session. Prefer a per-vendor or `--filter` scope unless you genuinely want the full set.
 
@@ -93,4 +94,4 @@ Python 3 only — no `pip install` step. The installer reads its catalog from [`
 
 Installs directly (skill folders are additive and reversible); pass `--dry-run` to preview first. It only writes skill folders — never secrets or other settings. `--list-sources` / `--list` show what's available. Community skills are not vendor-supported — review before trusting them to act on infrastructure; see the [safety model](safety-model.md).
 
-Prefer not to pipe a remote script to your shell? Read [`scripts/install_skills.py`](../scripts/install_skills.py) and run it from a clone: `python3 scripts/install_skills.py --agent claude-code --source official`.
+Prefer not to pipe a remote script to your shell? Read [`scripts/install_skills.py`](../scripts/install_skills.py) and run it from a clone: `python3 scripts/install_skills.py --agent claude-code --official`.

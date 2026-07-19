@@ -3,8 +3,8 @@
 #
 #   curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/cursor/install.sh | sh -s -- --source google/skills --filter cloud
 #
-# Installs immediately. Add --dry-run to preview. Use --source official,
-# --source community, or --source everything to install a whole set.
+# Installs immediately. Add --dry-run to preview. Use --official, --community,
+# or --all to install a whole set.
 set -eu
 RAW="https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main"
 if ! command -v python3 >/dev/null 2>&1; then

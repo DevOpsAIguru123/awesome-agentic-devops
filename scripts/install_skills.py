@@ -6,9 +6,14 @@ Skills are sourced from the skill repositories catalogued in ``data/repos.yaml``
 containing a ``SKILL.md``; the installer copies that folder whole into the
 agent's skills directory.
 
-Choose breadth with ``--source``: ``official`` for every official repo,
-``community`` for the community ones, ``everything`` for both, or an explicit
-``owner/repo``. ``all`` is a long-standing alias for ``official``.
+Choose breadth with a flag: ``--official`` for every official repo,
+``--community`` for the community ones, ``--all`` for both (the flags compose,
+so ``--official --community`` is the same as ``--all``). Use ``--source
+owner/repo`` to install one specific repo instead.
+
+``--source`` also accepts the keywords ``official``, ``community`` and
+``everything``; ``--source all`` is a long-standing alias for ``official`` and
+so, unlike the ``--all`` flag, does not include community skills.
 
 Each agent has its own skills folder:
 
@@ -237,6 +242,22 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument("--agent", default="claude-code", choices=sorted(AGENT_SKILLS) + ["all"])
     parser.add_argument(
+        "--official",
+        action="store_true",
+        help="Install every official skill repo in the catalog.",
+    )
+    parser.add_argument(
+        "--community",
+        action="store_true",
+        help="Install every community skill repo in the catalog.",
+    )
+    parser.add_argument(
+        "--all",
+        dest="all_skills",
+        action="store_true",
+        help="Install both official and community skill repos (same as --official --community).",
+    )
+    parser.add_argument(
         "--source",
         help=(
             "'owner/repo', a catalog entry name, or a keyword: 'official' (every "
@@ -255,7 +276,37 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 
+def selected_categories(args: argparse.Namespace) -> tuple[str, ...]:
+    """Skill categories chosen by --official / --community / --all.
+
+    The flags compose, so ``--official --community`` is the same as ``--all``.
+    Read with getattr so a minimal Namespace (as in tests) still works.
+    """
+    everything = getattr(args, "all_skills", False)
+    wanted = (
+        (CATALOG_CATEGORY, getattr(args, "official", False) or everything),
+        (COMMUNITY_CATEGORY, getattr(args, "community", False) or everything),
+    )
+    return tuple(category for category, chosen in wanted if chosen)
+
+
 def resolve_sources(args: argparse.Namespace) -> list[str]:
+    flag_categories = selected_categories(args)
+    if flag_categories:
+        if args.source:
+            raise SystemExit(
+                "--source cannot be combined with --official/--community/--all; "
+                "use one or the other."
+            )
+        catalog = (
+            load_catalog_sources(Path(args.repos), flag_categories)
+            if Path(args.repos).exists()
+            else {}
+        )
+        if not catalog:
+            raise SystemExit("no catalog found; cannot expand the selected skill sets")
+        return sorted(set(catalog.values()))
+
     # An explicit owner/repo needs no catalog — resolve it before touching the
     # catalog so the advertised stdlib-only path works on a bare Python.
     if args.source and args.source not in SOURCE_MODES and args.source.count("/") == 1:
@@ -313,10 +364,13 @@ def main(argv: list[str] | None = None) -> int:
         _print_sources(args.repos)
         return 0
 
-    if not args.source:
-        print("Pass --source to choose what to install. Available skill sources:")
+    if not args.source and not selected_categories(args):
+        print("Choose what to install with --official, --community, --all, or --source.")
+        print("\nAvailable skill sources:")
         _print_sources(args.repos)
-        print("\nExample: --agent claude-code --source google/skills --filter cloud")
+        print("\nExamples:")
+        print("  --agent claude-code --official")
+        print("  --agent claude-code --source google/skills --filter cloud")
         return 2
 
     agents = sorted(AGENT_SKILLS) if args.agent == "all" else [args.agent]

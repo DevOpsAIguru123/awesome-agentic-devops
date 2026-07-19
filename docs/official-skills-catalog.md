@@ -15,13 +15,13 @@ For community-maintained skills, see the [community skills catalog](community-sk
 
 ```bash
 # Every official skill below, deduped — 361 skills
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source official
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --official
 
 # Official + community together — 387 skills
-curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --source everything
+curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/claude-code/install.sh | sh -s -- --all
 ```
 
-`--source all` is a long-standing alias for `--source official` and still works.
+The flags compose: `--official --community` is the same as `--all`. The older `--source all` still works, but is an alias for `--official` and so excludes community skills.
 
 Or pick a company/product below to install just that set.
 
