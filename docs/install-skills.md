@@ -90,6 +90,8 @@ Add `--project` to install into the same layout under the current directory inst
 
 Python 3 only — no `pip install` step. The installer reads its catalog from [`data/catalog.json`](../data/catalog.json), a generated file the standard library can parse, so it works on a stock interpreter such as macOS's `/usr/bin/python3`.
 
+It also works from inside a virtualenv. A python.org build (and any venv made from one) has an empty certificate store until its `Install Certificates.command` has been run, which otherwise fails every download with `CERTIFICATE_VERIFY_FAILED`; the installer falls back to the operating system's own CA bundle in that case.
+
 ## Safety
 
 Installs directly (skill folders are additive and reversible); pass `--dry-run` to preview first. It only writes skill folders — never secrets or other settings. `--list-sources` / `--list` show what's available. Community skills are not vendor-supported — review before trusting them to act on infrastructure; see the [safety model](safety-model.md).

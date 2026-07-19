@@ -198,6 +198,62 @@ def test_source_keywords_select_official_community_or_both():
     assert sources_for("all") == official
 
 
+class FakeContext:
+    """Stand-in for an SSLContext whose store is only populated from a cafile."""
+
+    def __init__(self, cafile):
+        self.cafile = cafile
+
+    def get_ca_certs(self):
+        return [] if self.cafile is None else ["a-cert"]
+
+
+def patch_ssl(monkeypatch, bundles):
+    """Make certifi unavailable and record every create_default_context call."""
+    monkeypatch.setitem(sys.modules, "certifi", None)
+    monkeypatch.setattr(install_skills, "SYSTEM_CA_BUNDLES", bundles)
+    calls = []
+
+    def fake_create(*_args, cafile=None, **_kwargs):
+        calls.append(cafile)
+        return FakeContext(cafile)
+
+    monkeypatch.setattr(install_skills.ssl, "create_default_context", fake_create)
+    return calls
+
+
+def test_ssl_context_falls_back_to_the_os_ca_bundle(tmp_path, monkeypatch):
+    """A python.org venv has an empty trust store until certificates are
+    installed, which made every download fail. The OS bundle rescues it."""
+    bundle = tmp_path / "cert.pem"
+    bundle.write_text("", encoding="utf-8")
+    calls = patch_ssl(monkeypatch, (str(tmp_path / "absent.pem"), str(bundle)))
+
+    context = install_skills._ssl_context()
+
+    assert context.cafile == str(bundle), "should load the first bundle that exists"
+    assert calls == [None, str(bundle)], "should try the default store first"
+
+
+def test_ssl_context_keeps_a_healthy_store(tmp_path, monkeypatch):
+    """A working interpreter must not be redirected at an OS bundle."""
+    monkeypatch.setitem(sys.modules, "certifi", None)
+    monkeypatch.setattr(install_skills, "SYSTEM_CA_BUNDLES", (str(tmp_path / "cert.pem"),))
+    monkeypatch.setattr(
+        install_skills.ssl, "create_default_context",
+        lambda *a, **k: FakeContext("system-store"),
+    )
+
+    assert install_skills._ssl_context().cafile == "system-store"
+
+
+def test_ssl_context_survives_having_no_bundle_anywhere(tmp_path, monkeypatch):
+    """No certifi, empty store, no OS bundle: still return a usable context."""
+    patch_ssl(monkeypatch, (str(tmp_path / "absent.pem"),))
+
+    assert install_skills._ssl_context() is not None
+
+
 def flag_args(**flags):
     """A Namespace as parse_args would produce it for the selection flags."""
     base = {"source": None, "repos": "data/repos.yaml",

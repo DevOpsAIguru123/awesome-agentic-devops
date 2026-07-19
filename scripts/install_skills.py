@@ -41,6 +41,7 @@ import io
 import json
 import shutil
 import ssl
+import sys
 import tarfile
 import tempfile
 import urllib.error
@@ -72,6 +73,15 @@ AGENT_SKILLS: dict[str, Path] = {
 
 # Folder names that hold a SKILL.md but are scaffolding, not a real skill.
 SKILL_NAME_IGNORE = {"template", "templates", "example", "examples"}
+
+# CA bundles shipped by the OS, used when the interpreter's own trust store is
+# empty. See _ssl_context().
+SYSTEM_CA_BUNDLES = (
+    "/etc/ssl/cert.pem",  # macOS, Alpine
+    "/etc/ssl/certs/ca-certificates.crt",  # Debian, Ubuntu
+    "/etc/pki/tls/certs/ca-bundle.crt",  # RHEL, Fedora
+    "/etc/ssl/ca-bundle.pem",  # openSUSE
+)
 
 
 # ---------------------------------------------------------------------------
@@ -128,15 +138,30 @@ def load_catalog_sources(
     return sources
 
 
-def _ssl_context() -> ssl.SSLContext | None:
-    """Default TLS context, falling back to certifi if the system store is
-    unavailable (common on python.org macOS builds)."""
+def _ssl_context() -> ssl.SSLContext:
+    """A TLS context with a CA store that actually has certificates in it.
+
+    Order: certifi, the interpreter's own store, then the OS bundle. That last
+    fallback is the one that matters in practice — a python.org build (and any
+    venv made from one) looks for a cert.pem inside its own framework directory
+    that does not exist until "Install Certificates.command" has been run, so
+    every download fails with CERTIFICATE_VERIFY_FAILED. An empty store is
+    detectable without a network call, so prefer the OS bundle when we see one.
+    """
     try:
         import certifi
 
         return ssl.create_default_context(cafile=certifi.where())
     except ModuleNotFoundError:
-        return None
+        pass
+
+    context = ssl.create_default_context()
+    if context.get_ca_certs():
+        return context
+    for bundle in SYSTEM_CA_BUNDLES:
+        if Path(bundle).exists():
+            return ssl.create_default_context(cafile=bundle)
+    return context
 
 
 def _safe_extract(tar: tarfile.TarFile, dest: Path) -> None:
@@ -162,7 +187,14 @@ def download_source(owner_repo: str, dest: Path) -> Path:
                 continue
             raise SystemExit(f"failed to download {owner_repo}: {exc}")
         except urllib.error.URLError as exc:
-            raise SystemExit(f"failed to reach GitHub for {owner_repo}: {exc}")
+            hint = ""
+            if isinstance(exc.reason, ssl.SSLError):
+                hint = (
+                    f"\n\nTLS verification failed and {sys.executable} has no usable "
+                    "CA bundle.\nFix it with 'pip install certifi', or re-run using a "
+                    "system interpreter\n(on macOS: /usr/bin/python3 scripts/install_skills.py ...)."
+                )
+            raise SystemExit(f"failed to reach GitHub for {owner_repo}: {exc}{hint}")
         with tarfile.open(fileobj=io.BytesIO(payload), mode="r:gz") as tar:
             _safe_extract(tar, dest)
         roots = [p for p in dest.iterdir() if p.is_dir()]
