@@ -43,7 +43,7 @@ Labels are shorthand for structured fields recorded on every entry in [data/repo
 
 | Use case | Start with | Why |
 | --- | --- | --- |
-| AWS agentic cloud automation | [aws/agent-toolkit-for-aws](https://github.com/aws/agent-toolkit-for-aws) | Official AWS-supported MCP, skills, plugins, IAM-aware controls, CloudWatch metrics, and CloudTrail auditability. |
+| AWS agentic cloud automation | [aws/agent-toolkit-for-aws](https://github.com/aws/agent-toolkit-for-aws) | Official AWS-supported MCP, skills, plugins, project rules, IAM-aware controls, CloudWatch metrics, and CloudTrail auditability. |
 | Azure cloud automation | [microsoft/mcp](https://github.com/microsoft/mcp)<br>[microsoft/azure-skills](https://github.com/microsoft/azure-skills) | Official Microsoft MCP and skills/plugin sources for Azure resource workflows. |
 | Google Cloud automation | [google/mcp](https://github.com/google/mcp)<br>[googleapis/gcloud-mcp](https://github.com/googleapis/gcloud-mcp)<br>[google/skills](https://github.com/google/skills) | Official Google MCP and skills sources for GCP, Cloud Run, GKE, observability, and storage workflows. |
 | Source-control DevOps | [github/github-mcp-server](https://github.com/github/github-mcp-server)<br>[GitLab MCP server](https://docs.gitlab.com/user/gitlab_duo/model_context_protocol/mcp_server/)<br>[atlassian/atlassian-mcp-server](https://github.com/atlassian/atlassian-mcp-server) | Official MCP tool surfaces for repos, issues, PRs, Jira, Bitbucket, and related delivery workflows. |
@@ -103,7 +103,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 
 | Repo | Labels | Operator note |
 | --- | --- | --- |
-| [aws/agent-toolkit-for-aws](https://github.com/aws/agent-toolkit-for-aws) | 🟢 🔵 🛡️ 📊 ⚠️ | Official AWS-supported toolkit that bundles MCP server configuration, skills, plugins, and DevSecOps agent workflows. |
+| [aws/agent-toolkit-for-aws](https://github.com/aws/agent-toolkit-for-aws) | 🟢 🔵 🛡️ 📊 ⚠️ | Official AWS-supported toolkit with managed MCP server access, current AWS docs/API knowledge tools, on-demand agent skills, Claude Code/Codex plugins, and project rules for Kiro, Claude Code, Cursor, Codex, and other MCP-compatible agents. |
 | [awslabs/mcp](https://github.com/awslabs/mcp) | 🟢 🔵 🛡️ ⚠️ | Official AWS Labs MCP server collection; useful legacy/source reference while AWS transitions capabilities into Agent Toolkit. |
 | [microsoft/mcp](https://github.com/microsoft/mcp) | 🟢 🔵 🛡️ ⚠️ | Official Microsoft MCP catalog, including Azure cloud and infrastructure MCP references. |
 | [google/mcp](https://github.com/google/mcp) | 🟢 🔵 🛡️ ⚠️ | Official Google MCP repository listing managed and open-source MCP servers for Google and Google Cloud. |
