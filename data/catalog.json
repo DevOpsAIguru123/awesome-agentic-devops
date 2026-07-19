@@ -1,0 +1,46 @@
+{
+  "source": "data/repos.yaml",
+  "generated_by": "scripts/sync_catalog_json.py",
+  "entries": [
+    {
+      "name": "Agents365-ai/drawio-skill",
+      "url": "https://github.com/Agents365-ai/drawio-skill",
+      "category": "community-agent-skills"
+    },
+    {
+      "name": "addyosmani/agent-skills",
+      "url": "https://github.com/addyosmani/agent-skills",
+      "category": "community-agent-skills"
+    },
+    {
+      "name": "antonbabenko/terraform-skill",
+      "url": "https://github.com/antonbabenko/terraform-skill",
+      "category": "community-agent-skills"
+    },
+    {
+      "name": "google/skills",
+      "url": "https://github.com/google/skills",
+      "category": "official-agent-skills"
+    },
+    {
+      "name": "harness/harness-skills",
+      "url": "https://github.com/harness/harness-skills",
+      "category": "official-agent-skills"
+    },
+    {
+      "name": "microsoft/azure-devops-skills",
+      "url": "https://github.com/microsoft/azure-devops-skills",
+      "category": "official-agent-skills"
+    },
+    {
+      "name": "microsoft/azure-skills",
+      "url": "https://github.com/microsoft/azure-skills",
+      "category": "official-agent-skills"
+    },
+    {
+      "name": "microsoft/skills",
+      "url": "https://github.com/microsoft/skills",
+      "category": "official-agent-skills"
+    }
+  ]
+}
