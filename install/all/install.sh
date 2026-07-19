@@ -1,9 +1,10 @@
 #!/bin/sh
-# One-command installer: official agent skills -> all.
+# One-command installer: agent skills -> all.
 #
 #   curl -fsSL https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main/install/all/install.sh | sh -s -- --source google/skills --filter cloud
 #
-# Installs immediately. Add --dry-run to preview, --source all for every source.
+# Installs immediately. Add --dry-run to preview. Use --source official,
+# --source community, or --source everything to install a whole set.
 set -eu
 RAW="https://raw.githubusercontent.com/DevOpsAIguru123/awesome-agentic-devops/main"
 if ! command -v python3 >/dev/null 2>&1; then
@@ -14,4 +15,7 @@ tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 curl -fsSL "$RAW/scripts/install_skills.py" -o "$tmp/install_skills.py"
 curl -fsSL "$RAW/data/repos.yaml" -o "$tmp/repos.yaml"
+# catalog.json lets install_skills.py read the catalog without PyYAML,
+# which a stock python3 (e.g. macOS /usr/bin/python3) does not have.
+curl -fsSL "$RAW/data/catalog.json" -o "$tmp/catalog.json"
 exec python3 "$tmp/install_skills.py" --agent all --repos "$tmp/repos.yaml" "$@"
