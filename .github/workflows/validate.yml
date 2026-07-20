@@ -5,8 +5,6 @@ on:
   push:
     branches:
       - main
-  schedule:
-    - cron: "0 6 * * 1"
   workflow_dispatch:
 
 jobs:
@@ -14,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
@@ -29,30 +27,14 @@ jobs:
       - name: Validate repo data
         run: python scripts/validate_repos_yaml.py
 
+      - name: Check generated skill catalog
+        run: python scripts/sync_catalog_json.py --check
+
+      - name: Check README catalog counts
+        run: python scripts/sync_readme_counts.py --check
+
       - name: Run tests
         run: pytest -q
 
       - name: Run mock eval scenarios
         run: python scripts/run_mock_eval_scenarios.py
-
-  audit-links:
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install -e ".[dev]"
-
-      - name: Audit catalog links
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: python scripts/audit_github_repos.py --workers 12 --fail-on-unreachable

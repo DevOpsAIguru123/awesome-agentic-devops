@@ -38,7 +38,8 @@ def valid_entry(**overrides):
 def test_validates_seed_data_file():
     entries = validate_file(Path("data/repos.yaml"))
 
-    assert len(entries) == 59
+    # Lower-bound check: catalog grows over time; avoid brittle equality.
+    assert len(entries) >= 63
     assert all(field in entries[0] for field in REQUIRED_FIELDS)
 
 
