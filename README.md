@@ -19,6 +19,7 @@ Most agent lists stop at discovery. This one is built for operators:
 ## Contents
 
 - [Evaluation labels](#evaluation-labels)
+- [Compliance evidence checklist](#compliance-evidence-checklist)
 - [Top picks by use case](#top-picks-by-use-case)
 - [Install skills into your coding agent](#install-skills-into-your-coding-agent)
 - [Recently added](#recently-added)
@@ -38,6 +39,12 @@ Most agent lists stop at discovery. This one is built for operators:
 | ⚠️ | write-capable; review before use |
 
 Labels are shorthand for structured fields recorded on every entry in [data/repos.yaml](data/repos.yaml) — [how entries are scored](docs/scoring.md) explains each field and how it is verified.
+
+## Compliance evidence checklist
+
+Production-adjacent agent runs need a reviewable evidence packet, not just a chat transcript. Use the [compliance evidence checklist](docs/compliance-evidence.md) to capture request context, identity and data boundaries, redacted tool calls, approval records, validation output, and follow-ups for MCP servers, skills, incident copilots, Terraform reviewers, and other DevOps agents.
+
+At minimum, record an explicit approval before any write-capable agent mutates infrastructure, source control, CI/CD, identity, secrets, incidents, or production telemetry configuration. If the approval cannot be captured, keep the agent in read-only or proposal mode.
 
 ## Top picks by use case
 
