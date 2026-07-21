@@ -24,6 +24,32 @@
     - 📊
     - ⚠️
 
+- name: aliyun/alibabacloud-agent-toolkit
+  url: https://github.com/aliyun/alibabacloud-agent-toolkit
+  category: official-cloud-agent-toolkits
+  type: agent-toolkit
+  framework: MCP + skills + plugins + rules
+  primary_language: unknown
+  cloud_provider: Alibaba Cloud
+  use_cases:
+    - alibaba-cloud-automation
+    - openapi-sdk-codegen
+    - terraform-iac-service-ops
+    - agent-skills
+    - local-audit-tracing
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: prototype
+  risk_notes: "Can guide authenticated Alibaba Cloud OpenAPI and IaC Service workflows; remote telemetry is enabled by default and local traces can include prompts and tool I/O, so use least-privilege RAM credentials, disable telemetry if required, and require explicit approval before mutations."
+  operator_note: "Official Alibaba Cloud toolkit with MCP configuration, skills, plugins, rules, OpenAPI SDK code generation, Terraform/IaC Service operations, remote telemetry controls, and local JSONL audit traces."
+  labels:
+    - 🟡
+    - 🔵
+    - 🛡️
+    - 📊
+    - ⚠️
+
 - name: awslabs/mcp
   url: https://github.com/awslabs/mcp
   category: official-cloud-mcp-servers
