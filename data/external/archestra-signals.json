@@ -1,0 +1,324 @@
+{
+  "generated_by": "scripts/import_archestra_signals.py",
+  "matched_entry_count": 10,
+  "schema_version": 1,
+  "signals": {
+    "CircleCI-Public/mcp-server-circleci": {
+      "archestra_name": "circleci-public__mcp-server-circleci",
+      "category": "AI Tools",
+      "description": "A specialized server implementation for the Model Context Protocol (MCP) designed to integrate with CircleCI's development workflow. This project serves as a bridge between CircleCI's infrastructure and the Model Context Protocol, enabling enhanced AI-powered development experiences.",
+      "display_name": "mcp-server-circleci",
+      "github_info": {
+        "ci_cd": false,
+        "contributors": 18,
+        "latest_commit_hash": "070d7e708c40ae18308a1719b623b2dfdc6535dd",
+        "releases": false,
+        "stars": 63,
+        "url": "https://github.com/CircleCI-Public/mcp-server-circleci"
+      },
+      "last_scraped_at": "2025-09-09T13:05:35.707Z",
+      "oauth_configured": false,
+      "programming_language": "TypeScript",
+      "protocol_features": {
+        "implementing_logging": false,
+        "implementing_oauth2": false,
+        "implementing_prompts": false,
+        "implementing_resources": true,
+        "implementing_roots": false,
+        "implementing_sampling": true,
+        "implementing_stdio": true,
+        "implementing_streamable_http": true,
+        "implementing_tools": true
+      },
+      "quality_score": 69,
+      "required_sensitive_config_fields": [
+        "circleci_token"
+      ],
+      "sensitive_config_fields": [
+        "circleci_token"
+      ],
+      "server_type": "local"
+    },
+    "Linear MCP server docs": {
+      "archestra_name": "linear__remote-mcp",
+      "category": "Development",
+      "description": "Remote MCP server for Linear - issue tracking and project management",
+      "display_name": "Linear",
+      "docs_url": "https://linear.app/docs/mcp",
+      "last_scraped_at": "2025-09-05T19:30:23.066Z",
+      "oauth_configured": true,
+      "programming_language": null,
+      "protocol_features": {},
+      "quality_score": 80,
+      "remote_url": "https://mcp.linear.app/mcp",
+      "required_sensitive_config_fields": [],
+      "sensitive_config_fields": [],
+      "server_type": "remote"
+    },
+    "argoproj-labs/mcp-for-argocd": {
+      "archestra_name": "argoproj-labs__mcp-for-argocd",
+      "category": "Development",
+      "description": "A Model Context Protocol (MCP) server that provides AI assistants with access to ArgoCD for GitOps continuous delivery. Manage applications, sync status, and deployment operations through the ArgoCD API.",
+      "display_name": "ArgoCD",
+      "github_info": {
+        "ci_cd": false,
+        "contributors": 0,
+        "latest_commit_hash": "",
+        "releases": false,
+        "stars": 0,
+        "url": "https://github.com/argoproj-labs/mcp-for-argocd"
+      },
+      "last_scraped_at": "2025-12-11T00:00:00.000Z",
+      "oauth_configured": false,
+      "programming_language": "TypeScript",
+      "protocol_features": {
+        "implementing_logging": true,
+        "implementing_oauth2": false,
+        "implementing_prompts": false,
+        "implementing_resources": true,
+        "implementing_roots": false,
+        "implementing_sampling": false,
+        "implementing_stdio": true,
+        "implementing_streamable_http": false,
+        "implementing_tools": true
+      },
+      "quality_score": 0,
+      "required_sensitive_config_fields": [
+        "ARGOCD_API_TOKEN"
+      ],
+      "sensitive_config_fields": [
+        "ARGOCD_API_TOKEN"
+      ],
+      "server_type": "local"
+    },
+    "awslabs/mcp": {
+      "archestra_name": "awslabs__mcp",
+      "category": "Development",
+      "description": "AWS MCP Servers — helping you get the most out of AWS, wherever you use MCP.",
+      "display_name": "mcp",
+      "github_info": {
+        "ci_cd": true,
+        "contributors": 128,
+        "latest_commit_hash": "35c319931c9123084ae998a258cc9e14cfcd50a6",
+        "releases": true,
+        "stars": 5175,
+        "url": "https://github.com/awslabs/mcp"
+      },
+      "last_scraped_at": "2025-09-09T13:06:54.610Z",
+      "oauth_configured": false,
+      "programming_language": "Python",
+      "protocol_features": {
+        "implementing_logging": false,
+        "implementing_oauth2": false,
+        "implementing_prompts": false,
+        "implementing_resources": true,
+        "implementing_roots": false,
+        "implementing_sampling": false,
+        "implementing_stdio": false,
+        "implementing_streamable_http": false,
+        "implementing_tools": true
+      },
+      "quality_score": 62,
+      "required_sensitive_config_fields": [],
+      "sensitive_config_fields": [],
+      "server_type": "local"
+    },
+    "cloudflare/mcp-server-cloudflare": {
+      "archestra_name": "cloudflare__mcp-server-cloudflare",
+      "category": "Cloud",
+      "description": "MCP server from cloudflare/mcp-server-cloudflare",
+      "display_name": "mcp-server-cloudflare",
+      "github_info": {
+        "ci_cd": true,
+        "contributors": 29,
+        "latest_commit_hash": "4267fd7fa9d94565382bcb6229fdd6d7f8f25d9d",
+        "releases": true,
+        "stars": 2922,
+        "url": "https://github.com/cloudflare/mcp-server-cloudflare"
+      },
+      "last_scraped_at": "2025-09-09T13:05:15.797Z",
+      "oauth_configured": false,
+      "programming_language": "TypeScript",
+      "protocol_features": {
+        "implementing_logging": false,
+        "implementing_oauth2": false,
+        "implementing_prompts": false,
+        "implementing_resources": true,
+        "implementing_roots": false,
+        "implementing_sampling": false,
+        "implementing_stdio": true,
+        "implementing_streamable_http": true,
+        "implementing_tools": true
+      },
+      "quality_score": 78,
+      "required_sensitive_config_fields": [
+        "cloudflare_api_token"
+      ],
+      "sensitive_config_fields": [
+        "cloudflare_api_token"
+      ],
+      "server_type": "local"
+    },
+    "github/github-mcp-server": {
+      "archestra_name": "githubcopilot__remote-mcp",
+      "category": "Development",
+      "description": "Remote MCP server for github - issue tracking and project management",
+      "display_name": "GitHub",
+      "docs_url": "https://github.com/github/github-mcp-server/blob/main/docs/remote-server.md",
+      "last_scraped_at": "2025-09-05T19:30:23.066Z",
+      "oauth_configured": true,
+      "programming_language": null,
+      "protocol_features": {},
+      "quality_score": 80,
+      "remote_url": "https://api.githubcopilot.com/mcp/",
+      "required_sensitive_config_fields": [
+        "access_token"
+      ],
+      "sensitive_config_fields": [
+        "access_token"
+      ],
+      "server_type": "remote"
+    },
+    "grafana/mcp-grafana": {
+      "archestra_name": "grafana__mcp-grafana",
+      "category": "Monitoring",
+      "description": "MCP server for Grafana",
+      "display_name": "mcp-grafana",
+      "github_info": {
+        "ci_cd": true,
+        "contributors": 26,
+        "latest_commit_hash": "8c3f20f7fbc800737a0935d73ff618ecaa223a4e",
+        "releases": true,
+        "stars": 1320,
+        "url": "https://github.com/grafana/mcp-grafana"
+      },
+      "last_scraped_at": "2025-09-09T13:06:23.800Z",
+      "oauth_configured": false,
+      "programming_language": "Go",
+      "protocol_features": {
+        "implementing_logging": false,
+        "implementing_oauth2": false,
+        "implementing_prompts": false,
+        "implementing_resources": true,
+        "implementing_roots": false,
+        "implementing_sampling": false,
+        "implementing_stdio": false,
+        "implementing_streamable_http": true,
+        "implementing_tools": true
+      },
+      "quality_score": 64,
+      "required_sensitive_config_fields": [],
+      "sensitive_config_fields": [
+        "grafana_password",
+        "grafana_service_account_token"
+      ],
+      "server_type": "local"
+    },
+    "modelcontextprotocol/servers": {
+      "archestra_name": "modelcontextprotocol__servers__src__sqlite",
+      "category": null,
+      "description": "Model Context Protocol Servers",
+      "display_name": "sqlite",
+      "github_info": {
+        "ci_cd": true,
+        "contributors": 30,
+        "latest_commit_hash": "8023ca60b32d7f06dddce77239606ce6c40725ad",
+        "releases": true,
+        "stars": 62134,
+        "url": "https://github.com/modelcontextprotocol/servers/tree/main/src/sqlite"
+      },
+      "last_scraped_at": "2025-07-30T22:31:41.937Z",
+      "oauth_configured": false,
+      "programming_language": "TypeScript",
+      "protocol_features": {
+        "implementing_logging": false,
+        "implementing_oauth2": false,
+        "implementing_prompts": false,
+        "implementing_resources": false,
+        "implementing_roots": false,
+        "implementing_sampling": false,
+        "implementing_stdio": false,
+        "implementing_streamable_http": false,
+        "implementing_tools": false
+      },
+      "quality_score": 98,
+      "required_sensitive_config_fields": [],
+      "sensitive_config_fields": [],
+      "server_type": "local"
+    },
+    "mongodb-js/mongodb-mcp-server": {
+      "archestra_name": "mongodb-js__mongodb-mcp-server",
+      "category": "Data",
+      "description": "Official MongoDB MCP server that enables AI assistants to interact with MongoDB databases and Atlas deployments. Supports CRUD operations, aggregation pipelines, collection management, indexing, and Atlas cluster administration.",
+      "display_name": "MongoDB",
+      "github_info": {
+        "ci_cd": true,
+        "contributors": 1,
+        "latest_commit_hash": null,
+        "releases": true,
+        "stars": 0,
+        "url": "https://github.com/mongodb-js/mongodb-mcp-server"
+      },
+      "last_scraped_at": "2026-01-13T00:00:00.000Z",
+      "oauth_configured": false,
+      "programming_language": "TypeScript",
+      "protocol_features": {
+        "implementing_logging": false,
+        "implementing_oauth2": false,
+        "implementing_prompts": false,
+        "implementing_resources": true,
+        "implementing_roots": false,
+        "implementing_sampling": false,
+        "implementing_stdio": true,
+        "implementing_streamable_http": false,
+        "implementing_tools": true
+      },
+      "quality_score": 85,
+      "required_sensitive_config_fields": [
+        "connection_string"
+      ],
+      "sensitive_config_fields": [
+        "connection_string",
+        "tls_certificate_ca",
+        "tls_certificate_key"
+      ],
+      "server_type": "local"
+    },
+    "redis/mcp-redis": {
+      "archestra_name": "redis__mcp-redis",
+      "category": "AI Tools",
+      "description": "The official Redis MCP Server is a natural language interface designed for agentic applications to manage and search data in Redis efficiently",
+      "display_name": "mcp-redis",
+      "github_info": {
+        "ci_cd": true,
+        "contributors": 16,
+        "latest_commit_hash": "d892956f1e5fc85195d267062692a76d79b5314e",
+        "releases": true,
+        "stars": 231,
+        "url": "https://github.com/redis/mcp-redis"
+      },
+      "last_scraped_at": "2025-09-09T13:05:31.976Z",
+      "oauth_configured": false,
+      "programming_language": "Python",
+      "protocol_features": {
+        "implementing_logging": true,
+        "implementing_oauth2": false,
+        "implementing_prompts": false,
+        "implementing_resources": false,
+        "implementing_roots": false,
+        "implementing_sampling": false,
+        "implementing_stdio": true,
+        "implementing_streamable_http": false,
+        "implementing_tools": true
+      },
+      "quality_score": 65,
+      "required_sensitive_config_fields": [],
+      "sensitive_config_fields": [
+        "redis_pwd"
+      ],
+      "server_type": "local"
+    }
+  },
+  "source": "archestra-ai/archestra mcp-catalog/data/mcp-evaluations",
+  "source_files_seen": 904
+}
