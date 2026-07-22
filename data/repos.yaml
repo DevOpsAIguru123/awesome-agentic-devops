@@ -409,6 +409,30 @@
     - 🛡️
     - ⚠️
 
+- name: Linear MCP server docs
+  url: https://linear.app/docs/mcp
+  category: official-devops-mcp-servers
+  type: documentation
+  framework: MCP
+  primary_language: unknown
+  cloud_provider: SaaS
+  use_cases:
+    - issue-tracking
+    - roadmap-planning
+    - project-status-updates
+    - incident-follow-up-tracking
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  risk_notes: "Hosted authenticated remote MCP can find, create, and update Linear issues, projects, comments, and related planning objects. Prefer the documented read-only endpoint or read-only API keys for investigation; require explicit approval before creating or updating roadmap or incident-follow-up records."
+  operator_note: "Official Linear documentation for its centrally hosted remote MCP server with OAuth 2.1 dynamic client registration, API-key support, a read-only endpoint, and tools for issue, project, roadmap, and comment workflows."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - ⚠️
+
 - name: SonarSource/sonarqube-mcp-server
   url: https://github.com/SonarSource/sonarqube-mcp-server
   category: official-security-mcp-servers
