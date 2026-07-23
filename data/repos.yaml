@@ -1537,3 +1537,75 @@
     - 🛡️
     - 📊
     - ⚠️
+
+- name: googleapis/mcp-toolbox
+  url: https://github.com/googleapis/mcp-toolbox
+  category: official-data-platform-mcp-servers
+  type: mcp-server
+  framework: MCP + database toolbox
+  primary_language: Go
+  cloud_provider: multi-cloud
+  use_cases:
+    - database-schema-exploration
+    - sql-querying-and-tooling
+    - enterprise-database-agent-access
+    - opentelemetry-instrumented-data-tools
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  risk_notes: "Generic database tools can execute SQL against production databases; configure read-only database users for exploration, rely on IAM/integrated auth where supported, and require approval before write SQL or schema-changing tools."
+  operator_note: "Official Google APIs MCP Toolbox for Databases, renamed from genai-toolbox, providing a self-hosted MCP server and SDKs for Postgres, MySQL, Spanner, BigQuery, Redis, MongoDB, Elasticsearch, and other databases; identified from rizzdev's Databases list."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - ⚠️
+
+- name: dbt-labs/dbt-mcp
+  url: https://github.com/dbt-labs/dbt-mcp
+  category: official-data-platform-mcp-servers
+  type: mcp-server
+  framework: MCP + dbt
+  primary_language: Python
+  cloud_provider: multi-cloud
+  use_cases:
+    - dbt-project-context
+    - semantic-layer-querying
+    - data-lineage-and-model-inspection
+    - data-platform-agent-workflows
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  risk_notes: "dbt CLI tools can modify project artifacts, models, sources, and warehouse objects; use dev targets or read-only roles for exploration and require approval before execution that changes data models or warehouse state."
+  operator_note: "Official dbt Labs MCP server for dbt Core, dbt Fusion, and dbt Platform context, including Discovery API, Semantic Layer SQL execution, project search, and dbt CLI tools; identified from rizzdev's Data & Analytics list."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - ⚠️
+
+- name: bytebase/dbhub
+  url: https://github.com/bytebase/dbhub
+  category: official-data-platform-mcp-servers
+  type: mcp-server
+  framework: MCP + SQL databases
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - multi-database-schema-discovery
+    - guarded-sql-querying
+    - local-development-database-context
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  risk_notes: "DBHub supports guardrails such as read-only mode, row limiting, and query timeout, but database credentials still define actual blast radius. Use read-only users by default and require approval before write SQL or production database access."
+  operator_note: "Bytebase-maintained DBHub MCP server for Postgres, MySQL, MariaDB, SQL Server, and SQLite with token-efficient schema search, query execution, read-only mode, row limits, and timeouts; identified from rizzdev's Databases list."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - ⚠️

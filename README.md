@@ -8,7 +8,7 @@ A curated, **official-first** catalog of MCP servers, agent skills, AI agents, f
 
 Most agent lists stop at discovery. This one is built for operators:
 
-- **Official-first, community-inclusive** — 67 entries organized into 14 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
+- **Official-first, community-inclusive** — 70 entries organized into 14 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — GitHub repository entries are checked weekly for reachability and archived status; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-skills-into-your-coding-agent) installs hundreds of skills from cataloged Google, Microsoft, Azure, Azure DevOps, and Harness sources — plus a separate community set — into Claude Code, Cursor, Codex, VS Code, or Antigravity.
@@ -58,7 +58,7 @@ At minimum, record an explicit approval before any write-capable agent mutates i
 | SRE incident response | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana)<br>[datadog-labs/mcp-server](https://github.com/datadog-labs/mcp-server)<br>[Elastic Agent Builder MCP server docs](https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server)<br>[PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | Official observability and incident-management MCPs for metrics, logs, traces, indexed operational data, alerts, incidents, and on-call context. |
 | FinOps and cloud cost | [vantage-sh/vantage-mcp-server](https://github.com/vantage-sh/vantage-mcp-server) | Official Vantage MCP server for cloud spend analysis, budgets, anomalies, reports, and provider-resource cost context across Vantage-connected providers. |
 | Security and code quality | [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/)<br>[SonarSource/sonarqube-mcp-server](https://github.com/SonarSource/sonarqube-mcp-server)<br>[okta/okta-mcp-server](https://github.com/okta/okta-mcp-server)<br>[Snyk Studio MCP docs](https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio)<br>[snyk/studio-mcp](https://github.com/snyk/studio-mcp)<br>[Wiz WIN MCP Server docs](https://docs.wiz.io/dev/win-mcp-server)<br>[CrowdStrike/falcon-mcp](https://github.com/CrowdStrike/falcon-mcp)<br>[DopplerHQ/mcp-server](https://github.com/DopplerHQ/mcp-server) | Official MCPs and security resources for MCP threat modeling, code quality, application security, identity-aware workflows, secrets management, agent security, cloud-security posture, and Falcon-platform SOC automation. |
-| Data platform operations | [mongodb-js/mongodb-mcp-server](https://github.com/mongodb-js/mongodb-mcp-server)<br>[redis/mcp-redis](https://github.com/redis/mcp-redis) | Official database MCP servers for MongoDB and Redis operational context, cache/session data, vector search, streams, and data-platform agent workflows. |
+| Data platform operations | [mongodb-js/mongodb-mcp-server](https://github.com/mongodb-js/mongodb-mcp-server)<br>[redis/mcp-redis](https://github.com/redis/mcp-redis)<br>[googleapis/mcp-toolbox](https://github.com/googleapis/mcp-toolbox)<br>[dbt-labs/dbt-mcp](https://github.com/dbt-labs/dbt-mcp)<br>[bytebase/dbhub](https://github.com/bytebase/dbhub) | Official database and data-platform MCP servers for MongoDB, Redis, SQL databases, dbt, schema discovery, guarded query execution, semantic-layer context, and data-platform agent workflows. |
 | CI/CD and GitOps | [jenkinsci/mcp-server-plugin](https://github.com/jenkinsci/mcp-server-plugin)<br>[argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd)<br>[harness/mcp-server](https://github.com/harness/mcp-server) | Official Jenkins, Argo Project, and Harness resources for pipeline, build, deployment, rollback, and GitOps workflows. |
 | MCP development and governance | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk)<br>[modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk)<br>[modelcontextprotocol/registry](https://github.com/modelcontextprotocol/registry)<br>[Docker MCP Catalog and Toolkit](https://docs.docker.com/ai/mcp-catalog-and-toolkit/) | Official SDKs, registry, and Docker governance surfaces for building, packaging, and controlling DevOps MCP servers. |
 | Agent frameworks and templates | [google/adk-python](https://github.com/google/adk-python)<br>[GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack) | Official Google agent framework and production templates with CI/CD, evaluation, and observability. |
@@ -80,6 +80,9 @@ Pass `--dry-run` to preview first. Commands for Cursor, Codex, VS Code, Antigrav
 
 | Date | Entry | Category |
 | --- | --- | --- |
+| 2026-07-22 | [googleapis/mcp-toolbox](https://github.com/googleapis/mcp-toolbox) | Data platform / database toolbox |
+| 2026-07-22 | [dbt-labs/dbt-mcp](https://github.com/dbt-labs/dbt-mcp) | Data platform / dbt |
+| 2026-07-22 | [bytebase/dbhub](https://github.com/bytebase/dbhub) | Data platform / guarded SQL MCP |
 | 2026-07-22 | [Linear MCP server docs](https://linear.app/docs/mcp) | DevOps / Linear issue and roadmap workflows |
 | 2026-07-18 | [DopplerHQ/mcp-server](https://github.com/DopplerHQ/mcp-server) | Security / Doppler secrets management |
 | 2026-07-17 | [CrowdStrike/falcon-mcp](https://github.com/CrowdStrike/falcon-mcp) | Security / CrowdStrike Falcon SOC automation |
@@ -230,6 +233,9 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | --- | --- | --- |
 | [mongodb-js/mongodb-mcp-server](https://github.com/mongodb-js/mongodb-mcp-server) | 🟢 🔵 🛡️ ⚠️ | Official MongoDB MCP server (public preview) connecting agents to MongoDB Community, Enterprise, and Atlas deployments. |
 | [redis/mcp-redis](https://github.com/redis/mcp-redis) | 🟢 🔵 🛡️ ⚠️ | Official Redis MCP Server for natural-language Redis data management, cache/session workflows, vector search, streams, pub/sub, and Redis documentation lookup. |
+| [googleapis/mcp-toolbox](https://github.com/googleapis/mcp-toolbox) | 🟢 🔵 🛡️ 📊 ⚠️ | Official Google APIs MCP Toolbox for Databases with self-hosted database tools, SDKs, integrated auth, and OpenTelemetry support. |
+| [dbt-labs/dbt-mcp](https://github.com/dbt-labs/dbt-mcp) | 🟢 🔵 🛡️ ⚠️ | Official dbt Labs MCP server for dbt Core, dbt Fusion, and dbt Platform context, including Discovery API, Semantic Layer, project search, and dbt CLI tools. |
+| [bytebase/dbhub](https://github.com/bytebase/dbhub) | 🟢 🔵 🛡️ ⚠️ | Bytebase-maintained DBHub MCP server for Postgres, MySQL, MariaDB, SQL Server, and SQLite with token-efficient schema search, query execution, read-only mode, row limits, and timeouts. |
 
 ### Official FinOps and Cloud-Cost MCP Servers
 
