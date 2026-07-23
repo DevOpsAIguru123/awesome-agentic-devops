@@ -8,7 +8,7 @@ A curated, **official-first** catalog of MCP servers, agent skills, AI agents, f
 
 Most agent lists stop at discovery. This one is built for operators:
 
-- **Official-first, community-inclusive** — 67 entries organized into 14 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
+- **Official-first, community-inclusive** — 69 entries organized into 14 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — GitHub repository entries are checked weekly for reachability and archived status; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-skills-into-your-coding-agent) installs hundreds of skills from cataloged Google, Microsoft, Azure, Azure DevOps, and Harness sources — plus a separate community set — into Claude Code, Cursor, Codex, VS Code, or Antigravity.
@@ -80,6 +80,8 @@ Pass `--dry-run` to preview first. Commands for Cursor, Codex, VS Code, Antigrav
 
 | Date | Entry | Category |
 | --- | --- | --- |
+| 2026-07-22 | [docker/hub-mcp](https://github.com/docker/hub-mcp) | DevOps / Docker Hub container workflows |
+| 2026-07-22 | [digitalocean-labs/mcp-digitalocean](https://github.com/digitalocean-labs/mcp-digitalocean) | Cloud / DigitalOcean |
 | 2026-07-22 | [Linear MCP server docs](https://linear.app/docs/mcp) | DevOps / Linear issue and roadmap workflows |
 | 2026-07-18 | [DopplerHQ/mcp-server](https://github.com/DopplerHQ/mcp-server) | Security / Doppler secrets management |
 | 2026-07-17 | [CrowdStrike/falcon-mcp](https://github.com/CrowdStrike/falcon-mcp) | Security / CrowdStrike Falcon SOC automation |
@@ -122,6 +124,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | [GoogleCloudPlatform/cloud-run-mcp](https://github.com/GoogleCloudPlatform/cloud-run-mcp) | 🟢 🔵 🛡️ ⚠️ | Official Google Cloud Platform MCP server for deploying apps to Cloud Run. |
 | [cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare) | 🟢 🔵 🛡️ ⚠️ | Official Cloudflare MCP servers for account, Workers, and edge configuration workflows. |
 | [vercel/vercel-mcp-overview](https://github.com/vercel/vercel-mcp-overview) | 🟢 🔵 🛡️ ⚠️ | Official public overview of Vercel's hosted MCP server for project and deployment context. |
+| [digitalocean-labs/mcp-digitalocean](https://github.com/digitalocean-labs/mcp-digitalocean) | 🟡 🔵 🛡️ ⚠️ | DigitalOcean Labs MCP integration for self-hosted cloud operations over DigitalOcean droplets, App Platform, databases, and account resources. |
 
 ### Official DevOps MCP Servers
 
@@ -133,6 +136,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | [atlassian/atlassian-mcp-server](https://github.com/atlassian/atlassian-mcp-server) | 🟢 🔵 🛡️ ⚠️ | Official Atlassian Rovo MCP server for Jira, Confluence, Jira Service Management, Bitbucket, and Compass. |
 | [Linear MCP server docs](https://linear.app/docs/mcp) | 🟢 🔵 🛡️ ⚠️ | Official Linear documentation for its centrally hosted remote MCP server with OAuth 2.1 dynamic client registration, API-key support, a read-only endpoint, and tools for issue, project, roadmap, and comment workflows. |
 | [docker/mcp-registry](https://github.com/docker/mcp-registry) | 🟢 🔵 🛡️ 📊 | Official Docker MCP registry and catalog source for verified containerized MCP servers. |
+| [docker/hub-mcp](https://github.com/docker/hub-mcp) | 🟡 🔵 🛡️ ⚠️ | Official Docker Hub MCP server for AI-assisted image discovery, image recommendations, and Docker Hub repository workflows. |
 | [kubernetes-sigs/mcp-lifecycle-operator](https://github.com/kubernetes-sigs/mcp-lifecycle-operator) | 🟡 🔵 🛡️ ⚠️ | Official Kubernetes SIG operator for declaratively deploying and rolling out MCP servers, not a general kubectl MCP server. |
 
 ### Official Security and Code-Quality MCP Servers

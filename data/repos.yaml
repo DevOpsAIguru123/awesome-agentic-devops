@@ -1537,3 +1537,49 @@
     - 🛡️
     - 📊
     - ⚠️
+
+- name: docker/hub-mcp
+  url: https://github.com/docker/hub-mcp
+  category: official-devops-mcp-servers
+  type: mcp-server
+  framework: MCP + Docker Hub API
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - container-image-discovery
+    - docker-hub-repository-management
+    - ai-assisted-container-workflows
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: prototype
+  risk_notes: "Unauthenticated mode is limited to public Docker Hub content; authenticated mode uses HUB_PAT_TOKEN and can manage Docker Hub repositories/images through the Docker Hub API, so scope PAT permissions and require approval before repository mutations."
+  operator_note: "Official Docker Hub MCP server for AI-assisted image discovery, image recommendations, and Docker Hub repository workflows; surfaced in the self-hostable rizzdev awesome-mcp-open DevOps/Infra list."
+  labels:
+    - 🟡
+    - 🔵
+    - 🛡️
+    - ⚠️
+
+- name: digitalocean-labs/mcp-digitalocean
+  url: https://github.com/digitalocean-labs/mcp-digitalocean
+  category: official-cloud-mcp-servers
+  type: mcp-server
+  framework: MCP + DigitalOcean API
+  primary_language: TypeScript
+  cloud_provider: DigitalOcean
+  use_cases:
+    - digitalocean-infrastructure-management
+    - droplet-and-app-platform-operations
+    - managed-database-and-networking-workflows
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: prototype
+  risk_notes: "Uses a DigitalOcean API token and can act on live droplets, apps, databases, and infrastructure. Scope tokens to the minimum required project/resources and require explicit approval before create, update, resize, restart, or delete operations."
+  operator_note: "DigitalOcean Labs MCP integration for self-hosted cloud operations over DigitalOcean droplets, App Platform, databases, and account resources; identified from the rizzdev awesome-mcp-open Cloud & Deploy list."
+  labels:
+    - 🟡
+    - 🔵
+    - 🛡️
+    - ⚠️
