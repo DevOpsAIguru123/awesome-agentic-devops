@@ -1537,3 +1537,27 @@
     - 🛡️
     - 📊
     - ⚠️
+
+- name: cisco-ai-defense/mcp-scanner
+  url: https://github.com/cisco-ai-defense/mcp-scanner
+  category: official-security-mcp-servers
+  type: security-tool
+  framework: MCP + YARA + LLM-as-judge + Cisco AI Defense
+  primary_language: Python
+  cloud_provider: multi-cloud
+  use_cases:
+    - mcp-server-security-scanning
+    - prompt-injection-and-tool-threat-detection
+    - dependency-vulnerability-scanning
+    - ci-cd-agent-security-gates
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  risk_notes: "Scanner can connect to MCP servers, inspect tools/prompts/resources/source packages, and send artifacts to optional external analyzers such as Cisco AI Defense, LLM providers, and VirusTotal. Use static/offline scans for sensitive internal servers, redact secrets from configs, and scope API keys for optional cloud analyzers."
+  operator_note: "Cisco AI Defense MCP Scanner for scanning MCP servers and tools with YARA rules, LLM-as-judge, Cisco AI Defense Inspect API, pip-audit dependency checks, readiness checks, and optional VirusTotal analysis; identified from rizzdev's Security list."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
