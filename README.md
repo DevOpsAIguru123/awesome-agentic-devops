@@ -8,7 +8,7 @@ A curated, **official-first** catalog of MCP servers, agent skills, AI agents, f
 
 Most agent lists stop at discovery. This one is built for operators:
 
-- **Official-first, community-inclusive** — 67 entries organized into 14 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
+- **Official-first, community-inclusive** — 69 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — GitHub repository entries are checked weekly for reachability and archived status; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-skills-into-your-coding-agent) installs hundreds of skills from cataloged Google, Microsoft, Azure, Azure DevOps, and Harness sources — plus a separate community set — into Claude Code, Cursor, Codex, VS Code, or Antigravity.
@@ -61,6 +61,7 @@ At minimum, record an explicit approval before any write-capable agent mutates i
 | Data platform operations | [mongodb-js/mongodb-mcp-server](https://github.com/mongodb-js/mongodb-mcp-server)<br>[redis/mcp-redis](https://github.com/redis/mcp-redis) | Official database MCP servers for MongoDB and Redis operational context, cache/session data, vector search, streams, and data-platform agent workflows. |
 | CI/CD and GitOps | [jenkinsci/mcp-server-plugin](https://github.com/jenkinsci/mcp-server-plugin)<br>[argoproj-labs/mcp-for-argocd](https://github.com/argoproj-labs/mcp-for-argocd)<br>[harness/mcp-server](https://github.com/harness/mcp-server) | Official Jenkins, Argo Project, and Harness resources for pipeline, build, deployment, rollback, and GitOps workflows. |
 | MCP development and governance | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk)<br>[modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk)<br>[modelcontextprotocol/registry](https://github.com/modelcontextprotocol/registry)<br>[Docker MCP Catalog and Toolkit](https://docs.docker.com/ai/mcp-catalog-and-toolkit/) | Official SDKs, registry, and Docker governance surfaces for building, packaging, and controlling DevOps MCP servers. |
+| Browser automation and debugging | [ChromeDevTools/chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp)<br>[microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp) | Official browser automation MCP servers for web-app QA, performance tracing, network/console inspection, and accessibility-tree-driven browser workflows. |
 | Agent frameworks and templates | [google/adk-python](https://github.com/google/adk-python)<br>[GoogleCloudPlatform/agent-starter-pack](https://github.com/GoogleCloudPlatform/agent-starter-pack) | Official Google agent framework and production templates with CI/CD, evaluation, and observability. |
 
 ## Install skills into your coding agent
@@ -80,6 +81,8 @@ Pass `--dry-run` to preview first. Commands for Cursor, Codex, VS Code, Antigrav
 
 | Date | Entry | Category |
 | --- | --- | --- |
+| 2026-07-23 | [ChromeDevTools/chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | Browser automation / Chrome DevTools |
+| 2026-07-23 | [microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp) | Browser automation / Playwright |
 | 2026-07-22 | [Linear MCP server docs](https://linear.app/docs/mcp) | DevOps / Linear issue and roadmap workflows |
 | 2026-07-18 | [DopplerHQ/mcp-server](https://github.com/DopplerHQ/mcp-server) | Security / Doppler secrets management |
 | 2026-07-17 | [CrowdStrike/falcon-mcp](https://github.com/CrowdStrike/falcon-mcp) | Security / CrowdStrike Falcon SOC automation |
@@ -223,6 +226,13 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | Repo | Labels | Operator note |
 | --- | --- | --- |
 | [jgraph/drawio-mcp](https://github.com/jgraph/drawio-mcp) | 🟢 🔵 🛡️ | draw.io MCP server and Claude Code plugin for generating, opening, and exporting draw.io diagrams with shape search. |
+
+### Official Browser Automation and Debugging MCP Servers
+
+| Repo | Labels | Operator note |
+| --- | --- | --- |
+| [ChromeDevTools/chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | 🟢 🔵 🛡️ 📊 ⚠️ | Official Chrome DevTools MCP server for browser debugging, performance tracing, network inspection, and DOM automation in coding agents. |
+| [microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp) | 🟢 🔵 🛡️ ⚠️ | Official Microsoft Playwright MCP server exposing accessibility-tree browser automation for web QA, scraping, debugging, and exploratory agent loops. |
 
 ### Official Data Platform MCP Servers
 
