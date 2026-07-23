@@ -8,7 +8,7 @@ A curated, **official-first** catalog of MCP servers, agent skills, AI agents, f
 
 Most agent lists stop at discovery. This one is built for operators:
 
-- **Official-first, community-inclusive** — 67 entries organized into 14 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
+- **Official-first, community-inclusive** — 68 entries organized into 14 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — GitHub repository entries are checked weekly for reachability and archived status; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-skills-into-your-coding-agent) installs hundreds of skills from cataloged Google, Microsoft, Azure, Azure DevOps, and Harness sources — plus a separate community set — into Claude Code, Cursor, Codex, VS Code, or Antigravity.
@@ -80,6 +80,7 @@ Pass `--dry-run` to preview first. Commands for Cursor, Codex, VS Code, Antigrav
 
 | Date | Entry | Category |
 | --- | --- | --- |
+| 2026-07-22 | [aquasecurity/trivy-mcp](https://github.com/aquasecurity/trivy-mcp) | Security / Trivy vulnerability scanning |
 | 2026-07-22 | [Linear MCP server docs](https://linear.app/docs/mcp) | DevOps / Linear issue and roadmap workflows |
 | 2026-07-18 | [DopplerHQ/mcp-server](https://github.com/DopplerHQ/mcp-server) | Security / Doppler secrets management |
 | 2026-07-17 | [CrowdStrike/falcon-mcp](https://github.com/CrowdStrike/falcon-mcp) | Security / CrowdStrike Falcon SOC automation |
@@ -148,6 +149,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | [Wiz WIN MCP Server docs](https://docs.wiz.io/dev/win-mcp-server) | 🟢 🔵 🛡️ 📊 | Official Wiz documentation for the WIN MCP server, adding CNAPP and cloud-security coverage. |
 | [CrowdStrike/falcon-mcp](https://github.com/CrowdStrike/falcon-mcp) | 🟡 🔵 🛡️ ⚠️ | Official CrowdStrike MCP server (Python, public preview) for threat detection, incident investigation, threat intelligence, endpoint inventory, identity protection, NG-SIEM, and cloud security (CSPM/CSVM). Use least-privilege API scopes; write-capable modules can change endpoint policy and detection rules. |
 | [DopplerHQ/mcp-server](https://github.com/DopplerHQ/mcp-server) | 🟡 🔵 🛡️ ⚠️ | Official Doppler MCP server (TypeScript, Apache-2.0) providing AI assistants access to the Doppler secrets API. Experimental; use service tokens scoped per config. Write-capable — can create/delete secrets. |
+| [aquasecurity/trivy-mcp](https://github.com/aquasecurity/trivy-mcp) | 🟡 🔵 🛡️ 📊 | Official Aqua Security Trivy MCP plugin exposing vulnerability, misconfiguration, secret, filesystem, container image, and repository scanning to MCP clients. |
 
 ### Official CI/CD and GitOps MCP Servers
 
