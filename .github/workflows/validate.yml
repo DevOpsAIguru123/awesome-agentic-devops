@@ -25,16 +25,16 @@ jobs:
           uv sync --locked --all-extras --no-build --no-install-project
 
       - name: Validate repo data
-        run: uv run --no-sync python scripts/validate_repos_yaml.py
+        run: uv run --no-sync --no-build python scripts/validate_repos_yaml.py
 
       - name: Check generated skill catalog
-        run: uv run --no-sync python scripts/sync_catalog_json.py --check
+        run: uv run --no-sync --no-build python scripts/sync_catalog_json.py --check
 
       - name: Check README catalog counts
-        run: uv run --no-sync python scripts/sync_readme_counts.py --check
+        run: uv run --no-sync --no-build python scripts/sync_readme_counts.py --check
 
       - name: Run tests
-        run: uv run --no-sync pytest -q
+        run: uv run --no-sync --no-build pytest -q
 
       - name: Run mock eval scenarios
-        run: uv run --no-sync python scripts/run_mock_eval_scenarios.py
+        run: uv run --no-sync --no-build python scripts/run_mock_eval_scenarios.py
