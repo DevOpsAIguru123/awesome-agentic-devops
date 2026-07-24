@@ -1538,51 +1538,26 @@
     - 📊
     - ⚠️
 
-- name: ChromeDevTools/chrome-devtools-mcp
-  url: https://github.com/ChromeDevTools/chrome-devtools-mcp
-  category: official-browser-automation-mcp-servers
+- name: aquasecurity/trivy-mcp
+  url: https://github.com/aquasecurity/trivy-mcp
+  category: official-security-mcp-servers
   type: mcp-server
-  framework: MCP + Chrome DevTools Protocol
-  primary_language: TypeScript
-  cloud_provider: none
+  framework: MCP + Trivy
+  primary_language: Go
+  cloud_provider: multi-cloud
   use_cases:
-    - browser-debugging
-    - performance-tracing
-    - network-and-console-inspection
-    - web-app-qa-automation
-  action_level: write-capable
+    - vulnerability-scanning
+    - container-image-security
+    - repository-and-filesystem-scanning
+    - misconfiguration-and-secret-scanning
+  action_level: read-only
   human_approval: true
   evidence_tracing: "yes"
-  maturity: production-adjacent
-  risk_notes: "Controls a live Chrome/Chrome for Testing instance and exposes browser state, console/network data, screenshots, downloads, and optional extension loading. Disable usage statistics with --no-usage-statistics or CHROME_DEVTOOLS_MCP_NO_USAGE_STATISTICS, use allow/block URL patterns, and avoid authenticated production sessions unless explicitly approved."
-  operator_note: "Official Chrome DevTools MCP server for coding agents, enabling reliable browser debugging, performance tracing, network inspection, and DOM automation; identified from rizzdev's Browser Automation list."
+  maturity: prototype
+  risk_notes: "Runs security scans against local filesystems, container images, and remote repositories; outputs can expose dependency, secret, and vulnerability details. Aqua Platform integration is optional, so keep any platform credentials scoped and prefer local/offline scans for first runs."
+  operator_note: "Official Aqua Security Trivy MCP plugin exposing Trivy vulnerability, misconfiguration, secret, filesystem, container image, and repository scanning to MCP clients; identified from the rizzdev awesome-mcp-open Security list."
   labels:
-    - 🟢
+    - 🟡
     - 🔵
     - 🛡️
     - 📊
-    - ⚠️
-
-- name: microsoft/playwright-mcp
-  url: https://github.com/microsoft/playwright-mcp
-  category: official-browser-automation-mcp-servers
-  type: mcp-server
-  framework: MCP + Playwright
-  primary_language: TypeScript
-  cloud_provider: none
-  use_cases:
-    - browser-automation
-    - accessibility-tree-web-testing
-    - exploratory-qa
-    - self-healing-test-debugging
-  action_level: write-capable
-  human_approval: true
-  evidence_tracing: partial
-  maturity: production-adjacent
-  risk_notes: "Can drive real browsers, click through authenticated sessions, submit forms, download files, and modify web app state. Prefer isolated browser profiles/test environments, least-privilege test accounts, and explicit approval before actions that submit data or affect production systems."
-  operator_note: "Official Microsoft Playwright MCP server exposing browser automation through Playwright's accessibility tree for web QA, scraping, debugging, and exploratory agent loops; identified from rizzdev's Browser Automation list."
-  labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
