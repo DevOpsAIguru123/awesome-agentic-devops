@@ -149,5 +149,7 @@ def test_write_reports_outputs_json_and_markdown(tmp_path):
 
 
 def test_resolve_cli_path_rejects_working_tree_escape(tmp_path):
+    untrusted_path = Path("../../outside.yaml")
+    root = tmp_path / "repo"
     with pytest.raises(ValueError, match="escapes the working tree"):
-        resolve_cli_path(Path("../../outside.yaml"), root=tmp_path / "repo")
+        resolve_cli_path(untrusted_path, root=root)

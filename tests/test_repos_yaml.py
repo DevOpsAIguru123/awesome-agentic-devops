@@ -88,5 +88,7 @@ def test_rejects_non_list_yaml(tmp_path):
 
 
 def test_resolve_cli_path_rejects_working_tree_escape(tmp_path):
+    untrusted_path = Path("../outside.yaml")
+    root = tmp_path / "repo"
     with pytest.raises(ValidationError, match="escapes the working tree"):
-        resolve_cli_path(Path("../outside.yaml"), root=tmp_path / "repo")
+        resolve_cli_path(untrusted_path, root=root)

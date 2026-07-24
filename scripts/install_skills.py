@@ -186,9 +186,10 @@ def _path_within(root: Path, untrusted_path: str | Path) -> Path:
 
 def _safe_extract(tar: tarfile.TarFile, dest: Path) -> None:
     """Extract regular files/directories without honoring archive links."""
-    dest.mkdir(parents=True, exist_ok=True)
+    safe_dest = _path_within(dest.parent, dest.name)
+    safe_dest.mkdir(parents=True, exist_ok=True)
     for member in tar.getmembers():
-        target = _path_within(dest, member.name)
+        target = _path_within(safe_dest, member.name)
         if member.isdir():
             target.mkdir(parents=True, exist_ok=True)
             continue

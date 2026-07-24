@@ -143,8 +143,10 @@ def test_write_report_outputs_json_and_markdown(tmp_path):
 
 
 def test_resolve_cli_path_rejects_working_tree_escape(tmp_path):
+    untrusted_path = Path("../outside.json")
+    root = tmp_path / "repo"
     with pytest.raises(ValueError, match="escapes the working tree"):
-        resolve_cli_path(Path("../outside.json"), root=tmp_path / "repo")
+        resolve_cli_path(untrusted_path, root=root)
 
 
 def test_resolve_cli_path_accepts_nested_path(tmp_path):
