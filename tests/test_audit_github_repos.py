@@ -8,6 +8,7 @@ from scripts.audit_github_repos import (
     audit_repo,
     build_summary,
     parse_github_repo,
+    resolve_cli_path,
     write_report,
 )
 
@@ -139,3 +140,15 @@ def test_write_report_outputs_json_and_markdown(tmp_path):
     assert report["summary"]["total"] == 1
     assert report["results"][0]["name"] == "antonbabenko/terraform-skill"
     assert "| antonbabenko/terraform-skill | yes |" in markdown
+
+
+def test_resolve_cli_path_rejects_working_tree_escape(tmp_path):
+    with pytest.raises(ValueError, match="escapes the working tree"):
+        resolve_cli_path(Path("../outside.json"), root=tmp_path / "repo")
+
+
+def test_resolve_cli_path_accepts_nested_path(tmp_path):
+    root = tmp_path / "repo"
+    assert resolve_cli_path(Path("reports/audit.json"), root=root) == (
+        root / "reports/audit.json"
+    ).resolve()

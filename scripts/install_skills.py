@@ -39,6 +39,7 @@ from __future__ import annotations
 import argparse
 import io
 import json
+import re
 import shutil
 import ssl
 import sys
@@ -73,6 +74,7 @@ AGENT_SKILLS: dict[str, Path] = {
 
 # Folder names that hold a SKILL.md but are scaffolding, not a real skill.
 SKILL_NAME_IGNORE = {"template", "templates", "example", "examples"}
+OWNER_REPO_PATTERN = re.compile(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+\Z")
 
 # CA bundles shipped by the OS, used when the interpreter's own trust store is
 # empty. See _ssl_context().
@@ -138,6 +140,13 @@ def load_catalog_sources(
     return sources
 
 
+def _secure_ssl_context(cafile: str | None = None) -> ssl.SSLContext:
+    """Create a verified TLS context with an explicit modern protocol floor."""
+    context = ssl.create_default_context(cafile=cafile)
+    context.minimum_version = ssl.TLSVersion.TLSv1_2
+    return context
+
+
 def _ssl_context() -> ssl.SSLContext:
     """A TLS context with a CA store that actually has certificates in it.
 
@@ -151,30 +160,52 @@ def _ssl_context() -> ssl.SSLContext:
     try:
         import certifi
 
-        return ssl.create_default_context(cafile=certifi.where())
+        return _secure_ssl_context(cafile=certifi.where())
     except ModuleNotFoundError:
         pass
 
-    context = ssl.create_default_context()
+    context = _secure_ssl_context()
     if context.get_ca_certs():
         return context
     for bundle in SYSTEM_CA_BUNDLES:
         if Path(bundle).exists():
-            return ssl.create_default_context(cafile=bundle)
+            return _secure_ssl_context(cafile=bundle)
     return context
 
 
+def _path_within(root: Path, untrusted_path: str | Path) -> Path:
+    """Resolve an untrusted path and require containment within ``root``."""
+    root_resolved = root.resolve()
+    target = (root_resolved / untrusted_path).resolve()
+    try:
+        target.relative_to(root_resolved)
+    except ValueError as exc:
+        raise SystemExit(f"unsafe path: {untrusted_path}") from exc
+    return target
+
+
 def _safe_extract(tar: tarfile.TarFile, dest: Path) -> None:
-    dest_resolved = dest.resolve()
+    """Extract regular files/directories without honoring archive links."""
+    dest.mkdir(parents=True, exist_ok=True)
     for member in tar.getmembers():
-        target = (dest / member.name).resolve()
-        if dest_resolved != target and dest_resolved not in target.parents:
-            raise SystemExit(f"unsafe path in archive: {member.name}")
-    tar.extractall(dest)
+        target = _path_within(dest, member.name)
+        if member.isdir():
+            target.mkdir(parents=True, exist_ok=True)
+            continue
+        if not member.isfile():
+            raise SystemExit(f"unsupported archive entry: {member.name}")
+        target.parent.mkdir(parents=True, exist_ok=True)
+        source = tar.extractfile(member)
+        if source is None:
+            raise SystemExit(f"could not read archive entry: {member.name}")
+        with source, target.open("wb") as output:
+            shutil.copyfileobj(source, output)
 
 
 def download_source(owner_repo: str, dest: Path) -> Path:
     """Download and extract a GitHub repo tarball; return the extracted root."""
+    if not OWNER_REPO_PATTERN.fullmatch(owner_repo):
+        raise SystemExit(f"invalid GitHub repository reference: {owner_repo!r}")
     last_error: Exception | None = None
     for branch in ("main", "master"):
         url = f"https://codeload.github.com/{owner_repo}/tar.gz/refs/heads/{branch}"
@@ -391,21 +422,24 @@ def install_for_agent(agent: str, skills: list[tuple[str, Path]], args: argparse
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
 
+    repos_path = _path_within(Path.cwd(), args.repos)
+
     if args.list_sources:
         print("Skill sources (use with --source):")
-        _print_sources(args.repos)
+        _print_sources(str(repos_path))
         return 0
 
     if not args.source and not selected_categories(args):
         print("Choose what to install with --official, --community, --all, or --source.")
         print("\nAvailable skill sources:")
-        _print_sources(args.repos)
+        _print_sources(str(repos_path))
         print("\nExamples:")
         print("  --agent claude-code --official")
         print("  --agent claude-code --source google/skills --filter cloud")
         return 2
 
     agents = sorted(AGENT_SKILLS) if args.agent == "all" else [args.agent]
+    args.repos = str(repos_path)
     owner_repos = resolve_sources(args)
 
     with tempfile.TemporaryDirectory() as tmp:

@@ -8,6 +8,7 @@ from scripts.validate_repos_yaml import (
     ALLOWED_MATURITY,
     REQUIRED_FIELDS,
     ValidationError,
+    resolve_cli_path,
     validate_entries,
     validate_file,
 )
@@ -84,3 +85,8 @@ def test_rejects_non_list_yaml(tmp_path):
 
     with pytest.raises(ValidationError, match="must contain a list"):
         validate_file(yaml_path)
+
+
+def test_resolve_cli_path_rejects_working_tree_escape(tmp_path):
+    with pytest.raises(ValidationError, match="escapes the working tree"):
+        resolve_cli_path(Path("../outside.yaml"), root=tmp_path / "repo")
