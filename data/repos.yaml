@@ -619,6 +619,30 @@
     - 🛡️
     - 📊
 
+- name: Honeycomb MCP docs
+  url: https://docs.honeycomb.io/integrations/mcp/
+  category: official-sre-mcp-servers
+  type: hosted-mcp-server
+  framework: MCP
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - observability-investigation
+    - traces-metrics-logs-querying
+    - slo-and-trigger-analysis
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  risk_notes: "Hosted Honeycomb MCP can expose production telemetry and optional write tools for Boards, Triggers, SLOs, notification recipients, and Canvas investigations; prefer OAuth, read-only scopes, and explicit approval before granting mcp:write."
+  operator_note: "Official Honeycomb hosted MCP documentation for querying traces, metrics, logs, SLOs, triggers, and AI-optimized observability workflows through OAuth 2.1 or scoped API keys."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - ⚠️
+
 - name: Splunk MCP Server
   url: https://splunkbase.splunk.com/app/7931
   category: official-sre-mcp-servers
