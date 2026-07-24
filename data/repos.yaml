@@ -1561,3 +1561,27 @@
     - 🛡️
     - 📊
     - ⚠️
+
+- name: aquasecurity/trivy-mcp
+  url: https://github.com/aquasecurity/trivy-mcp
+  category: official-security-mcp-servers
+  type: mcp-server
+  framework: MCP + Trivy
+  primary_language: Go
+  cloud_provider: multi-cloud
+  use_cases:
+    - vulnerability-scanning
+    - container-image-security
+    - repository-and-filesystem-scanning
+    - misconfiguration-and-secret-scanning
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: prototype
+  risk_notes: "Runs security scans against local filesystems, container images, and remote repositories; outputs can expose dependency, secret, and vulnerability details. Aqua Platform integration is optional, so keep any platform credentials scoped and prefer local/offline scans for first runs."
+  operator_note: "Official Aqua Security Trivy MCP plugin exposing Trivy vulnerability, misconfiguration, secret, filesystem, container image, and repository scanning to MCP clients; identified from the rizzdev awesome-mcp-open Security list."
+  labels:
+    - 🟡
+    - 🔵
+    - 🛡️
+    - 📊
