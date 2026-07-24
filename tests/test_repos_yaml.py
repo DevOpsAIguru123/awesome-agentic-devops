@@ -70,13 +70,17 @@ def test_rejects_missing_required_field():
 
 
 def test_rejects_invalid_action_level():
+    entries = [valid_entry(action_level="autonomous-apply")]
+
     with pytest.raises(ValidationError, match="invalid action_level"):
-        validate_entries([valid_entry(action_level="autonomous-apply")])
+        validate_entries(entries)
 
 
 def test_rejects_labels_that_are_not_a_list():
+    entries = [valid_entry(labels="🟡")]
+
     with pytest.raises(ValidationError, match="labels must be a list"):
-        validate_entries([valid_entry(labels="🟡")])
+        validate_entries(entries)
 
 
 def test_rejects_non_list_yaml(tmp_path):

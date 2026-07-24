@@ -20,7 +20,7 @@ README = ROOT / "README.md"
 REPOS_YAML = ROOT / "data" / "repos.yaml"
 
 COUNTS_PATTERN = re.compile(
-    r"\d+ entries organized into \d+ catalog sections"
+    r"[0-9]{1,9} entries organized into [0-9]{1,9} catalog sections"
 )
 
 
