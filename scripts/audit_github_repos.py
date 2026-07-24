@@ -54,7 +54,7 @@ def resolve_cli_path(path: Path, root: Path | None = None) -> Path:
 
 
 def parse_github_repo(value: str) -> tuple[str, str]:
-    if value.startswith("http://") or value.startswith("https://"):
+    if value.startswith(("http://", "https://")):
         parsed = urlparse(value)
         if parsed.netloc.lower() != "github.com":
             raise ValueError(f"{value!r} is not a GitHub repo URL")
@@ -181,8 +181,15 @@ def build_summary(results: list[AuditResult]) -> dict[str, int]:
 
 
 def _markdown_row(result: AuditResult) -> str:
-    reachable = "skipped" if result.skipped else "yes" if result.reachable else "no"
-    archived = "yes" if result.archived else "no" if result.archived is False else ""
+    if result.skipped:
+        reachable = "skipped"
+    else:
+        reachable = "yes" if result.reachable else "no"
+
+    if result.archived is None:
+        archived = ""
+    else:
+        archived = "yes" if result.archived else "no"
     warnings = "; ".join(result.warnings) if result.warnings else result.error
     return (
         f"| {result.name} | {reachable} | {archived} | "
