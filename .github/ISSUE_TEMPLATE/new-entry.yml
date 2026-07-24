@@ -1,5 +1,5 @@
 name: Suggest a new catalog entry
-description: Propose an official MCP server, agent skill, or agent toolkit for DevOps, Cloud, SRE, or Platform Engineering.
+description: Propose an MCP server, agent skill, agent toolkit, or safety resource for DevOps, Cloud, SRE, or Platform Engineering.
 title: "New entry: "
 labels:
   - new-entry
@@ -8,8 +8,21 @@ body:
     id: repo-url
     attributes:
       label: Repo or docs URL
-      description: Must be public and reachable.
+      description: Must be public and reachable. Prefer official/vendor docs or a maintained public repository when available.
       placeholder: https://github.com/org/repo
+    validations:
+      required: true
+
+  - type: dropdown
+    id: source-type
+    attributes:
+      label: Source type
+      description: Help maintainers understand whether this is vendor-backed, community-built, or documentation-only.
+      options:
+        - Official vendor/maintainer resource
+        - Community project
+        - Documentation or safety resource
+        - Unknown / needs maintainer review
     validations:
       required: true
 
@@ -47,7 +60,21 @@ body:
     id: risk-notes
     attributes:
       label: What could go wrong?
-      description: Safety, approval gates, credential scope, or blast-radius notes.
+      description: Safety, approval gates, credential scope, sensitive data exposure, or blast-radius notes.
+    validations:
+      required: true
+
+  - type: textarea
+    id: trust-signals
+    attributes:
+      label: Trust and maintenance signals
+      description: List public evidence such as security/privacy docs, release history, active maintainers, adoption, audit logs, evals, tracing, or known limitations. Write "unknown" when not available.
+      placeholder: |
+        - Security/privacy docs:
+        - Last release or recent activity:
+        - Maintainer/vendor relationship:
+        - Audit/tracing/eval evidence:
+        - Known limitations:
     validations:
       required: true
 
@@ -56,9 +83,11 @@ body:
     attributes:
       label: Entry checklist (see CONTRIBUTING.md)
       options:
-        - label: The repo URL is public and reachable.
+        - label: The repo or docs URL is public and reachable.
           required: true
-        - label: This is an official vendor/maintainer resource, not a hype-only or unmaintained fork.
+        - label: I disclosed whether this is official/vendor-backed, maintainer-authored, community-built, or documentation-only.
           required: true
-        - label: I disclosed if the project is commercial-only or has OSS-limited functionality.
+        - label: I disclosed if the project is commercial-only, closed-source, early-access, or has OSS-limited functionality.
           required: false
+        - label: I did not paste secrets, tokens, private URLs, or internal logs.
+          required: true
