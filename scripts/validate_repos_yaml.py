@@ -47,6 +47,54 @@ def _entry_name(entry: dict[str, Any], index: int) -> str:
     return str(entry.get("name", f"entry #{index + 1}"))
 
 
+def resolve_cli_path(path: Path, root: Path | None = None) -> Path:
+    """Resolve a CLI path and require it to remain inside the working tree."""
+    allowed_root = (root or Path.cwd()).resolve()
+    candidate = path.expanduser()
+    resolved = (
+        candidate.resolve()
+        if candidate.is_absolute()
+        else (allowed_root / candidate).resolve()
+    )
+    try:
+        resolved.relative_to(allowed_root)
+    except ValueError as exc:
+        raise ValidationError(f"path escapes the working tree: {path}") from exc
+    return resolved
+
+
+def _require_fields(entry: dict[str, Any], name: str) -> None:
+    for field in REQUIRED_FIELDS:
+        if field not in entry:
+            raise ValidationError(f"{name}: missing required field: {field}")
+
+
+def _validate_choice(name: str, field: str, value: Any, allowed: set[Any]) -> None:
+    if value not in allowed:
+        expected = ", ".join(str(item) for item in sorted(allowed, key=str))
+        raise ValidationError(
+            f"{name}: invalid {field} {value!r}; expected one of: {expected}"
+        )
+
+
+def _validate_entry(entry: dict[str, Any], index: int) -> None:
+    name = _entry_name(entry, index)
+    _require_fields(entry, name)
+    _validate_choice(name, "action_level", entry["action_level"], ALLOWED_ACTION_LEVELS)
+    _validate_choice(name, "maturity", entry["maturity"], ALLOWED_MATURITY)
+    _validate_choice(
+        name,
+        "evidence_tracing",
+        entry["evidence_tracing"],
+        ALLOWED_EVIDENCE_TRACING,
+    )
+    if entry["human_approval"] not in ALLOWED_HUMAN_APPROVAL:
+        raise ValidationError(f"{name}: human_approval must be true, false, or unknown")
+    for field in ("labels", "use_cases"):
+        if not isinstance(entry[field], list):
+            raise ValidationError(f"{name}: {field} must be a list")
+
+
 def validate_entries(entries: Any) -> list[dict[str, Any]]:
     if not isinstance(entries, list):
         raise ValidationError("data/repos.yaml must contain a list of repo entries")
@@ -54,43 +102,7 @@ def validate_entries(entries: Any) -> list[dict[str, Any]]:
     for index, entry in enumerate(entries):
         if not isinstance(entry, dict):
             raise ValidationError(f"entry #{index + 1} must be a mapping")
-
-        name = _entry_name(entry, index)
-        for field in REQUIRED_FIELDS:
-            if field not in entry:
-                raise ValidationError(f"{name}: missing required field: {field}")
-
-        if entry["action_level"] not in ALLOWED_ACTION_LEVELS:
-            allowed = ", ".join(sorted(ALLOWED_ACTION_LEVELS))
-            raise ValidationError(
-                f"{name}: invalid action_level {entry['action_level']!r}; "
-                f"expected one of: {allowed}"
-            )
-
-        if entry["maturity"] not in ALLOWED_MATURITY:
-            allowed = ", ".join(sorted(ALLOWED_MATURITY))
-            raise ValidationError(
-                f"{name}: invalid maturity {entry['maturity']!r}; "
-                f"expected one of: {allowed}"
-            )
-
-        if entry["evidence_tracing"] not in ALLOWED_EVIDENCE_TRACING:
-            allowed = ", ".join(sorted(ALLOWED_EVIDENCE_TRACING))
-            raise ValidationError(
-                f"{name}: invalid evidence_tracing {entry['evidence_tracing']!r}; "
-                f"expected one of: {allowed}"
-            )
-
-        if entry["human_approval"] not in ALLOWED_HUMAN_APPROVAL:
-            raise ValidationError(
-                f"{name}: human_approval must be true, false, or unknown"
-            )
-
-        if not isinstance(entry["labels"], list):
-            raise ValidationError(f"{name}: labels must be a list")
-
-        if not isinstance(entry["use_cases"], list):
-            raise ValidationError(f"{name}: use_cases must be a list")
+        _validate_entry(entry, index)
 
     return entries
 
@@ -102,8 +114,9 @@ def validate_file(path: Path) -> list[dict[str, Any]]:
 
 
 def main() -> int:
-    path = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("data/repos.yaml")
+    supplied_path = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("data/repos.yaml")
     try:
+        path = resolve_cli_path(supplied_path)
         entries = validate_file(path)
     except (OSError, yaml.YAMLError, ValidationError) as exc:
         print(f"Validation failed: {exc}", file=sys.stderr)

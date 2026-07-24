@@ -37,6 +37,22 @@ class AuditResult:
     warnings: list[str] = field(default_factory=list)
 
 
+def resolve_cli_path(path: Path, root: Path | None = None) -> Path:
+    """Resolve a CLI path and require it to remain inside the working tree."""
+    allowed_root = (root or Path.cwd()).resolve()
+    candidate = path.expanduser()
+    resolved = (
+        candidate.resolve()
+        if candidate.is_absolute()
+        else (allowed_root / candidate).resolve()
+    )
+    try:
+        resolved.relative_to(allowed_root)
+    except ValueError as exc:
+        raise ValueError(f"path escapes the working tree: {path}") from exc
+    return resolved
+
+
 def parse_github_repo(value: str) -> tuple[str, str]:
     if value.startswith("http://") or value.startswith("https://"):
         parsed = urlparse(value)
@@ -215,9 +231,16 @@ def main() -> int:
     parser.add_argument("--fail-on-unreachable", action="store_true")
     args = parser.parse_args()
 
-    entries = load_entries(args.data)
+    try:
+        data_path = resolve_cli_path(args.data)
+        json_path = resolve_cli_path(args.json_output)
+        markdown_path = resolve_cli_path(args.markdown_output)
+    except ValueError as exc:
+        parser.error(str(exc))
+
+    entries = load_entries(data_path)
     results = audit_entries(entries, workers=max(1, args.workers))
-    write_report(results, json_path=args.json_output, markdown_path=args.markdown_output)
+    write_report(results, json_path=json_path, markdown_path=markdown_path)
 
     summary = build_summary(results)
     print(
@@ -227,8 +250,8 @@ def main() -> int:
         f"{summary['archived']} archived, "
         f"{summary['with_warnings']} with warnings"
     )
-    print(f"JSON report: {args.json_output}")
-    print(f"Markdown report: {args.markdown_output}")
+    print(f"JSON report: {json_path}")
+    print(f"Markdown report: {markdown_path}")
 
     if args.fail_on_unreachable and summary["unreachable"]:
         return 1

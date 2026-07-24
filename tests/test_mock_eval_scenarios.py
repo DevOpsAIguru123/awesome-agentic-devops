@@ -1,8 +1,11 @@
 from pathlib import Path
 
+import pytest
+
 from scripts.run_mock_eval_scenarios import (
     evaluate_scenario,
     load_scenarios,
+    resolve_cli_path,
     summarize_results,
     write_reports,
 )
@@ -143,3 +146,10 @@ def test_write_reports_outputs_json_and_markdown(tmp_path):
     assert "| terraform_destroy | yes | approval-required |" in markdown_path.read_text(
         encoding="utf-8"
     )
+
+
+def test_resolve_cli_path_rejects_working_tree_escape(tmp_path):
+    untrusted_path = Path("../../outside.yaml")
+    root = tmp_path / "repo"
+    with pytest.raises(ValueError, match="escapes the working tree"):
+        resolve_cli_path(untrusted_path, root=root)
