@@ -1584,6 +1584,31 @@
     - 📊
     - ⚠️
 
+- name: containers/kubernetes-mcp-server
+  url: https://github.com/containers/kubernetes-mcp-server
+  category: community-mcp-servers
+  type: mcp-server
+  framework: MCP + Kubernetes + OpenShift
+  primary_language: Go
+  cloud_provider: multi-cloud
+  use_cases:
+    - kubernetes-cluster-management
+    - openshift-operations
+    - resource-and-event-inspection
+    - tekton-workflows
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  risk_notes: "Generic Kubernetes tools can create, update, get, list, and delete any resource allowed by the active kubeconfig or in-cluster credentials. Use a dedicated ServiceAccount with read-only RBAC for diagnostics, scope namespaces/clusters tightly, and require approval before create/update/delete, scale, exec, or pod deletion actions. Community-maintained Containers org project; not an official Kubernetes SIG/CNCF project."
+  operator_note: "Community-maintained Containers org MCP server for Kubernetes and OpenShift with npm/PyPI/native binary packaging, no kubectl dependency, multi-cluster support, security policy, and a read-only production setup guide; identified from rizzdev's DevOps & Infra list. Not an official Kubernetes SIG/CNCF project."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - ⚠️
+
 - name: googleapis/mcp-toolbox
   url: https://github.com/googleapis/mcp-toolbox
   category: official-data-platform-mcp-servers
