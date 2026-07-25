@@ -25,6 +25,7 @@ Most agent lists stop at discovery. This one is built for operators:
 - [Recently added](#recently-added)
 - [Local reference agents](#local-reference-agents)
 - [Curated catalog](#curated-catalog)
+- [Star History](#star-history)
 - [How to contribute](#how-to-contribute)
 
 ## Evaluation labels
@@ -275,6 +276,10 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | [Agents365-ai/drawio-skill](https://github.com/Agents365-ai/drawio-skill) | 🟡 🛡️ | Community draw.io skill for natural-language diagram generation, visual self-checking, and exports. |
 | [containers/kubernetes-mcp-server](https://github.com/containers/kubernetes-mcp-server) | 🟢 🔵 🛡️ 📊 ⚠️ | Community-maintained Containers org MCP server for Kubernetes and OpenShift with direct Kubernetes API access, multi-cluster support, read-only mode, and a read-only production setup guide. |
 | [skyhook-io/radar](https://github.com/skyhook-io/radar) | 🟢 🔵 🛡️ 📊 ⚠️ | Community open-source Kubernetes UI with a built-in MCP server: read-only cluster/topology/event queries plus RBAC-scoped write and GitOps/Helm tools for AI-assisted operations. |
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=devopsaiguru123/awesome-agentic-devops&type=Date)](https://www.star-history.com/#devopsaiguru123/awesome-agentic-devops&Date)
 
 ## How to contribute
 
