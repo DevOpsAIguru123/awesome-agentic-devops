@@ -279,7 +279,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=devopsaiguru123/awesome-agentic-devops&type=Date)](https://www.star-history.com/#devopsaiguru123/awesome-agentic-devops&Date)
+[![Star History Chart](assets/star-history.svg)](https://www.star-history.com/#devopsaiguru123/awesome-agentic-devops&Date)
 
 ## How to contribute
 
