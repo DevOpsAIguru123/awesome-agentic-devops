@@ -8,7 +8,7 @@ A curated, **official-first** catalog of MCP servers, agent skills, AI agents, f
 
 Most agent lists stop at discovery. This one is built for operators:
 
-- **Official-first, community-inclusive** — 75 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
+- **Official-first, community-inclusive** — 76 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — GitHub repository entries are checked weekly for reachability and archived status; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-skills-into-your-coding-agent) installs hundreds of skills from cataloged Google, Microsoft, Azure, Azure DevOps, and Harness sources — plus a separate community set — into Claude Code, Cursor, Codex, VS Code, or Antigravity.
@@ -54,7 +54,7 @@ At minimum, record an explicit approval before any write-capable agent mutates i
 | Azure cloud automation | [microsoft/mcp](https://github.com/microsoft/mcp)<br>[microsoft/azure-skills](https://github.com/microsoft/azure-skills) | Official Microsoft MCP and skills/plugin sources for Azure resource workflows. |
 | Google Cloud automation | [google/mcp](https://github.com/google/mcp)<br>[googleapis/gcloud-mcp](https://github.com/googleapis/gcloud-mcp)<br>[google/skills](https://github.com/google/skills) | Official Google MCP and skills sources for GCP, Cloud Run, GKE, observability, and storage workflows. |
 | Source-control DevOps | [github/github-mcp-server](https://github.com/github/github-mcp-server)<br>[GitLab MCP server](https://docs.gitlab.com/user/gitlab_duo/model_context_protocol/mcp_server/)<br>[atlassian/atlassian-mcp-server](https://github.com/atlassian/atlassian-mcp-server)<br>[Linear MCP server docs](https://linear.app/docs/mcp) | Official MCP tool surfaces for repos, issues, PRs, Jira, Bitbucket, Linear roadmap/issue workflows, and related delivery workflows. |
-| Terraform and IaC | [hashicorp/terraform-mcp-server](https://github.com/hashicorp/terraform-mcp-server)<br>[Pulumi MCP Server](https://www.pulumi.com/docs/ai/mcp-server/) | Official IaC MCP sources for Terraform Registry/HCP Terraform and Pulumi Cloud automation. |
+| Terraform and IaC | [hashicorp/terraform-mcp-server](https://github.com/hashicorp/terraform-mcp-server)<br>[Pulumi MCP Server](https://www.pulumi.com/docs/ai/mcp-server/)<br>[opentofu/opentofu-mcp-server](https://github.com/opentofu/opentofu-mcp-server) | Official IaC MCP sources for Terraform Registry/HCP Terraform, Pulumi Cloud automation, and OpenTofu Registry documentation lookup. |
 | SRE incident response | [grafana/mcp-grafana](https://github.com/grafana/mcp-grafana)<br>[datadog-labs/mcp-server](https://github.com/datadog-labs/mcp-server)<br>[Honeycomb MCP docs](https://docs.honeycomb.io/integrations/mcp/)<br>[Elastic Agent Builder MCP server docs](https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server)<br>[PagerDuty/pagerduty-mcp-server](https://github.com/PagerDuty/pagerduty-mcp-server) | Official observability and incident-management MCPs for metrics, logs, traces, SLOs, triggers, indexed operational data, alerts, incidents, and on-call context. |
 | FinOps and cloud cost | [vantage-sh/vantage-mcp-server](https://github.com/vantage-sh/vantage-mcp-server) | Official Vantage MCP server for cloud spend analysis, budgets, anomalies, reports, and provider-resource cost context across Vantage-connected providers. |
 | Security and code quality | [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/)<br>[cisco-ai-defense/mcp-scanner](https://github.com/cisco-ai-defense/mcp-scanner)<br>[SonarSource/sonarqube-mcp-server](https://github.com/SonarSource/sonarqube-mcp-server)<br>[okta/okta-mcp-server](https://github.com/okta/okta-mcp-server)<br>[Snyk Studio MCP docs](https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio)<br>[snyk/studio-mcp](https://github.com/snyk/studio-mcp)<br>[Wiz WIN MCP Server docs](https://docs.wiz.io/dev/win-mcp-server)<br>[CrowdStrike/falcon-mcp](https://github.com/CrowdStrike/falcon-mcp)<br>[DopplerHQ/mcp-server](https://github.com/DopplerHQ/mcp-server) | Official MCPs and security resources for MCP threat modeling, MCP server scanning, code quality, application security, identity-aware workflows, secrets management, agent security, cloud-security posture, and Falcon-platform SOC automation. |
@@ -81,6 +81,7 @@ Pass `--dry-run` to preview first. Commands for Cursor, Codex, VS Code, Antigrav
 
 | Date | Entry | Category |
 | --- | --- | --- |
+| 2026-07-25 | [opentofu/opentofu-mcp-server](https://github.com/opentofu/opentofu-mcp-server) | IaC / OpenTofu Registry MCP |
 | 2026-07-23 | [cisco-ai-defense/mcp-scanner](https://github.com/cisco-ai-defense/mcp-scanner) | Security / MCP server scanning |
 | 2026-07-23 | [Honeycomb MCP docs](https://docs.honeycomb.io/integrations/mcp/) | SRE / Honeycomb observability |
 | 2026-07-22 | [docker/hub-mcp](https://github.com/docker/hub-mcp) | DevOps / Docker Hub container workflows |
@@ -196,6 +197,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | [hashicorp/terraform-mcp-server](https://github.com/hashicorp/terraform-mcp-server) | 🟢 🔵 🛡️ 📊 ⚠️ | Official HashiCorp Terraform MCP server with registry, HCP Terraform, Terraform Enterprise, and OTel support. |
 | [Pulumi MCP Server](https://www.pulumi.com/docs/ai/mcp-server/) | 🟢 🔵 🛡️ ⚠️ | Official Pulumi hosted MCP server for Pulumi Cloud resources, registry lookup, policies, and Pulumi Neo workflows. |
 | [hashicorp/vault-mcp-server](https://github.com/hashicorp/vault-mcp-server) | 🟢 🔵 🛡️ ⚠️ | Official HashiCorp Vault MCP server (beta) for secrets and mount management alongside Terraform-driven IaC workflows. |
+| [opentofu/opentofu-mcp-server](https://github.com/opentofu/opentofu-mcp-server) | 🟡 🔵 🛡️ | Official OpenTofu MCP server for searching the OpenTofu Registry, retrieving provider/module details, resource and data-source docs, and configuration examples via hosted or local MCP deployment. |
 
 ### Official SRE MCP Servers
 
