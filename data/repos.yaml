@@ -548,6 +548,28 @@
     - 🛡️
     - ⚠️
 
+- name: opentofu/opentofu-mcp-server
+  url: https://github.com/opentofu/opentofu-mcp-server
+  category: official-iac-mcp-servers
+  type: mcp-server
+  framework: MCP
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - opentofu-registry-search
+    - provider-and-module-docs
+    - iac-code-assistance
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: partial
+  maturity: prototype
+  risk_notes: "Registry lookup is read-only, but generated OpenTofu configuration can affect infrastructure if applied; require human review before using suggested code in plans or applies."
+  operator_note: "Official OpenTofu MCP server for searching the OpenTofu Registry, retrieving provider/module details, resource and data-source docs, and configuration examples via hosted or local MCP deployment."
+  labels:
+    - 🟡
+    - 🔵
+    - 🛡️
+
 - name: grafana/mcp-grafana
   url: https://github.com/grafana/mcp-grafana
   category: official-sre-mcp-servers
