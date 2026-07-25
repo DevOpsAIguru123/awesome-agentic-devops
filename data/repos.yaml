@@ -619,6 +619,30 @@
     - 🛡️
     - 📊
 
+- name: Honeycomb MCP docs
+  url: https://docs.honeycomb.io/integrations/mcp/
+  category: official-sre-mcp-servers
+  type: hosted-mcp-server
+  framework: MCP
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - observability-investigation
+    - traces-metrics-logs-querying
+    - slo-and-trigger-analysis
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  risk_notes: "Hosted Honeycomb MCP can expose production telemetry and optional write tools for Boards, Triggers, SLOs, notification recipients, and Canvas investigations; prefer OAuth, read-only scopes, and explicit approval before granting mcp:write."
+  operator_note: "Official Honeycomb hosted MCP documentation for querying traces, metrics, logs, SLOs, triggers, and AI-optimized observability workflows through OAuth 2.1 or scoped API keys."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - ⚠️
+
 - name: Splunk MCP Server
   url: https://splunkbase.splunk.com/app/7931
   category: official-sre-mcp-servers
@@ -1558,6 +1582,30 @@
   operator_note: "Cisco AI Defense MCP Scanner for scanning MCP servers and tools with YARA rules, LLM-as-judge, Cisco AI Defense Inspect API, pip-audit dependency checks, readiness checks, and optional VirusTotal analysis; identified from rizzdev's Security list."
   labels:
     - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+
+- name: aquasecurity/trivy-mcp
+  url: https://github.com/aquasecurity/trivy-mcp
+  category: official-security-mcp-servers
+  type: mcp-server
+  framework: MCP + Trivy
+  primary_language: Go
+  cloud_provider: multi-cloud
+  use_cases:
+    - vulnerability-scanning
+    - container-image-security
+    - repository-and-filesystem-scanning
+    - misconfiguration-and-secret-scanning
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: prototype
+  risk_notes: "Runs security scans against local filesystems, container images, and remote repositories; outputs can expose dependency, secret, and vulnerability details. Aqua Platform integration is optional, so keep any platform credentials scoped and prefer local/offline scans for first runs."
+  operator_note: "Official Aqua Security Trivy MCP plugin exposing Trivy vulnerability, misconfiguration, secret, filesystem, container image, and repository scanning to MCP clients; identified from the rizzdev awesome-mcp-open Security list."
+  labels:
+    - 🟡
     - 🔵
     - 🛡️
     - 📊
