@@ -9,6 +9,22 @@ from typing import Any
 import yaml
 
 
+def resolve_cli_path(path: Path, root: Path | None = None) -> Path:
+    """Resolve a CLI path and require it to remain inside the working tree."""
+    allowed_root = (root or Path.cwd()).resolve()
+    candidate = path.expanduser()
+    resolved = (
+        candidate.resolve()
+        if candidate.is_absolute()
+        else (allowed_root / candidate).resolve()
+    )
+    try:
+        resolved.relative_to(allowed_root)
+    except ValueError as exc:
+        raise ValueError(f"path escapes the working tree: {path}") from exc
+    return resolved
+
+
 def load_scenarios(path: Path) -> list[dict[str, Any]]:
     with path.open("r", encoding="utf-8") as handle:
         scenarios = yaml.safe_load(handle)
@@ -155,16 +171,23 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    scenarios = load_scenarios(args.scenarios)
+    try:
+        scenarios_path = resolve_cli_path(args.scenarios)
+        json_path = resolve_cli_path(args.json_output)
+        markdown_path = resolve_cli_path(args.markdown_output)
+    except ValueError as exc:
+        parser.error(str(exc))
+
+    scenarios = load_scenarios(scenarios_path)
     results = [evaluate_scenario(scenario) for scenario in scenarios]
-    write_reports(results, json_path=args.json_output, markdown_path=args.markdown_output)
+    write_reports(results, json_path=json_path, markdown_path=markdown_path)
     summary = summarize_results(results)
     print(
         "Mock eval complete: "
         f"{summary['passed']}/{summary['total']} passed, {summary['failed']} failed"
     )
-    print(f"JSON report: {args.json_output}")
-    print(f"Markdown report: {args.markdown_output}")
+    print(f"JSON report: {json_path}")
+    print(f"Markdown report: {markdown_path}")
     return 0 if summary["failed"] == 0 else 1
 
 
