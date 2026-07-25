@@ -28,5 +28,10 @@ def test_readme_intro_counts_match_catalog():
 
 def test_counts_phrase_describes_readme_sections_not_yaml_categories():
     phrase = expected_counts_phrase()
-    assert phrase.endswith("entries organized into 14 catalog sections")
+    readme_sections = [
+        line for line in README.read_text().splitlines() if line.startswith("### ")
+    ]
+    assert phrase.endswith(
+        f"entries organized into {len(readme_sections)} catalog sections"
+    )
     assert COUNTS_PATTERN.fullmatch(phrase)

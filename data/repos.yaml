@@ -548,6 +548,28 @@
     - 🛡️
     - ⚠️
 
+- name: opentofu/opentofu-mcp-server
+  url: https://github.com/opentofu/opentofu-mcp-server
+  category: official-iac-mcp-servers
+  type: mcp-server
+  framework: MCP
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - opentofu-registry-search
+    - provider-and-module-docs
+    - iac-code-assistance
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: partial
+  maturity: prototype
+  risk_notes: "Registry lookup is read-only, but generated OpenTofu configuration can affect infrastructure if applied; require human review before using suggested code in plans or applies."
+  operator_note: "Official OpenTofu MCP server for searching the OpenTofu Registry, retrieving provider/module details, resource and data-source docs, and configuration examples via hosted or local MCP deployment."
+  labels:
+    - 🟡
+    - 🔵
+    - 🛡️
+
 - name: grafana/mcp-grafana
   url: https://github.com/grafana/mcp-grafana
   category: official-sre-mcp-servers
@@ -618,6 +640,30 @@
     - 🔵
     - 🛡️
     - 📊
+
+- name: Honeycomb MCP docs
+  url: https://docs.honeycomb.io/integrations/mcp/
+  category: official-sre-mcp-servers
+  type: hosted-mcp-server
+  framework: MCP
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - observability-investigation
+    - traces-metrics-logs-querying
+    - slo-and-trigger-analysis
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  risk_notes: "Hosted Honeycomb MCP can expose production telemetry and optional write tools for Boards, Triggers, SLOs, notification recipients, and Canvas investigations; prefer OAuth, read-only scopes, and explicit approval before granting mcp:write."
+  operator_note: "Official Honeycomb hosted MCP documentation for querying traces, metrics, logs, SLOs, triggers, and AI-optimized observability workflows through OAuth 2.1 or scoped API keys."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - ⚠️
 
 - name: Splunk MCP Server
   url: https://splunkbase.splunk.com/app/7931
@@ -1554,7 +1600,7 @@
   human_approval: true
   evidence_tracing: "yes"
   maturity: production-adjacent
-  risk_notes: "Generic Kubernetes tools can create, update, get, list, and delete any resource allowed by the active kubeconfig or in-cluster credentials. Use a dedicated ServiceAccount with read-only RBAC for diagnostics, scope namespaces/clusters tightly, and require approval before create/update/delete or pod deletion actions."
+  risk_notes: "Generic Kubernetes tools can create, update, get, list, and delete any resource allowed by the active kubeconfig or in-cluster credentials. Use a dedicated ServiceAccount with read-only RBAC for diagnostics, scope namespaces/clusters tightly, and require approval before create/update/delete, scale, exec, or pod deletion actions. Community-maintained Containers org project; not an official Kubernetes SIG/CNCF project."
   operator_note: "Community-maintained Containers org MCP server for Kubernetes and OpenShift with npm/PyPI/native binary packaging, no kubectl dependency, multi-cluster support, security policy, and a read-only production setup guide; identified from rizzdev's DevOps & Infra list. Not an official Kubernetes SIG/CNCF project."
   labels:
     - 🟢
@@ -1562,3 +1608,169 @@
     - 🛡️
     - 📊
     - ⚠️
+
+- name: googleapis/mcp-toolbox
+  url: https://github.com/googleapis/mcp-toolbox
+  category: official-data-platform-mcp-servers
+  type: mcp-server
+  framework: MCP + database toolbox
+  primary_language: Go
+  cloud_provider: multi-cloud
+  use_cases:
+    - database-schema-exploration
+    - sql-querying-and-tooling
+    - enterprise-database-agent-access
+    - opentelemetry-instrumented-data-tools
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  risk_notes: "Generic database tools can execute SQL against production databases; configure read-only database users for exploration, rely on IAM/integrated auth where supported, and require approval before write SQL or schema-changing tools."
+  operator_note: "Official Google APIs MCP Toolbox for Databases, renamed from genai-toolbox, providing a self-hosted MCP server and SDKs for Postgres, MySQL, Spanner, BigQuery, Redis, MongoDB, Elasticsearch, and other databases; identified from rizzdev's Databases list."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - ⚠️
+
+- name: dbt-labs/dbt-mcp
+  url: https://github.com/dbt-labs/dbt-mcp
+  category: official-data-platform-mcp-servers
+  type: mcp-server
+  framework: MCP + dbt
+  primary_language: Python
+  cloud_provider: multi-cloud
+  use_cases:
+    - dbt-project-context
+    - semantic-layer-querying
+    - data-lineage-and-model-inspection
+    - data-platform-agent-workflows
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  risk_notes: "dbt CLI tools can modify project artifacts, models, sources, and warehouse objects; use dev targets or read-only roles for exploration and require approval before execution that changes data models or warehouse state."
+  operator_note: "Official dbt Labs MCP server for dbt Core, dbt Fusion, and dbt Platform context, including Discovery API, Semantic Layer SQL execution, project search, and dbt CLI tools; identified from rizzdev's Data & Analytics list."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - ⚠️
+
+- name: bytebase/dbhub
+  url: https://github.com/bytebase/dbhub
+  category: official-data-platform-mcp-servers
+  type: mcp-server
+  framework: MCP + SQL databases
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - multi-database-schema-discovery
+    - guarded-sql-querying
+    - local-development-database-context
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  risk_notes: "Official Bytebase-maintained project from an independent database DevSecOps vendor, not a hyperscaler/platform-owner source like Google or Microsoft. DBHub supports guardrails such as read-only mode, row limiting, and query timeout, but database credentials still define actual blast radius. Use read-only users by default, keep connection strings out of agent context, and require approval before write SQL or production database access."
+  operator_note: "Bytebase-maintained DBHub MCP server for Postgres, MySQL, MariaDB, SQL Server, and SQLite with token-efficient schema search, execute_sql support, read-only mode, row limits, and timeouts; identified from rizzdev's Databases list. Treat as official for Bytebase/DBHub but independent-vendor-backed rather than major cloud/platform official."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - ⚠️
+
+- name: docker/hub-mcp
+  url: https://github.com/docker/hub-mcp
+  category: official-devops-mcp-servers
+  type: mcp-server
+  framework: MCP + Docker Hub API
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - container-image-discovery
+    - docker-hub-repository-management
+    - ai-assisted-container-workflows
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: prototype
+  risk_notes: "Unauthenticated mode is limited to public Docker Hub content; authenticated mode uses HUB_PAT_TOKEN and can manage Docker Hub repositories/images through the Docker Hub API, so scope PAT permissions and require approval before repository mutations."
+  operator_note: "Official Docker Hub MCP server for AI-assisted image discovery, image recommendations, and Docker Hub repository workflows; surfaced in the self-hostable rizzdev awesome-mcp-open DevOps/Infra list."
+  labels:
+    - 🟡
+    - 🔵
+    - 🛡️
+    - ⚠️
+
+- name: digitalocean-labs/mcp-digitalocean
+  url: https://github.com/digitalocean-labs/mcp-digitalocean
+  category: official-cloud-mcp-servers
+  type: mcp-server
+  framework: MCP + DigitalOcean API
+  primary_language: TypeScript
+  cloud_provider: DigitalOcean
+  use_cases:
+    - digitalocean-infrastructure-management
+    - droplet-and-app-platform-operations
+    - managed-database-and-networking-workflows
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: prototype
+  risk_notes: "Uses a DigitalOcean API token and can act on live droplets, apps, databases, and infrastructure. Scope tokens to the minimum required project/resources and require explicit approval before create, update, resize, restart, or delete operations."
+  operator_note: "DigitalOcean Labs MCP integration for self-hosted cloud operations over DigitalOcean droplets, App Platform, databases, and account resources; identified from the rizzdev awesome-mcp-open Cloud & Deploy list."
+  labels:
+    - 🟡
+    - 🔵
+    - 🛡️
+    - ⚠️
+
+- name: cisco-ai-defense/mcp-scanner
+  url: https://github.com/cisco-ai-defense/mcp-scanner
+  category: official-security-mcp-servers
+  type: security-tool
+  framework: MCP + YARA + LLM-as-judge + Cisco AI Defense
+  primary_language: Python
+  cloud_provider: multi-cloud
+  use_cases:
+    - mcp-server-security-scanning
+    - prompt-injection-and-tool-threat-detection
+    - dependency-vulnerability-scanning
+    - ci-cd-agent-security-gates
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  risk_notes: "Scanner can connect to MCP servers, inspect tools/prompts/resources/source packages, and send artifacts to optional external analyzers such as Cisco AI Defense, LLM providers, and VirusTotal. Use static/offline scans for sensitive internal servers, redact secrets from configs, and scope API keys for optional cloud analyzers."
+  operator_note: "Cisco AI Defense MCP Scanner for scanning MCP servers and tools with YARA rules, LLM-as-judge, Cisco AI Defense Inspect API, pip-audit dependency checks, readiness checks, and optional VirusTotal analysis; identified from rizzdev's Security list."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+
+- name: aquasecurity/trivy-mcp
+  url: https://github.com/aquasecurity/trivy-mcp
+  category: official-security-mcp-servers
+  type: mcp-server
+  framework: MCP + Trivy
+  primary_language: Go
+  cloud_provider: multi-cloud
+  use_cases:
+    - vulnerability-scanning
+    - container-image-security
+    - repository-and-filesystem-scanning
+    - misconfiguration-and-secret-scanning
+  action_level: read-only
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: prototype
+  risk_notes: "Runs security scans against local filesystems, container images, and remote repositories; outputs can expose dependency, secret, and vulnerability details. Aqua Platform integration is optional, so keep any platform credentials scoped and prefer local/offline scans for first runs."
+  operator_note: "Official Aqua Security Trivy MCP plugin exposing Trivy vulnerability, misconfiguration, secret, filesystem, container image, and repository scanning to MCP clients; identified from the rizzdev awesome-mcp-open Security list."
+  labels:
+    - 🟡
+    - 🔵
+    - 🛡️
+    - 📊
