@@ -8,6 +8,7 @@ from scripts.validate_repos_yaml import (
     ALLOWED_MATURITY,
     REQUIRED_FIELDS,
     ValidationError,
+    resolve_cli_path,
     validate_entries,
     validate_file,
 )
@@ -69,13 +70,17 @@ def test_rejects_missing_required_field():
 
 
 def test_rejects_invalid_action_level():
+    entries = [valid_entry(action_level="autonomous-apply")]
+
     with pytest.raises(ValidationError, match="invalid action_level"):
-        validate_entries([valid_entry(action_level="autonomous-apply")])
+        validate_entries(entries)
 
 
 def test_rejects_labels_that_are_not_a_list():
+    entries = [valid_entry(labels="🟡")]
+
     with pytest.raises(ValidationError, match="labels must be a list"):
-        validate_entries([valid_entry(labels="🟡")])
+        validate_entries(entries)
 
 
 def test_rejects_non_list_yaml(tmp_path):
@@ -84,3 +89,10 @@ def test_rejects_non_list_yaml(tmp_path):
 
     with pytest.raises(ValidationError, match="must contain a list"):
         validate_file(yaml_path)
+
+
+def test_resolve_cli_path_rejects_working_tree_escape(tmp_path):
+    untrusted_path = Path("../outside.yaml")
+    root = tmp_path / "repo"
+    with pytest.raises(ValidationError, match="escapes the working tree"):
+        resolve_cli_path(untrusted_path, root=root)

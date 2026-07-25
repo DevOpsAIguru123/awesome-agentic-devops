@@ -6,8 +6,10 @@ deterministically without network access.
 """
 
 import argparse
+import io
 import json
 import sys
+import tarfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -233,6 +235,7 @@ def test_ssl_context_falls_back_to_the_os_ca_bundle(tmp_path, monkeypatch):
 
     assert context.cafile == str(bundle), "should load the first bundle that exists"
     assert calls == [None, str(bundle)], "should try the default store first"
+    assert context.minimum_version == install_skills.ssl.TLSVersion.TLSv1_2
 
 
 def test_ssl_context_keeps_a_healthy_store(tmp_path, monkeypatch):
@@ -252,6 +255,42 @@ def test_ssl_context_survives_having_no_bundle_anywhere(tmp_path, monkeypatch):
     patch_ssl(monkeypatch, (str(tmp_path / "absent.pem"),))
 
     assert install_skills._ssl_context() is not None
+
+
+def test_safe_extract_rejects_parent_traversal(tmp_path):
+    payload = io.BytesIO()
+    with tarfile.open(fileobj=payload, mode="w:gz") as archive:
+        info = tarfile.TarInfo("../escape.txt")
+        contents = b"escape"
+        info.size = len(contents)
+        archive.addfile(info, io.BytesIO(contents))
+    payload.seek(0)
+
+    with tarfile.open(fileobj=payload, mode="r:gz") as archive:
+        try:
+            install_skills._safe_extract(archive, tmp_path / "dest")
+        except SystemExit as exc:
+            assert "unsafe path" in str(exc)
+        else:
+            raise AssertionError("parent traversal must be rejected")
+
+
+def test_safe_extract_rejects_symbolic_links(tmp_path):
+    payload = io.BytesIO()
+    with tarfile.open(fileobj=payload, mode="w:gz") as archive:
+        info = tarfile.TarInfo("repo/link")
+        info.type = tarfile.SYMTYPE
+        info.linkname = "../../outside"
+        archive.addfile(info)
+    payload.seek(0)
+
+    with tarfile.open(fileobj=payload, mode="r:gz") as archive:
+        try:
+            install_skills._safe_extract(archive, tmp_path / "dest")
+        except SystemExit as exc:
+            assert "unsupported archive entry" in str(exc)
+        else:
+            raise AssertionError("archive links must be rejected")
 
 
 def flag_args(**flags):
