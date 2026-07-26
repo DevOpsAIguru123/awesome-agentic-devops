@@ -80,6 +80,8 @@ Pass `--dry-run` to preview first. Commands for Cursor, Codex, VS Code, Antigrav
 
 ## Recently added
 
+New catalog entries appear below; notable non-entry changes (formatting, labels, tooling) are in the [changelog](CHANGELOG.md).
+
 | Date | Entry | Category |
 | --- | --- | --- |
 | 2026-07-25 | [opentofu/opentofu-mcp-server](https://github.com/opentofu/opentofu-mcp-server) | IaC / OpenTofu Registry MCP |
