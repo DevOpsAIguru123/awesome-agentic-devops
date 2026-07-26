@@ -18,11 +18,11 @@
   risk_notes: "Can execute authenticated AWS API calls and sandboxed scripts through the AWS MCP Server; require least-privilege IAM, read-only guardrails, CloudTrail/CloudWatch monitoring, and explicit approval before mutations."
   operator_note: "Official AWS-supported toolkit with managed MCP server access, current AWS docs/API knowledge tools, on-demand agent skills, Claude Code/Codex plugins, and project rules for Kiro, Claude Code, Cursor, Codex, and other MCP-compatible agents."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - evidence
+    - write
 
 - name: awslabs/mcp
   url: https://github.com/awslabs/mcp
@@ -42,10 +42,10 @@
   risk_notes: "AWS identifies Agent Toolkit for AWS as the successor path; pin versions and prefer read-only or proposal mode before write tools."
   operator_note: "Official AWS Labs MCP server collection; useful legacy/source reference while AWS transitions capabilities into Agent Toolkit."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: microsoft/mcp
   url: https://github.com/microsoft/mcp
@@ -65,10 +65,10 @@
   risk_notes: "Azure MCP tools may query or mutate live Azure resources; require tenant scoping, RBAC review, and explicit write approval."
   operator_note: "Official Microsoft MCP catalog, including Azure cloud and infrastructure MCP references."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: microsoft/azure-devops-mcp
   url: https://github.com/microsoft/azure-devops-mcp
@@ -88,10 +88,10 @@
   risk_notes: "Can interact with Azure DevOps work items and pipelines; separate read-only investigation from ticket or pipeline mutations."
   operator_note: "Official Azure DevOps MCP server with remote-first onboarding and local server option."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: microsoft/azure-devops-skills
   url: https://github.com/microsoft/azure-devops-skills
@@ -111,8 +111,8 @@
   risk_notes: "Some skills can create or assign Azure DevOps work; require explicit review before using write-capable skills."
   operator_note: "Official Microsoft Azure DevOps skill examples; approval gates should be verified per skill."
   labels:
-    - 🟢
-    - ⚠️
+    - prod
+    - write
 
 - name: microsoft/skills
   url: https://github.com/microsoft/skills
@@ -132,9 +132,9 @@
   risk_notes: "General skill material should be paired with environment-specific approval and credential boundaries before live automation."
   operator_note: "Official Microsoft skills, MCP configurations, custom agents, and AGENTS.md guidance for coding agents."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
+    - prod
+    - mcp
+    - approval
 
 - name: microsoft/azure-skills
   url: https://github.com/microsoft/azure-skills
@@ -154,10 +154,10 @@
   risk_notes: "Bundles live Azure MCP tools; validate RBAC, tenant selection, pricing impact, and write approvals before use."
   operator_note: "Official Azure skills plugin with Azure skills, Azure MCP tools, and Foundry MCP coverage."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: google/mcp
   url: https://github.com/google/mcp
@@ -177,10 +177,10 @@
   risk_notes: "Remote Google MCP servers can touch cloud resources; require project scoping, IAM boundaries, and audit logging."
   operator_note: "Official Google MCP repository listing managed and open-source MCP servers for Google and Google Cloud."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: googleapis/gcloud-mcp
   url: https://github.com/googleapis/gcloud-mcp
@@ -200,10 +200,10 @@
   risk_notes: "Can issue gcloud-backed operations; pin packages, require project/region confirmation, and start in read-only diagnostics."
   operator_note: "Official Google API repository for gcloud, observability, storage, and backup/disaster-recovery MCP servers."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: GoogleCloudPlatform/cloud-run-mcp
   url: https://github.com/GoogleCloudPlatform/cloud-run-mcp
@@ -223,10 +223,10 @@
   risk_notes: "Deployment tools can create or update Cloud Run services; require IAM-authenticated endpoints and no unauthenticated remote MCP access."
   operator_note: "Official Google Cloud Platform MCP server for deploying apps to Cloud Run."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: google/skills
   url: https://github.com/google/skills
@@ -246,8 +246,8 @@
   risk_notes: "Skills provide guidance rather than enforcement; pair with MCP permissions and deployment approval checks."
   operator_note: "Official Google Agent Skills repository for Google products and technologies."
   labels:
-    - 🟢
-    - 🛡️
+    - prod
+    - approval
 
 - name: google/adk-python
   url: https://github.com/google/adk-python
@@ -267,9 +267,9 @@
   risk_notes: "Framework code is safe by itself, but deployed agents need tool permission review, eval gates, and environment scoping."
   operator_note: "Official Google Agent Development Kit for building, evaluating, and deploying agents."
   labels:
-    - 🟢
-    - 🛡️
-    - 📊
+    - prod
+    - approval
+    - evidence
 
 - name: GoogleCloudPlatform/agent-starter-pack
   url: https://github.com/GoogleCloudPlatform/agent-starter-pack
@@ -289,9 +289,9 @@
   risk_notes: "Deployment templates can provision cloud infrastructure; require cost, IAM, and region checks before deploy."
   operator_note: "Official Google Cloud starter pack for shipping agents with CI/CD, evaluation, observability, and security."
   labels:
-    - 🟢
-    - 🛡️
-    - 📊
+    - prod
+    - approval
+    - evidence
 
 - name: databricks-solutions/ai-dev-kit
   url: https://github.com/databricks-solutions/ai-dev-kit
@@ -311,11 +311,11 @@
   risk_notes: "Includes executable Databricks tools and workspace integrations; require profile/workspace confirmation, least-privilege credentials, and approval before jobs, apps, serving, or Unity Catalog changes."
   operator_note: "Databricks field-engineering AI Dev Kit with Databricks MCP server, Databricks skills, tools core, and builder app support."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - evidence
+    - write
 
 - name: kubeflow/mcp-server
   url: https://github.com/kubeflow/mcp-server
@@ -335,10 +335,10 @@
   risk_notes: "Kubeflow workflows can affect ML pipelines and platform resources; require namespace/project scoping and approval for mutations."
   operator_note: "Official Kubeflow MCP server for AI-assisted development with Kubeflow tools."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: github/github-mcp-server
   url: https://github.com/github/github-mcp-server
@@ -358,10 +358,10 @@
   risk_notes: "Repository write actions, issue changes, and workflow interactions must be scoped by token permissions and branch protections."
   operator_note: "Official GitHub MCP server for repository, issue, pull request, code, and workflow automation."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: GitLab MCP server
   url: https://docs.gitlab.com/user/gitlab_duo/model_context_protocol/mcp_server/
@@ -381,10 +381,10 @@
   risk_notes: "GitLab warns to guard against prompt injection; use trusted project scopes, OAuth, and least-privilege permissions."
   operator_note: "Official GitLab MCP server is documented as a GitLab-hosted endpoint rather than a standalone GitHub repo."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: atlassian/atlassian-mcp-server
   url: https://github.com/atlassian/atlassian-mcp-server
@@ -404,10 +404,10 @@
   risk_notes: "Can create or update Jira/Confluence/Bitbucket artifacts; require OAuth scopes, project defaults, and approval for bulk writes."
   operator_note: "Official Atlassian Rovo MCP server for Jira, Confluence, Jira Service Management, Bitbucket, and Compass."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: Linear MCP server docs
   url: https://linear.app/docs/mcp
@@ -428,10 +428,10 @@
   risk_notes: "Hosted authenticated remote MCP can find, create, and update Linear issues, projects, comments, and related planning objects. Prefer the documented read-only endpoint or read-only API keys for investigation; require explicit approval before creating or updating roadmap or incident-follow-up records."
   operator_note: "Official Linear documentation for its centrally hosted remote MCP server with OAuth 2.1 dynamic client registration, API-key support, a read-only endpoint, and tools for issue, project, roadmap, and comment workflows."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: SonarSource/sonarqube-mcp-server
   url: https://github.com/SonarSource/sonarqube-mcp-server
@@ -451,9 +451,9 @@
   risk_notes: "Requires SonarQube tokens and project/org scoping; keep project analysis and remediation recommendations separate from automated code changes."
   operator_note: "Official SonarQube MCP server for code quality and security insights in AI agents."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
+    - prod
+    - mcp
+    - approval
 
 - name: okta/okta-mcp-server
   url: https://github.com/okta/okta-mcp-server
@@ -473,10 +473,10 @@
   risk_notes: "Identity tooling is high impact; require least-privilege OAuth scopes, tenant confirmation, and explicit approval for user, group, or policy mutations."
   operator_note: "Official Okta self-hosted MCP server for connecting agents to Okta identity workflows."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: OWASP MCP Top 10
   url: https://owasp.org/www-project-mcp-top-10/
@@ -496,10 +496,10 @@
   risk_notes: "Guidance only, but should be applied before connecting write-capable MCP servers; explicitly review token handling, scope creep, tool poisoning, authz, telemetry, shadow servers, and context over-sharing."
   operator_note: "Official OWASP MCP Top 10 documentation for assessing Model Context Protocol security risks across agentic DevOps integrations."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
+    - prod
+    - mcp
+    - approval
+    - evidence
 
 - name: hashicorp/terraform-mcp-server
   url: https://github.com/hashicorp/terraform-mcp-server
@@ -519,11 +519,11 @@
   risk_notes: "HCP Terraform and workspace operations can expose or mutate infrastructure data; require token scoping and apply approval."
   operator_note: "Official HashiCorp Terraform MCP server with registry, HCP Terraform, Terraform Enterprise, and OTel support."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - evidence
+    - write
 
 - name: Pulumi MCP Server
   url: https://www.pulumi.com/docs/ai/mcp-server/
@@ -543,10 +543,10 @@
   risk_notes: "Pulumi workflows can query org resources and delegate infrastructure work; require org scoping, policy checks, and approval."
   operator_note: "Official Pulumi hosted MCP server for Pulumi Cloud resources, registry lookup, policies, and Pulumi Neo workflows."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: opentofu/opentofu-mcp-server
   url: https://github.com/opentofu/opentofu-mcp-server
@@ -566,9 +566,9 @@
   risk_notes: "Registry lookup is read-only, but generated OpenTofu configuration can affect infrastructure if applied; require human review before using suggested code in plans or applies."
   operator_note: "Official OpenTofu MCP server for searching the OpenTofu Registry, retrieving provider/module details, resource and data-source docs, and configuration examples via hosted or local MCP deployment."
   labels:
-    - 🟡
-    - 🔵
-    - 🛡️
+    - prototype
+    - mcp
+    - approval
 
 - name: grafana/mcp-grafana
   url: https://github.com/grafana/mcp-grafana
@@ -588,11 +588,11 @@
   risk_notes: "Grafana access can expose sensitive telemetry or mutate dashboards; use service accounts, read-only scopes, and audit logs."
   operator_note: "Official Grafana MCP server for Grafana and surrounding observability ecosystem access."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - evidence
+    - write
 
 - name: getsentry/sentry-mcp
   url: https://github.com/getsentry/sentry-mcp
@@ -612,11 +612,11 @@
   risk_notes: "Sentry tokens can expose sensitive production errors and some write scopes; require org/project scoping and keep debugging human-in-the-loop."
   operator_note: "Official Sentry MCP service focused on human-in-the-loop coding agents and debugging workflows."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - evidence
+    - write
 
 - name: datadog-labs/mcp-server
   url: https://github.com/datadog-labs/mcp-server
@@ -636,10 +636,10 @@
   risk_notes: "Telemetry may include sensitive operational data; scope auth by site/org and keep write actions disabled unless explicitly needed."
   operator_note: "Official Datadog MCP server documentation and examples for connecting AI agents to Datadog observability."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
+    - prod
+    - mcp
+    - approval
+    - evidence
 
 - name: Honeycomb MCP docs
   url: https://docs.honeycomb.io/integrations/mcp/
@@ -659,11 +659,11 @@
   risk_notes: "Hosted Honeycomb MCP can expose production telemetry and optional write tools for Boards, Triggers, SLOs, notification recipients, and Canvas investigations; prefer OAuth, read-only scopes, and explicit approval before granting mcp:write."
   operator_note: "Official Honeycomb hosted MCP documentation for querying traces, metrics, logs, SLOs, triggers, and AI-optimized observability workflows through OAuth 2.1 or scoped API keys."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - evidence
+    - write
 
 - name: Splunk MCP Server
   url: https://splunkbase.splunk.com/app/7931
@@ -683,10 +683,10 @@
   risk_notes: "Splunk data can contain sensitive logs and security events; require index, role, and search-scope controls before connecting agents."
   operator_note: "Splunkbase listing for the Splunk-supported MCP Server for Splunk Platform, Enterprise, and Cloud customers."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
+    - prod
+    - mcp
+    - approval
+    - evidence
 
 - name: Datadog MCP Server setup docs
   url: https://docs.datadoghq.com/mcp_server/setup/?tab=chatgpt
@@ -706,10 +706,10 @@
   risk_notes: "Setup connects agents to observability data; scope authentication carefully and confirm workspace/site before enabling access."
   operator_note: "Official Datadog MCP setup documentation, including the ChatGPT setup path."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
+    - prod
+    - mcp
+    - approval
+    - evidence
 
 - name: jgraph/drawio-mcp
   url: https://github.com/jgraph/drawio-mcp
@@ -729,9 +729,9 @@
   risk_notes: "Diagram content may include sensitive architecture details; prefer local/self-hosted modes for private infrastructure diagrams."
   operator_note: "draw.io MCP server and Claude Code plugin for generating, opening, and exporting draw.io diagrams with shape search."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
+    - prod
+    - mcp
+    - approval
 
 - name: PagerDuty/pagerduty-mcp-server
   url: https://github.com/PagerDuty/pagerduty-mcp-server
@@ -751,10 +751,10 @@
   risk_notes: "Write tools can create incidents and schedule overrides; keep write tools disabled by default and require approval for changes."
   operator_note: "Official PagerDuty MCP server for incidents, services, schedules, event orchestrations, and embedded incident UIs."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: docker/mcp-registry
   url: https://github.com/docker/mcp-registry
@@ -774,10 +774,10 @@
   risk_notes: "Catalog quality helps but does not replace server-level permission review, image pinning, and tool-surface auditing."
   operator_note: "Official Docker MCP registry and catalog source for verified containerized MCP servers."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
+    - prod
+    - mcp
+    - approval
+    - evidence
 
 - name: kubernetes-sigs/mcp-lifecycle-operator
   url: https://github.com/kubernetes-sigs/mcp-lifecycle-operator
@@ -797,10 +797,10 @@
   risk_notes: "Alpha v1alpha1 APIs can change; test only in non-production clusters before considering platform integration."
   operator_note: "Official Kubernetes SIG operator for declaratively deploying and rolling out MCP servers, not a general kubectl MCP server."
   labels:
-    - 🟡
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prototype
+    - mcp
+    - approval
+    - write
 
 - name: jenkinsci/mcp-server-plugin
   url: https://github.com/jenkinsci/mcp-server-plugin
@@ -820,10 +820,10 @@
   risk_notes: "Jenkins access can expose build logs, credentials, job configuration, and deployment controls; require folder/job scoping and approval before triggering or mutating jobs."
   operator_note: "Official Jenkins plugin that enables Jenkins to act as an MCP server for LLM-powered clients."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: argoproj-labs/mcp-for-argocd
   url: https://github.com/argoproj-labs/mcp-for-argocd
@@ -843,10 +843,10 @@
   risk_notes: "Argo CD workflows can affect live Kubernetes deployments; start with read-only app/status inspection and require approval for sync, rollback, or mutation actions."
   operator_note: "Argo Project Labs MCP server implementation for Argo CD, filling the GitOps/CD gap in the catalog."
   labels:
-    - 🟡
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prototype
+    - mcp
+    - approval
+    - write
 
 - name: controlplaneio-fluxcd/flux-operator (MCP)
   url: https://github.com/controlplaneio-fluxcd/flux-operator/tree/main/cmd/mcp
@@ -867,11 +867,11 @@
   risk_notes: "Flux MCP can trigger reconciliations, suspend/resume Flux resources, and interact with live Kubernetes clusters via kubeconfig; use read-only mode (--read-only=true) for observation-only sessions and scope kubeconfig RBAC to least privilege."
   operator_note: "Official Flux Operator MCP server from CNCF Flux core maintainers at ControlPlane; Go single-binary with read-only mode, kubeconfig scoping, and Kubernetes impersonation support. Covers Kustomizations, HelmReleases, drift detection, root cause analysis, and multi-cluster comparison."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - evidence
+    - write
 
 - name: Snyk Studio MCP docs
   url: https://docs.snyk.io/evo-by-snyk/agentic-security-with-snyk-studio/getting-started-with-snyk-studio
@@ -891,10 +891,10 @@
   risk_notes: "Security scans may include repository and dependency context; require account, org, and project scoping before connecting agent clients."
   operator_note: "Official Snyk documentation for Snyk Studio agentic security workflows and Snyk MCP Server usage."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
+    - prod
+    - mcp
+    - approval
+    - evidence
 
 - name: snyk/studio-mcp
   url: https://github.com/snyk/studio-mcp
@@ -917,10 +917,10 @@
   risk_notes: "Scans invoke local ecosystem tools (Gradle, Maven, npm) on the developer machine; require explicit Snyk auth, scope per project/org, and treat scan output as security evidence requiring human review before remediation."
   operator_note: "Official Snyk MCP server (Go) providing snyk_sca_scan, snyk_code_scan, snyk_iac_scan, snyk_container_scan, snyk_sbom_scan, snyk_secret_scan, and snyk_aibom tools via the `snyk mcp` CLI command; Apache-2.0 license; closed to public contributions."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
+    - prod
+    - mcp
+    - approval
+    - evidence
 
 - name: snyk/agent-scan
   url: https://github.com/snyk/agent-scan
@@ -940,9 +940,9 @@
   risk_notes: "Scanner output should be treated as security evidence, not an automatic approval to deploy; findings need human review and remediation."
   operator_note: "Official Snyk security scanner for AI agents, MCP servers, and agent skills."
   labels:
-    - 🟢
-    - 🛡️
-    - 📊
+    - prod
+    - approval
+    - evidence
 
 - name: CrowdStrike/falcon-mcp
   url: https://github.com/CrowdStrike/falcon-mcp
@@ -965,10 +965,10 @@
   risk_notes: "Public preview; avoid production deployments until 1.0 stable. Write-capable modules (RTR, policies, exclusions, custom IOA) can change endpoint configuration and detection rules. Use least-privilege API scopes and enable only the modules you need. Requires FALCON_CLIENT_ID and FALCON_CLIENT_SECRET env vars — keep out of agent context."
   operator_note: "Official CrowdStrike-maintained MCP server (Python, MIT) connecting AI agents to the Falcon platform for threat detection, incident investigation, threat intelligence, endpoint inventory, identity protection (IDP), cloud security (CSPM/CSVM), vulnerability spotlight, NG-SIEM correlation rules, and real-time response triage. Registered in the official MCP Registry. Currently in public preview (pre-1.0). Full docs at developer.crowdstrike.com/falcon-mcp."
   labels:
-    - 🟡
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prototype
+    - mcp
+    - approval
+    - write
 
 - name: Wiz WIN MCP Server docs
   url: https://docs.wiz.io/dev/win-mcp-server
@@ -988,10 +988,10 @@
   risk_notes: "Cloud security posture data can expose sensitive asset and vulnerability details; require tenant scoping and read-only access by default."
   operator_note: "Official Wiz documentation for the WIN MCP server, adding CNAPP and cloud-security coverage."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
+    - prod
+    - mcp
+    - approval
+    - evidence
 
 - name: Docker MCP Catalog and Toolkit docs
   url: https://docs.docker.com/ai/mcp-catalog-and-toolkit/
@@ -1011,10 +1011,10 @@
   risk_notes: "Containerized MCP servers still expose tools and credentials; require image trust, profile scoping, OAuth review, and permission boundaries."
   operator_note: "Official Docker documentation for MCP Toolkit, MCP Catalog, profiles, CLI, and MCP Gateway."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: Docker MCP Gateway docs
   url: https://docs.docker.com/ai/mcp-catalog-and-toolkit/mcp-gateway/
@@ -1034,10 +1034,10 @@
   risk_notes: "Gateway configuration can broaden agent tool access; require profile review, server allowlists, credential boundaries, and audit controls."
   operator_note: "Official Docker MCP Gateway documentation for secure, centralized orchestration of containerized MCP tools."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: modelcontextprotocol/servers
   url: https://github.com/modelcontextprotocol/servers
@@ -1057,9 +1057,9 @@
   risk_notes: "Reference servers are educational starting points; production DevOps servers still need permission review, secrets handling, and destructive-tool approval gates."
   operator_note: "Official MCP reference server implementations and ecosystem pointers."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
+    - prod
+    - mcp
+    - approval
 
 - name: modelcontextprotocol/python-sdk
   url: https://github.com/modelcontextprotocol/python-sdk
@@ -1079,9 +1079,9 @@
   risk_notes: "SDK is safe by itself, but servers built with it need explicit tool allowlists, credential isolation, and destructive-action approval gates."
   operator_note: "Official Python SDK for building MCP servers and clients."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
+    - prod
+    - mcp
+    - approval
 
 - name: modelcontextprotocol/typescript-sdk
   url: https://github.com/modelcontextprotocol/typescript-sdk
@@ -1101,9 +1101,9 @@
   risk_notes: "SDK examples must be wrapped with environment-specific allowlists, credential isolation, and approval checks before production use."
   operator_note: "Official TypeScript SDK for Model Context Protocol servers and clients."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
+    - prod
+    - mcp
+    - approval
 
 - name: modelcontextprotocol/registry
   url: https://github.com/modelcontextprotocol/registry
@@ -1123,10 +1123,10 @@
   risk_notes: "Registry metadata helps discovery but does not prove safety; each server still needs tool-surface and credential review."
   operator_note: "Official community-driven registry service for Model Context Protocol servers."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
+    - prod
+    - mcp
+    - approval
+    - evidence
 
 - name: aws-samples/sample-cloudops-multi-agent-platform
   url: https://github.com/aws-samples/sample-cloudops-multi-agent-platform
@@ -1146,10 +1146,10 @@
   risk_notes: "Sample CloudOps agents may connect to AWS operations data and actions; require sandbox accounts, least-privilege IAM, and explicit approval before mutations."
   operator_note: "AWS Samples reference for a hierarchical multi-agent CloudOps platform using Bedrock AgentCore and Strands Agents SDK."
   labels:
-    - 🟡
-    - 🛡️
-    - 📊
-    - ⚠️
+    - prototype
+    - approval
+    - evidence
+    - write
 
 - name: rohitg00/awesome-devops-mcp-servers
   url: https://github.com/rohitg00/awesome-devops-mcp-servers
@@ -1169,8 +1169,8 @@
   risk_notes: "MCP servers expose tool capabilities; review permissions and command surfaces before connecting real infrastructure."
   operator_note: "Community discovery source for MCP ecosystem mapping and candidate integrations."
   labels:
-    - 🔵
-    - 🟡
+    - mcp
+    - prototype
 
 - name: antonbabenko/terraform-skill
   url: https://github.com/antonbabenko/terraform-skill
@@ -1190,8 +1190,8 @@
   risk_notes: "Terraform guidance must not bypass plan review, provider policy, or human apply approval."
   operator_note: "Community Terraform-specific prompt and workflow seed for the build lab."
   labels:
-    - 🟡
-    - 🛡️
+    - prototype
+    - approval
 
 - name: addyosmani/agent-skills
   url: https://github.com/addyosmani/agent-skills
@@ -1211,8 +1211,8 @@
   risk_notes: "General engineering skills need infrastructure-specific permission and approval constraints before DevOps use."
   operator_note: "Community engineering skill reference; useful style and structure input for DevOps-specific scaffolds."
   labels:
-    - 🟢
-    - 🛡️
+    - prod
+    - approval
 
 - name: Agents365-ai/drawio-skill
   url: https://github.com/Agents365-ai/drawio-skill
@@ -1232,8 +1232,8 @@
   risk_notes: "Generated diagrams should be reviewed before publishing because they may reveal architecture, network, or security assumptions."
   operator_note: "Community draw.io skill for natural-language diagram generation, visual self-checking, and exports."
   labels:
-    - 🟡
-    - 🛡️
+    - prototype
+    - approval
 
 - name: newrelic/mcp-server
   url: https://github.com/newrelic/mcp-server
@@ -1253,10 +1253,10 @@
   risk_notes: "Telemetry may include sensitive application and infrastructure data; scope API keys per account and prefer read-only queries."
   operator_note: "Official New Relic MCP server for connecting AI agents to APM, dashboards, and NRQL-based observability data."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
+    - prod
+    - mcp
+    - approval
+    - evidence
 
 - name: dynatrace-oss/dynatrace-mcp
   url: https://github.com/dynatrace-oss/dynatrace-mcp
@@ -1278,11 +1278,11 @@
   risk_notes: "Automation tools can send Slack messages, emails, and create Dynatrace notebooks; DQL queries against Grail may incur consumption costs; scope Platform Token to least-privilege scopes and require approval before write/notification actions. Community-backed under dynatrace-oss; in maintenance mode — prefer the official Dynatrace-hosted MCP for new deployments."
   operator_note: "Official Dynatrace open-source MCP server (dynatrace-oss org) for Dynatrace SaaS observability: DQL querying, problem/vulnerability/Kubernetes event listing, Davis Copilot AI chat, and deployment automation. 131 stars; MIT license; npm package @dynatrace-oss/dynatrace-mcp-server."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - evidence
+    - write
 
 - name: Elastic Agent Builder MCP server docs
   url: https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server
@@ -1302,10 +1302,10 @@
   risk_notes: "MCP tools execute with API-key scope and can expose sensitive logs, metrics, traces, and indexed business data; restrict API keys to required spaces and index patterns."
   operator_note: "Official Elastic documentation for exposing Agent Builder tools through MCP with Kibana URL and API-key authentication."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
+    - prod
+    - mcp
+    - approval
+    - evidence
 
 - name: cloudflare/mcp-server-cloudflare
   url: https://github.com/cloudflare/mcp-server-cloudflare
@@ -1325,10 +1325,10 @@
   risk_notes: "Domain-specific servers can read and mutate live Cloudflare account configuration; scope API tokens per zone/account and require approval before write actions."
   operator_note: "Official Cloudflare MCP servers for account, Workers, and edge configuration workflows, with both curated domain servers and a code-mode server."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: CircleCI-Public/mcp-server-circleci
   url: https://github.com/CircleCI-Public/mcp-server-circleci
@@ -1348,10 +1348,10 @@
   risk_notes: "Access exposes build logs and usage data; scope CircleCI API tokens per project and keep write-capable pipeline triggers behind explicit approval."
   operator_note: "Official CircleCI MCP server for build failure logs, pipeline status, flaky test detection, and usage analysis."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
+    - prod
+    - mcp
+    - approval
+    - evidence
 
 - name: harness/mcp-server
   url: https://github.com/harness/mcp-server
@@ -1371,10 +1371,10 @@
   risk_notes: "Risk-tiered operation model blocks medium_write, high_write, and destructive operations when confirmation cannot be obtained; rate limiting and CORS same-origin enforcement are built in. Require PAT/SAT scoped to the minimum needed Harness account and avoid HARNESS_AUTO_APPROVE_RISK in non-autonomous workflows."
   operator_note: "Official Harness MCP server (Go) for CI/CD pipelines, deployments, connectors, feature flags, and infrastructure operations; pairs with harness/harness-skills for natural-language /deploy, /rollback, and /triage workflows."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: harness/harness-skills
   url: https://github.com/harness/harness-skills
@@ -1394,9 +1394,9 @@
   risk_notes: "Skills wrap write-capable Harness MCP tools (/deploy, /rollback); review each skill's tool calls and require approval before triggering deployment mutations."
   operator_note: "Official Harness agent skills for Claude Code, Cursor, and GitHub Copilot that enable natural-language CI/CD automation through the harness/mcp-server."
   labels:
-    - 🟢
-    - 🛡️
-    - ⚠️
+    - prod
+    - approval
+    - write
 
 - name: mongodb-js/mongodb-mcp-server
   url: https://github.com/mongodb-js/mongodb-mcp-server
@@ -1416,10 +1416,10 @@
   risk_notes: "Public preview; can run database operations and Atlas API actions, so require least-privilege connection strings and disable destructive operations by default."
   operator_note: "Official MongoDB MCP server connecting agents to MongoDB Community, Enterprise, and Atlas deployments."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: redis/mcp-redis
   url: https://github.com/redis/mcp-redis
@@ -1439,10 +1439,10 @@
   risk_notes: "Can set, update, delete, publish, and stream data in live Redis instances; enforce Redis ACLs such as read-only users for diagnostics, scope credentials per database, and require approval for writes."
   operator_note: "Official Redis MCP Server for natural-language Redis data management, cache/session workflows, vector search, streams, pub/sub, and Redis documentation lookup."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: vercel/vercel-mcp-overview
   url: https://github.com/vercel/vercel-mcp-overview
@@ -1462,10 +1462,10 @@
   risk_notes: "The hosted remote MCP can read and mutate live Vercel projects and deployments; use OAuth-scoped access and require approval before deploy or config changes."
   operator_note: "Official public overview of Vercel's hosted MCP server, documented at vercel.com/docs/mcp/vercel-mcp; this repo tracks the docs, not a standalone local server."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: hashicorp/vault-mcp-server
   url: https://github.com/hashicorp/vault-mcp-server
@@ -1485,10 +1485,10 @@
   risk_notes: "Beta; tools can touch live secrets engines and mounts, so run locally only, avoid exposing it to other network users, and require approval before write operations."
   operator_note: "Official HashiCorp Vault MCP server for secrets and mount management, complementing the Terraform MCP server for IaC workflows."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: backstage/backstage (plugins/mcp-actions-backend)
   url: https://github.com/backstage/backstage/tree/master/plugins/mcp-actions-backend
@@ -1508,10 +1508,10 @@
   risk_notes: "Exposes registered plugin actions, some of which can mutate catalog entities or trigger scaffolder templates; scope static tokens or OAuth per environment and review each action's write scope."
   operator_note: "Official CNCF Backstage plugin that exposes registered plugin actions as MCP tools for AI agents like Claude, Cursor, and internal assistants."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: vantage-sh/vantage-mcp-server
   url: https://github.com/vantage-sh/vantage-mcp-server
@@ -1531,11 +1531,11 @@
   risk_notes: "Can create and delete Vantage reports, folders, notifications, and cost-allocation objects; rely on Vantage account/workspace permissions, OAuth/API-key scoping, audit logs, and explicit approval before write or irreversible delete tools."
   operator_note: "Official Vantage MCP server for natural-language FinOps workflows over Vantage cloud spend, budgets, anomalies, reports, and provider resources."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - evidence
+    - write
 - name: DopplerHQ/mcp-server
   url: https://github.com/DopplerHQ/mcp-server
   category: official-security-mcp-servers
@@ -1555,10 +1555,10 @@
   risk_notes: "Experimental/pre-production by Doppler's own advisory; outputs are non-deterministic. DOPPLER_TOKEN grants broad API access — scope token to minimum required projects and environments. Write tools (create/delete secrets, configs) act on live secret stores. Keep DOPPLER_TOKEN out of agent context and use service tokens scoped per config."
   operator_note: "Official Doppler MCP server (DopplerHQ org, Apache-2.0, TypeScript) providing AI assistants with tools to list projects/configs/environments, read secret names, and manage Doppler secrets via the Doppler API. Authentication via DOPPLER_TOKEN env var or interactive login. Intended for dev/test workflows; Doppler explicitly flags production use as requiring careful scope and review."
   labels:
-    - 🟡
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prototype
+    - mcp
+    - approval
+    - write
 
 - name: skyhook-io/radar
   url: https://github.com/skyhook-io/radar
@@ -1578,11 +1578,11 @@
   risk_notes: "Write tools (restart, scale, GitOps sync/rollback, Helm writes) act on live clusters and can disrupt workloads; they run under the cluster's RBAC and carry destructive-action hints, and Helm/terminal/MCP surfaces can be disabled via flags. Community (non-official) project - scope RBAC per identity and require approval before mutating tools."
   operator_note: "Community open-source Kubernetes UI with a built-in MCP server exposing read-only cluster/topology/event queries plus RBAC-scoped write and GitOps/Helm tools for AI-assisted operations."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - evidence
+    - write
 
 - name: containers/kubernetes-mcp-server
   url: https://github.com/containers/kubernetes-mcp-server
@@ -1603,11 +1603,11 @@
   risk_notes: "Generic Kubernetes tools can create, update, get, list, and delete any resource allowed by the active kubeconfig or in-cluster credentials. Use a dedicated ServiceAccount with read-only RBAC for diagnostics, scope namespaces/clusters tightly, and require approval before create/update/delete, scale, exec, or pod deletion actions. Community-maintained Containers org project; not an official Kubernetes SIG/CNCF project."
   operator_note: "Community-maintained Containers org MCP server for Kubernetes and OpenShift with npm/PyPI/native binary packaging, no kubectl dependency, multi-cluster support, security policy, and a read-only production setup guide; identified from rizzdev's DevOps & Infra list. Not an official Kubernetes SIG/CNCF project."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - evidence
+    - write
 
 - name: googleapis/mcp-toolbox
   url: https://github.com/googleapis/mcp-toolbox
@@ -1628,11 +1628,11 @@
   risk_notes: "Generic database tools can execute SQL against production databases; configure read-only database users for exploration, rely on IAM/integrated auth where supported, and require approval before write SQL or schema-changing tools."
   operator_note: "Official Google APIs MCP Toolbox for Databases, renamed from genai-toolbox, providing a self-hosted MCP server and SDKs for Postgres, MySQL, Spanner, BigQuery, Redis, MongoDB, Elasticsearch, and other databases; identified from rizzdev's Databases list."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - evidence
+    - write
 
 - name: dbt-labs/dbt-mcp
   url: https://github.com/dbt-labs/dbt-mcp
@@ -1653,10 +1653,10 @@
   risk_notes: "dbt CLI tools can modify project artifacts, models, sources, and warehouse objects; use dev targets or read-only roles for exploration and require approval before execution that changes data models or warehouse state."
   operator_note: "Official dbt Labs MCP server for dbt Core, dbt Fusion, and dbt Platform context, including Discovery API, Semantic Layer SQL execution, project search, and dbt CLI tools; identified from rizzdev's Data & Analytics list."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: bytebase/dbhub
   url: https://github.com/bytebase/dbhub
@@ -1676,10 +1676,10 @@
   risk_notes: "Official Bytebase-maintained project from an independent database DevSecOps vendor, not a hyperscaler/platform-owner source like Google or Microsoft. DBHub supports guardrails such as read-only mode, row limiting, and query timeout, but database credentials still define actual blast radius. Use read-only users by default, keep connection strings out of agent context, and require approval before write SQL or production database access."
   operator_note: "Bytebase-maintained DBHub MCP server for Postgres, MySQL, MariaDB, SQL Server, and SQLite with token-efficient schema search, execute_sql support, read-only mode, row limits, and timeouts; identified from rizzdev's Databases list. Treat as official for Bytebase/DBHub but independent-vendor-backed rather than major cloud/platform official."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prod
+    - mcp
+    - approval
+    - write
 
 - name: docker/hub-mcp
   url: https://github.com/docker/hub-mcp
@@ -1699,10 +1699,10 @@
   risk_notes: "Unauthenticated mode is limited to public Docker Hub content; authenticated mode uses HUB_PAT_TOKEN and can manage Docker Hub repositories/images through the Docker Hub API, so scope PAT permissions and require approval before repository mutations."
   operator_note: "Official Docker Hub MCP server for AI-assisted image discovery, image recommendations, and Docker Hub repository workflows; surfaced in the self-hostable rizzdev awesome-mcp-open DevOps/Infra list."
   labels:
-    - 🟡
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prototype
+    - mcp
+    - approval
+    - write
 
 - name: digitalocean-labs/mcp-digitalocean
   url: https://github.com/digitalocean-labs/mcp-digitalocean
@@ -1722,10 +1722,10 @@
   risk_notes: "Uses a DigitalOcean API token and can act on live droplets, apps, databases, and infrastructure. Scope tokens to the minimum required project/resources and require explicit approval before create, update, resize, restart, or delete operations."
   operator_note: "DigitalOcean Labs MCP integration for self-hosted cloud operations over DigitalOcean droplets, App Platform, databases, and account resources; identified from the rizzdev awesome-mcp-open Cloud & Deploy list."
   labels:
-    - 🟡
-    - 🔵
-    - 🛡️
-    - ⚠️
+    - prototype
+    - mcp
+    - approval
+    - write
 
 - name: cisco-ai-defense/mcp-scanner
   url: https://github.com/cisco-ai-defense/mcp-scanner
@@ -1746,10 +1746,10 @@
   risk_notes: "Scanner can connect to MCP servers, inspect tools/prompts/resources/source packages, and send artifacts to optional external analyzers such as Cisco AI Defense, LLM providers, and VirusTotal. Use static/offline scans for sensitive internal servers, redact secrets from configs, and scope API keys for optional cloud analyzers."
   operator_note: "Cisco AI Defense MCP Scanner for scanning MCP servers and tools with YARA rules, LLM-as-judge, Cisco AI Defense Inspect API, pip-audit dependency checks, readiness checks, and optional VirusTotal analysis; identified from rizzdev's Security list."
   labels:
-    - 🟢
-    - 🔵
-    - 🛡️
-    - 📊
+    - prod
+    - mcp
+    - approval
+    - evidence
 
 - name: aquasecurity/trivy-mcp
   url: https://github.com/aquasecurity/trivy-mcp
@@ -1770,7 +1770,55 @@
   risk_notes: "Runs security scans against local filesystems, container images, and remote repositories; outputs can expose dependency, secret, and vulnerability details. Aqua Platform integration is optional, so keep any platform credentials scoped and prefer local/offline scans for first runs."
   operator_note: "Official Aqua Security Trivy MCP plugin exposing Trivy vulnerability, misconfiguration, secret, filesystem, container image, and repository scanning to MCP clients; identified from the rizzdev awesome-mcp-open Security list."
   labels:
-    - 🟡
-    - 🔵
-    - 🛡️
-    - 📊
+    - prototype
+    - mcp
+    - approval
+    - evidence
+- name: ChromeDevTools/chrome-devtools-mcp
+  url: https://github.com/ChromeDevTools/chrome-devtools-mcp
+  category: official-browser-automation-mcp-servers
+  type: mcp-server
+  framework: MCP + Chrome DevTools Protocol
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - browser-debugging
+    - performance-tracing
+    - network-and-console-inspection
+    - dom-automation-and-screenshots
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  risk_notes: "Drives a live Chrome instance: it navigates, clicks, fills forms, and evaluates arbitrary JavaScript in the page, so it can submit forms, trigger authenticated actions, and exfiltrate page state. Point it at a disposable/isolated browser profile, avoid sessions logged into sensitive accounts, and treat evaluate/navigate as write-capable."
+  operator_note: "Official Chrome DevTools MCP server for browser debugging, performance tracing, network inspection, and DOM automation in coding agents."
+  labels:
+    - prod
+    - mcp
+    - approval
+    - evidence
+    - write
+
+- name: microsoft/playwright-mcp
+  url: https://github.com/microsoft/playwright-mcp
+  category: official-browser-automation-mcp-servers
+  type: mcp-server
+  framework: MCP + Playwright
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - browser-automation
+    - web-app-qa
+    - scraping-and-exploratory-testing
+    - accessibility-tree-navigation
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: none
+  maturity: production-adjacent
+  risk_notes: "Automates a full browser through Playwright's accessibility tree: it can navigate, click, type, and submit forms, so an agent loop can take authenticated actions on any reachable site. Run against isolated browser contexts, scope credentials, and keep it out of sessions holding production or personal logins."
+  operator_note: "Official Microsoft Playwright MCP server exposing accessibility-tree browser automation for web QA, scraping, debugging, and exploratory agent loops."
+  labels:
+    - prod
+    - mcp
+    - approval
+    - write
