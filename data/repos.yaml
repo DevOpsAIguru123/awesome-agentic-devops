@@ -1774,3 +1774,51 @@
     - 🔵
     - 🛡️
     - 📊
+- name: ChromeDevTools/chrome-devtools-mcp
+  url: https://github.com/ChromeDevTools/chrome-devtools-mcp
+  category: official-browser-automation-mcp-servers
+  type: mcp-server
+  framework: MCP + Chrome DevTools Protocol
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - browser-debugging
+    - performance-tracing
+    - network-and-console-inspection
+    - dom-automation-and-screenshots
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: production-adjacent
+  risk_notes: "Drives a live Chrome instance: it navigates, clicks, fills forms, and evaluates arbitrary JavaScript in the page, so it can submit forms, trigger authenticated actions, and exfiltrate page state. Point it at a disposable/isolated browser profile, avoid sessions logged into sensitive accounts, and treat evaluate/navigate as write-capable."
+  operator_note: "Official Chrome DevTools MCP server for browser debugging, performance tracing, network inspection, and DOM automation in coding agents."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - 📊
+    - ⚠️
+
+- name: microsoft/playwright-mcp
+  url: https://github.com/microsoft/playwright-mcp
+  category: official-browser-automation-mcp-servers
+  type: mcp-server
+  framework: MCP + Playwright
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - browser-automation
+    - web-app-qa
+    - scraping-and-exploratory-testing
+    - accessibility-tree-navigation
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: none
+  maturity: production-adjacent
+  risk_notes: "Automates a full browser through Playwright's accessibility tree: it can navigate, click, type, and submit forms, so an agent loop can take authenticated actions on any reachable site. Run against isolated browser contexts, scope credentials, and keep it out of sessions holding production or personal logins."
+  operator_note: "Official Microsoft Playwright MCP server exposing accessibility-tree browser automation for web QA, scraping, debugging, and exploratory agent loops."
+  labels:
+    - 🟢
+    - 🔵
+    - 🛡️
+    - ⚠️
