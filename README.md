@@ -281,6 +281,8 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 
 [![Star History Chart](assets/star-history.svg)](https://www.star-history.com/#devopsaiguru123/awesome-agentic-devops&Date)
 
+_Chart generated from GitHub stargazer timestamps. Click through for the interactive Star History page._
+
 ## How to contribute
 
 Start with [CONTRIBUTING.md](CONTRIBUTING.md). New entries should update [data/repos.yaml](data/repos.yaml), include a real operational use case, classify action level, and explain safety or approval behavior.
