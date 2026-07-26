@@ -47,6 +47,6 @@ Do not paste secrets, cloud credentials, kubeconfigs, private keys, tokens, or s
 ## Minimum safety bar for this repo
 
 - Every listed project must have an `action_level`.
-- Write-capable entries must carry the ⚠️ label unless the write surface is clearly isolated.
-- Approval-aware entries should carry 🛡️ only when a meaningful approval or safety mechanism is documented or strongly evident.
-- Evidence-aware entries should carry 📊 only when there is a trace, eval, audit, cited evidence, or equivalent mechanism.
+- Write-capable entries must carry the `write` label unless the write surface is clearly isolated.
+- Approval-aware entries should carry `approval` only when a meaningful approval or safety mechanism is documented or strongly evident.
+- Evidence-aware entries should carry `evidence` only when there is a trace, eval, audit, cited evidence, or equivalent mechanism.
