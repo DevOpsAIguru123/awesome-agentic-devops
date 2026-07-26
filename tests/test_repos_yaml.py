@@ -30,7 +30,7 @@ def valid_entry(**overrides):
         "maturity": "prototype",
         "risk_notes": "Requires review before use.",
         "operator_note": "Useful reference pattern.",
-        "labels": ["🟡"],
+        "labels": ["prototype"],
     }
     entry.update(overrides)
     return entry
@@ -77,7 +77,7 @@ def test_rejects_invalid_action_level():
 
 
 def test_rejects_labels_that_are_not_a_list():
-    entries = [valid_entry(labels="🟡")]
+    entries = [valid_entry(labels="prototype")]
 
     with pytest.raises(ValidationError, match="labels must be a list"):
         validate_entries(entries)

@@ -6,7 +6,7 @@ Most agent lists stop at discovery. Infrastructure teams need more: whether a to
 
 | Field | Question it answers | How it is verified |
 | --- | --- | --- |
-| `action_level` | What kinds of actions can it perform? | Read the project's exposed tool list. Only query tools (`get`, `list`, `search`) means `read-only`. Suggesting changes for a human to execute means `proposal`. Any tool that mutates real state (`create`, `deploy`, `delete`, `sync`) means `write-capable` and the entry gets ⚠️. This classification does not prove the tool has access to a production environment. |
+| `action_level` | What kinds of actions can it perform? | Read the project's exposed tool list. Only query tools (`get`, `list`, `search`) means `read-only`. Suggesting changes for a human to execute means `proposal`. Any tool that mutates real state (`create`, `deploy`, `delete`, `sync`) means `write-capable` and the entry gets the `write` label. This classification does not prove the tool has access to a production environment. |
 | `human_approval` | Does a human gate write actions? | Look for gates in the server (write tools disabled by default, dry-run modes, confirmation flags) or in the client (permission prompts). Server-side gates are stronger because they hold no matter which client connects. |
 | `evidence_tracing` | Can you prove what it did afterward? | Check for audit logs, OpenTelemetry support, structured run records, or evaluation output. Scored `yes`, `partial`, or `none`. |
 | `maturity` | How mature does the project appear? | Observable signals include vendor support status, API stability (GA versus alpha), and recent activity. A production-adjacent rating is curator judgment, not a production-readiness guarantee. The weekly audit automatically checks GitHub reachability and archived status. |
@@ -14,7 +14,7 @@ Most agent lists stop at discovery. Infrastructure teams need more: whether a to
 
 ## How fields map to README labels
 
-The emoji labels in the README catalog are shorthand for these fields: ⚠️ maps to `action_level: write-capable`, 🛡️ to `human_approval: true`, 📊 to tracing or eval evidence, and 🟢/🟡 to `maturity`. A 🛡️ may represent a server-enforced gate, a client permission prompt, or another documented safety mechanism; consult the entry and upstream documentation to determine enforcement strength.
+The text labels in the README catalog are shorthand for these fields: `write` maps to `action_level: write-capable`, `approval` to `human_approval: true`, `evidence` to tracing or eval evidence, and `prod`/`prototype` to `maturity`. An `approval` label may represent a server-enforced gate, a client permission prompt, or another documented safety mechanism; consult the entry and upstream documentation to determine enforcement strength.
 
 ## Example: reading one entry
 
