@@ -95,6 +95,18 @@ def _validate_entry(entry: dict[str, Any], index: int) -> None:
             raise ValidationError(f"{name}: {field} must be a list")
 
 
+def _validate_unique_field(entries: list[dict[str, Any]], field: str) -> None:
+    seen: dict[Any, str] = {}
+    for index, entry in enumerate(entries):
+        value = entry[field]
+        name = _entry_name(entry, index)
+        if value in seen:
+            raise ValidationError(
+                f"{name}: duplicate {field} {value!r}; first used by {seen[value]}"
+            )
+        seen[value] = name
+
+
 def validate_entries(entries: Any) -> list[dict[str, Any]]:
     if not isinstance(entries, list):
         raise ValidationError("data/repos.yaml must contain a list of repo entries")
@@ -103,6 +115,9 @@ def validate_entries(entries: Any) -> list[dict[str, Any]]:
         if not isinstance(entry, dict):
             raise ValidationError(f"entry #{index + 1} must be a mapping")
         _validate_entry(entry, index)
+
+    _validate_unique_field(entries, "name")
+    _validate_unique_field(entries, "url")
 
     return entries
 
