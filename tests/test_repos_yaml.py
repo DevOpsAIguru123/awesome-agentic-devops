@@ -51,6 +51,13 @@ def test_seed_data_has_unique_repo_names():
     assert len(names) == len(set(names))
 
 
+def test_seed_data_has_unique_urls():
+    entries = validate_file(Path("data/repos.yaml"))
+    urls = [entry["url"] for entry in entries]
+
+    assert len(urls) == len(set(urls))
+
+
 @pytest.mark.parametrize("action_level", sorted(ALLOWED_ACTION_LEVELS))
 def test_accepts_allowed_action_levels(action_level):
     validate_entries([valid_entry(action_level=action_level)])
@@ -80,6 +87,26 @@ def test_rejects_labels_that_are_not_a_list():
     entries = [valid_entry(labels="prototype")]
 
     with pytest.raises(ValidationError, match="labels must be a list"):
+        validate_entries(entries)
+
+
+def test_rejects_duplicate_names():
+    entries = [
+        valid_entry(name="vendor/tool-a", url="https://github.com/vendor/tool-a"),
+        valid_entry(name="vendor/tool-a", url="https://github.com/vendor/tool-b"),
+    ]
+
+    with pytest.raises(ValidationError, match="duplicate name"):
+        validate_entries(entries)
+
+
+def test_rejects_duplicate_urls():
+    entries = [
+        valid_entry(name="vendor/tool-a", url="https://github.com/vendor/tool"),
+        valid_entry(name="vendor/tool-b", url="https://github.com/vendor/tool"),
+    ]
+
+    with pytest.raises(ValidationError, match="duplicate url"):
         validate_entries(entries)
 
 
