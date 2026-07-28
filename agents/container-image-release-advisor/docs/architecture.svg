@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Agentic DevSecOps container image release pipeline architecture</title>
+  <desc id="desc">A numbered architecture showing GitHub Actions, SonarCloud, Trivy configuration and image scans, Docker build, Google ADK with Vertex AI or Claude Agent SDK with Sonnet, three reports, deterministic policy, human approval, and Docker Hub publishing.</desc>
+  <defs>
+    <linearGradient id="page" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8fafc"/><stop offset="1" stop-color="#eef4ff"/></linearGradient>
+    <linearGradient id="header" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0f172a"/><stop offset="1" stop-color="#1e3a5f"/></linearGradient>
+    <linearGradient id="agentGlow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5f3ff"/><stop offset="1" stop-color="#fff7ed"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#0f172a" flood-opacity="0.12"/></filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto"><path d="M0 0L11 5.5L0 11Z" fill="#334155"/></marker>
+    <marker id="arrowGreen" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto"><path d="M0 0L11 5.5L0 11Z" fill="#15803d"/></marker>
+    <style>
+      .title{font:700 34px Inter,Segoe UI,Arial,sans-serif;fill:#fff}.subtitle{font:400 17px Inter,Segoe UI,Arial,sans-serif;fill:#cbd5e1}
+      .lane{font:700 15px Inter,Segoe UI,Arial,sans-serif;letter-spacing:1.2px;fill:#475569}.box-title{font:700 18px Inter,Segoe UI,Arial,sans-serif;fill:#0f172a}
+      .box-sub{font:400 13px Inter,Segoe UI,Arial,sans-serif;fill:#475569}.tiny{font:600 12px Inter,Segoe UI,Arial,sans-serif;fill:#475569}
+      .number{font:800 15px Inter,Segoe UI,Arial,sans-serif;fill:#fff;text-anchor:middle;dominant-baseline:central}.flow{fill:none;stroke:#334155;stroke-width:3;marker-end:url(#arrow)}
+      .flow-soft{fill:none;stroke:#64748b;stroke-width:2.5;marker-end:url(#arrow)}.flow-green{fill:none;stroke:#15803d;stroke-width:3;marker-end:url(#arrowGreen)}
+      .dash{fill:none;stroke:#7c3aed;stroke-width:2.5;stroke-dasharray:8 7;marker-end:url(#arrow)}.card{fill:#fff;stroke:#cbd5e1;stroke-width:1.5;rx:16;filter:url(#shadow)}
+    </style>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#page)"/><rect width="1600" height="104" fill="url(#header)"/>
+  <text x="62" y="48" class="title">Agentic DevSecOps Container Image Release Pipeline</text><text x="62" y="79" class="subtitle">Deterministic scanners and policy decide · AI explains · Humans approve</text>
+  <rect x="1220" y="27" width="318" height="48" rx="24" fill="#fff" fill-opacity="0.1" stroke="#fff" stroke-opacity="0.25"/><circle cx="1251" cy="51" r="11" fill="#22c55e"/>
+  <path d="M1246 51l4 4 7-9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><text x="1271" y="57" class="subtitle" style="font-weight:600;fill:#fff">Policy-controlled release</text>
+  <rect x="42" y="125" width="1516" height="224" rx="22" fill="#eff6ff" stroke="#bfdbfe"/><text x="66" y="153" class="lane">PRE-BUILD SECURITY</text>
+  <rect x="42" y="373" width="1516" height="270" rx="22" fill="#faf5ff" stroke="#ddd6fe"/><text x="66" y="401" class="lane">IMAGE SECURITY + ADVISORY</text>
+  <rect x="42" y="667" width="1516" height="256" rx="22" fill="#f0fdf4" stroke="#bbf7d0"/><text x="66" y="695" class="lane">RELEASE AUTHORIZATION</text>
+
+  <g transform="translate(72 184)"><rect width="230" height="116" class="card"/><circle r="18" fill="#2563eb"/><text class="number">1</text>
+    <image href="assets/logos/github.svg" x="18" y="16" width="48" height="48" preserveAspectRatio="xMidYMid meet"/>
+    <text x="76" y="37" class="box-title">Developer PR</text><text x="76" y="60" class="box-sub">Source + IaC changes</text><rect x="25" y="80" width="180" height="23" rx="11" fill="#eef2ff"/><text x="115" y="96" class="tiny" text-anchor="middle">GitHub repository</text></g>
+  <g transform="translate(350 184)"><rect width="230" height="116" class="card"/><circle r="18" fill="#2563eb"/><text class="number">2</text>
+    <image href="assets/logos/github.svg" x="18" y="17" width="48" height="48" preserveAspectRatio="xMidYMid meet"/>
+    <text x="76" y="37" class="box-title">GitHub Actions</text><text x="76" y="60" class="box-sub">Orchestrates CI/CD</text><text x="25" y="96" class="tiny">Pinned actions · OIDC/WIF</text></g>
+  <g transform="translate(650 166)"><rect width="252" height="80" class="card"/><circle r="18" fill="#2563eb"/><text class="number">3</text>
+    <image href="assets/logos/sonarqube-cloud.svg" x="25" y="13" width="52" height="52" preserveAspectRatio="xMidYMid meet"/>
+    <text x="91" y="33" class="box-title">SonarCloud</text><text x="91" y="56" class="box-sub">Code + quality gate</text></g>
+  <g transform="translate(650 257)"><rect width="252" height="72" class="card"/><circle r="18" fill="#2563eb"/><text class="number">4</text>
+    <image href="assets/logos/trivy.svg" x="22" y="13" width="61" height="48" preserveAspectRatio="xMidYMid meet"/>
+    <text x="91" y="29" class="box-title">Trivy Config</text><text x="91" y="52" class="box-sub">Dockerfile + IaC</text></g>
+  <g transform="translate(1010 184)"><rect width="476" height="116" class="card"/><circle r="18" fill="#2563eb"/><text class="number">5</text>
+    <rect x="28" y="24" width="54" height="66" rx="6" fill="#dbeafe" stroke="#2563eb"/><path d="M67 24v15h15" fill="#fff" stroke="#2563eb"/><path d="M39 54h30M39 64h30M39 74h21" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+    <text x="105" y="39" class="box-title">Pre-build Security Gate</text><text x="105" y="65" class="box-sub">Sonar + Trivy policy · Report 1: code and configuration</text>
+    <rect x="105" y="79" width="84" height="23" rx="11" fill="#dcfce7"/><text x="147" y="95" class="tiny" text-anchor="middle" style="fill:#166534">HTML</text><rect x="197" y="79" width="84" height="23" rx="11" fill="#fee2e2"/><text x="239" y="95" class="tiny" text-anchor="middle" style="fill:#991b1b">PDF</text><rect x="289" y="79" width="84" height="23" rx="11" fill="#f1f5f9"/><text x="331" y="95" class="tiny" text-anchor="middle">JSON</text></g>
+  <path d="M302 242H350" class="flow"/><path d="M580 222H615V206H650" class="flow-soft"/><path d="M580 262H615V293H650" class="flow-soft"/><path d="M902 206H957V222H1010" class="flow-soft"/><path d="M902 293H957V262H1010" class="flow-soft"/>
+
+  <g transform="translate(72 455)"><rect width="250" height="132" class="card"/><circle r="18" fill="#7c3aed"/><text class="number">6</text>
+    <image href="assets/logos/docker.svg" x="22" y="23" width="78" height="62" preserveAspectRatio="xMidYMid meet"/>
+    <text x="114" y="42" class="box-title">Docker Build</text><text x="114" y="65" class="box-sub">Immutable candidate</text><rect x="24" y="94" width="202" height="24" rx="12" fill="#e0f2fe"/><text x="125" y="110" class="tiny" text-anchor="middle">Tagged by commit SHA</text></g>
+  <g transform="translate(390 455)"><rect width="286" height="132" class="card"/><circle r="18" fill="#7c3aed"/><text class="number">7</text>
+    <image href="assets/logos/trivy.svg" x="20" y="23" width="70" height="60" preserveAspectRatio="xMidYMid meet"/>
+    <text x="101" y="36" class="box-title">Trivy Image Scan</text><text x="101" y="59" class="box-sub">CVEs + embedded secrets</text><rect x="25" y="95" width="236" height="23" rx="11" fill="#ede9fe"/><text x="143" y="111" class="tiny" text-anchor="middle">Report 2 · exact image digest</text></g>
+  <g transform="translate(744 430)"><rect width="326" height="182" rx="16" fill="url(#agentGlow)" stroke="#c4b5fd" stroke-width="1.5" filter="url(#shadow)"/><circle r="18" fill="#7c3aed"/><text class="number">8</text>
+    <text x="25" y="31" class="box-title">AI Security Advisory</text><text x="25" y="53" class="box-sub">Prioritizes risk · Recommends remediation</text>
+    <rect x="24" y="70" width="124" height="70" rx="12" fill="#fff" stroke="#cbd5e1"/><image href="assets/logos/vertex-ai.svg" x="32" y="82" width="40" height="40" preserveAspectRatio="xMidYMid meet"/><text x="78" y="98" class="tiny">Google ADK</text><text x="78" y="118" class="box-sub">Vertex AI</text>
+    <circle cx="162" cy="105" r="11" fill="#7c3aed"/><text x="162" y="105" class="number" style="font-size:8px">OR</text>
+    <rect x="177" y="70" width="124" height="70" rx="12" fill="#fff" stroke="#cbd5e1"/><image href="assets/logos/claude.svg" x="184" y="82" width="42" height="42" preserveAspectRatio="xMidYMid meet"/><text x="230" y="98" class="tiny">Claude SDK</text><text x="230" y="118" class="box-sub">Sonnet 5</text>
+    <rect x="24" y="151" width="277" height="22" rx="11" fill="#fef3c7"/><text x="162" y="166" class="tiny" text-anchor="middle" style="fill:#92400e;font-size:11px">Cannot change policy or approve release</text></g>
+  <g transform="translate(1140 423)"><rect width="346" height="196" class="card"/><circle r="18" fill="#7c3aed"/><text class="number">9</text><text x="27" y="34" class="box-title">Evidence Aggregation</text>
+    <g transform="translate(26 55)"><rect width="294" height="34" rx="8" fill="#eff6ff" stroke="#93c5fd"/><circle cx="18" cy="17" r="10" fill="#2563eb"/><text x="18" y="17" class="number" style="font-size:11px">1</text><text x="37" y="22" class="tiny">Sonar + configuration evidence</text></g>
+    <g transform="translate(26 98)"><rect width="294" height="34" rx="8" fill="#f5f3ff" stroke="#c4b5fd"/><circle cx="18" cy="17" r="10" fill="#7c3aed"/><text x="18" y="17" class="number" style="font-size:11px">2</text><text x="37" y="22" class="tiny">Image vulnerability + secret evidence</text></g>
+    <g transform="translate(26 141)"><rect width="294" height="34" rx="8" fill="#f0fdf4" stroke="#86efac"/><circle cx="18" cy="17" r="10" fill="#15803d"/><text x="18" y="17" class="number" style="font-size:11px">3</text><text x="37" y="22" class="tiny">Advisory triage + remediation guidance</text></g></g>
+  <path d="M1486 300V360H28V521H72" class="flow"/><text x="1330" y="337" class="tiny">pre-build checks passed</text><path d="M322 521H390" class="flow"/><path d="M676 521H744" class="flow"/><path d="M1070 521H1140" class="dash"/>
+
+  <g transform="translate(192 738)"><rect width="342" height="128" class="card"/><circle r="18" fill="#15803d"/><text class="number">10</text><path d="M28 24h56v25c0 26-20 37-28 41-8-4-28-15-28-41z" fill="#15803d"/><path d="M42 52l10 10 19-24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><text x="108" y="39" class="box-title">Overall Release Decision</text><text x="108" y="62" class="box-sub">Policy decides · Report 3 consolidates</text><rect x="108" y="78" width="203" height="27" rx="13" fill="#dcfce7"/><text x="209" y="96" class="tiny" text-anchor="middle" style="fill:#166534">APPROVED or BLOCKED</text></g>
+  <g transform="translate(644 738)"><rect width="306" height="128" class="card"/><circle r="18" fill="#15803d"/><text class="number">11</text><circle cx="50" cy="43" r="20" fill="#f59e0b"/><circle cx="50" cy="38" r="8" fill="#fff"/><path d="M34 63c2-11 9-17 16-17s14 6 16 17" fill="#fff"/><text x="91" y="39" class="box-title">Human Approval</text><text x="91" y="62" class="box-sub">Protected environment</text><text x="26" y="100" class="tiny">Required for trusted release events</text></g>
+  <g transform="translate(1060 738)"><rect width="426" height="128" class="card"/><circle r="18" fill="#15803d"/><text class="number">12</text><image href="assets/logos/docker.svg" x="27" y="25" width="82" height="64" preserveAspectRatio="xMidYMid meet"/><text x="136" y="42" class="box-title">Publish Container Image</text><text x="136" y="65" class="box-sub">Push authorized digest to Docker Hub</text><rect x="136" y="80" width="228" height="25" rx="12" fill="#e0f2fe"/><text x="250" y="97" class="tiny" text-anchor="middle">Digest preserved + auditable</text></g>
+  <path d="M1313 619V652H363V738" class="flow"/><path d="M534 802H644" class="flow-green"/><path d="M950 802H1060" class="flow-green"/>
+  <g transform="translate(76 949)"><circle r="7" fill="#2563eb"/><text x="14" y="5" class="tiny">Deterministic pre-build evidence</text><circle cx="260" r="7" fill="#7c3aed"/><text x="274" y="5" class="tiny">Image evidence + advisory context</text><circle cx="570" r="7" fill="#15803d"/><text x="584" y="5" class="tiny">Authoritative release controls</text><path d="M870 0h42" stroke="#7c3aed" stroke-width="2.5" stroke-dasharray="7 6"/><text x="922" y="5" class="tiny">Non-authoritative AI contribution</text><text x="1435" y="5" class="tiny" text-anchor="end">Portfolio reference architecture</text></g>
+</svg>

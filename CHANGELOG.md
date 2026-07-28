@@ -7,6 +7,15 @@ documented here. The format is based on
 
 ## [Unreleased]
 
+### Added
+
+- **Container image release advisor.** Added a complete policy-driven reference
+  pipeline with SonarCloud code analysis, pre-build Trivy configuration checks,
+  exact-image vulnerability and secret scanning, three team-facing reports,
+  deterministic release authorization, protected human approval, and Docker Hub
+  publishing. Separate GitHub Actions workflows select either Google ADK with
+  Vertex AI or Claude Agent SDK with Sonnet 5 for non-authoritative triage.
+
 ### Changed
 
 - **Hardened catalog schema validation.** Required string fields now reject blank

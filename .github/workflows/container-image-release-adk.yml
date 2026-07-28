@@ -1,0 +1,571 @@
+name: ADK container image release
+
+on:
+  # Enable pull_request/push only after the documented repository secrets and
+  # protected release environment have been configured.
+  workflow_dispatch:
+    inputs:
+      dockerfile:
+        description: Image definition to build and scan
+        required: true
+        default: Dockerfile
+        type: choice
+        options:
+          - Dockerfile
+          - Dockerfile.vulnerable
+      publish:
+        description: Publish after every quality, security, and approval gate passes
+        required: true
+        default: false
+        type: boolean
+      approval_test:
+        description: Exercise the protected approval gate without publishing (main only)
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: container-security-release-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  APP_DIR: agents/container-image-release-advisor/adk/examples/agentic-devops-portfolio
+  LOCAL_IMAGE: agentic-devops-portfolio-ci:${{ github.sha }}
+  SELECTED_DOCKERFILE: ${{ github.event_name == 'workflow_dispatch' && inputs.dockerfile || 'Dockerfile' }}
+
+jobs:
+  sonarqube:
+    name: SonarQube quality gate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+
+      - name: Require SonarQube configuration
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
+        run: |
+          test -n "$SONAR_TOKEN" || { echo "Missing SONAR_TOKEN repository secret"; exit 1; }
+          test -n "$SONAR_HOST_URL" || { echo "Missing SONAR_HOST_URL repository secret"; exit 1; }
+          test -n "$SONAR_ORGANIZATION" || { echo "Missing SONAR_ORGANIZATION repository secret"; exit 1; }
+
+      - name: Analyze source with SonarQube
+        uses: SonarSource/sonarqube-scan-action@7006c4492b2e0ee0f816d36501671557c97f5995 # v8.1.0
+        with:
+          projectBaseDir: ${{ env.APP_DIR }}
+          args: >-
+            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+      - name: Export SonarQube code findings
+        working-directory: ${{ env.APP_DIR }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PULL_REQUEST: ${{ github.event_name == 'pull_request' && github.event.pull_request.number || '' }}
+          SONAR_BRANCH: ${{ github.event_name != 'pull_request' && github.ref_name || '' }}
+        run: >-
+          python3 scripts/export_sonar.py
+          --report-task .scannerwork/report-task.txt
+          --project-properties sonar-project.properties
+          --pull-request "$SONAR_PULL_REQUEST"
+          --branch "$SONAR_BRANCH"
+
+      - name: Upload normalized SonarQube evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: sonar-scan-evidence-${{ github.run_id }}
+          path: ${{ env.APP_DIR }}/reports/ci-sonar.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Enforce SonarQube quality gate
+        # SonarCloud has no feature-branch gate on the current plan. Enforce the
+        # gate only for the trusted main branch, where publishing is possible.
+        if: github.ref == 'refs/heads/main'
+        uses: SonarSource/sonarqube-quality-gate-action@cf038b0e0cdecfa9e56c198bbb7d21d751d62c3b # v1.2.0
+        timeout-minutes: 10
+        with:
+          pollingTimeoutSec: 600
+          scanMetadataReportFile: ${{ env.APP_DIR }}/.scannerwork/report-task.txt
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+  configuration-security:
+    name: Pre-build configuration scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Prepare the exact configuration selected for release
+        working-directory: ${{ env.APP_DIR }}
+        run: |
+          mkdir -p reports .ci-config-scan
+          cp "$SELECTED_DOCKERFILE" .ci-config-scan/Dockerfile
+          if [ "$SELECTED_DOCKERFILE" = "Dockerfile.vulnerable" ]; then
+            cp deployment.vulnerable.yaml .ci-config-scan/deployment.yaml
+          fi
+
+      - name: Scan configuration before building
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: config
+          scan-ref: ${{ env.APP_DIR }}/.ci-config-scan
+          scanners: misconfig
+          format: json
+          output: ${{ env.APP_DIR }}/reports/ci-config-trivy.json
+          exit-code: "0"
+          version: v0.72.0
+
+      - name: Apply deterministic pre-build configuration policy
+        id: config-policy
+        continue-on-error: true
+        working-directory: ${{ env.APP_DIR }}
+        run: python3 scripts/evaluate_config_policy.py
+
+      - name: Upload configuration evidence even when policy blocks
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: configuration-scan-evidence-${{ github.run_id }}
+          path: |
+            ${{ env.APP_DIR }}/reports/ci-config-trivy.json
+            ${{ env.APP_DIR }}/reports/ci-config-policy-decision.json
+            ${{ env.APP_DIR }}/reports/ci-config-policy.md
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Enforce configuration policy before build
+        if: always()
+        env:
+          CONFIG_POLICY_OUTCOME: ${{ steps.config-policy.outcome }}
+        run: |
+          test "$CONFIG_POLICY_OUTCOME" = "success" || {
+            echo "Pre-build configuration policy blocked this candidate"
+            exit 1
+          }
+          test -s "${{ env.APP_DIR }}/reports/ci-config-policy-decision.json"
+          test -s "${{ env.APP_DIR }}/reports/ci-config-policy.md"
+
+  prebuild-report:
+    name: Pre-build code and configuration report
+    needs:
+      - sonarqube
+      - configuration-security
+    if: always() && needs.sonarqube.result != 'skipped' && needs.configuration-security.result != 'skipped'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Download SonarQube evidence
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: sonar-scan-evidence-${{ github.run_id }}
+          path: ${{ env.APP_DIR }}/reports
+
+      - name: Download configuration evidence even when its policy blocked
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: configuration-scan-evidence-${{ github.run_id }}
+          path: ${{ env.APP_DIR }}/reports
+
+      - name: Generate combined pre-build HTML and PDF reports
+        working-directory: ${{ env.APP_DIR }}
+        run: python3 scripts/render_security_report.py prebuild
+
+      - name: Publish fallback summary when configuration blocks the pipeline
+        if: always() && needs.configuration-security.result != 'success'
+        working-directory: ${{ env.APP_DIR }}
+        run: |
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          sonar = json.loads(Path("reports/ci-sonar.json").read_text())
+          policy = json.loads(Path("reports/ci-config-policy-decision.json").read_text())
+          print("# Overall release decision: BLOCKED")
+          print()
+          print("The pipeline stopped before building an image because a required pre-build gate failed.")
+          print()
+          print(f"- Sonar quality gate: **{sonar.get('quality_gate', {}).get('status', 'UNKNOWN')}**")
+          print(f"- Configuration policy: **{policy.get('policy_decision', 'not_evaluated')}**")
+          print("- Container image scan: **not_run**")
+          print("- Protected approval and publishing: **not_run**")
+          print()
+          print("The pre-build HTML and PDF reports are attached to this run.")
+          PY
+
+      - name: Upload pre-build report even when the build is blocked
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: pre-build-security-report-${{ github.run_id }}
+          path: |
+            ${{ env.APP_DIR }}/reports/ci-prebuild-security-report.html
+            ${{ env.APP_DIR }}/reports/ci-prebuild-security-report.pdf
+          if-no-files-found: error
+          retention-days: 30
+
+  container-security:
+    name: Build, scan, and authorize
+    needs:
+      - sonarqube
+      - configuration-security
+      - prebuild-report
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Check out source
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Prepare reports
+        working-directory: ${{ env.APP_DIR }}
+        run: mkdir -p reports
+
+      - name: Download approved pre-build configuration evidence
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: configuration-scan-evidence-${{ github.run_id }}
+          path: ${{ env.APP_DIR }}/reports
+
+      - name: Verify configuration authorization
+        working-directory: ${{ env.APP_DIR }}
+        run: >-
+          python3 -c
+          'import json; from pathlib import Path;
+          d=json.loads(Path("reports/ci-config-policy-decision.json").read_text());
+          assert d.get("policy_decision") == "approved" and d.get("build_allowed") is True,
+          "pre-build configuration policy did not authorize the build"'
+
+      - name: Build local candidate without publishing
+        working-directory: ${{ env.APP_DIR }}
+        run: >-
+          docker build
+          --file "$SELECTED_DOCKERFILE"
+          --tag "$LOCAL_IMAGE"
+          .
+
+      - name: Generate Trivy image vulnerability and secret report
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: image
+          image-ref: ${{ env.LOCAL_IMAGE }}
+          scanners: vuln,secret
+          format: json
+          output: ${{ env.APP_DIR }}/reports/ci-image-trivy.json
+          exit-code: "0"
+          version: v0.72.0
+
+      - name: Apply deterministic release policy
+        id: release-policy
+        continue-on-error: true
+        working-directory: ${{ env.APP_DIR }}
+        run: >-
+          python3 scripts/evaluate_release.py
+          --image-report reports/ci-image-trivy.json
+          --config-report reports/ci-config-trivy.json
+          --output reports/ci-policy-decision.json
+
+      - name: Triage every Trivy finding and publish the run summary
+        if: always()
+        working-directory: ${{ env.APP_DIR }}
+        run: |
+          python3 scripts/triage_trivy.py \
+            --image-report reports/ci-image-trivy.json \
+            --config-report reports/ci-config-trivy.json \
+            --policy-report reports/ci-policy-decision.json \
+            --dockerfile "$SELECTED_DOCKERFILE" \
+            --json-output reports/ci-triage.json \
+            --markdown-output reports/ci-triage.md \
+            --sarif-output reports/ci-trivy.sarif
+
+      - name: Generate image-scan HTML and PDF reports
+        if: always() && hashFiles('agents/container-image-release-advisor/adk/examples/agentic-devops-portfolio/reports/ci-triage.json') != ''
+        working-directory: ${{ env.APP_DIR }}
+        run: python3 scripts/render_security_report.py image
+
+      - name: Send Trivy findings to GitHub Code Scanning
+        if: always() && hashFiles('agents/container-image-release-advisor/adk/examples/agentic-devops-portfolio/reports/ci-trivy.sarif') != ''
+        continue-on-error: true
+        uses: github/codeql-action/upload-sarif@7211b7c8077ea37d8641b6271f6a365a22a5fbfa # v4.36.0
+        with:
+          sarif_file: ${{ env.APP_DIR }}/reports/ci-trivy.sarif
+          category: trivy-container-security
+
+      - name: Upload scan evidence even when policy blocks
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: container-scan-evidence-${{ github.run_id }}
+          path: |
+            ${{ env.APP_DIR }}/reports/ci-image-trivy.json
+            ${{ env.APP_DIR }}/reports/ci-config-trivy.json
+            ${{ env.APP_DIR }}/reports/ci-config-policy-decision.json
+            ${{ env.APP_DIR }}/reports/ci-config-policy.md
+            ${{ env.APP_DIR }}/reports/ci-policy-decision.json
+            ${{ env.APP_DIR }}/reports/ci-triage.json
+            ${{ env.APP_DIR }}/reports/ci-triage.md
+            ${{ env.APP_DIR }}/reports/ci-trivy.sarif
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Upload container image vulnerability report
+        if: always() && hashFiles('agents/container-image-release-advisor/adk/examples/agentic-devops-portfolio/reports/ci-image-security-report.html') != ''
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: container-image-security-report-${{ github.run_id }}
+          path: |
+            ${{ env.APP_DIR }}/reports/ci-image-security-report.html
+            ${{ env.APP_DIR }}/reports/ci-image-security-report.pdf
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Enforce release policy and required reporting
+        if: always()
+        working-directory: ${{ env.APP_DIR }}
+        env:
+          RELEASE_POLICY_OUTCOME: ${{ steps.release-policy.outcome }}
+        run: |
+          test "$RELEASE_POLICY_OUTCOME" = "success" || {
+            echo "Release policy blocked this candidate"
+            exit 1
+          }
+          test -s reports/ci-triage.json
+          test -s reports/ci-triage.md
+          test -s reports/ci-trivy.sarif
+          test -s reports/ci-image-security-report.html
+          test -s reports/ci-image-security-report.pdf
+
+      - name: Package the authorized local image
+        working-directory: ${{ env.APP_DIR }}
+        run: docker save --output reports/release-image.tar "$LOCAL_IMAGE"
+
+      - name: Upload authorized release bundle
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: authorized-container-${{ github.run_id }}
+          path: |
+            ${{ env.APP_DIR }}/reports/release-image.tar
+            ${{ env.APP_DIR }}/reports/ci-policy-decision.json
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0
+
+  unified-report:
+    name: Overall release
+    needs:
+      - sonarqube
+      - configuration-security
+      - prebuild-report
+      - container-security
+      - agent-triage
+    if: >-
+      always() &&
+      needs.sonarqube.result != 'skipped' &&
+      needs.container-security.result != 'skipped'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Download SonarQube evidence
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: sonar-scan-evidence-${{ github.run_id }}
+          path: ${{ env.APP_DIR }}/.ci-unified-input/sonar
+
+      - name: Download Trivy evidence
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: container-scan-evidence-${{ github.run_id }}
+          path: ${{ env.APP_DIR }}/.ci-unified-input/trivy
+
+      - name: Download ADK advisory evidence when available
+        continue-on-error: true
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: agent-advisory-evidence-${{ github.run_id }}
+          path: ${{ env.APP_DIR }}/reports
+
+      - name: Generate overall summary and consolidated report
+        working-directory: ${{ env.APP_DIR }}
+        run: |
+          python3 scripts/aggregate_security_reports.py \
+            --sonar-report .ci-unified-input/sonar/ci-sonar.json \
+            --trivy-report .ci-unified-input/trivy/ci-triage.json
+          python3 scripts/render_security_report.py consolidated
+          cat reports/ci-unified-security.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload consolidated release report
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: consolidated-release-security-report-${{ github.run_id }}
+          path: |
+            ${{ env.APP_DIR }}/reports/ci-unified-security.json
+            ${{ env.APP_DIR }}/reports/ci-unified-security.md
+            ${{ env.APP_DIR }}/reports/ci-consolidated-security-report.html
+            ${{ env.APP_DIR }}/reports/ci-consolidated-security-report.pdf
+          if-no-files-found: error
+          retention-days: 30
+
+  agent-triage:
+    name: ADK agent advisory triage
+    needs: container-security
+    if: always() && needs.container-security.result != 'skipped'
+    continue-on-error: true
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Download deterministic triage evidence
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: container-scan-evidence-${{ github.run_id }}
+          path: agents/container-image-release-advisor/adk/.ci-agent-input
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          enable-cache: true
+          cache-dependency-glob: agents/container-image-release-advisor/adk/uv.lock
+
+      - name: Install locked ADK dependencies
+        working-directory: agents/container-image-release-advisor/adk
+        run: uv sync --frozen --no-dev
+
+      - name: Authenticate to Google Cloud with Workload Identity Federation
+        if: github.ref == 'refs/heads/main'
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+
+      - name: Run Vertex AI ADK advisory agent
+        working-directory: agents/container-image-release-advisor/adk
+        env:
+          GOOGLE_GENAI_USE_VERTEXAI: "true"
+          GOOGLE_CLOUD_PROJECT: ${{ github.ref == 'refs/heads/main' && secrets.GOOGLE_CLOUD_PROJECT || '' }}
+          GOOGLE_CLOUD_LOCATION: "global"
+        run: >-
+          uv run --no-sync python scripts/run_ci_agent.py
+          --triage-report .ci-agent-input/ci-triage.json
+          --json-output reports/ci-agent-review.json
+          --markdown-output reports/ci-agent-review.md
+
+      - name: Upload agent advisory report
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: agent-advisory-evidence-${{ github.run_id }}
+          path: |
+            agents/container-image-release-advisor/adk/reports/ci-agent-review.json
+            agents/container-image-release-advisor/adk/reports/ci-agent-review.md
+          if-no-files-found: warn
+          retention-days: 30
+
+  release-approval:
+    name: Release approval gate
+    needs:
+      - sonarqube
+      - configuration-security
+      - prebuild-report
+      - container-security
+      - unified-report
+      - agent-triage
+    if: >-
+      always() &&
+      needs.sonarqube.result == 'success' &&
+      needs.configuration-security.result == 'success' &&
+      needs.prebuild-report.result == 'success' &&
+      needs.container-security.result == 'success' &&
+      needs.unified-report.result == 'success' &&
+      ((github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'workflow_dispatch' &&
+      github.ref == 'refs/heads/main' && (inputs.publish || inputs.approval_test)))
+    environment:
+      name: container-production
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Record reviewer authorization
+        run: echo "The protected container-production environment approved this release."
+
+  publish:
+    name: Publish authorized image
+    needs:
+      - release-approval
+    if: >-
+      always() &&
+      needs.release-approval.result == 'success' &&
+      ((github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'workflow_dispatch' &&
+      github.ref == 'refs/heads/main' && inputs.publish))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Download authorized release bundle
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: authorized-container-${{ github.run_id }}
+          path: release
+
+      - name: Verify explicit policy authorization
+        run: >-
+          python3 -c
+          'import json; from pathlib import Path;
+          d=json.loads(Path("release/ci-policy-decision.json").read_text());
+          assert d.get("policy_decision") == "approved" and d.get("publish_allowed") is True,
+          "release policy did not authorize publishing"'
+
+      - name: Require Docker Hub configuration
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_REPOSITORY: ${{ secrets.DOCKERHUB_REPOSITORY }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          test -n "$DOCKERHUB_USERNAME" || { echo "Missing DOCKERHUB_USERNAME repository variable"; exit 1; }
+          test -n "$DOCKERHUB_REPOSITORY" || { echo "Missing DOCKERHUB_REPOSITORY repository variable"; exit 1; }
+          test -n "$DOCKERHUB_TOKEN" || { echo "Missing DOCKERHUB_TOKEN repository secret"; exit 1; }
+          case "$DOCKERHUB_USERNAME" in *[!a-z0-9_-]*|'') echo "Invalid Docker Hub username"; exit 1;; esac
+          case "$DOCKERHUB_REPOSITORY" in *[!a-z0-9._-]*|'') echo "Invalid Docker Hub repository"; exit 1;; esac
+
+      - name: Load the exact scanned image
+        run: docker load --input release/release-image.tar
+
+      - name: Authenticate to Docker Hub only after authorization
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Tag and push authorized release tags
+        env:
+          RELEASE_REPOSITORY: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}
+        run: |
+          if [[ "$GITHUB_REF" == "refs/heads/main" ]]; then
+            docker tag "$LOCAL_IMAGE" "$RELEASE_REPOSITORY:$GITHUB_SHA"
+            docker tag "$LOCAL_IMAGE" "$RELEASE_REPOSITORY:latest"
+            docker push "$RELEASE_REPOSITORY:$GITHUB_SHA"
+            docker push "$RELEASE_REPOSITORY:latest"
+          fi
