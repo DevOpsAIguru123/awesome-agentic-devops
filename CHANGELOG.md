@@ -9,6 +9,10 @@ documented here. The format is based on
 
 ### Changed
 
+- **Hardened catalog schema validation.** Required string fields now reject blank
+  values, and `labels` / `use_cases` must contain at least one non-empty string
+  item so incomplete catalog rows fail locally before reaching README generation
+  or CI.
 - **Replaced the emoji evaluation labels with text badges.** The six glyphs
   (🟢 🟡 🔵 🛡️ 📊 ⚠️) are now readable tokens — `prod`, `prototype`, `mcp`,
   `approval`, `evidence`, `write` — across the legend, all catalog rows,

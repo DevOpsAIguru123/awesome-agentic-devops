@@ -37,6 +37,18 @@ ALLOWED_MATURITY = {
 }
 ALLOWED_EVIDENCE_TRACING = {"none", "partial", "yes", "unknown"}
 ALLOWED_HUMAN_APPROVAL = {True, False, "unknown"}
+STRING_FIELDS = (
+    "name",
+    "url",
+    "category",
+    "type",
+    "framework",
+    "primary_language",
+    "cloud_provider",
+    "risk_notes",
+    "operator_note",
+)
+LIST_FIELDS = ("labels", "use_cases")
 
 
 class ValidationError(Exception):
@@ -77,9 +89,28 @@ def _validate_choice(name: str, field: str, value: Any, allowed: set[Any]) -> No
         )
 
 
+def _validate_non_empty_string(name: str, field: str, value: Any) -> None:
+    if not isinstance(value, str) or not value.strip():
+        raise ValidationError(f"{name}: {field} must be a non-empty string")
+
+
+def _validate_string_list(name: str, field: str, value: Any) -> None:
+    if not isinstance(value, list):
+        raise ValidationError(f"{name}: {field} must be a list")
+    if not value:
+        raise ValidationError(f"{name}: {field} must contain at least one item")
+    for item in value:
+        if not isinstance(item, str) or not item.strip():
+            raise ValidationError(f"{name}: {field} items must be non-empty strings")
+
+
 def _validate_entry(entry: dict[str, Any], index: int) -> None:
     name = _entry_name(entry, index)
     _require_fields(entry, name)
+    for field in STRING_FIELDS:
+        _validate_non_empty_string(name, field, entry[field])
+    for field in LIST_FIELDS:
+        _validate_string_list(name, field, entry[field])
     _validate_choice(name, "action_level", entry["action_level"], ALLOWED_ACTION_LEVELS)
     _validate_choice(name, "maturity", entry["maturity"], ALLOWED_MATURITY)
     _validate_choice(
@@ -90,9 +121,6 @@ def _validate_entry(entry: dict[str, Any], index: int) -> None:
     )
     if entry["human_approval"] not in ALLOWED_HUMAN_APPROVAL:
         raise ValidationError(f"{name}: human_approval must be true, false, or unknown")
-    for field in ("labels", "use_cases"):
-        if not isinstance(entry[field], list):
-            raise ValidationError(f"{name}: {field} must be a list")
 
 
 def _validate_unique_field(entries: list[dict[str, Any]], field: str) -> None:

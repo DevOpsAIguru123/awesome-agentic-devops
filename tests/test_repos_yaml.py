@@ -90,6 +90,27 @@ def test_rejects_labels_that_are_not_a_list():
         validate_entries(entries)
 
 
+def test_rejects_empty_string_fields():
+    entries = [valid_entry(operator_note="   ")]
+
+    with pytest.raises(ValidationError, match="operator_note must be a non-empty string"):
+        validate_entries(entries)
+
+
+def test_rejects_empty_list_fields():
+    entries = [valid_entry(use_cases=[])]
+
+    with pytest.raises(ValidationError, match="use_cases must contain at least one item"):
+        validate_entries(entries)
+
+
+def test_rejects_blank_list_items():
+    entries = [valid_entry(labels=["official", ""])]
+
+    with pytest.raises(ValidationError, match="labels items must be non-empty strings"):
+        validate_entries(entries)
+
+
 def test_rejects_duplicate_names():
     entries = [
         valid_entry(name="vendor/tool-a", url="https://github.com/vendor/tool-a"),
