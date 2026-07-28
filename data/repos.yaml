@@ -1172,6 +1172,27 @@
     - mcp
     - prototype
 
+- name: vbkotecha/agentservices-api
+  url: https://github.com/vbkotecha/agentservices-api
+  category: community-discovery
+  type: mcp-server
+  framework: MCP
+  primary_language: Python
+  cloud_provider: multi-cloud
+  use_cases:
+    - agent-api-routing
+    - paid-api-discovery
+    - x402-payment-integration
+  action_level: read-only
+  human_approval: unknown
+  evidence_tracing: none
+  maturity: production-adjacent
+  risk_notes: "AgentServices routes agent tool calls to paid data APIs via x402 micropayments; review API provider trust and cost controls before production use."
+  operator_note: "x402-paid API routing layer and MCP marketplace for AI agents — discover, route, and pay for 50+ data services."
+  labels:
+    - mcp
+    - prod
+
 - name: antonbabenko/terraform-skill
   url: https://github.com/antonbabenko/terraform-skill
   category: community-agent-skills
