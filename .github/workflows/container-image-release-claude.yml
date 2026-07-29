@@ -46,6 +46,8 @@ jobs:
     name: SonarQube quality gate
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    outputs:
+      sonar_artifact_url: ${{ steps.upload_sonar.outputs.artifact-url }}
     steps:
       - name: Check out source
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -86,6 +88,7 @@ jobs:
           --branch "$SONAR_BRANCH"
 
       - name: Upload normalized SonarQube evidence
+        id: upload_sonar
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: sonar-scan-evidence-${{ github.run_id }}
@@ -110,6 +113,8 @@ jobs:
     name: Pre-build configuration scan
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    outputs:
+      configuration_artifact_url: ${{ steps.upload_configuration.outputs.artifact-url }}
     steps:
       - name: Check out source
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -140,6 +145,7 @@ jobs:
         run: python3 scripts/evaluate_config_policy.py
 
       - name: Upload configuration evidence even when policy blocks
+        id: upload_configuration
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -171,6 +177,8 @@ jobs:
     if: always() && needs.sonarqube.result != 'skipped' && needs.configuration-security.result != 'skipped'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
+    outputs:
+      prebuild_artifact_url: ${{ steps.upload_prebuild.outputs.artifact-url }}
     steps:
       - name: Check out source
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -191,12 +199,28 @@ jobs:
         working-directory: ${{ env.APP_DIR }}
         run: python3 scripts/render_security_report.py prebuild
 
+      - name: Upload pre-build report even when the build is blocked
+        id: upload_prebuild
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: pre-build-security-report-${{ github.run_id }}
+          path: |
+            ${{ env.APP_DIR }}/reports/ci-prebuild-security-report.html
+            ${{ env.APP_DIR }}/reports/ci-prebuild-security-report.pdf
+          if-no-files-found: error
+          retention-days: 30
+
       - name: Publish fallback summary when configuration blocks the pipeline
         if: always() && needs.configuration-security.result != 'success'
         working-directory: ${{ env.APP_DIR }}
+        env:
+          PREBUILD_ARTIFACT_URL: ${{ steps.upload_prebuild.outputs.artifact-url }}
+          SONAR_ARTIFACT_URL: ${{ needs.sonarqube.outputs.sonar_artifact_url }}
+          CONFIGURATION_ARTIFACT_URL: ${{ needs.configuration-security.outputs.configuration_artifact_url }}
         run: |
           python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
           import json
+          import os
           from pathlib import Path
           sonar = json.loads(Path("reports/ci-sonar.json").read_text())
           policy = json.loads(Path("reports/ci-config-policy-decision.json").read_text())
@@ -209,18 +233,16 @@ jobs:
           print("- Container image scan: **not_run**")
           print("- Protected approval and publishing: **not_run**")
           print()
-          print("The pre-build HTML and PDF reports are attached to this run.")
+          print("## Available reports and evidence")
+          print()
+          for label, variable in (
+              ("Pre-build code and configuration report", "PREBUILD_ARTIFACT_URL"),
+              ("SonarQube scan evidence", "SONAR_ARTIFACT_URL"),
+              ("Configuration scan evidence", "CONFIGURATION_ARTIFACT_URL"),
+          ):
+              url = os.environ.get(variable, "")
+              print(f"- [{label}]({url})" if url else f"- {label}: unavailable")
           PY
-
-      - name: Upload pre-build report even when the build is blocked
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: pre-build-security-report-${{ github.run_id }}
-          path: |
-            ${{ env.APP_DIR }}/reports/ci-prebuild-security-report.html
-            ${{ env.APP_DIR }}/reports/ci-prebuild-security-report.pdf
-          if-no-files-found: error
-          retention-days: 30
 
   container-security:
     name: Build, scan, and authorize
@@ -230,6 +252,10 @@ jobs:
       - prebuild-report
     runs-on: ubuntu-24.04
     timeout-minutes: 30
+    outputs:
+      container_evidence_artifact_url: ${{ steps.upload_container_evidence.outputs.artifact-url }}
+      image_report_artifact_url: ${{ steps.upload_image_report.outputs.artifact-url }}
+      authorized_bundle_artifact_url: ${{ steps.upload_authorized_bundle.outputs.artifact-url }}
     permissions:
       contents: read
       security-events: write
@@ -312,6 +338,7 @@ jobs:
           category: trivy-container-security
 
       - name: Upload scan evidence even when policy blocks
+        id: upload_container_evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -329,6 +356,7 @@ jobs:
           retention-days: 30
 
       - name: Upload container image vulnerability report
+        id: upload_image_report
         if: always() && hashFiles('agents/container-image-release-advisor/adk/examples/agentic-devops-portfolio/reports/ci-image-security-report.html') != ''
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -360,6 +388,7 @@ jobs:
         run: docker save --output reports/release-image.tar "$LOCAL_IMAGE"
 
       - name: Upload authorized release bundle
+        id: upload_authorized_bundle
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: authorized-container-${{ github.run_id }}
@@ -414,9 +443,9 @@ jobs:
             --sonar-report .ci-unified-input/sonar/ci-sonar.json \
             --trivy-report .ci-unified-input/trivy/ci-triage.json
           python3 scripts/render_security_report.py consolidated
-          cat reports/ci-unified-security.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload consolidated release report
+        id: upload_consolidated
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: consolidated-release-security-report-${{ github.run_id }}
@@ -428,6 +457,33 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+      - name: Publish one ordered release summary with artifact links
+        working-directory: ${{ env.APP_DIR }}
+        env:
+          PREBUILD_ARTIFACT_URL: ${{ needs.prebuild-report.outputs.prebuild_artifact_url }}
+          IMAGE_ARTIFACT_URL: ${{ needs.container-security.outputs.image_report_artifact_url }}
+          CONSOLIDATED_ARTIFACT_URL: ${{ steps.upload_consolidated.outputs.artifact-url }}
+          SONAR_ARTIFACT_URL: ${{ needs.sonarqube.outputs.sonar_artifact_url }}
+          CONFIGURATION_ARTIFACT_URL: ${{ needs.configuration-security.outputs.configuration_artifact_url }}
+          CONTAINER_ARTIFACT_URL: ${{ needs.container-security.outputs.container_evidence_artifact_url }}
+          AGENT_ARTIFACT_URL: ${{ needs.claude-triage.outputs.agent_artifact_url }}
+          BUNDLE_ARTIFACT_URL: ${{ needs.container-security.outputs.authorized_bundle_artifact_url }}
+        run: |
+          python3 scripts/render_workflow_summary.py \
+            --consolidated-markdown reports/ci-unified-security.md \
+            --agent-markdown reports/ci-agent-review.md \
+            --repository "$GITHUB_REPOSITORY" \
+            --run-id "$GITHUB_RUN_ID" \
+            --prebuild-artifact-url "$PREBUILD_ARTIFACT_URL" \
+            --image-artifact-url "$IMAGE_ARTIFACT_URL" \
+            --consolidated-artifact-url "$CONSOLIDATED_ARTIFACT_URL" \
+            --sonar-artifact-url "$SONAR_ARTIFACT_URL" \
+            --configuration-artifact-url "$CONFIGURATION_ARTIFACT_URL" \
+            --container-artifact-url "$CONTAINER_ARTIFACT_URL" \
+            --agent-artifact-url "$AGENT_ARTIFACT_URL" \
+            --bundle-artifact-url "$BUNDLE_ARTIFACT_URL" \
+            >> "$GITHUB_STEP_SUMMARY"
+
   claude-triage:
     name: Claude Sonnet 5 advisory triage
     needs: container-security
@@ -435,6 +491,8 @@ jobs:
     continue-on-error: true
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    outputs:
+      agent_artifact_url: ${{ steps.upload_agent.outputs.artifact-url }}
     steps:
       - name: Check out source
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -515,9 +573,9 @@ jobs:
               "Claude advisory changed deterministic policy",
           )
           PY
-          cat reports/ci-agent-review.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload Claude advisory evidence
+        id: upload_agent
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
