@@ -65,7 +65,6 @@ def render(
     repository: str,
     run_id: str,
     artifact_urls: dict[str, str],
-    diagnostic_mode: bool = False,
 ) -> str:
     marker = "\n## Scoped scanner decisions"
     if marker not in consolidated:
@@ -86,25 +85,13 @@ def render(
     run_url = f"https://github.com/{repository}/actions/runs/{run_id}#artifacts"
     artifact_lines.extend(["", f"[View all artifacts for this run]({run_url})"])
 
-    diagnostic_notice = ""
-    if diagnostic_mode:
-        diagnostic_notice = (
-            "> **Diagnostic evidence collection:** This pull-request demonstration "
-            "continued code, configuration, image, and advisory analysis after a "
-            "blocked pre-build gate. The blocked policy remained authoritative; "
-            "approval, the authorized image bundle, and publishing stayed disabled."
-        )
-
     return "\n\n".join(
-        part
-        for part in (
+        (
             decision.strip(),
-            diagnostic_notice,
             "\n".join(artifact_lines),
             "## Deterministic scanner details\n\n" + findings.strip(),
             demote_agent_headings(agent),
         )
-        if part
     )
 
 
@@ -114,12 +101,6 @@ def main() -> int:
     parser.add_argument("--agent-markdown", type=Path, required=True)
     parser.add_argument("--repository", required=True)
     parser.add_argument("--run-id", required=True)
-    parser.add_argument(
-        "--diagnostic-mode",
-        choices=("true", "false"),
-        default="false",
-        help="Mark a run that continued only to collect blocked-release evidence",
-    )
     for _, key, _ in ARTIFACTS:
         parser.add_argument(f"--{key}-artifact-url", default="")
     args = parser.parse_args()
@@ -134,7 +115,6 @@ def main() -> int:
             args.repository,
             args.run_id,
             urls,
-            diagnostic_mode=args.diagnostic_mode == "true",
         )
     except ValueError as exc:
         parser.error(str(exc))

@@ -42,9 +42,6 @@ env:
   # Temporary PR-only security demonstration for screenshots. The vulnerable
   # fixture is never selected on main and publishing remains impossible on PRs.
   SELECTED_DOCKERFILE: ${{ github.event_name == 'workflow_dispatch' && inputs.dockerfile || github.event_name == 'pull_request' && 'Dockerfile.vulnerable' || 'Dockerfile' }}
-  # Evidence collection may continue after a blocked gate only on pull requests.
-  # The deterministic decisions remain blocked and approval/publishing stay disabled.
-  SECURITY_DEMO_MODE: ${{ github.event_name == 'pull_request' && 'true' || 'false' }}
 
 jobs:
   sonarqube:
@@ -215,55 +212,16 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
-      - name: Publish fallback summary when configuration blocks the pipeline
-        if: >-
-          always() &&
-          needs.configuration-security.result != 'success' &&
-          github.event_name != 'pull_request'
-        working-directory: ${{ env.APP_DIR }}
-        env:
-          PREBUILD_ARTIFACT_URL: ${{ steps.upload_prebuild.outputs.artifact-url }}
-          SONAR_ARTIFACT_URL: ${{ needs.sonarqube.outputs.sonar_artifact_url }}
-          CONFIGURATION_ARTIFACT_URL: ${{ needs.configuration-security.outputs.configuration_artifact_url }}
-        run: |
-          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
-          import json
-          import os
-          from pathlib import Path
-          sonar = json.loads(Path("reports/ci-sonar.json").read_text())
-          policy = json.loads(Path("reports/ci-config-policy-decision.json").read_text())
-          print("# Overall release decision: BLOCKED")
-          print()
-          print("The pipeline stopped before building an image because a required pre-build gate failed.")
-          print()
-          print(f"- Sonar quality gate: **{sonar.get('quality_gate', {}).get('status', 'UNKNOWN')}**")
-          print(f"- Configuration policy: **{policy.get('policy_decision', 'not_evaluated')}**")
-          print("- Container image scan: **not_run**")
-          print("- Protected approval and publishing: **not_run**")
-          print()
-          print("## Available reports and evidence")
-          print()
-          for label, variable in (
-              ("Pre-build code and configuration report", "PREBUILD_ARTIFACT_URL"),
-              ("SonarQube scan evidence", "SONAR_ARTIFACT_URL"),
-              ("Configuration scan evidence", "CONFIGURATION_ARTIFACT_URL"),
-          ):
-              url = os.environ.get(variable, "")
-              print(f"- [{label}]({url})" if url else f"- {label}: unavailable")
-          PY
-
   container-security:
-    name: Build, scan, and authorize
+    name: Build, scan, and evaluate policy
     needs:
       - sonarqube
       - configuration-security
       - prebuild-report
     if: >-
       always() &&
-      needs.sonarqube.result == 'success' &&
       needs.prebuild-report.result == 'success' &&
-      (needs.configuration-security.result == 'success' ||
-      github.event_name == 'pull_request')
+      needs.configuration-security.result != 'skipped'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     outputs:
@@ -287,12 +245,11 @@ jobs:
           name: configuration-scan-evidence-${{ github.run_id }}
           path: ${{ env.APP_DIR }}/reports
 
-      - name: Verify configuration authorization
+      - name: Record pre-build policy before scan-only image build
         working-directory: ${{ env.APP_DIR }}
         run: |
           python3 - <<'PY'
           import json
-          import os
           from pathlib import Path
 
           decision = json.loads(
@@ -303,14 +260,12 @@ jobs:
               and decision.get("build_allowed") is True
           )
           if authorized:
+              print("Pre-build policy approved; collecting image evidence")
               raise SystemExit(0)
-          if os.environ.get("SECURITY_DEMO_MODE") == "true":
-              print(
-                  "::warning::Diagnostic evidence collection only: the configuration "
-                  "policy remains blocked; approval and publishing are disabled"
-              )
-              raise SystemExit(0)
-          raise SystemExit("pre-build configuration policy did not authorize the build")
+          print(
+              "::warning::Pre-build policy is blocked. Building locally only to collect "
+              "image security evidence; approval and publishing remain disabled"
+          )
           PY
 
       - name: Build local candidate without publishing
@@ -513,7 +468,6 @@ jobs:
             --container-artifact-url "$CONTAINER_ARTIFACT_URL" \
             --agent-artifact-url "$AGENT_ARTIFACT_URL" \
             --bundle-artifact-url "$BUNDLE_ARTIFACT_URL" \
-            --diagnostic-mode "$SECURITY_DEMO_MODE" \
             >> "$GITHUB_STEP_SUMMARY"
 
   claude-triage:
