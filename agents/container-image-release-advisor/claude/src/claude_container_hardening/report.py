@@ -21,13 +21,21 @@ def safe(value: Any) -> str:
 
 
 def render_markdown(result: dict[str, Any]) -> str:
+    policy_decision = result.get("policy_decision")
+    if policy_decision == "approved":
+        release_status = "Human approval required"
+    elif policy_decision == "blocked":
+        release_status = "Blocked by deterministic policy"
+    else:
+        release_status = "Deterministic policy evaluation required"
+
     lines = [
         "# Claude Agent SDK container security review",
         "",
-        "**Overall release decision:** `not_evaluated`  ",
+        f"**Overall release status:** {release_status}  ",
         f"**Agent status:** `{safe(result['agent_status'])}`  ",
         "**Scoped deterministic policy decision:** "
-        f"`{safe(result['policy_decision'])}`",
+        f"`{safe(policy_decision)}`",
         "",
         "> This review is advisory. It cannot approve, reject, waive, publish, or ",
         "> override deterministic policy. `policy_decision: not_evaluated` "
