@@ -85,7 +85,11 @@ def build_envelope(triage: dict[str, Any], max_findings: int) -> dict[str, Any]:
 
 def validate_finding_ids(review: AgentReview, envelope: dict[str, Any]) -> AgentReview:
     """Reject citations that are absent from the bounded evidence."""
-    allowed = {finding["id"] for finding in envelope["findings"]}
+    allowed = {
+        identifier
+        for finding in envelope["findings"]
+        for identifier in (finding["id"], finding["triage_item_id"])
+    }
     cited = {
         finding_id
         for action in review.prioritized_actions
