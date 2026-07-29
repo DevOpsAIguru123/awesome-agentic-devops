@@ -42,6 +42,9 @@ env:
   # Temporary PR-only security demonstration for screenshots. The vulnerable
   # fixture is never selected on main and publishing remains impossible on PRs.
   SELECTED_DOCKERFILE: ${{ github.event_name == 'workflow_dispatch' && inputs.dockerfile || github.event_name == 'pull_request' && 'Dockerfile.vulnerable' || 'Dockerfile' }}
+  # Evidence collection may continue after a blocked gate only on pull requests.
+  # The deterministic decisions remain blocked and approval/publishing stay disabled.
+  SECURITY_DEMO_MODE: ${{ github.event_name == 'pull_request' && 'true' || 'false' }}
 
 jobs:
   sonarqube:
@@ -213,7 +216,10 @@ jobs:
           retention-days: 30
 
       - name: Publish fallback summary when configuration blocks the pipeline
-        if: always() && needs.configuration-security.result != 'success'
+        if: >-
+          always() &&
+          needs.configuration-security.result != 'success' &&
+          github.event_name != 'pull_request'
         working-directory: ${{ env.APP_DIR }}
         env:
           PREBUILD_ARTIFACT_URL: ${{ steps.upload_prebuild.outputs.artifact-url }}
@@ -252,6 +258,12 @@ jobs:
       - sonarqube
       - configuration-security
       - prebuild-report
+    if: >-
+      always() &&
+      needs.sonarqube.result == 'success' &&
+      needs.prebuild-report.result == 'success' &&
+      (needs.configuration-security.result == 'success' ||
+      github.event_name == 'pull_request')
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     outputs:
@@ -277,12 +289,29 @@ jobs:
 
       - name: Verify configuration authorization
         working-directory: ${{ env.APP_DIR }}
-        run: >-
-          python3 -c
-          'import json; from pathlib import Path;
-          d=json.loads(Path("reports/ci-config-policy-decision.json").read_text());
-          assert d.get("policy_decision") == "approved" and d.get("build_allowed") is True,
-          "pre-build configuration policy did not authorize the build"'
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          decision = json.loads(
+              Path("reports/ci-config-policy-decision.json").read_text(encoding="utf-8")
+          )
+          authorized = (
+              decision.get("policy_decision") == "approved"
+              and decision.get("build_allowed") is True
+          )
+          if authorized:
+              raise SystemExit(0)
+          if os.environ.get("SECURITY_DEMO_MODE") == "true":
+              print(
+                  "::warning::Diagnostic evidence collection only: the configuration "
+                  "policy remains blocked; approval and publishing are disabled"
+              )
+              raise SystemExit(0)
+          raise SystemExit("pre-build configuration policy did not authorize the build")
+          PY
 
       - name: Build local candidate without publishing
         working-directory: ${{ env.APP_DIR }}
@@ -484,6 +513,7 @@ jobs:
             --container-artifact-url "$CONTAINER_ARTIFACT_URL" \
             --agent-artifact-url "$AGENT_ARTIFACT_URL" \
             --bundle-artifact-url "$BUNDLE_ARTIFACT_URL" \
+            --diagnostic-mode "$SECURITY_DEMO_MODE" \
             >> "$GITHUB_STEP_SUMMARY"
 
   claude-triage:
