@@ -53,6 +53,7 @@ Advisory only.
     assert summary.index("## Overall release decision") < summary.index(
         "## Reports and audit evidence"
     )
+    assert "machine-readable evidence supporting the release decision" in summary
     assert summary.index("## Reports and audit evidence") < summary.index(
         "## Deterministic scanner summary"
     )

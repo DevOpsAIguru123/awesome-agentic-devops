@@ -82,6 +82,9 @@ def render(
     artifact_lines = [
         "## Reports and audit evidence",
         "",
+        "Downloadable human-readable reports and machine-readable evidence "
+        "supporting the release decision.",
+        "",
         "| Order | Artifact | Contents |",
         "| ---: | --- | --- |",
     ]

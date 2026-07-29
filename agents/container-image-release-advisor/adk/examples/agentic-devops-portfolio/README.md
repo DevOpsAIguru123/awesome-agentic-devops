@@ -57,13 +57,14 @@ uses isolated jobs:
 1. SonarQube source analysis and Quality Gate enforcement runs in parallel
    with a dedicated Trivy configuration scan of the exact Dockerfile and
    deployment configuration selected for release.
-2. The deterministic pre-build configuration policy must pass before the
-   Docker build is reachable. The approved configuration evidence is then
-   reused with the Trivy image vulnerability/secret scan by the final
-   deterministic release-policy gate. Every Trivy occurrence is also ranked
-   into an advisory triage queue, rendered in the Actions job summary, retained
-   as Markdown/JSON/SARIF evidence, and uploaded to GitHub Code Scanning when
-   that repository feature is available.
+2. The pipeline records the deterministic pre-build configuration decision,
+   then builds the candidate locally to collect Trivy image vulnerability and
+   secret evidence even when an earlier scanner blocks release. The final
+   deterministic release-policy gate preserves every blocked decision and is
+   the only path to authorization. Every Trivy occurrence is also ranked into
+   an advisory triage queue, rendered in the Actions job summary, retained as
+   Markdown/JSON/SARIF evidence, and uploaded to GitHub Code Scanning when that
+   repository feature is available.
 3. A report aggregation stage that exports SonarQube Cloud findings and joins
    them with the normalized Trivy image/configuration triage. It publishes one
    complete Markdown report for people and one JSON report for automation.
@@ -76,8 +77,11 @@ uses isolated jobs:
    and deterministic container-security jobs succeed and the machine-readable
    decision says `publish_allowed: true`.
 
-The generated `ci-unified-security.md` is the primary team-facing report and is
-rendered directly in the Actions job summary. Its companion
+The generated **Consolidated Release Security Report** is the primary
+team-facing report and is rendered directly in the Actions job summary. It
+combines SonarQube source-code findings, Trivy configuration and container-image
+findings, deterministic release policy, and agent advisory triage. Its internal
+filename remains `ci-unified-security.md` for compatibility. Its companion
 `ci-unified-security.json` retains the complete Sonar code findings, security
 hotspots, Trivy image/configuration findings, metrics, and independent gate
 outcomes. The original `ci-triage.json`, `ci-triage.md`, and `ci-trivy.sarif`

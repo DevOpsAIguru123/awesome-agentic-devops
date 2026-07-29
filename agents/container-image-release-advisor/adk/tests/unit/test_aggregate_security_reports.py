@@ -97,6 +97,8 @@ def test_combines_code_hotspot_and_container_findings(tmp_path: Path) -> None:
     markdown = (tmp_path / "reports" / "ci-unified-security.md").read_text(
         encoding="utf-8"
     )
+    assert "# Consolidated Release Security Report" in markdown
+    assert "Combines SonarQube source-code findings" in markdown
     assert "Sonar code findings" in markdown
     assert "CVE-2026-0001" in markdown
     assert "policy_decision: not_evaluated` is not approval" in markdown

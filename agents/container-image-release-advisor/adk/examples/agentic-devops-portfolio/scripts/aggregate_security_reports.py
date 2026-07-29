@@ -199,7 +199,11 @@ def render_markdown(report: dict[str, Any]) -> str:
     sonar = report["code_scan"]
     trivy = report["image_and_configuration_scan"]
     lines = [
-        "# Unified DevSecOps security report",
+        "# Consolidated Release Security Report",
+        "",
+        "Combines SonarQube source-code findings, Trivy configuration and "
+        "container-image findings, deterministic release policy, and "
+        "Claude advisory triage.",
         "",
         "## Overall release decision",
         "",
