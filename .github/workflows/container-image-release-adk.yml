@@ -1,12 +1,8 @@
 name: ADK container image release
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "agents/container-image-release-advisor/adk/**"
-      - ".github/workflows/container-image-release-adk.yml"
+  # Optional advisor: run manually, or enable its pull_request trigger after
+  # disabling the Claude workflow's pull_request trigger.
   workflow_dispatch:
     inputs:
       dockerfile:

@@ -1,8 +1,13 @@
 name: Claude container image release
 
 on:
-  # Enable pull_request/push only after the documented repository secrets and
-  # protected release environment have been configured.
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "agents/container-image-release-advisor/adk/**"
+      - "agents/container-image-release-advisor/claude/**"
+      - ".github/workflows/container-image-release-claude.yml"
   workflow_dispatch:
     inputs:
       dockerfile:

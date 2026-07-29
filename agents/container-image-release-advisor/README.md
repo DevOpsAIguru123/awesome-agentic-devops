@@ -47,10 +47,15 @@ the image build, image scan, approval, and publish stages remain unreachable.
 
 ## Choose a workflow
 
-The included workflows are manual (`workflow_dispatch`) by default so forks and
-catalog pull requests do not fail before their credentials and protected
-environment exist. After completing the setup guide, maintainers can add
-`pull_request` and `push` triggers for continuous enforcement.
+Claude is the default pull-request advisor in this repository. ADK remains an
+optional, manually dispatched alternative. Community adopters should enable
+only one advisor for pull requests to avoid running the same deterministic
+SonarCloud and Trivy pipeline twice:
+
+1. Keep the Claude `pull_request` trigger when using `ANTHROPIC_API_KEY`.
+2. To use Vertex AI instead, remove or disable Claude's `pull_request` trigger
+   and add the equivalent trigger to the ADK workflow.
+3. Keep both `workflow_dispatch` triggers for explicit comparison runs.
 
 | Workflow | Advisor | Authentication |
 | --- | --- | --- |
