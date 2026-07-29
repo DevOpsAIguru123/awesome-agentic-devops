@@ -1,8 +1,12 @@
 name: ADK container image release
 
 on:
-  # Enable pull_request/push only after the documented repository secrets and
-  # protected release environment have been configured.
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "agents/container-image-release-advisor/adk/**"
+      - ".github/workflows/container-image-release-adk.yml"
   workflow_dispatch:
     inputs:
       dockerfile:
