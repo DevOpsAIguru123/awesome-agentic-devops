@@ -69,7 +69,15 @@ def render(
     marker = "\n## Scoped scanner decisions"
     if marker not in consolidated:
         raise ValueError("consolidated summary is missing the scanner-decision section")
-    decision, findings = consolidated.split(marker, 1)
+    decision, deterministic_content = consolidated.split(marker, 1)
+    details_marker = "\n## Sonar code findings"
+    if details_marker in deterministic_content:
+        deterministic_summary, detailed_findings = deterministic_content.split(
+            details_marker, 1
+        )
+    else:
+        deterministic_summary = deterministic_content
+        detailed_findings = ""
 
     artifact_lines = [
         "## Reports and audit evidence",
@@ -85,14 +93,21 @@ def render(
     run_url = f"https://github.com/{repository}/actions/runs/{run_id}#artifacts"
     artifact_lines.extend(["", f"[View all artifacts for this run]({run_url})"])
 
-    return "\n\n".join(
-        (
-            decision.strip(),
-            "\n".join(artifact_lines),
-            "## Deterministic scanner details\n\n" + findings.strip(),
-            demote_agent_headings(agent),
+    sections = [
+        decision.strip(),
+        "\n".join(artifact_lines),
+        "## Deterministic scanner summary\n\n"
+        "### Scoped scanner decisions\n\n"
+        + demote_agent_headings(deterministic_summary.strip()),
+        demote_agent_headings(agent),
+    ]
+    if detailed_findings:
+        sections.append(
+            "## Detailed deterministic scanner findings\n\n"
+            "### Sonar code findings\n\n"
+            + demote_agent_headings(detailed_findings.strip())
         )
-    )
+    return "\n\n".join(sections)
 
 
 def main() -> int:

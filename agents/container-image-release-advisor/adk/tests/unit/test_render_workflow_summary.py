@@ -30,6 +30,16 @@ def test_summary_has_stable_section_and_artifact_order() -> None:
 ## Scoped scanner decisions
 
 - Sonar: OK
+
+## Executive summary
+
+13 code findings and 372 container findings.
+
+## Sonar code findings
+
+| Finding |
+| --- |
+| Example |
 """
     agent = """# Claude review
 
@@ -44,10 +54,13 @@ Advisory only.
         "## Reports and audit evidence"
     )
     assert summary.index("## Reports and audit evidence") < summary.index(
-        "## Deterministic scanner details"
+        "## Deterministic scanner summary"
     )
-    assert summary.index("## Deterministic scanner details") < summary.index(
+    assert summary.index("## Deterministic scanner summary") < summary.index(
         "## Claude review"
+    )
+    assert summary.index("## Claude review") < summary.index(
+        "## Detailed deterministic scanner findings"
     )
     assert summary.index("Pre-build code and configuration report") < summary.index(
         "Container image security report"
