@@ -97,6 +97,21 @@ def test_rejects_empty_string_fields():
         validate_entries(entries)
 
 
+@pytest.mark.parametrize(
+    "url",
+    [
+        "http://github.com/vendor/tool",
+        "github.com/vendor/tool",
+        "/docs/tool",
+    ],
+)
+def test_rejects_urls_that_are_not_absolute_https(url):
+    entries = [valid_entry(url=url)]
+
+    with pytest.raises(ValidationError, match="url must be an absolute https URL"):
+        validate_entries(entries)
+
+
 def test_rejects_empty_list_fields():
     entries = [valid_entry(use_cases=[])]
 

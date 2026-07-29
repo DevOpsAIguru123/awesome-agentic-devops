@@ -4,6 +4,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 import yaml
 
@@ -104,6 +105,12 @@ def _validate_string_list(name: str, field: str, value: Any) -> None:
             raise ValidationError(f"{name}: {field} items must be non-empty strings")
 
 
+def _validate_https_url(name: str, value: str) -> None:
+    parsed = urlparse(value)
+    if parsed.scheme != "https" or not parsed.netloc:
+        raise ValidationError(f"{name}: url must be an absolute https URL")
+
+
 def _validate_entry(entry: dict[str, Any], index: int) -> None:
     name = _entry_name(entry, index)
     _require_fields(entry, name)
@@ -111,6 +118,7 @@ def _validate_entry(entry: dict[str, Any], index: int) -> None:
         _validate_non_empty_string(name, field, entry[field])
     for field in LIST_FIELDS:
         _validate_string_list(name, field, entry[field])
+    _validate_https_url(name, entry["url"])
     _validate_choice(name, "action_level", entry["action_level"], ALLOWED_ACTION_LEVELS)
     _validate_choice(name, "maturity", entry["maturity"], ALLOWED_MATURITY)
     _validate_choice(
