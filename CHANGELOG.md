@@ -13,6 +13,9 @@ documented here. The format is based on
   values, and `labels` / `use_cases` must contain at least one non-empty string
   item so incomplete catalog rows fail locally before reaching README generation
   or CI.
+- **Hardened catalog URL validation.** Catalog entries now require absolute
+  `https://` URLs, blocking accidental relative links, bare hostnames, and
+  insecure `http://` sources from entering the operator index.
 - **Replaced the emoji evaluation labels with text badges.** The six glyphs
   (🟢 🟡 🔵 🛡️ 📊 ⚠️) are now readable tokens — `prod`, `prototype`, `mcp`,
   `approval`, `evidence`, `write` — across the legend, all catalog rows,
