@@ -399,6 +399,8 @@ jobs:
       needs.container-security.result != 'skipped'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
+    outputs:
+      consolidated_artifact_url: ${{ steps.upload_consolidated.outputs.artifact-url }}
     steps:
       - name: Check out source
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -440,6 +442,8 @@ jobs:
             ${{ env.APP_DIR }}/reports/ci-unified-security.md
             ${{ env.APP_DIR }}/reports/ci-consolidated-security-report.html
             ${{ env.APP_DIR }}/reports/ci-consolidated-security-report.pdf
+            ${{ env.APP_DIR }}/reports/ci-agent-review.json
+            ${{ env.APP_DIR }}/reports/ci-agent-review.md
           if-no-files-found: error
           retention-days: 30
 
@@ -469,6 +473,77 @@ jobs:
             --agent-artifact-url "$AGENT_ARTIFACT_URL" \
             --bundle-artifact-url "$BUNDLE_ARTIFACT_URL" \
             >> "$GITHUB_STEP_SUMMARY"
+
+  report-delivery:
+    name: Deliver security report
+    needs:
+      - unified-report
+    if: >-
+      always() &&
+      needs.unified-report.result == 'success' &&
+      (github.event_name != 'pull_request' ||
+      github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Check out source
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Download consolidated release report
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: consolidated-release-security-report-${{ github.run_id }}
+          path: ${{ env.APP_DIR }}/reports
+
+      - name: Deliver sanitized report by email and Discord
+        id: deliver
+        continue-on-error: true
+        working-directory: ${{ env.APP_DIR }}
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_FROM_ADDRESS: ${{ secrets.RESEND_FROM_ADDRESS }}
+          RESEND_TO_ADDRESS: ${{ secrets.RESEND_TO_ADDRESS }}
+          DISCORD_WEBHOOK_URL_DEVSECOPS: ${{ secrets.DISCORD_WEBHOOK_URL_DEVSECOPS }}
+          CONSOLIDATED_ARTIFACT_URL: ${{ needs.unified-report.outputs.consolidated_artifact_url }}
+          REPORT_REF_NAME: ${{ github.head_ref || github.ref_name }}
+        run: |
+          python3 scripts/deliver_security_report.py \
+            --report reports/ci-unified-security.json \
+            --agent-report reports/ci-agent-review.json \
+            --pdf-report reports/ci-consolidated-security-report.pdf \
+            --status-output reports/ci-delivery-status.json \
+            --markdown-output reports/ci-delivery-summary.md \
+            --repository "$GITHUB_REPOSITORY" \
+            --ref-name "$REPORT_REF_NAME" \
+            --sha "$GITHUB_SHA" \
+            --run-id "$GITHUB_RUN_ID" \
+            --run-url "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
+            --artifact-url "$CONSOLIDATED_ARTIFACT_URL"
+
+      - name: Upload delivery audit evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: security-report-delivery-${{ github.run_id }}
+          path: |
+            ${{ env.APP_DIR }}/reports/ci-delivery-status.json
+            ${{ env.APP_DIR }}/reports/ci-delivery-summary.md
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Publish delivery status
+        if: always()
+        working-directory: ${{ env.APP_DIR }}
+        run: |
+          if [ -s reports/ci-delivery-summary.md ]; then
+            cat reports/ci-delivery-summary.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "# Security report delivery" >> "$GITHUB_STEP_SUMMARY"
+            echo >> "$GITHUB_STEP_SUMMARY"
+            echo "Delivery did not produce auditable status. Release policy is unchanged." >> "$GITHUB_STEP_SUMMARY"
+          fi
 
   claude-triage:
     name: Claude Sonnet 5 advisory triage

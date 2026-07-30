@@ -76,6 +76,10 @@ uses isolated jobs:
    authentication and push. The publish job is reachable only after the Sonar
    and deterministic container-security jobs succeed and the machine-readable
    decision says `publish_allowed: true`.
+6. A non-authoritative report-delivery stage sends the sanitized consolidated
+   PDF and decision summary through Resend email and a compact Discord webhook
+   embed. Delivery runs for blocked and release-ready candidates but cannot
+   alter scanner evidence, deterministic policy, human approval, or publishing.
 
 The generated **Consolidated Release Security Report** is the primary
 team-facing report and is rendered directly in the Actions job summary. It
@@ -103,6 +107,25 @@ The PDFs are generated from the corresponding self-contained HTML using
 headless Chrome. Required verification checks the PDF signature, trailer,
 page objects, size, and embedded report title. When Poppler is available,
 page-count and selectable-text verification run as additional checks.
+
+### Report delivery configuration
+
+Configure these GitHub repository secrets to enable delivery after the
+consolidated report is generated:
+
+- `RESEND_API_KEY`: a Resend key restricted to sending email.
+- `RESEND_FROM_ADDRESS`: a sender on a Resend-verified domain.
+- `RESEND_TO_ADDRESS`: one address or a comma-separated list of recipients.
+- `DISCORD_WEBHOOK_URL_DEVSECOPS`: an incoming Discord channel webhook.
+
+Email includes the sanitized consolidated PDF. Discord receives aggregate
+counts, the deterministic decision, the bounded agent executive summary, and
+links to the workflow and report artifact. Raw secret matches, credentials,
+recipient addresses, and webhook URLs are never written to delivery evidence.
+
+For production, store delivery secrets in a protected GitHub Environment and
+restrict that environment to trusted branches. Pull requests from forks never
+receive these secrets or run the delivery job.
 
 If a release is blocked, reporting and evidence upload still run before the job
 fails. This gives developers and security reviewers the explanation needed to
