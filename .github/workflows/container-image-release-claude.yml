@@ -10,6 +10,14 @@ on:
       - ".github/workflows/container-image-release-claude.yml"
   workflow_dispatch:
     inputs:
+      dockerfile:
+        description: Image definition to build and scan
+        required: true
+        default: Dockerfile
+        type: choice
+        options:
+          - Dockerfile
+          - Dockerfile.vulnerable
       publish:
         description: Publish after every quality, security, and approval gate passes
         required: true
@@ -31,7 +39,12 @@ concurrency:
 env:
   APP_DIR: agents/container-image-release-advisor/adk/examples/agentic-devops-portfolio
   LOCAL_IMAGE: claude-container-release:${{ github.sha }}
-  SELECTED_DOCKERFILE: Dockerfile
+  # PR #74 is a contained security demonstration. Pull requests build the
+  # vulnerable fixture locally for evidence, but can never publish it.
+  SELECTED_DOCKERFILE: ${{ github.event_name == 'workflow_dispatch' && inputs.dockerfile || github.event_name == 'pull_request' && 'Dockerfile.vulnerable' || 'Dockerfile' }}
+  # Deterministic reports retain every finding. Bound only the untrusted model
+  # context so a vulnerable image cannot exhaust the advisory runtime.
+  CLAUDE_MAX_FINDINGS: "20"
 
 jobs:
   sonarqube:
@@ -123,12 +136,16 @@ jobs:
       - name: Check out source
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: Prepare the hardened release configuration
+      - name: Prepare the exact configuration selected for release
         working-directory: ${{ env.APP_DIR }}
         run: |
           mkdir -p reports .ci-config-scan
-          cp Dockerfile .ci-config-scan/Dockerfile
-          cp deployment.yaml .ci-config-scan/deployment.yaml
+          cp "$SELECTED_DOCKERFILE" .ci-config-scan/Dockerfile
+          if [ "$SELECTED_DOCKERFILE" = "Dockerfile.vulnerable" ]; then
+            cp deployment.vulnerable.yaml .ci-config-scan/deployment.yaml
+          else
+            cp deployment.yaml .ci-config-scan/deployment.yaml
+          fi
       - name: Scan configuration before building
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
@@ -598,13 +615,14 @@ jobs:
             rm -f reports/ci-agent-review.json reports/ci-agent-review.md
             echo "Claude Agent SDK attempt ${attempt}/2"
             set +e
-            timeout --signal=TERM --kill-after=10s 75s \
+            timeout --signal=TERM --kill-after=10s 105s \
               uv run --no-sync claude-container-review \
                 --triage-report .ci-input/ci-triage.json \
                 --json-output reports/ci-agent-review.json \
                 --markdown-output reports/ci-agent-review.md \
+                --max-findings "$CLAUDE_MAX_FINDINGS" \
                 --max-provider-attempts 1 \
-                --provider-timeout-seconds 60
+                --provider-timeout-seconds 90
             provider_exit=$?
             set -e
 
@@ -647,13 +665,14 @@ jobs:
             echo "Claude Agent SDK remained unavailable; using tool-free Messages API fallback"
             rm -f reports/ci-agent-review.json reports/ci-agent-review.md
             set +e
-            timeout --signal=TERM --kill-after=10s 90s \
+            timeout --signal=TERM --kill-after=10s 105s \
               uv run --no-sync claude-container-review \
                 --triage-report .ci-input/ci-triage.json \
                 --json-output reports/ci-agent-review.json \
                 --markdown-output reports/ci-agent-review.md \
+                --max-findings "$CLAUDE_MAX_FINDINGS" \
                 --max-provider-attempts 1 \
-                --provider-timeout-seconds 75 \
+                --provider-timeout-seconds 90 \
                 --transport messages-api
             fallback_exit=$?
             set -e
