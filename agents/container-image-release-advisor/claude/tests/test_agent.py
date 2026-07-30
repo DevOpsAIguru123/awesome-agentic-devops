@@ -11,6 +11,7 @@ from claude_container_hardening.agent import (
     AgentOutputError,
     SdkRuntimeError,
     build_prompt,
+    classify_provider_failure,
     generate,
     invoke_agent,
     parse_review,
@@ -228,6 +229,36 @@ def test_completed_result_attests_reported_model() -> None:
     assert result["requested_model"] == MODEL
     assert result["actual_models"] == [MODEL]
     assert result["model_verified"] is True
+    assert result["provider_attempts"] == 1
+
+
+def test_transient_cli_failure_is_retried_once() -> None:
+    calls = 0
+
+    async def flaky_invoke(_envelope):
+        nonlocal calls
+        calls += 1
+        if calls == 1:
+            raise SdkRuntimeError("claude_cli_process_error")
+        return AgentInvocation(review=review(), actual_models=[MODEL])
+
+    result = asyncio.run(
+        generate(triage(), 1, invoke=flaky_invoke, retry_delay_seconds=0)
+    )
+
+    assert calls == 2
+    assert result["agent_status"] == "completed"
+    assert result["provider_attempts"] == 2
+    assert result["retry_history"] == ["claude_cli_process_error"]
+
+
+def test_cli_exit_diagnostic_has_specific_safe_category() -> None:
+    assert (
+        classify_provider_failure(
+            ["Fatal error in message reader: Command failed with exit code 1"]
+        )
+        == "claude_cli_process_error"
+    )
 
 
 def test_model_mismatch_records_actual_model_without_changing_policy() -> None:
@@ -241,13 +272,16 @@ def test_model_mismatch_records_actual_model_without_changing_policy() -> None:
     assert result["model_verified"] is False
     assert result["policy_decision"] == "blocked"
     assert result["policy_unchanged"] is True
+    assert result["provider_attempts"] == 1
 
 
 def test_model_failure_cannot_change_policy() -> None:
     async def failed_invoke(_envelope):
         raise RuntimeError("provider unavailable")
 
-    result = asyncio.run(generate(triage(), 1, invoke=failed_invoke))
+    result = asyncio.run(
+        generate(triage(), 1, invoke=failed_invoke, retry_delay_seconds=0)
+    )
     assert result["agent_status"] == "unavailable"
     assert result["failure_category"] == "sdk_runtime_error"
     assert result["model"] == MODEL
@@ -257,3 +291,5 @@ def test_model_failure_cannot_change_policy() -> None:
     assert result["agent_authoritative"] is False
     assert result["policy_decision"] == "blocked"
     assert result["policy_unchanged"] is True
+    assert result["provider_attempts"] == 2
+    assert result["retry_history"] == ["sdk_runtime_error", "sdk_runtime_error"]

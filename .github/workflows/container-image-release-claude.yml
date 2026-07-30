@@ -570,9 +570,13 @@ jobs:
           enable-cache: true
           cache-dependency-glob: agents/container-image-release-advisor/claude/uv.lock
 
-      - name: Install locked Claude Agent SDK dependencies
+      - name: Install locked Claude Agent SDK and test dependencies
         working-directory: agents/container-image-release-advisor/claude
-        run: uv sync --frozen --no-dev
+        run: uv sync --frozen
+
+      - name: Validate Claude advisory safety and retry behavior
+        working-directory: agents/container-image-release-advisor/claude
+        run: uv run --no-sync pytest -q
 
       - name: Install pinned Claude Code CLI
         run: |
@@ -603,6 +607,12 @@ jobs:
                   raise SystemExit(message)
 
           require(
+              result.get("agent_status") == "completed",
+              "Claude advisory was unavailable after "
+              f"{result.get('provider_attempts', 1)} attempt(s): "
+              f"{result.get('failure_category', 'unknown')}",
+          )
+          require(
               result.get("requested_model") == "claude-sonnet-5",
               f"Unexpected requested model: {result.get('requested_model')}",
           )
@@ -619,11 +629,6 @@ jobs:
           require(
               result.get("model_verified") is True,
               "Claude Sonnet 5 model verification failed",
-          )
-          require(
-              result.get("agent_status") == "completed",
-              "Claude advisory was unavailable: "
-              f"{result.get('failure_category', 'unknown')}",
           )
           require(
               result.get("agent_authoritative") is False,

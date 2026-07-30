@@ -46,6 +46,7 @@ def render_markdown(result: dict[str, Any]) -> str:
         f"- Full findings: **{result['input']['total_findings']}**",
         f"- Bounded findings supplied: **{result['input']['returned_findings']}**",
         f"- Input truncated: **{str(result['input']['truncated']).lower()}**",
+        f"- Provider attempts: **{result.get('provider_attempts', 1)}**",
         "",
     ]
     review = result.get("review")

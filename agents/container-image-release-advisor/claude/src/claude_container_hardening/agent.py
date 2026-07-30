@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import os
 from collections.abc import AsyncIterator, Callable
@@ -14,6 +15,15 @@ from .models import AgentReview
 from .triage import build_envelope, validate_finding_ids
 
 MODEL = "claude-sonnet-5"
+MAX_PROVIDER_ATTEMPTS = 2
+RETRYABLE_FAILURES = {
+    "claude_cli_process_error",
+    "invalid_finding_citation",
+    "invalid_model_output",
+    "model_usage_unavailable",
+    "rate_limited",
+    "sdk_runtime_error",
+}
 
 
 @dataclass(frozen=True)
@@ -53,6 +63,15 @@ def classify_provider_failure(messages: list[str]) -> str:
         return "rate_limited"
     if any(term in text for term in ("model not found", "unknown model", "404")):
         return "model_unavailable"
+    if any(
+        term in text
+        for term in (
+            "fatal error in message reader",
+            "command failed with exit code",
+            "exit code:",
+        )
+    ):
+        return "claude_cli_process_error"
     return "sdk_runtime_error"
 
 SYSTEM_PROMPT = """
@@ -201,8 +220,14 @@ async def generate(
     max_findings: int,
     *,
     invoke: Callable[[dict[str, Any]], Any] = invoke_agent,
+    max_attempts: int = MAX_PROVIDER_ATTEMPTS,
+    retry_delay_seconds: float = 2.0,
 ) -> dict[str, Any]:
     """Return a fail-open advisory envelope without altering policy."""
+    if not 1 <= max_attempts <= MAX_PROVIDER_ATTEMPTS:
+        raise ValueError(
+            f"max_attempts must be between 1 and {MAX_PROVIDER_ATTEMPTS}"
+        )
     envelope = build_envelope(triage, max_findings)
     result: dict[str, Any] = {
         "schema_version": "container-security-agent-review/v1",
@@ -224,16 +249,27 @@ async def generate(
         },
         "review": None,
         "failure_category": None,
+        "provider_attempts": 0,
+        "retry_history": [],
     }
-    try:
-        invocation = await invoke(envelope)
-    except Exception as exc:
-        if isinstance(exc, (SdkRuntimeError, AgentOutputError)):
-            result["actual_models"] = exc.actual_models
-        result["failure_category"] = failure_category(exc)
+    for attempt in range(1, max_attempts + 1):
+        result["provider_attempts"] = attempt
+        try:
+            invocation = await invoke(envelope)
+        except Exception as exc:
+            category = failure_category(exc)
+            result["retry_history"].append(category)
+            if isinstance(exc, (SdkRuntimeError, AgentOutputError)):
+                result["actual_models"] = exc.actual_models
+            should_retry = category in RETRYABLE_FAILURES and attempt < max_attempts
+            if should_retry:
+                await asyncio.sleep(retry_delay_seconds * attempt)
+                continue
+            result["failure_category"] = category
+            return result
+        result["agent_status"] = "completed"
+        result["actual_models"] = invocation.actual_models
+        result["model_verified"] = True
+        result["review"] = invocation.review.model_dump(mode="json")
         return result
-    result["agent_status"] = "completed"
-    result["actual_models"] = invocation.actual_models
-    result["model_verified"] = True
-    result["review"] = invocation.review.model_dump(mode="json")
     return result
