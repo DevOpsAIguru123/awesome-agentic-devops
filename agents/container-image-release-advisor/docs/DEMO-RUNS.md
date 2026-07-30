@@ -1,7 +1,9 @@
-# Demonstration runs
+# Validation and demonstration runs
 
-The repository intentionally supports one clean path and one blocked path.
-Both produce evidence; only the clean path can reach approval and publishing.
+The distributable workflows are safe by default: they build only the hardened
+sample and scan its hardened Kubernetes deployment. Fail-closed behavior is
+covered by synthetic policy tests. Intentionally vulnerable, deployable
+fixtures are kept outside this production-ready branch.
 
 ## Successful, non-publishing validation
 
@@ -9,7 +11,6 @@ In **Actions**, choose either **ADK container image release** or **Claude
 container image release**, then select:
 
 ```text
-dockerfile: Dockerfile
 publish: false
 approval_test: false
 ```
@@ -28,27 +29,19 @@ Expected behavior:
 Download the generated report artifacts from the workflow run. Scanner evidence
 is point-in-time data, so always rerun current scanners for a release decision.
 
-## Intentionally blocked validation
+## Isolated blocked-run evidence
 
-Run the same workflow with:
+The intentionally vulnerable demonstration is preserved separately in
+[demonstration PR #74](https://github.com/DevOpsAIguru123/awesome-agentic-devops/pull/74).
+Its [successful security demonstration run](https://github.com/DevOpsAIguru123/awesome-agentic-devops/actions/runs/30571416613)
+built an isolated candidate, collected complete SonarQube and Trivy evidence,
+and proved that deterministic policy prevents approval and publishing.
 
-```text
-dockerfile: Dockerfile.vulnerable
-publish: true
-approval_test: false
-```
-
-Expected behavior:
-
-1. The pre-build configuration gate detects intentional HIGH findings.
-2. A pre-build HTML/PDF report is still uploaded.
-3. The Docker build, image scan, approval, login, and push jobs are unreachable.
-4. The workflow is red by design; this proves fail-closed behavior.
-
-Download the pre-build report artifact to review the intentional findings and
-the deterministic blocked decision.
-
-> Never weaken the policy merely to make the intentionally blocked run green.
+The demonstration branch is evidence, not a source for deployment. Teams that
+need their own blocked-path exercise should use an organization-approved test
+repository or short-lived fixture branch with publishing disabled. Never add
+the vulnerable fixture to the default or release branch, and never weaken
+policy merely to make a deliberately blocked run green.
 
 ## The three team-facing reports
 

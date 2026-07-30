@@ -10,7 +10,7 @@
 - Protected environment approval before authentication and push
 - Immutable GitHub Action commit pins
 - Sanitized HTML/PDF/JSON/Markdown/SARIF evidence
-- Successful and intentionally blocked demonstration paths
+- A safe-by-default release path plus synthetic fail-closed policy tests
 
 ## Organization-specific work required for production
 
@@ -28,8 +28,8 @@
   response, and approved exception workflows.
 - Validate runner isolation and consider trusted/self-hosted runners for
   sensitive builds.
-- Replace branch-name demo exceptions in the workflow with organization-owned
-  environments and reusable policy configuration.
+- Move release policy into organization-owned reusable workflows or a policy
+  service so application repositories cannot weaken it.
 - Add integration tests against your registry, SonarCloud organization,
   protected environments, and selected model-provider IAM/API configuration.
 

@@ -97,9 +97,10 @@ uv sync --frozen
 uv run pytest
 ```
 
-See [demonstration runs](docs/DEMO-RUNS.md) for the clean and intentionally
-blocked workflows, and [production readiness](docs/PRODUCTION-READINESS.md) for
-controls that must be adapted before organizational use.
+See [validation and demonstration runs](docs/DEMO-RUNS.md) for the safe
+distribution path and separately isolated blocked-run evidence, and
+[production readiness](docs/PRODUCTION-READINESS.md) for controls that must be
+adapted before organizational use.
 
 ## Security boundary
 

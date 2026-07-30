@@ -38,25 +38,18 @@ Generated local evidence belongs under `reports/local/`, which is ignored by
 Git. Do not commit fresh scanner output without sanitizing and intentionally
 curating it as a test fixture.
 
-## 4. Prove that policy blocks the vulnerable fixture
+## 4. Verify fail-closed policy without deployable vulnerable fixtures
 
 ```bash
-docker build --file Dockerfile.vulnerable \
-  --tag agentic-devops-portfolio:vulnerable-demo .
-trivy image --scanners vuln,secret --format json \
-  --output reports/local/vulnerable-image.json \
-  agentic-devops-portfolio:vulnerable-demo
-trivy config --format json \
-  --output reports/local/vulnerable-config.json \
-  Dockerfile.vulnerable deployment.vulnerable.yaml
-python3 scripts/evaluate_release.py \
-  --image-report reports/local/vulnerable-image.json \
-  --config-report reports/local/vulnerable-config.json \
-  --output reports/local/vulnerable-decision.json
+cd ../..
+uv run pytest tests/unit/test_release_policy.py tests/unit/test_config_policy.py
 ```
 
-The final command should return nonzero with `policy_decision: blocked`. That is
-the expected test result.
+The tests supply synthetic scanner JSON in memory and verify that blocking
+findings cannot authorize a release. The distributable branch therefore tests
+fail-closed behavior without shipping an image or manifest that should never be
+deployed. See [Demonstration runs](DEMO-RUNS.md) for separately isolated blocked
+run evidence.
 
 ## 5. Enable the complete hosted workflow
 
@@ -65,7 +58,7 @@ the expected test result.
 2. Create a `container-production` GitHub Environment and require reviewers.
 3. Choose **ADK container image release** for Google ADK/Vertex AI or **Claude
    container image release** for Claude Agent SDK/Sonnet 5.
-4. Run the selected workflow with `Dockerfile` and `publish: false`.
+4. Run the selected workflow with `publish: false`.
 5. Inspect the overall job summary and the three report artifacts.
 
 Keep `publish: false` until your own policy, IAM, registry, branch protection,

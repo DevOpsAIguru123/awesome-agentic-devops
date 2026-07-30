@@ -21,33 +21,18 @@ trivy config --format json --output reports/trivy-config.json .
 The image runs as the `nginx` user, listens on port 8080, writes temporary files
 under `/tmp`, and sends logs to stdout/stderr.
 
-## Intentionally vulnerable release-gate demonstration
+## Hardened deployment template
 
-`Dockerfile.vulnerable` and `deployment.vulnerable.yaml` are isolated training
-fixtures. They must never be published or deployed. Build and scan them locally:
+`deployment.yaml` is a safe-by-default Kubernetes template. It requires a
+non-root UID, drops Linux capabilities, disables privilege escalation and
+service-account token mounting, uses the runtime-default seccomp profile, and
+mounts a bounded temporary volume so the container root filesystem can remain
+read-only. Replace its example image digest with the immutable digest produced
+by your release pipeline before deployment.
 
-```bash
-docker build --platform linux/amd64 \
-  --file Dockerfile.vulnerable \
-  --tag agentic-devops-portfolio:vulnerable-demo .
-
-trivy image --format json \
-  --output reports/vulnerable-image-trivy.json \
-  agentic-devops-portfolio:vulnerable-demo
-
-trivy config --format json \
-  --output reports/vulnerable-config-trivy.json \
-  .
-
-python3 scripts/evaluate_release.py \
-  --image-report reports/vulnerable-image-trivy.json \
-  --config-report reports/vulnerable-config-trivy.json \
-  --output reports/vulnerable-policy-decision.json
-```
-
-The final command exits nonzero when policy blocks the candidate. A CI pipeline
-must place `docker push` after this gate using conditional execution, so a
-blocked result makes the push step unreachable.
+Fail-closed release behavior is tested with synthetic scanner JSON in the unit
+test suite. The distributable branch does not include deployable intentionally
+vulnerable images or manifests.
 
 ## GitHub Actions release pipeline
 
@@ -55,8 +40,8 @@ The repository workflow `.github/workflows/container-image-release-adk.yml`
 uses isolated jobs:
 
 1. SonarQube source analysis and Quality Gate enforcement runs in parallel
-   with a dedicated Trivy configuration scan of the exact Dockerfile and
-   deployment configuration selected for release.
+   with a dedicated Trivy configuration scan of the hardened Dockerfile and
+   deployment configuration used for release.
 2. The pipeline records the deterministic pre-build configuration decision,
    then builds the candidate locally to collect Trivy image vulnerability and
    secret evidence even when an earlier scanner blocks release. The final
@@ -175,10 +160,9 @@ values. A safe, commit-ready template is available at
 
 Pull requests run every analysis and gate but never publish. Pushes to `main`
 publish the hardened `Dockerfile` only after deterministic authorization and a
-reviewer approves the `container-production` deployment. To prove blocking, run
-the workflow manually with `Dockerfile.vulnerable`; the policy step fails,
-scan reports are uploaded for review, no release bundle is produced, and the
-publish job is skipped even if `publish` was requested.
+reviewer approves the `container-production` deployment. Synthetic unit tests
+prove that blocking findings cannot reach approval or publishing without
+placing an unsafe deployable fixture in the production-ready branch.
 
 To exercise the protected-environment approval UI without publishing, dispatch
 the workflow from `main` with `approval_test: true` and `publish: false`. The
