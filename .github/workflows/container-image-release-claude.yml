@@ -593,15 +593,79 @@ jobs:
             echo "Missing ANTHROPIC_API_KEY repository secret"
             exit 1
           }
-          uv run --no-sync claude-container-review \
-            --triage-report .ci-input/ci-triage.json \
-            --json-output reports/ci-agent-review.json \
-            --markdown-output reports/ci-agent-review.md
+          workflow_retry_history=""
+          for attempt in 1 2 3; do
+            rm -f reports/ci-agent-review.json reports/ci-agent-review.md
+            echo "Claude provider attempt ${attempt}/3"
+            set +e
+            timeout --signal=TERM --kill-after=10s 150s \
+              uv run --no-sync claude-container-review \
+                --triage-report .ci-input/ci-triage.json \
+                --json-output reports/ci-agent-review.json \
+                --markdown-output reports/ci-agent-review.md \
+                --max-provider-attempts 1 \
+                --provider-timeout-seconds 120
+            provider_exit=$?
+            set -e
+
+            if [ "$provider_exit" -eq 0 ] && [ -s reports/ci-agent-review.json ]; then
+              python3 - <<'PY'
+              import json
+              from pathlib import Path
+
+              result = json.loads(Path("reports/ci-agent-review.json").read_text())
+              Path("reports/provider-status.txt").write_text(
+                  str(result.get("agent_status", "unavailable")) + "\n"
+              )
+              Path("reports/provider-reason.txt").write_text(
+                  str(result.get("failure_category") or "sdk_runtime_error") + "\n"
+              )
+              PY
+              read -r provider_status < reports/provider-status.txt
+              read -r provider_reason < reports/provider-reason.txt
+            else
+              provider_status="unavailable"
+              if [ "$provider_exit" -eq 124 ] || [ "$provider_exit" -eq 137 ]; then
+                provider_reason="provider_process_timeout"
+              else
+                provider_reason="provider_process_error"
+              fi
+            fi
+
+            if [ "$provider_status" = "completed" ]; then
+              break
+            fi
+            workflow_retry_history="${workflow_retry_history}${provider_reason}|"
+            echo "::warning::Claude attempt ${attempt} unavailable: ${provider_reason}"
+            if [ "$attempt" -lt 3 ]; then
+              sleep $((attempt * 2))
+            fi
+          done
+
+          test -s reports/ci-agent-review.json || {
+            echo "Claude did not produce an advisory after 3 bounded attempts"
+            exit 1
+          }
+          export WORKFLOW_PROVIDER_ATTEMPTS="$attempt"
+          export WORKFLOW_RETRY_HISTORY="$workflow_retry_history"
           python3 - <<'PY'
           import json
+          import os
           from pathlib import Path
+          from claude_container_hardening.report import write_outputs
 
-          result = json.loads(Path("reports/ci-agent-review.json").read_text())
+          json_path = Path("reports/ci-agent-review.json")
+          markdown_path = Path("reports/ci-agent-review.md")
+          result = json.loads(json_path.read_text())
+          result["provider_attempts"] = int(os.environ["WORKFLOW_PROVIDER_ATTEMPTS"])
+          outer_history = [
+              item
+              for item in os.environ.get("WORKFLOW_RETRY_HISTORY", "").split("|")
+              if item
+          ]
+          result["retry_history"] = outer_history
+          write_outputs(json_path, markdown_path, result)
+
           def require(condition, message):
               if not condition:
                   raise SystemExit(message)
