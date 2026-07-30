@@ -16,6 +16,10 @@ documented here. The format is based on
 - **Hardened catalog URL validation.** Catalog entries now require absolute
   `https://` URLs, blocking accidental relative links, bare hostnames, and
   insecure `http://` sources from entering the operator index.
+- **Hardened catalog label validation.** Evaluation labels are now restricted to
+  the documented text badges (`prod`, `prototype`, `mcp`, `approval`,
+  `evidence`, `write`) so typos and legacy label names fail in local validation
+  before they can drift into the README.
 - **Replaced the emoji evaluation labels with text badges.** The six glyphs
   (🟢 🟡 🔵 🛡️ 📊 ⚠️) are now readable tokens — `prod`, `prototype`, `mcp`,
   `approval`, `evidence`, `write` — across the legend, all catalog rows,

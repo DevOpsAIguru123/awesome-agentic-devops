@@ -5,6 +5,7 @@ import yaml
 
 from scripts.validate_repos_yaml import (
     ALLOWED_ACTION_LEVELS,
+    ALLOWED_LABELS,
     ALLOWED_MATURITY,
     REQUIRED_FIELDS,
     ValidationError,
@@ -68,6 +69,11 @@ def test_accepts_allowed_maturity_values(maturity):
     validate_entries([valid_entry(maturity=maturity)])
 
 
+@pytest.mark.parametrize("label", sorted(ALLOWED_LABELS))
+def test_accepts_allowed_labels(label):
+    validate_entries([valid_entry(labels=[label])])
+
+
 def test_rejects_missing_required_field():
     entry = valid_entry()
     del entry["risk_notes"]
@@ -123,6 +129,13 @@ def test_rejects_blank_list_items():
     entries = [valid_entry(labels=["official", ""])]
 
     with pytest.raises(ValidationError, match="labels items must be non-empty strings"):
+        validate_entries(entries)
+
+
+def test_rejects_unknown_labels():
+    entries = [valid_entry(labels=["official"])]
+
+    with pytest.raises(ValidationError, match="invalid label"):
         validate_entries(entries)
 
 
