@@ -610,17 +610,17 @@ jobs:
 
             if [ "$provider_exit" -eq 0 ] && [ -s reports/ci-agent-review.json ]; then
               python3 - <<'PY'
-              import json
-              from pathlib import Path
+          import json
+          from pathlib import Path
 
-              result = json.loads(Path("reports/ci-agent-review.json").read_text())
-              Path("reports/provider-status.txt").write_text(
-                  str(result.get("agent_status", "unavailable")) + "\n"
-              )
-              Path("reports/provider-reason.txt").write_text(
-                  str(result.get("failure_category") or "sdk_runtime_error") + "\n"
-              )
-              PY
+          result = json.loads(Path("reports/ci-agent-review.json").read_text())
+          Path("reports/provider-status.txt").write_text(
+              str(result.get("agent_status", "unavailable")) + "\n"
+          )
+          Path("reports/provider-reason.txt").write_text(
+              str(result.get("failure_category") or "sdk_runtime_error") + "\n"
+          )
+          PY
               read -r provider_status < reports/provider-status.txt
               read -r provider_reason < reports/provider-reason.txt
             else
