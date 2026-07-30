@@ -594,17 +594,17 @@ jobs:
             exit 1
           }
           workflow_retry_history=""
-          for attempt in 1 2 3; do
+          for attempt in 1 2; do
             rm -f reports/ci-agent-review.json reports/ci-agent-review.md
-            echo "Claude provider attempt ${attempt}/3"
+            echo "Claude Agent SDK attempt ${attempt}/2"
             set +e
-            timeout --signal=TERM --kill-after=10s 150s \
+            timeout --signal=TERM --kill-after=10s 75s \
               uv run --no-sync claude-container-review \
                 --triage-report .ci-input/ci-triage.json \
                 --json-output reports/ci-agent-review.json \
                 --markdown-output reports/ci-agent-review.md \
                 --max-provider-attempts 1 \
-                --provider-timeout-seconds 120
+                --provider-timeout-seconds 60
             provider_exit=$?
             set -e
 
@@ -637,7 +637,7 @@ jobs:
             fi
             workflow_retry_history="${workflow_retry_history}${provider_reason}|"
             echo "::warning::Claude attempt ${attempt} unavailable: ${provider_reason}"
-            if [ "$attempt" -lt 3 ]; then
+            if [ "$attempt" -lt 2 ]; then
               sleep $((attempt * 2))
             fi
           done
@@ -647,17 +647,17 @@ jobs:
             echo "Claude Agent SDK remained unavailable; using tool-free Messages API fallback"
             rm -f reports/ci-agent-review.json reports/ci-agent-review.md
             set +e
-            timeout --signal=TERM --kill-after=10s 150s \
+            timeout --signal=TERM --kill-after=10s 90s \
               uv run --no-sync claude-container-review \
                 --triage-report .ci-input/ci-triage.json \
                 --json-output reports/ci-agent-review.json \
                 --markdown-output reports/ci-agent-review.md \
                 --max-provider-attempts 1 \
-                --provider-timeout-seconds 120 \
+                --provider-timeout-seconds 75 \
                 --transport messages-api
             fallback_exit=$?
             set -e
-            total_attempts=4
+            total_attempts=3
 
             if [ "$fallback_exit" -eq 0 ] && [ -s reports/ci-agent-review.json ]; then
               python3 -c 'import json; from pathlib import Path; result=json.loads(Path("reports/ci-agent-review.json").read_text()); Path("reports/provider-status.txt").write_text(str(result.get("agent_status", "unavailable"))+"\n"); Path("reports/provider-reason.txt").write_text(str(result.get("failure_category") or "messages_api_error")+"\n")'
