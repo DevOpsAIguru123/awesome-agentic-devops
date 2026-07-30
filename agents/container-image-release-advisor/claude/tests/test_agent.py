@@ -252,6 +252,34 @@ def test_transient_cli_failure_is_retried_once() -> None:
     assert result["retry_history"] == ["claude_cli_process_error"]
 
 
+def test_hung_provider_call_is_timed_out_and_retried_once() -> None:
+    calls = 0
+
+    async def hanging_invoke(_envelope):
+        nonlocal calls
+        calls += 1
+        await asyncio.sleep(1)
+        return AgentInvocation(review=review(), actual_models=[MODEL])
+
+    result = asyncio.run(
+        generate(
+            triage(),
+            1,
+            invoke=hanging_invoke,
+            retry_delay_seconds=0,
+            attempt_timeout_seconds=0.001,
+        )
+    )
+
+    assert calls == 2
+    assert result["agent_status"] == "unavailable"
+    assert result["failure_category"] == "provider_timeout"
+    assert result["provider_attempts"] == 2
+    assert result["retry_history"] == ["provider_timeout", "provider_timeout"]
+    assert result["policy_decision"] == "blocked"
+    assert result["policy_unchanged"] is True
+
+
 def test_cli_exit_diagnostic_has_specific_safe_category() -> None:
     assert (
         classify_provider_failure(

@@ -16,11 +16,13 @@ from .triage import build_envelope, validate_finding_ids
 
 MODEL = "claude-sonnet-5"
 MAX_PROVIDER_ATTEMPTS = 2
+PROVIDER_ATTEMPT_TIMEOUT_SECONDS = 120.0
 RETRYABLE_FAILURES = {
     "claude_cli_process_error",
     "invalid_finding_citation",
     "invalid_model_output",
     "model_usage_unavailable",
+    "provider_timeout",
     "rate_limited",
     "sdk_runtime_error",
 }
@@ -222,12 +224,15 @@ async def generate(
     invoke: Callable[[dict[str, Any]], Any] = invoke_agent,
     max_attempts: int = MAX_PROVIDER_ATTEMPTS,
     retry_delay_seconds: float = 2.0,
+    attempt_timeout_seconds: float = PROVIDER_ATTEMPT_TIMEOUT_SECONDS,
 ) -> dict[str, Any]:
     """Return a fail-open advisory envelope without altering policy."""
     if not 1 <= max_attempts <= MAX_PROVIDER_ATTEMPTS:
         raise ValueError(
             f"max_attempts must be between 1 and {MAX_PROVIDER_ATTEMPTS}"
         )
+    if attempt_timeout_seconds <= 0:
+        raise ValueError("attempt_timeout_seconds must be greater than zero")
     envelope = build_envelope(triage, max_findings)
     result: dict[str, Any] = {
         "schema_version": "container-security-agent-review/v1",
@@ -255,7 +260,16 @@ async def generate(
     for attempt in range(1, max_attempts + 1):
         result["provider_attempts"] = attempt
         try:
-            invocation = await invoke(envelope)
+            async with asyncio.timeout(attempt_timeout_seconds):
+                invocation = await invoke(envelope)
+        except TimeoutError:
+            category = "provider_timeout"
+            result["retry_history"].append(category)
+            if attempt < max_attempts:
+                await asyncio.sleep(retry_delay_seconds * attempt)
+                continue
+            result["failure_category"] = category
+            return result
         except Exception as exc:
             category = failure_category(exc)
             result["retry_history"].append(category)
