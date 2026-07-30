@@ -19,16 +19,28 @@ ARTIFACTS = (
 )
 
 
+def confined_path(path: Path, workspace_root: Path) -> Path:
+    """Resolve an input path and reject reads outside the current workspace."""
+    try:
+        resolved_root = workspace_root.resolve(strict=True)
+        resolved_path = path.resolve(strict=True)
+    except OSError as exc:
+        raise ValueError(f"cannot resolve summary input {path}: {exc}") from exc
+    if not resolved_path.is_relative_to(resolved_root) or not resolved_path.is_file():
+        raise ValueError(f"summary input must be a workspace file: {path}")
+    return resolved_path
+
+
 def load_text(path: Path) -> str:
     try:
-        return path.read_text(encoding="utf-8").strip()
+        return path.read_text(encoding="utf-8").strip()  # NOSONAR - confined by main
     except OSError as exc:
         raise ValueError(f"cannot read summary input {path}: {exc}") from exc
 
 
 def load_agent_text(path: Path) -> str:
     try:
-        return path.read_text(encoding="utf-8").strip()
+        return path.read_text(encoding="utf-8").strip()  # NOSONAR - confined by main
     except OSError:
         return "# Claude advisory\n\nThe optional advisory was unavailable. Deterministic policy remains authoritative."
 
@@ -127,9 +139,12 @@ def main() -> int:
         key: getattr(args, f"{key}_artifact_url") for _, key, _ in ARTIFACTS
     }
     try:
+        workspace_root = Path.cwd()
+        consolidated_path = confined_path(args.consolidated_markdown, workspace_root)
+        agent_path = confined_path(args.agent_markdown, workspace_root)
         summary = render(
-            load_text(args.consolidated_markdown),
-            load_agent_text(args.agent_markdown),
+            load_text(consolidated_path),
+            load_agent_text(agent_path),
             args.repository,
             args.run_id,
             urls,

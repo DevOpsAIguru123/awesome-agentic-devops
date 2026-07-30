@@ -39,6 +39,17 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set up uv for tests
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+
+      - name: Generate Python coverage evidence
+        working-directory: ${{ env.APP_DIR }}/../..
+        run: |
+          uv sync --frozen --group dev
+          uv run --frozen pytest -p no:cacheprovider tests/unit \
+            --cov=examples/agentic-devops-portfolio/scripts \
+            --cov-report=xml:examples/agentic-devops-portfolio/coverage.xml
+
       - name: Require SonarQube configuration
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

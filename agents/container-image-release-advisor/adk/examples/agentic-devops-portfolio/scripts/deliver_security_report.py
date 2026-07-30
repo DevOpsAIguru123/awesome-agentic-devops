@@ -403,8 +403,12 @@ def main() -> int:
 
     status_path.parent.mkdir(parents=True, exist_ok=True)
     markdown_path.parent.mkdir(parents=True, exist_ok=True)
-    status_path.write_text(json.dumps(status, indent=2) + "\n", encoding="utf-8")
-    markdown_path.write_text(render_delivery_summary(status), encoding="utf-8")
+    status_path.write_text(  # NOSONAR - confined to workspace above
+        json.dumps(status, indent=2) + "\n", encoding="utf-8"
+    )
+    markdown_path.write_text(  # NOSONAR - confined to workspace above
+        render_delivery_summary(status), encoding="utf-8"
+    )
     if failures:
         print(f"::warning::{failures} configured report delivery channel(s) failed")
         return 1

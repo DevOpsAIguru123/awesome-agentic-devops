@@ -437,8 +437,13 @@ def render_sarif(records: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    # The caller passes only paths returned by confined_path(). Sonar cannot
+    # propagate that validation through this helper, so keep the justification
+    # beside the narrowly suppressed sink.
+    path.parent.mkdir(parents=True, exist_ok=True)  # NOSONAR
+    path.write_text(  # NOSONAR
+        json.dumps(payload, indent=2) + "\n", encoding="utf-8"
+    )
 
 
 def main() -> int:
@@ -471,7 +476,9 @@ def main() -> int:
         payload = triage_payload(records, policy, image_report)
         write_json(json_path, payload)
         markdown_path.parent.mkdir(parents=True, exist_ok=True)
-        markdown_path.write_text(render_markdown(payload) + "\n", encoding="utf-8")
+        markdown_path.write_text(  # NOSONAR - confined to workspace above
+            render_markdown(payload) + "\n", encoding="utf-8"
+        )
         write_json(sarif_path, render_sarif(records))
     except ValueError as exc:
         parser.error(str(exc))
