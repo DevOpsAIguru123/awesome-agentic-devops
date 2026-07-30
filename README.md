@@ -12,7 +12,7 @@ Most agent lists stop at discovery. This one is built for operators:
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — GitHub repository entries are checked weekly for reachability and archived status; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-skills-into-your-coding-agent) installs hundreds of skills from cataloged Google, Microsoft, Azure, Azure DevOps, and Harness sources — plus a separate community set — into Claude Code, Cursor, Codex, VS Code, or Antigravity.
-- **Runnable, not just theoretical** — documented [reference-agent examples](#local-reference-agents) cover Terraform plan review and drift detection.
+- **Runnable, not just theoretical** — documented [reference-agent examples](#local-reference-agents) cover Terraform plan review, drift detection, and policy-driven container image releases.
 
 **Safety first:** some cataloged tools and agents can change infrastructure. Prefer read-only or proposal mode, require human approval before write actions, and use least-privilege credentials — full guidance in the [safety model](docs/safety-model.md).
 
@@ -119,6 +119,7 @@ This repo keeps runnable reference agents under [`agents/`](agents/).
 | --- | --- |
 | [`agents/adk/terraform-plan-reviewer`](agents/adk/terraform-plan-reviewer) | Gemini ADK agent that reviews Terraform plan output and returns structured risk findings. |
 | [`agents/adk/terraform-drift-detector`](agents/adk/terraform-drift-detector) | Gemini ADK agent that reviews Terraform Cloud refresh-only plans and sends Discord-ready drift alerts. |
+| [`agents/container-image-release-advisor`](agents/container-image-release-advisor) | SonarCloud and Trivy container release pipeline with deterministic policy, protected approval, three reports, and an ADK/Vertex AI or Claude/Sonnet advisory stage. |
 
 ## Curated catalog
 

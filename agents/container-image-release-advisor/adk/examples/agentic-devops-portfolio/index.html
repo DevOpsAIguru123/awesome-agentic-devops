@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A sample portfolio for secure, observable Agentic DevOps systems.">
+  <title>Vinod / Agentic DevOps</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#work">Skip to work</a>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Agentic DevOps home">
+      <span class="brand-mark">VD</span>
+      <span>agentic.devops</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span>
+      <span class="sr-only">Toggle navigation</span>
+    </button>
+    <nav id="site-nav" aria-label="Primary navigation">
+      <a href="#work">Work</a>
+      <a href="#system">System</a>
+      <a href="#principles">Principles</a>
+      <a class="nav-cta" href="#contact">Start a conversation</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy reveal">
+        <p class="eyebrow"><span class="status-dot"></span>Building dependable AI for delivery teams</p>
+        <h1 id="hero-title">Agents that improve the pipeline—<em>without owning the red button.</em></h1>
+        <p class="hero-intro">I design autonomous DevOps systems that investigate, explain, and coordinate while deterministic policy remains in control.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#work">Explore the systems <span aria-hidden="true">↘</span></a>
+          <a class="button button-quiet" href="#system">See the architecture</a>
+        </div>
+      </div>
+
+      <div class="hero-console reveal" aria-label="Example agent run">
+        <div class="console-bar">
+          <div class="console-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+          <span>hardening-agent / run-042</span>
+          <span class="live-badge">LIVE</span>
+        </div>
+        <div class="console-body">
+          <div class="console-line muted"><span>01</span> target</div>
+          <p>portfolio@sha256:a7f…91c</p>
+          <div class="console-line muted"><span>02</span> evidence</div>
+          <p><b>trivy</b> · image + config + secrets</p>
+          <div class="console-line muted"><span>03</span> reasoning</div>
+          <p>12 findings → 3 reachable → 1 fixed</p>
+          <div class="decision">
+            <span>policy_decision</span>
+            <strong>BLOCKED</strong>
+          </div>
+          <p class="console-note">Agent proposed the path. Policy made the call.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="signal-strip" aria-label="Portfolio highlights">
+      <div><strong>08</strong><span>specialized agents</span></div>
+      <div><strong>37</strong><span>CVEs triaged</span></div>
+      <div><strong>100%</strong><span>evidence linked</span></div>
+      <div><strong>0</strong><span>silent approvals</span></div>
+    </section>
+
+    <section class="section" id="work" aria-labelledby="work-title">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Selected systems / 2026</p>
+        <h2 id="work-title">Automation with a point of view.</h2>
+        <p>Each system closes a specific operational loop and leaves an audit trail that humans can challenge.</p>
+      </div>
+
+      <div class="project-grid">
+        <article class="project-card project-featured reveal">
+          <div class="project-index">01</div>
+          <div class="project-content">
+            <div class="tag-row"><span>Security</span><span>Google ADK</span><span>Trivy</span></div>
+            <h3>Policy-Driven Container Hardening Copilot</h3>
+            <p>Scans real images, correlates packages with workload behavior, resists embedded prompt injection, and proposes verifiable remediation.</p>
+            <ul class="project-outcomes">
+              <li>Immutable digest evidence</li>
+              <li>CVE-by-CVE reachability triage</li>
+              <li>Fail-closed policy handoff</li>
+            </ul>
+          </div>
+          <div class="project-visual visual-shield" aria-hidden="true">
+            <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+            <div class="shield-core">POLICY<br><span>DECIDES</span></div>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="project-index">02</div>
+          <div class="tag-row"><span>Reliability</span><span>Telemetry</span></div>
+          <h3>Incident Context Weaver</h3>
+          <p>Builds a bounded timeline from deploys, alerts, traces, and runbooks—then recommends the smallest safe diagnostic step.</p>
+          <div class="mini-flow" aria-hidden="true"><i></i><b></b><i></i><b></b><i></i></div>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="project-index">03</div>
+          <div class="tag-row"><span>FinOps</span><span>Kubernetes</span></div>
+          <h3>Capacity & Cost Navigator</h3>
+          <p>Connects utilization, SLO headroom, and spend to produce rightsizing proposals with rollback-ready evidence.</p>
+          <div class="cost-bars" aria-label="Example optimization values">
+            <span style="--value: 88%">Before</span>
+            <span style="--value: 54%">Proposed</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section system-section" id="system" aria-labelledby="system-title">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Reference architecture</p>
+        <h2 id="system-title">Autonomy inside guardrails.</h2>
+        <p>The agent is powerful where ambiguity helps and deliberately powerless where deterministic controls matter.</p>
+      </div>
+
+      <div class="architecture reveal">
+        <div class="arch-node"><span>01</span><strong>Observe</strong><small>Build metadata<br>Runtime context</small></div>
+        <div class="arch-connector" aria-hidden="true">→</div>
+        <div class="arch-node"><span>02</span><strong>Investigate</strong><small>Tools + evidence<br>Bounded reasoning</small></div>
+        <div class="arch-connector" aria-hidden="true">→</div>
+        <div class="arch-node accent-node"><span>03</span><strong>Decide</strong><small>Policy engine<br>Explicit outcome</small></div>
+        <div class="arch-connector" aria-hidden="true">→</div>
+        <div class="arch-node"><span>04</span><strong>Coordinate</strong><small>PR + report<br>Human approval</small></div>
+      </div>
+
+      <div class="boundary-note reveal">
+        <span class="boundary-icon" aria-hidden="true">◇</span>
+        <p><strong>The operating boundary</strong><br>The agent may scan, correlate, recommend, and report. It may not deploy, waive policy, modify production, or conceal uncertainty.</p>
+      </div>
+    </section>
+
+    <section class="section" id="principles" aria-labelledby="principles-title">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Working principles</p>
+        <h2 id="principles-title">Trust is a product feature.</h2>
+      </div>
+      <div class="principle-list">
+        <article class="reveal"><span>01</span><h3>Evidence before eloquence</h3><p>Every claim links back to a scanner, trace, manifest, or policy evaluation.</p></article>
+        <article class="reveal"><span>02</span><h3>Make uncertainty visible</h3><p>“Not evaluated” is a state to resolve, never a quiet pass.</p></article>
+        <article class="reveal"><span>03</span><h3>Optimize for the next action</h3><p>Reports end with an owner, verification step, and reversible path forward.</p></article>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact" aria-labelledby="contact-title">
+      <p class="eyebrow">Let’s build the responsible version</p>
+      <h2 id="contact-title">Have an operational loop worth closing?</h2>
+      <a class="button button-primary" href="mailto:hello@example.com">Start a conversation <span aria-hidden="true">↗</span></a>
+      <p class="contact-note">Replace the sample email before publishing.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year">2026</span> Agentic DevOps Portfolio</span>
+    <span>Designed for evidence, policy, and humans.</span>
+  </footer>
+</body>
+</html>
