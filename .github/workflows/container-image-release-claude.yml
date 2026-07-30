@@ -683,7 +683,7 @@ jobs:
           }
           export WORKFLOW_PROVIDER_ATTEMPTS="$total_attempts"
           export WORKFLOW_RETRY_HISTORY="$workflow_retry_history"
-          python3 - <<'PY'
+          uv run --no-sync python - <<'PY'
           import json
           import os
           from pathlib import Path
