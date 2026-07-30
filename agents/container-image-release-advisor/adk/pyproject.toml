@@ -89,5 +89,11 @@ build-backend = "hatchling.build"
 pythonpath = "."
 asyncio_default_fixture_loop_scope = "function"
 
+[tool.coverage.run]
+branch = true
+relative_files = true
+source = ["examples/agentic-devops-portfolio/scripts"]
+patch = ["subprocess"]
+
 [tool.hatch.build.targets.wheel]
 packages = ["app","frontend"]

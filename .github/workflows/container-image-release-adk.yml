@@ -48,6 +48,7 @@ jobs:
           uv sync --frozen --group dev
           uv run --frozen pytest -p no:cacheprovider tests/unit \
             --cov=examples/agentic-devops-portfolio/scripts \
+            --cov-branch --cov-report=term-missing \
             --cov-report=xml:examples/agentic-devops-portfolio/coverage.xml
 
       - name: Require SonarQube configuration
