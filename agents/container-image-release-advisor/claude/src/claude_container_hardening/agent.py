@@ -8,6 +8,8 @@ import os
 from collections.abc import AsyncIterator, Callable
 from dataclasses import dataclass
 from typing import Any
+from urllib.error import HTTPError, URLError
+from urllib.request import Request, urlopen
 
 from claude_agent_sdk import ClaudeAgentOptions, ResultMessage, query
 
@@ -203,6 +205,83 @@ async def invoke_agent(
     except ValueError as exc:
         raise AgentOutputError(str(exc), actual_models) from None
     return AgentInvocation(review=review, actual_models=actual_models)
+
+
+def _invoke_messages_api_sync(
+    envelope: dict[str, Any],
+    api_key: str,
+    timeout_seconds: float,
+    urlopen_fn: Callable[..., Any],
+) -> AgentInvocation:
+    """Use the tool-free Messages API when the Claude Code process is unhealthy."""
+    request = Request(
+        "https://api.anthropic.com/v1/messages",
+        data=json.dumps(
+            {
+                "model": MODEL,
+                "max_tokens": 4096,
+                "temperature": 0,
+                "system": SYSTEM_PROMPT,
+                "messages": [{"role": "user", "content": build_prompt(envelope)}],
+            }
+        ).encode("utf-8"),
+        headers={
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+            "x-api-key": api_key,
+        },
+        method="POST",
+    )
+    try:
+        with urlopen_fn(request, timeout=timeout_seconds) as response:
+            payload = json.loads(response.read())
+    except HTTPError as exc:
+        category = {
+            401: "credentials_invalid",
+            402: "billing_unavailable",
+            404: "model_unavailable",
+            429: "rate_limited",
+        }.get(exc.code, "messages_api_error")
+        raise SdkRuntimeError(category) from None
+    except (TimeoutError, URLError, OSError, ValueError):
+        raise SdkRuntimeError("messages_api_error") from None
+
+    actual_model = str(payload.get("model") or "")
+    actual_models = [actual_model] if actual_model else []
+    if not actual_models:
+        raise SdkRuntimeError("model_usage_unavailable")
+    if actual_model != MODEL and not actual_model.startswith(f"{MODEL}-"):
+        raise SdkRuntimeError("model_mismatch", actual_models)
+    text = "".join(
+        str(block.get("text") or "")
+        for block in payload.get("content") or []
+        if isinstance(block, dict) and block.get("type") == "text"
+    )
+    try:
+        review = validate_finding_ids(parse_review(text), envelope)
+    except ValueError as exc:
+        raise AgentOutputError(str(exc), actual_models) from None
+    return AgentInvocation(review=review, actual_models=actual_models)
+
+
+async def invoke_messages_api(
+    envelope: dict[str, Any],
+    *,
+    api_key: str | None = None,
+    timeout_seconds: float = PROVIDER_ATTEMPT_TIMEOUT_SECONDS,
+    urlopen_fn: Callable[..., Any] = urlopen,
+) -> AgentInvocation:
+    """Call Anthropic directly without tools as a bounded SDK fallback."""
+    resolved_key = api_key or os.getenv("ANTHROPIC_API_KEY", "")
+    if not resolved_key:
+        raise SdkRuntimeError("credentials_invalid")
+    return await asyncio.to_thread(
+        _invoke_messages_api_sync,
+        envelope,
+        resolved_key,
+        timeout_seconds,
+        urlopen_fn,
+    )
 
 
 def failure_category(exc: Exception) -> str:

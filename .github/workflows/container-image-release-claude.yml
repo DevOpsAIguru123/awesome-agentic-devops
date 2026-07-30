@@ -642,11 +642,46 @@ jobs:
             fi
           done
 
+          total_attempts="$attempt"
+          if [ "$provider_status" != "completed" ]; then
+            echo "Claude Agent SDK remained unavailable; using tool-free Messages API fallback"
+            rm -f reports/ci-agent-review.json reports/ci-agent-review.md
+            set +e
+            timeout --signal=TERM --kill-after=10s 150s \
+              uv run --no-sync claude-container-review \
+                --triage-report .ci-input/ci-triage.json \
+                --json-output reports/ci-agent-review.json \
+                --markdown-output reports/ci-agent-review.md \
+                --max-provider-attempts 1 \
+                --provider-timeout-seconds 120 \
+                --transport messages-api
+            fallback_exit=$?
+            set -e
+            total_attempts=4
+
+            if [ "$fallback_exit" -eq 0 ] && [ -s reports/ci-agent-review.json ]; then
+              python3 -c 'import json; from pathlib import Path; result=json.loads(Path("reports/ci-agent-review.json").read_text()); Path("reports/provider-status.txt").write_text(str(result.get("agent_status", "unavailable"))+"\n"); Path("reports/provider-reason.txt").write_text(str(result.get("failure_category") or "messages_api_error")+"\n")'
+              read -r provider_status < reports/provider-status.txt
+              read -r provider_reason < reports/provider-reason.txt
+            else
+              provider_status="unavailable"
+              if [ "$fallback_exit" -eq 124 ] || [ "$fallback_exit" -eq 137 ]; then
+                provider_reason="messages_api_timeout"
+              else
+                provider_reason="messages_api_process_error"
+              fi
+            fi
+            if [ "$provider_status" != "completed" ]; then
+              workflow_retry_history="${workflow_retry_history}${provider_reason}|"
+              echo "::warning::Claude Messages API fallback unavailable: ${provider_reason}"
+            fi
+          fi
+
           test -s reports/ci-agent-review.json || {
-            echo "Claude did not produce an advisory after 3 bounded attempts"
+            echo "Claude did not produce an advisory after bounded SDK attempts and API fallback"
             exit 1
           }
-          export WORKFLOW_PROVIDER_ATTEMPTS="$attempt"
+          export WORKFLOW_PROVIDER_ATTEMPTS="$total_attempts"
           export WORKFLOW_RETRY_HISTORY="$workflow_retry_history"
           python3 - <<'PY'
           import json

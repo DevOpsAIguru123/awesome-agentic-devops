@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import json
 
 import pytest
 from claude_agent_sdk import ResultMessage
@@ -14,6 +15,7 @@ from claude_container_hardening.agent import (
     classify_provider_failure,
     generate,
     invoke_agent,
+    invoke_messages_api,
     parse_review,
 )
 from claude_container_hardening.models import AgentReview, PriorityAction
@@ -218,6 +220,54 @@ def test_invocation_requires_provider_model_usage() -> None:
     with pytest.raises(SdkRuntimeError) as error:
         asyncio.run(invoke_agent(envelope, query_fn=fake_query))
     assert error.value.category == "model_usage_unavailable"
+
+
+def test_messages_api_fallback_is_tool_free_and_model_verified() -> None:
+    captured = {}
+
+    class FakeResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def read(self):
+            return json.dumps(
+                {
+                    "model": MODEL,
+                    "content": [
+                        {"type": "text", "text": review().model_dump_json()}
+                    ],
+                }
+            ).encode()
+
+    def fake_urlopen(request, *, timeout):
+        captured["payload"] = json.loads(request.data)
+        captured["timeout"] = timeout
+        return FakeResponse()
+
+    result = asyncio.run(
+        invoke_messages_api(
+            build_envelope(triage(), 1),
+            api_key="test-key",
+            timeout_seconds=3,
+            urlopen_fn=fake_urlopen,
+        )
+    )
+
+    assert result.actual_models == [MODEL]
+    assert result.review.executive_summary == review().executive_summary
+    assert captured["payload"]["model"] == MODEL
+    assert "tools" not in captured["payload"]
+    assert captured["timeout"] == 3
+
+
+def test_messages_api_fallback_requires_credentials(monkeypatch) -> None:
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    with pytest.raises(SdkRuntimeError) as error:
+        asyncio.run(invoke_messages_api(build_envelope(triage(), 1)))
+    assert error.value.category == "credentials_invalid"
 
 
 def test_completed_result_attests_reported_model() -> None:

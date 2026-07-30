@@ -10,6 +10,8 @@ from .agent import (
     MAX_PROVIDER_ATTEMPTS,
     PROVIDER_ATTEMPT_TIMEOUT_SECONDS,
     generate,
+    invoke_agent,
+    invoke_messages_api,
 )
 from .report import write_outputs
 from .triage import DEFAULT_MAX_FINDINGS, confined_path, load_triage
@@ -28,6 +30,11 @@ def main() -> int:
         "--provider-timeout-seconds",
         type=float,
         default=PROVIDER_ATTEMPT_TIMEOUT_SECONDS,
+    )
+    parser.add_argument(
+        "--transport",
+        choices=("agent-sdk", "messages-api"),
+        default="agent-sdk",
     )
     args = parser.parse_args()
     if not 1 <= args.max_findings <= 200:
@@ -48,10 +55,16 @@ def main() -> int:
             generate(
                 load_triage(input_path),
                 args.max_findings,
+                invoke=(
+                    invoke_messages_api
+                    if args.transport == "messages-api"
+                    else invoke_agent
+                ),
                 max_attempts=args.max_provider_attempts,
                 attempt_timeout_seconds=args.provider_timeout_seconds,
             )
         )
+        result["agent_transport"] = args.transport
         write_outputs(json_path, markdown_path, result)
     except ValueError as exc:
         parser.error(str(exc))

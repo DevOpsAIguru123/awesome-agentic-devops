@@ -47,6 +47,7 @@ def render_markdown(result: dict[str, Any]) -> str:
         f"- Bounded findings supplied: **{result['input']['returned_findings']}**",
         f"- Input truncated: **{str(result['input']['truncated']).lower()}**",
         f"- Provider attempts: **{result.get('provider_attempts', 1)}**",
+        f"- Provider transport: **{safe(result.get('agent_transport', 'agent-sdk'))}**",
         "",
     ]
     review = result.get("review")
