@@ -252,7 +252,7 @@ def test_transient_cli_failure_is_retried_once() -> None:
     assert result["retry_history"] == ["claude_cli_process_error"]
 
 
-def test_hung_provider_call_is_timed_out_and_retried_once() -> None:
+def test_hung_provider_call_is_bounded_and_retried() -> None:
     calls = 0
 
     async def hanging_invoke(_envelope):
@@ -271,11 +271,15 @@ def test_hung_provider_call_is_timed_out_and_retried_once() -> None:
         )
     )
 
-    assert calls == 2
+    assert calls == 3
     assert result["agent_status"] == "unavailable"
     assert result["failure_category"] == "provider_timeout"
-    assert result["provider_attempts"] == 2
-    assert result["retry_history"] == ["provider_timeout", "provider_timeout"]
+    assert result["provider_attempts"] == 3
+    assert result["retry_history"] == [
+        "provider_timeout",
+        "provider_timeout",
+        "provider_timeout",
+    ]
     assert result["policy_decision"] == "blocked"
     assert result["policy_unchanged"] is True
 
@@ -319,5 +323,9 @@ def test_model_failure_cannot_change_policy() -> None:
     assert result["agent_authoritative"] is False
     assert result["policy_decision"] == "blocked"
     assert result["policy_unchanged"] is True
-    assert result["provider_attempts"] == 2
-    assert result["retry_history"] == ["sdk_runtime_error", "sdk_runtime_error"]
+    assert result["provider_attempts"] == 3
+    assert result["retry_history"] == [
+        "sdk_runtime_error",
+        "sdk_runtime_error",
+        "sdk_runtime_error",
+    ]

@@ -15,7 +15,7 @@ from .models import AgentReview
 from .triage import build_envelope, validate_finding_ids
 
 MODEL = "claude-sonnet-5"
-MAX_PROVIDER_ATTEMPTS = 2
+MAX_PROVIDER_ATTEMPTS = 3
 PROVIDER_ATTEMPT_TIMEOUT_SECONDS = 120.0
 RETRYABLE_FAILURES = {
     "claude_cli_process_error",
