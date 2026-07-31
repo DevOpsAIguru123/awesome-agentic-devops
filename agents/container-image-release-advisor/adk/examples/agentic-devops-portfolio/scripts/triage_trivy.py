@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -439,17 +440,34 @@ def render_sarif(records: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def _write_descriptor(descriptor: int, content: str) -> None:
+    with os.fdopen(descriptor, "w", encoding="utf-8") as output:
+        output.write(content)
+
+
 def write_outputs(payload: dict[str, Any], records: list[dict[str, Any]]) -> None:
     Path("reports").mkdir(parents=True, exist_ok=True)
-    Path("reports/ci-triage.json").write_text(
-        json.dumps(payload, indent=2) + "\n", encoding="utf-8"
-    )
-    Path("reports/ci-triage.md").write_text(
-        render_markdown(payload) + "\n", encoding="utf-8"
-    )
-    Path("reports/ci-trivy.sarif").write_text(
-        json.dumps(render_sarif(records), indent=2) + "\n", encoding="utf-8"
-    )
+    no_follow = getattr(os, "O_NOFOLLOW", 0)
+    directory_flags = os.O_RDONLY | os.O_DIRECTORY | no_follow
+    output_flags = os.O_WRONLY | os.O_CREAT | os.O_TRUNC | no_follow
+    reports_descriptor = os.open("reports", directory_flags)
+    try:
+        json_descriptor = os.open(
+            "ci-triage.json", output_flags, 0o600, dir_fd=reports_descriptor
+        )
+        _write_descriptor(json_descriptor, json.dumps(payload, indent=2) + "\n")
+        markdown_descriptor = os.open(
+            "ci-triage.md", output_flags, 0o600, dir_fd=reports_descriptor
+        )
+        _write_descriptor(markdown_descriptor, render_markdown(payload) + "\n")
+        sarif_descriptor = os.open(
+            "ci-trivy.sarif", output_flags, 0o600, dir_fd=reports_descriptor
+        )
+        _write_descriptor(
+            sarif_descriptor, json.dumps(render_sarif(records), indent=2) + "\n"
+        )
+    finally:
+        os.close(reports_descriptor)
 
 
 def main() -> int:
@@ -482,7 +500,7 @@ def main() -> int:
         records = normalize(image_report, config_report, args.dockerfile)
         payload = triage_payload(records, policy, image_report)
         write_outputs(payload, records)
-    except ValueError as exc:
+    except (OSError, ValueError) as exc:
         parser.error(str(exc))
 
     print(f"Triaged {len(records)} Trivy finding occurrences")

@@ -155,3 +155,16 @@ def test_rejects_output_outside_workspace(tmp_path: Path) -> None:
     assert result.returncode == 2
     assert "invalid choice" in result.stderr
     assert not (tmp_path.parent / "triage.json").exists()
+
+
+def test_rejects_symlinked_reports_directory(tmp_path: Path) -> None:
+    write_json(tmp_path / "image.json", {"Results": []})
+    write_json(tmp_path / "config.json", {"Results": []})
+    outside = tmp_path.parent / f"{tmp_path.name}-outside"
+    outside.mkdir()
+    (tmp_path / "reports").symlink_to(outside, target_is_directory=True)
+
+    result = run_triage(tmp_path)
+
+    assert result.returncode == 2
+    assert not (outside / "ci-triage.json").exists()
