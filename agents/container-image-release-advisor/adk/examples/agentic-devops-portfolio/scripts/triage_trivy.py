@@ -20,6 +20,9 @@ SARIF_SECURITY_SCORE = {
     "LOW": 2.0,
     "UNKNOWN": 2.0,
 }
+JSON_OUTPUT = Path("reports/ci-triage.json")
+MARKDOWN_OUTPUT = Path("reports/ci-triage.md")
+SARIF_OUTPUT = Path("reports/ci-trivy.sarif")
 SEVERITY_PRIORITY = {
     "CRITICAL": 0,
     "HIGH": 1,
@@ -457,9 +460,11 @@ def main() -> int:
     parser.add_argument("--config-report", type=Path, required=True)
     parser.add_argument("--policy-report", type=Path, required=True)
     parser.add_argument("--dockerfile", required=True)
-    parser.add_argument("--json-output", type=Path, required=True)
-    parser.add_argument("--markdown-output", type=Path, required=True)
-    parser.add_argument("--sarif-output", type=Path, required=True)
+    parser.add_argument("--json-output", choices=[str(JSON_OUTPUT)], required=True)
+    parser.add_argument(
+        "--markdown-output", choices=[str(MARKDOWN_OUTPUT)], required=True
+    )
+    parser.add_argument("--sarif-output", choices=[str(SARIF_OUTPUT)], required=True)
     args = parser.parse_args()
 
     try:
@@ -469,11 +474,9 @@ def main() -> int:
         policy_path = confined_path(
             args.policy_report, workspace_root, must_exist=False
         )
-        json_path = confined_path(args.json_output, workspace_root, must_exist=False)
-        markdown_path = confined_path(
-            args.markdown_output, workspace_root, must_exist=False
-        )
-        sarif_path = confined_path(args.sarif_output, workspace_root, must_exist=False)
+        json_path = confined_path(JSON_OUTPUT, workspace_root, must_exist=False)
+        markdown_path = confined_path(MARKDOWN_OUTPUT, workspace_root, must_exist=False)
+        sarif_path = confined_path(SARIF_OUTPUT, workspace_root, must_exist=False)
         image_report = load_json(image_path)
         config_report = load_json(config_path)
         policy = load_json(policy_path) if policy_path.is_file() else {}

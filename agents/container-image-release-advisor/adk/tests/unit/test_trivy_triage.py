@@ -31,11 +31,11 @@ def run_triage(workspace: Path, *extra: str) -> subprocess.CompletedProcess[str]
         "--dockerfile",
         "Dockerfile",
         "--json-output",
-        "reports/triage.json",
+        "reports/ci-triage.json",
         "--markdown-output",
-        "reports/triage.md",
+        "reports/ci-triage.md",
         "--sarif-output",
-        "reports/trivy.sarif",
+        "reports/ci-trivy.sarif",
         *extra,
     ]
     return subprocess.run(
@@ -101,7 +101,7 @@ def test_triages_each_finding_without_exposing_secret_values(tmp_path: Path) -> 
     result = run_triage(tmp_path)
 
     assert result.returncode == 0, result.stderr
-    triage_text = (tmp_path / "reports" / "triage.json").read_text()
+    triage_text = (tmp_path / "reports" / "ci-triage.json").read_text()
     triage = json.loads(triage_text)
     assert triage["policy_decision"] == "not_evaluated"
     assert triage["summary"]["total_findings"] == 3
@@ -113,14 +113,14 @@ def test_triages_each_finding_without_exposing_secret_values(tmp_path: Path) -> 
     assert "DO-NOT-COPY-THIS-SECRET" not in triage_text
     assert (
         "DO-NOT-COPY-THIS-SECRET"
-        not in (tmp_path / "reports" / "triage.md").read_text()
+        not in (tmp_path / "reports" / "ci-triage.md").read_text()
     )
     assert (
         "not_evaluated` is not approval"
-        in (tmp_path / "reports" / "triage.md").read_text()
+        in (tmp_path / "reports" / "ci-triage.md").read_text()
     )
 
-    sarif = json.loads((tmp_path / "reports" / "trivy.sarif").read_text())
+    sarif = json.loads((tmp_path / "reports" / "ci-trivy.sarif").read_text())
     assert sarif["version"] == "2.1.0"
     assert len(sarif["runs"][0]["results"]) == 3
     assert sarif["runs"][0]["results"][0]["level"] == "error"
@@ -134,10 +134,12 @@ def test_clean_reports_produce_an_explicit_empty_report(tmp_path: Path) -> None:
     result = run_triage(tmp_path)
 
     assert result.returncode == 0, result.stderr
-    triage = json.loads((tmp_path / "reports" / "triage.json").read_text())
+    triage = json.loads((tmp_path / "reports" / "ci-triage.json").read_text())
     assert triage["summary"]["total_findings"] == 0
     assert triage["findings"] == []
-    assert "No Trivy vulnerability" in (tmp_path / "reports" / "triage.md").read_text()
+    assert (
+        "No Trivy vulnerability" in (tmp_path / "reports" / "ci-triage.md").read_text()
+    )
 
 
 def test_rejects_output_outside_workspace(tmp_path: Path) -> None:
@@ -151,5 +153,5 @@ def test_rejects_output_outside_workspace(tmp_path: Path) -> None:
     )
 
     assert result.returncode == 2
-    assert "path escapes workspace root" in result.stderr
+    assert "invalid choice" in result.stderr
     assert not (tmp_path.parent / "triage.json").exists()

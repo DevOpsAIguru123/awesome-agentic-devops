@@ -229,20 +229,28 @@ def _correlate(findings: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return correlations
 
 
+def _normalized_misconfigurations(result: dict[str, Any]) -> list[dict[str, Any]]:
+    return [
+        _normalize_misconfiguration(item, result)
+        for item in result.get("Misconfigurations") or []
+        if isinstance(item, dict) and str(item.get("Status", "FAIL")).upper() != "PASS"
+    ]
+
+
+def _normalized_vulnerabilities(result: dict[str, Any]) -> list[dict[str, Any]]:
+    return [
+        _normalize_vulnerability(item, result)
+        for item in result.get("Vulnerabilities") or []
+        if isinstance(item, dict)
+    ]
+
+
 def _normalized_findings(results: list[Any]) -> list[dict[str, Any]]:
     findings: list[dict[str, Any]] = []
     for result in results:
-        if not isinstance(result, dict):
-            continue
-        for item in result.get("Misconfigurations") or []:
-            if (
-                isinstance(item, dict)
-                and str(item.get("Status", "FAIL")).upper() != "PASS"
-            ):
-                findings.append(_normalize_misconfiguration(item, result))
-        for item in result.get("Vulnerabilities") or []:
-            if isinstance(item, dict):
-                findings.append(_normalize_vulnerability(item, result))
+        if isinstance(result, dict):
+            findings.extend(_normalized_misconfigurations(result))
+            findings.extend(_normalized_vulnerabilities(result))
     return findings
 
 
