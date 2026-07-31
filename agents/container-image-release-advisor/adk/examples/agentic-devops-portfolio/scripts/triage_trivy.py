@@ -20,9 +20,6 @@ SARIF_SECURITY_SCORE = {
     "LOW": 2.0,
     "UNKNOWN": 2.0,
 }
-JSON_OUTPUT = Path("reports/ci-triage.json")
-MARKDOWN_OUTPUT = Path("reports/ci-triage.md")
-SARIF_OUTPUT = Path("reports/ci-trivy.sarif")
 SEVERITY_PRIORITY = {
     "CRITICAL": 0,
     "HIGH": 1,
@@ -443,10 +440,14 @@ def render_sarif(records: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def write_outputs(payload: dict[str, Any], records: list[dict[str, Any]]) -> None:
-    JSON_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    JSON_OUTPUT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    MARKDOWN_OUTPUT.write_text(render_markdown(payload) + "\n", encoding="utf-8")
-    SARIF_OUTPUT.write_text(
+    Path("reports").mkdir(parents=True, exist_ok=True)
+    Path("reports/ci-triage.json").write_text(
+        json.dumps(payload, indent=2) + "\n", encoding="utf-8"
+    )
+    Path("reports/ci-triage.md").write_text(
+        render_markdown(payload) + "\n", encoding="utf-8"
+    )
+    Path("reports/ci-trivy.sarif").write_text(
         json.dumps(render_sarif(records), indent=2) + "\n", encoding="utf-8"
     )
 
@@ -457,11 +458,15 @@ def main() -> int:
     parser.add_argument("--config-report", type=Path, required=True)
     parser.add_argument("--policy-report", type=Path, required=True)
     parser.add_argument("--dockerfile", required=True)
-    parser.add_argument("--json-output", choices=[str(JSON_OUTPUT)], required=True)
     parser.add_argument(
-        "--markdown-output", choices=[str(MARKDOWN_OUTPUT)], required=True
+        "--json-output", choices=["reports/ci-triage.json"], required=True
     )
-    parser.add_argument("--sarif-output", choices=[str(SARIF_OUTPUT)], required=True)
+    parser.add_argument(
+        "--markdown-output", choices=["reports/ci-triage.md"], required=True
+    )
+    parser.add_argument(
+        "--sarif-output", choices=["reports/ci-trivy.sarif"], required=True
+    )
     args = parser.parse_args()
 
     try:
@@ -481,8 +486,8 @@ def main() -> int:
         parser.error(str(exc))
 
     print(f"Triaged {len(records)} Trivy finding occurrences")
-    print(f"Readable report: {MARKDOWN_OUTPUT}")
-    print(f"GitHub Code Scanning report: {SARIF_OUTPUT}")
+    print("Readable report: reports/ci-triage.md")
+    print("GitHub Code Scanning report: reports/ci-trivy.sarif")
     return 0
 
 
