@@ -442,16 +442,13 @@ def render_sarif(records: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def write_json(path: Path, payload: dict[str, Any]) -> None:
-    validated_path = confined_path(path, Path.cwd(), must_exist=False)
-    validated_path.parent.mkdir(parents=True, exist_ok=True)
-    validated_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-
-
-def write_text(path: Path, content: str) -> None:
-    validated_path = confined_path(path, Path.cwd(), must_exist=False)
-    validated_path.parent.mkdir(parents=True, exist_ok=True)
-    validated_path.write_text(content, encoding="utf-8")
+def write_outputs(payload: dict[str, Any], records: list[dict[str, Any]]) -> None:
+    JSON_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    JSON_OUTPUT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    MARKDOWN_OUTPUT.write_text(render_markdown(payload) + "\n", encoding="utf-8")
+    SARIF_OUTPUT.write_text(
+        json.dumps(render_sarif(records), indent=2) + "\n", encoding="utf-8"
+    )
 
 
 def main() -> int:
@@ -474,23 +471,18 @@ def main() -> int:
         policy_path = confined_path(
             args.policy_report, workspace_root, must_exist=False
         )
-        json_path = confined_path(JSON_OUTPUT, workspace_root, must_exist=False)
-        markdown_path = confined_path(MARKDOWN_OUTPUT, workspace_root, must_exist=False)
-        sarif_path = confined_path(SARIF_OUTPUT, workspace_root, must_exist=False)
         image_report = load_json(image_path)
         config_report = load_json(config_path)
         policy = load_json(policy_path) if policy_path.is_file() else {}
         records = normalize(image_report, config_report, args.dockerfile)
         payload = triage_payload(records, policy, image_report)
-        write_json(json_path, payload)
-        write_text(markdown_path, render_markdown(payload) + "\n")
-        write_json(sarif_path, render_sarif(records))
+        write_outputs(payload, records)
     except ValueError as exc:
         parser.error(str(exc))
 
     print(f"Triaged {len(records)} Trivy finding occurrences")
-    print(f"Readable report: {markdown_path}")
-    print(f"GitHub Code Scanning report: {sarif_path}")
+    print(f"Readable report: {MARKDOWN_OUTPUT}")
+    print(f"GitHub Code Scanning report: {SARIF_OUTPUT}")
     return 0
 
 
