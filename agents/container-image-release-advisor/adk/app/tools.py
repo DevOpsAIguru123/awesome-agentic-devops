@@ -88,17 +88,19 @@ def _compact_text(value: Any, limit: int = 1200) -> str:
     return text if len(text) <= limit else f"{text[: limit - 3]}..."
 
 
+def _line_description(start_line: Any, end_line: Any) -> str:
+    if not start_line:
+        return "line unavailable"
+    if end_line and start_line != end_line:
+        return f"lines {start_line}-{end_line}"
+    return f"line {start_line}"
+
+
 def _evidence_for(item: dict[str, Any], result: dict[str, Any]) -> str:
     cause = item.get("CauseMetadata") or {}
     start_line = cause.get("StartLine")
     end_line = cause.get("EndLine")
-    lines = (
-        f"lines {start_line}-{end_line}"
-        if start_line and end_line and start_line != end_line
-        else f"line {start_line}"
-        if start_line
-        else "line unavailable"
-    )
+    lines = _line_description(start_line, end_line)
     code = cause.get("Code") or {}
     code_lines = code.get("Lines") or []
     rendered = " | ".join(
@@ -107,7 +109,9 @@ def _evidence_for(item: dict[str, Any], result: dict[str, Any]) -> str:
         if isinstance(line, dict) and line.get("Content")
     )
     target = result.get("Target") or "unknown target"
-    return _compact_text(f"{target}, {lines}: {rendered}" if rendered else f"{target}, {lines}")
+    return _compact_text(
+        f"{target}, {lines}: {rendered}" if rendered else f"{target}, {lines}"
+    )
 
 
 def _normalize_misconfiguration(
@@ -117,7 +121,9 @@ def _normalize_misconfiguration(
         "kind": "misconfiguration",
         "id": item.get("ID") or item.get("AVDID") or "unknown",
         "severity": str(item.get("Severity") or "UNKNOWN").upper(),
-        "title": _compact_text(item.get("Title") or item.get("Message") or "Untitled finding"),
+        "title": _compact_text(
+            item.get("Title") or item.get("Message") or "Untitled finding"
+        ),
         "description": _compact_text(item.get("Description") or item.get("Message")),
         "resolution": _compact_text(item.get("Resolution")),
         "status": item.get("Status") or "FAIL",
@@ -137,7 +143,9 @@ def _normalize_vulnerability(
         "kind": "vulnerability",
         "id": item.get("VulnerabilityID") or "unknown",
         "severity": str(item.get("Severity") or "UNKNOWN").upper(),
-        "title": _compact_text(item.get("Title") or item.get("VulnerabilityID") or "Untitled vulnerability"),
+        "title": _compact_text(
+            item.get("Title") or item.get("VulnerabilityID") or "Untitled vulnerability"
+        ),
         "description": _compact_text(item.get("Description")),
         "resolution": (
             f"Upgrade {package} from {installed} to {fixed_version}."
@@ -159,8 +167,7 @@ def _correlate(findings: list[dict[str, Any]]) -> list[dict[str, Any]]:
     # include an entire surrounding resource, so matching evidence would attach
     # unrelated finding IDs to every correlation for that resource.
     searchable = {
-        finding["id"]: str(finding.get("title", "")).lower()
-        for finding in findings
+        finding["id"]: str(finding.get("title", "")).lower() for finding in findings
     }
 
     def matches(*terms: str) -> list[str]:
@@ -222,22 +229,29 @@ def _correlate(findings: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return correlations
 
 
-def normalize_trivy_report(report: dict[str, Any]) -> dict[str, Any]:
-    """Normalize Trivy JSON without allowing the model to reinterpret evidence."""
+def _normalized_findings(results: list[Any]) -> list[dict[str, Any]]:
     findings: list[dict[str, Any]] = []
-    results = report.get("Results") or []
-    if not isinstance(results, list):
-        raise ScanInputError("Invalid Trivy report: Results must be a list.")
-
     for result in results:
         if not isinstance(result, dict):
             continue
         for item in result.get("Misconfigurations") or []:
-            if isinstance(item, dict) and str(item.get("Status", "FAIL")).upper() != "PASS":
+            if (
+                isinstance(item, dict)
+                and str(item.get("Status", "FAIL")).upper() != "PASS"
+            ):
                 findings.append(_normalize_misconfiguration(item, result))
         for item in result.get("Vulnerabilities") or []:
             if isinstance(item, dict):
                 findings.append(_normalize_vulnerability(item, result))
+    return findings
+
+
+def normalize_trivy_report(report: dict[str, Any]) -> dict[str, Any]:
+    """Normalize Trivy JSON without allowing the model to reinterpret evidence."""
+    results = report.get("Results") or []
+    if not isinstance(results, list):
+        raise ScanInputError("Invalid Trivy report: Results must be a list.")
+    findings = _normalized_findings(results)
 
     findings.sort(
         key=lambda finding: (
@@ -278,7 +292,9 @@ def _parse_report_text(report_text: str) -> dict[str, Any]:
     except json.JSONDecodeError as exc:
         raise ScanInputError(f"Trivy did not return valid JSON: {exc.msg}.") from exc
     if not isinstance(report, dict):
-        raise ScanInputError("Invalid Trivy report: the top-level value must be an object.")
+        raise ScanInputError(
+            "Invalid Trivy report: the top-level value must be an object."
+        )
     return normalize_trivy_report(report)
 
 
@@ -344,9 +360,17 @@ def scan_with_trivy(
         normalized["target"] = str(target)
         return normalized
     except FileNotFoundError:
-        return {"status": "error", "scanner": "trivy", "error": "Trivy is not installed or is not on PATH."}
+        return {
+            "status": "error",
+            "scanner": "trivy",
+            "error": "Trivy is not installed or is not on PATH.",
+        }
     except subprocess.TimeoutExpired:
-        return {"status": "error", "scanner": "trivy", "error": f"Trivy exceeded the {_timeout_seconds()}-second timeout."}
+        return {
+            "status": "error",
+            "scanner": "trivy",
+            "error": f"Trivy exceeded the {_timeout_seconds()}-second timeout.",
+        }
     except (OSError, UnicodeError, ScanInputError) as exc:
         return {"status": "error", "scanner": "trivy", "error": str(exc)}
 
@@ -356,7 +380,9 @@ def analyze_trivy_report(report_path: str) -> dict[str, Any]:
     try:
         path = _safe_path(report_path, must_be_file=True)
         if path.stat().st_size > MAX_REPORT_BYTES:
-            raise ScanInputError(f"Trivy report exceeds the {MAX_REPORT_BYTES}-byte limit.")
+            raise ScanInputError(
+                f"Trivy report exceeds the {MAX_REPORT_BYTES}-byte limit."
+            )
         return _parse_report_text(path.read_text(encoding="utf-8"))
     except (OSError, UnicodeError, ScanInputError) as exc:
         return {"status": "error", "scanner": "trivy", "error": str(exc)}

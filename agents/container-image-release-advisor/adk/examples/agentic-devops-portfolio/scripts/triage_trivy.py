@@ -12,6 +12,14 @@ from typing import Any
 from urllib.parse import urlparse
 
 BLOCKING_SEVERITIES = {"HIGH", "CRITICAL"}
+NOT_APPLICABLE = "not applicable"
+SARIF_SECURITY_SCORE = {
+    "CRITICAL": 9.5,
+    "HIGH": 8.0,
+    "MEDIUM": 5.5,
+    "LOW": 2.0,
+    "UNKNOWN": 2.0,
+}
 SEVERITY_PRIORITY = {
     "CRITICAL": 0,
     "HIGH": 1,
@@ -162,8 +170,8 @@ def misconfiguration_record(
         "title": str(item.get("Title") or item.get("Message") or finding_id),
         "severity": finding_severity,
         "component": str(result.get("Target") or path),
-        "installed_version": "not applicable",
-        "fixed_version": "not applicable",
+        "installed_version": NOT_APPLICABLE,
+        "fixed_version": NOT_APPLICABLE,
         "scanner_status": str(item.get("Status") or "FAIL"),
         "policy_blocking": finding_severity in BLOCKING_SEVERITIES,
         "triage_verdict": "needs_review",
@@ -192,8 +200,8 @@ def secret_record(
         "title": "Potential secret detected",
         "severity": severity(item.get("Severity") or "CRITICAL"),
         "component": str(result.get("Target") or "container image"),
-        "installed_version": "not applicable",
-        "fixed_version": "not applicable",
+        "installed_version": NOT_APPLICABLE,
+        "fixed_version": NOT_APPLICABLE,
         "scanner_status": "detected",
         "policy_blocking": True,
         "triage_verdict": "needs_review",
@@ -231,7 +239,7 @@ def normalize(
         key=lambda row: (
             SEVERITY_PRIORITY[row["severity"]],
             0 if row["policy_blocking"] else 1,
-            0 if row["fixed_version"] not in {"not published", "not applicable"} else 1,
+            0 if row["fixed_version"] not in {"not published", NOT_APPLICABLE} else 1,
             row["kind"],
             row["id"],
             row["component"],
@@ -355,68 +363,63 @@ def sarif_level(finding_severity: str) -> str:
     return "note"
 
 
+def _sarif_rule(record: dict[str, Any], rule_id: str) -> dict[str, Any]:
+    rule: dict[str, Any] = {
+        "id": rule_id,
+        "name": str(record["id"]),
+        "shortDescription": {"text": str(record["title"])[:1024]},
+        "properties": {
+            "security-severity": str(SARIF_SECURITY_SCORE[record["severity"]]),
+            "tags": ["security", "trivy", record["kind"]],
+        },
+    }
+    if record["reference"]:
+        rule["helpUri"] = record["reference"]
+    return rule
+
+
+def _sarif_result(record: dict[str, Any], rule_id: str) -> dict[str, Any]:
+    location = record["location"]
+    fingerprint_source = "|".join(
+        str(record[field]) for field in ("kind", "id", "component", "installed_version")
+    )
+    return {
+        "ruleId": rule_id,
+        "level": sarif_level(record["severity"]),
+        "message": {
+            "text": f"{record['id']} in {record['component']}: {record['recommended_action']}"
+        },
+        "locations": [
+            {
+                "physicalLocation": {
+                    "artifactLocation": {"uri": location["path"]},
+                    "region": {
+                        "startLine": location["start_line"],
+                        "endLine": location["end_line"],
+                    },
+                }
+            }
+        ],
+        "partialFingerprints": {
+            "primaryLocationLineHash": hashlib.sha256(
+                fingerprint_source.encode("utf-8")
+            ).hexdigest()
+        },
+        "properties": {
+            "severity": record["severity"],
+            "policyBlocking": record["policy_blocking"],
+            "triageVerdict": record["triage_verdict"],
+        },
+    }
+
+
 def render_sarif(records: list[dict[str, Any]]) -> dict[str, Any]:
     rules: dict[str, dict[str, Any]] = {}
     results: list[dict[str, Any]] = []
     for record in records:
         rule_id = f"trivy/{record['kind']}/{record['id']}"
-        if rule_id not in rules:
-            rule: dict[str, Any] = {
-                "id": rule_id,
-                "name": str(record["id"]),
-                "shortDescription": {"text": str(record["title"])[:1024]},
-                "properties": {
-                    "security-severity": str(
-                        9.5
-                        if record["severity"] == "CRITICAL"
-                        else 8.0
-                        if record["severity"] == "HIGH"
-                        else 5.5
-                        if record["severity"] == "MEDIUM"
-                        else 2.0
-                    ),
-                    "tags": ["security", "trivy", record["kind"]],
-                },
-            }
-            if record["reference"]:
-                rule["helpUri"] = record["reference"]
-            rules[rule_id] = rule
-
-        location = record["location"]
-        fingerprint_source = "|".join(
-            str(record[field])
-            for field in ("kind", "id", "component", "installed_version")
-        )
-        results.append(
-            {
-                "ruleId": rule_id,
-                "level": sarif_level(record["severity"]),
-                "message": {
-                    "text": f"{record['id']} in {record['component']}: {record['recommended_action']}"
-                },
-                "locations": [
-                    {
-                        "physicalLocation": {
-                            "artifactLocation": {"uri": location["path"]},
-                            "region": {
-                                "startLine": location["start_line"],
-                                "endLine": location["end_line"],
-                            },
-                        }
-                    }
-                ],
-                "partialFingerprints": {
-                    "primaryLocationLineHash": hashlib.sha256(
-                        fingerprint_source.encode("utf-8")
-                    ).hexdigest()
-                },
-                "properties": {
-                    "severity": record["severity"],
-                    "policyBlocking": record["policy_blocking"],
-                    "triageVerdict": record["triage_verdict"],
-                },
-            }
-        )
+        rules.setdefault(rule_id, _sarif_rule(record, rule_id))
+        results.append(_sarif_result(record, rule_id))
 
     return {
         "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
@@ -437,13 +440,15 @@ def render_sarif(records: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
-    # The caller passes only paths returned by confined_path(). Sonar cannot
-    # propagate that validation through this helper, so keep the justification
-    # beside the narrowly suppressed sink.
-    path.parent.mkdir(parents=True, exist_ok=True)  # NOSONAR
-    path.write_text(  # NOSONAR
-        json.dumps(payload, indent=2) + "\n", encoding="utf-8"
-    )
+    validated_path = confined_path(path, Path.cwd(), must_exist=False)
+    validated_path.parent.mkdir(parents=True, exist_ok=True)
+    validated_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+
+
+def write_text(path: Path, content: str) -> None:
+    validated_path = confined_path(path, Path.cwd(), must_exist=False)
+    validated_path.parent.mkdir(parents=True, exist_ok=True)
+    validated_path.write_text(content, encoding="utf-8")
 
 
 def main() -> int:
@@ -475,10 +480,7 @@ def main() -> int:
         records = normalize(image_report, config_report, args.dockerfile)
         payload = triage_payload(records, policy, image_report)
         write_json(json_path, payload)
-        markdown_path.parent.mkdir(parents=True, exist_ok=True)
-        markdown_path.write_text(  # NOSONAR - confined to workspace above
-            render_markdown(payload) + "\n", encoding="utf-8"
-        )
+        write_text(markdown_path, render_markdown(payload) + "\n")
         write_json(sarif_path, render_sarif(records))
     except ValueError as exc:
         parser.error(str(exc))

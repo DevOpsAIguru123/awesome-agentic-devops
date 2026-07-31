@@ -15,7 +15,8 @@ SCRIPT = (
 
 def load_script() -> ModuleType:
     spec = importlib.util.spec_from_file_location("export_sonar", SCRIPT)
-    assert spec and spec.loader
+    assert spec is not None
+    assert spec.loader is not None
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -36,9 +37,12 @@ def test_effective_context_uses_the_dashboard_context() -> None:
     assert module.effective_analysis_params(
         "https://sonarcloud.io/dashboard?id=portfolio&branch=feature", "", "feature"
     ) == {"branch": "feature"}
-    assert module.effective_analysis_params(
-        "https://sonarcloud.io/dashboard?id=portfolio", "", "feature"
-    ) == {}
+    assert (
+        module.effective_analysis_params(
+            "https://sonarcloud.io/dashboard?id=portfolio", "", "feature"
+        )
+        == {}
+    )
 
 
 def test_rejects_non_sonar_and_non_https_servers() -> None:

@@ -52,8 +52,8 @@ jobs:
       - name: Generate Python coverage evidence
         working-directory: ${{ env.APP_DIR }}/../..
         run: |
-          uv sync --frozen --group dev
-          uv run --frozen pytest -p no:cacheprovider tests/unit \
+          uv sync --frozen --group dev --no-install-project --no-build
+          uv run --frozen --no-sync --no-build pytest -p no:cacheprovider tests/unit \
             --cov=examples/agentic-devops-portfolio/scripts \
             --cov-branch --cov-report=term-missing \
             --cov-report=xml:examples/agentic-devops-portfolio/coverage.xml
@@ -572,15 +572,15 @@ jobs:
 
       - name: Install locked Claude Agent SDK and test dependencies
         working-directory: agents/container-image-release-advisor/claude
-        run: uv sync --frozen
+        run: uv sync --frozen --no-install-project --no-build
 
       - name: Validate Claude advisory safety and retry behavior
         working-directory: agents/container-image-release-advisor/claude
-        run: uv run --no-sync pytest -q
+        run: uv run --no-sync --no-build pytest -q
 
       - name: Install pinned Claude Code CLI
         run: |
-          npm install --global @anthropic-ai/claude-code@2.1.220
+          npm install --global --ignore-scripts @anthropic-ai/claude-code@2.1.220
           echo "CLAUDE_CODE_CLI_PATH=$(command -v claude)" >> "$GITHUB_ENV"
           claude --version
 
@@ -599,7 +599,7 @@ jobs:
             echo "Claude Agent SDK attempt ${attempt}/2"
             set +e
             timeout --signal=TERM --kill-after=10s 75s \
-              uv run --no-sync claude-container-review \
+              PYTHONPATH=src uv run --no-sync --no-build python -m claude_container_hardening.cli \
                 --triage-report .ci-input/ci-triage.json \
                 --json-output reports/ci-agent-review.json \
                 --markdown-output reports/ci-agent-review.md \
@@ -648,7 +648,7 @@ jobs:
             rm -f reports/ci-agent-review.json reports/ci-agent-review.md
             set +e
             timeout --signal=TERM --kill-after=10s 90s \
-              uv run --no-sync claude-container-review \
+              PYTHONPATH=src uv run --no-sync --no-build python -m claude_container_hardening.cli \
                 --triage-report .ci-input/ci-triage.json \
                 --json-output reports/ci-agent-review.json \
                 --markdown-output reports/ci-agent-review.md \
@@ -683,7 +683,7 @@ jobs:
           }
           export WORKFLOW_PROVIDER_ATTEMPTS="$total_attempts"
           export WORKFLOW_RETRY_HISTORY="$workflow_retry_history"
-          uv run --no-sync python - <<'PY'
+          PYTHONPATH=src uv run --no-sync --no-build python - <<'PY'
           import json
           import os
           from pathlib import Path

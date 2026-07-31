@@ -45,8 +45,8 @@ jobs:
       - name: Generate Python coverage evidence
         working-directory: ${{ env.APP_DIR }}/../..
         run: |
-          uv sync --frozen --group dev
-          uv run --frozen pytest -p no:cacheprovider tests/unit \
+          uv sync --frozen --group dev --no-install-project --no-build
+          uv run --frozen --no-sync --no-build pytest -p no:cacheprovider tests/unit \
             --cov=examples/agentic-devops-portfolio/scripts \
             --cov-branch --cov-report=term-missing \
             --cov-report=xml:examples/agentic-devops-portfolio/coverage.xml
@@ -454,7 +454,7 @@ jobs:
 
       - name: Install locked ADK dependencies
         working-directory: agents/container-image-release-advisor/adk
-        run: uv sync --frozen --no-dev
+        run: uv sync --frozen --no-dev --no-install-project --no-build
 
       - name: Authenticate to Google Cloud with Workload Identity Federation
         if: github.ref == 'refs/heads/main'
@@ -470,7 +470,7 @@ jobs:
           GOOGLE_CLOUD_PROJECT: ${{ github.ref == 'refs/heads/main' && secrets.GOOGLE_CLOUD_PROJECT || '' }}
           GOOGLE_CLOUD_LOCATION: "global"
         run: >-
-          uv run --no-sync python scripts/run_ci_agent.py
+          uv run --no-sync --no-build python -m scripts.run_ci_agent
           --triage-report .ci-agent-input/ci-triage.json
           --json-output reports/ci-agent-review.json
           --markdown-output reports/ci-agent-review.md

@@ -62,7 +62,9 @@ def load_json(path: Path) -> dict[str, Any]:
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
-        raise ValueError(f"cannot read valid report JSON from {path.name}: {exc}") from exc
+        raise ValueError(
+            f"cannot read valid report JSON from {path.name}: {exc}"
+        ) from exc
     if not isinstance(payload, dict):
         raise ValueError(f"expected a JSON object in {path.name}")
     return payload
@@ -84,11 +86,15 @@ def severity(value: Any) -> str:
 
 
 def metric_cards(cards: list[tuple[str, Any, str]]) -> str:
-    return '<div class="cards">' + "".join(
-        f'<div class="card"><span class="label">{text(label)}</span>'
-        f'<span class="value {text(style)}">{text(value)}</span></div>'
-        for label, value, style in cards
-    ) + "</div>"
+    return (
+        '<div class="cards">'
+        + "".join(
+            f'<div class="card"><span class="label">{text(label)}</span>'
+            f'<span class="value {text(style)}">{text(value)}</span></div>'
+            for label, value, style in cards
+        )
+        + "</div>"
+    )
 
 
 def release_banner(decision: str, detail: str) -> str:
@@ -111,7 +117,9 @@ def document(title: str, subtitle: str, body: str) -> str:
 <div class="muted">Generated {generated}</div></header>{body}</main></body></html>"""
 
 
-def paged_tables(header: str, rows: list[str], columns: int, *, page_size: int = 7) -> str:
+def paged_tables(
+    header: str, rows: list[str], columns: int, *, page_size: int = 7
+) -> str:
     if not rows:
         return (
             f"<table>{header}<tbody><tr><td colspan='{columns}'>"
@@ -132,31 +140,47 @@ def paged_tables(header: str, rows: list[str], columns: int, *, page_size: int =
     return "".join(tables)
 
 
+def mapping(value: Any) -> dict[str, Any]:
+    return value if isinstance(value, dict) else {}
+
+
+def _config_finding(result: dict[str, Any], item: dict[str, Any]) -> dict[str, Any]:
+    cause = mapping(item.get("CauseMetadata"))
+    return {
+        "severity": severity(item.get("Severity")),
+        "id": str(item.get("ID") or "TRIVY-MISCONFIGURATION"),
+        "title": str(item.get("Title") or item.get("Message") or "Misconfiguration"),
+        "target": str(result.get("Target") or "unknown"),
+        "line": int(cause.get("StartLine") or 1),
+        "resolution": str(
+            item.get("Resolution") or "Apply the scanner remediation and rescan."
+        ),
+        "reference": safe_url(item.get("PrimaryURL")),
+    }
+
+
+def _result_config_findings(result: Any) -> list[dict[str, Any]]:
+    if not isinstance(result, dict):
+        return []
+    findings = []
+    for item in result.get("Misconfigurations") or []:
+        if not isinstance(item, dict):
+            continue
+        if str(item.get("Status") or "FAIL").upper() != "PASS":
+            findings.append(_config_finding(result, item))
+    return findings
+
+
 def config_findings(report: dict[str, Any]) -> list[dict[str, Any]]:
     results = report.get("Results")
     if not isinstance(results, list):
         raise ValueError("invalid Trivy configuration report: Results must be a list")
-    findings: list[dict[str, Any]] = []
-    for result in results:
-        if not isinstance(result, dict):
-            continue
-        target = str(result.get("Target") or "unknown")
-        for item in result.get("Misconfigurations") or []:
-            if not isinstance(item, dict) or str(item.get("Status") or "FAIL").upper() == "PASS":
-                continue
-            cause = item.get("CauseMetadata") if isinstance(item.get("CauseMetadata"), dict) else {}
-            findings.append(
-                {
-                    "severity": severity(item.get("Severity")),
-                    "id": str(item.get("ID") or "TRIVY-MISCONFIGURATION"),
-                    "title": str(item.get("Title") or item.get("Message") or "Misconfiguration"),
-                    "target": target,
-                    "line": int(cause.get("StartLine") or 1),
-                    "resolution": str(item.get("Resolution") or "Apply the scanner remediation and rescan."),
-                    "reference": safe_url(item.get("PrimaryURL")),
-                }
-            )
-    findings.sort(key=lambda item: (SEVERITY_ORDER[item["severity"]], item["id"], item["target"]))
+    findings = [
+        finding for result in results for finding in _result_config_findings(result)
+    ]
+    findings.sort(
+        key=lambda item: (SEVERITY_ORDER[item["severity"]], item["id"], item["target"])
+    )
     return findings
 
 
@@ -238,6 +262,49 @@ def sonar_severity_style(value: Any) -> str:
     return "approved"
 
 
+def _finding_location(item: dict[str, Any]) -> str:
+    location = str(item.get("component") or "unknown")
+    line = item.get("line")
+    return f"{location}:{line}" if line else location
+
+
+def _sonar_issue_table_rows(issues: list[dict[str, Any]]) -> list[str]:
+    return [
+        "<tr>"
+        f'<td class="nowrap {text(sonar_severity_style(item.get("severity")))}">{text(item.get("severity"))}</td>'
+        f"<td>{text(item.get('kind'))}</td><td>{text(item.get('rule'))}</td>"
+        f"<td><code>{text(_finding_location(item))}</code></td><td>{text(item.get('message'))}</td>"
+        f"<td>{text(item.get('status'))}</td></tr>"
+        for item in issues
+    ]
+
+
+def _hotspot_table_rows(hotspots: list[dict[str, Any]]) -> list[str]:
+    return [
+        "<tr>"
+        f'<td class="nowrap {text(sonar_severity_style(item.get("severity")))}">{text(item.get("severity"))}</td>'
+        f"<td>{text(item.get('rule'))}</td><td><code>{text(_finding_location(item))}</code></td>"
+        f"<td>{text(item.get('message'))}</td><td>{text(item.get('status'))}</td></tr>"
+        for item in hotspots
+    ]
+
+
+def _config_table_rows(findings: list[dict[str, Any]]) -> list[str]:
+    rows = []
+    for item in findings:
+        identifier = text(item["id"])
+        if item["reference"]:
+            identifier = f'<a href="{text(item["reference"])}">{identifier}</a>'
+        rows.append(
+            "<tr>"
+            f'<td class="nowrap sev-{text(item["severity"].lower())}">{text(item["severity"])}</td>'
+            f"<td>{identifier}</td><td>{text(item['title'])}</td>"
+            f"<td><code>{text(item['target'])}:{item['line']}</code></td>"
+            f"<td>{text(item['resolution'])}</td></tr>"
+        )
+    return rows
+
+
 def render_prebuild_report(
     sonar: dict[str, Any], config: dict[str, Any], policy: dict[str, Any]
 ) -> str:
@@ -245,62 +312,26 @@ def render_prebuild_report(
     issues = sonar_rows(sonar, "findings")
     hotspots = sonar_rows(sonar, "hotspots")
     misconfigurations = config_findings(config)
-    quality_gate = sonar.get("quality_gate")
-    sonar_status = (
-        str(quality_gate.get("status") or "UNKNOWN")
-        if isinstance(quality_gate, dict)
-        else "UNKNOWN"
-    )
+    quality_gate = mapping(sonar.get("quality_gate"))
+    sonar_status = str(quality_gate.get("status") or "UNKNOWN")
     config_decision = str(policy.get("policy_decision") or "not_evaluated")
     blocking = int((policy.get("summary") or {}).get("blocking_findings") or 0)
 
-    issue_table_rows = []
-    for item in issues:
-        location = str(item.get("component") or "unknown")
-        if item.get("line"):
-            location += f":{item['line']}"
-        issue_table_rows.append(
-            "<tr>"
-            f'<td class="nowrap {text(sonar_severity_style(item.get("severity")))}">{text(item.get("severity"))}</td>'
-            f"<td>{text(item.get('kind'))}</td><td>{text(item.get('rule'))}</td>"
-            f"<td><code>{text(location)}</code></td><td>{text(item.get('message'))}</td>"
-            f"<td>{text(item.get('status'))}</td></tr>"
-        )
+    issue_table_rows = _sonar_issue_table_rows(issues)
     issue_header = (
         "<thead><tr><th style='width:10%'>Severity</th><th style='width:10%'>Type</th>"
         "<th style='width:15%'>Rule</th><th style='width:20%'>Location</th>"
         "<th>Finding</th><th style='width:10%'>Status</th></tr></thead>"
     )
 
-    hotspot_table_rows = []
-    for item in hotspots:
-        location = str(item.get("component") or "unknown")
-        if item.get("line"):
-            location += f":{item['line']}"
-        hotspot_table_rows.append(
-            "<tr>"
-            f'<td class="nowrap {text(sonar_severity_style(item.get("severity")))}">{text(item.get("severity"))}</td>'
-            f"<td>{text(item.get('rule'))}</td><td><code>{text(location)}</code></td>"
-            f"<td>{text(item.get('message'))}</td><td>{text(item.get('status'))}</td></tr>"
-        )
+    hotspot_table_rows = _hotspot_table_rows(hotspots)
     hotspot_header = (
         "<thead><tr><th style='width:12%'>Priority</th><th style='width:18%'>Category</th>"
         "<th style='width:25%'>Location</th><th>Finding</th>"
         "<th style='width:14%'>Review status</th></tr></thead>"
     )
 
-    config_table_rows = []
-    for item in misconfigurations:
-        identifier = text(item["id"])
-        if item["reference"]:
-            identifier = f'<a href="{text(item["reference"])}">{identifier}</a>'
-        config_table_rows.append(
-            "<tr>"
-            f'<td class="nowrap sev-{text(item["severity"].lower())}">{text(item["severity"])}</td>'
-            f"<td>{identifier}</td><td>{text(item['title'])}</td>"
-            f"<td><code>{text(item['target'])}:{item['line']}</code></td>"
-            f"<td>{text(item['resolution'])}</td></tr>"
-        )
+    config_table_rows = _config_table_rows(misconfigurations)
     config_header = (
         "<thead><tr><th style='width:9%'>Severity</th><th style='width:13%'>ID</th>"
         "<th style='width:22%'>Finding</th><th style='width:21%'>Location</th>"
@@ -332,7 +363,11 @@ def render_prebuild_report(
             [
                 ("Pre-build status", prebuild_status, prebuild_status),
                 ("Sonar issues", len(issues), "review" if issues else "approved"),
-                ("Security hotspots", len(hotspots), "review" if hotspots else "approved"),
+                (
+                    "Security hotspots",
+                    len(hotspots),
+                    "review" if hotspots else "approved",
+                ),
                 ("Blocking config", blocking, "blocked" if blocking else "approved"),
             ]
         )
@@ -370,7 +405,9 @@ def render_prebuild_report(
 def image_findings(triage: dict[str, Any]) -> list[dict[str, Any]]:
     findings = triage.get("findings")
     if not isinstance(findings, list):
-        raise ValueError("invalid sanitized image triage report: findings must be a list")
+        raise ValueError(
+            "invalid sanitized image triage report: findings must be a list"
+        )
     return [
         item
         for item in findings
@@ -386,7 +423,9 @@ def render_image_report(triage: dict[str, Any]) -> str:
     counts = Counter(severity(item.get("severity")) for item in findings)
     rows = []
     for item in findings:
-        location = item.get("location") if isinstance(item.get("location"), dict) else {}
+        location = (
+            item.get("location") if isinstance(item.get("location"), dict) else {}
+        )
         rows.append(
             "<tr>"
             f"<td class='nowrap'>{text(item.get('exploitability_review_rank'))}</td>"
@@ -417,8 +456,18 @@ def render_image_report(triage: dict[str, Any]) -> str:
             [
                 ("Decision", decision, decision),
                 ("Findings", len(findings), "review" if findings else "approved"),
-                ("Blocking", summary.get("policy_blocking_findings", 0), "blocked" if summary.get("policy_blocking_findings") else "approved"),
-                ("High/Critical", counts.get("HIGH", 0) + counts.get("CRITICAL", 0), "blocked"),
+                (
+                    "Blocking",
+                    summary.get("policy_blocking_findings", 0),
+                    "blocked"
+                    if summary.get("policy_blocking_findings")
+                    else "approved",
+                ),
+                (
+                    "High/Critical",
+                    counts.get("HIGH", 0) + counts.get("CRITICAL", 0),
+                    "blocked",
+                ),
             ]
         )
         + "</section><section><h2>Image findings requiring action</h2>"
@@ -455,16 +504,35 @@ def html_list(items: list[str], empty_message: str) -> str:
     return "<ul>" + "".join(f"<li>{text(item)}</li>" for item in items) + "</ul>"
 
 
+def _decision_table(rows: list[tuple[str, str, str]]) -> str:
+    body = "".join(
+        f"<tr><td>{text(control)}</td><td><strong>{text(status)}</strong></td><td>{text(meaning)}</td></tr>"
+        for control, status, meaning in rows
+    )
+    return (
+        "<table><thead><tr><th style='width:28%'>Control</th><th style='width:18%'>Status</th>"
+        f"<th>Meaning</th></tr></thead><tbody>{body}</tbody></table>"
+    )
+
+
+def _prioritized_rows(findings: list[dict[str, Any]]) -> list[str]:
+    return [
+        "<tr>"
+        f'<td class="nowrap sev-{text(severity(item.get("severity")).lower())}">{text(severity(item.get("severity")))}</td>'
+        f"<td>{text(item.get('kind'))}</td><td>{text(item.get('id'))}</td>"
+        f"<td>{text(item.get('component'))}</td>"
+        f"<td>{'BLOCK' if item.get('policy_blocking') else 'review'}</td>"
+        f"<td>{text(item.get('recommended_action'))}</td></tr>"
+        for item in findings[:20]
+    ]
+
+
 def render_consolidated_report(unified: dict[str, Any], agent: dict[str, Any]) -> str:
     """Render authoritative scanner decisions with a bounded AI advisory."""
-    authority = unified.get("authority") if isinstance(unified.get("authority"), dict) else {}
-    summary = unified.get("summary") if isinstance(unified.get("summary"), dict) else {}
-    sonar = unified.get("code_scan") if isinstance(unified.get("code_scan"), dict) else {}
-    triage = (
-        unified.get("image_and_configuration_scan")
-        if isinstance(unified.get("image_and_configuration_scan"), dict)
-        else {}
-    )
+    authority = mapping(unified.get("authority"))
+    summary = mapping(unified.get("summary"))
+    sonar = mapping(unified.get("code_scan"))
+    triage = mapping(unified.get("image_and_configuration_scan"))
     code_findings = sonar_rows(sonar, "findings")
     hotspots = sonar_rows(sonar, "hotspots")
     container_findings = image_findings(triage)
@@ -474,34 +542,32 @@ def render_consolidated_report(unified: dict[str, Any], agent: dict[str, Any]) -
     release_status = "approved" if release_ready else "blocked"
     agent_status = str(agent.get("agent_status") or "unavailable")
     agent_label = str(agent.get("agent_display_name") or "AI agent")
-    agent_review = agent.get("review") if isinstance(agent.get("review"), dict) else {}
+    agent_review = mapping(agent.get("review"))
 
     decision_rows = [
-        ("SonarQube code quality", sonar_status, "Source-code quality and security rules"),
-        ("Trivy container release policy", policy_decision, "Vulnerabilities, secrets, and configuration"),
-        (f"{agent_label} advisory", agent_status, "Non-authoritative prioritization and remediation guidance"),
-        ("Overall deterministic release", release_status, "Requires every authoritative gate to pass"),
+        (
+            "SonarQube code quality",
+            sonar_status,
+            "Source-code quality and security rules",
+        ),
+        (
+            "Trivy container release policy",
+            policy_decision,
+            "Vulnerabilities, secrets, and configuration",
+        ),
+        (
+            f"{agent_label} advisory",
+            agent_status,
+            "Non-authoritative prioritization and remediation guidance",
+        ),
+        (
+            "Overall deterministic release",
+            release_status,
+            "Requires every authoritative gate to pass",
+        ),
     ]
-    decision_table = (
-        "<table><thead><tr><th style='width:28%'>Control</th><th style='width:18%'>Status</th>"
-        "<th>Meaning</th></tr></thead><tbody>"
-        + "".join(
-            f"<tr><td>{text(control)}</td><td><strong>{text(status)}</strong></td><td>{text(meaning)}</td></tr>"
-            for control, status, meaning in decision_rows
-        )
-        + "</tbody></table>"
-    )
-
-    prioritized_rows = []
-    for item in container_findings[:20]:
-        prioritized_rows.append(
-            "<tr>"
-            f'<td class="nowrap sev-{text(severity(item.get("severity")).lower())}">{text(severity(item.get("severity")))}</td>'
-            f"<td>{text(item.get('kind'))}</td><td>{text(item.get('id'))}</td>"
-            f"<td>{text(item.get('component'))}</td>"
-            f"<td>{'BLOCK' if item.get('policy_blocking') else 'review'}</td>"
-            f"<td>{text(item.get('recommended_action'))}</td></tr>"
-        )
+    decision_table = _decision_table(decision_rows)
+    prioritized_rows = _prioritized_rows(container_findings)
     prioritized_header = (
         "<thead><tr><th style='width:9%'>Severity</th><th style='width:10%'>Type</th>"
         "<th style='width:14%'>ID</th><th style='width:18%'>Component</th>"
@@ -534,9 +600,21 @@ def render_consolidated_report(unified: dict[str, Any], agent: dict[str, Any]) -
         + metric_cards(
             [
                 ("Release status", release_status, release_status),
-                ("Code issues", len(code_findings), "review" if code_findings else "approved"),
-                ("Security hotspots", len(hotspots), "review" if hotspots else "approved"),
-                ("Container findings", len(container_findings), "review" if container_findings else "approved"),
+                (
+                    "Code issues",
+                    len(code_findings),
+                    "review" if code_findings else "approved",
+                ),
+                (
+                    "Security hotspots",
+                    len(hotspots),
+                    "review" if hotspots else "approved",
+                ),
+                (
+                    "Container findings",
+                    len(container_findings),
+                    "review" if container_findings else "approved",
+                ),
             ]
         )
         + "</section><section><h2>Authoritative gates and advisory status</h2>"
@@ -614,8 +692,18 @@ def print_pdf(html_path: Path, pdf_path: Path, expected_title: str) -> None:
         )
     except subprocess.TimeoutExpired as exc:
         raise ValueError("Chrome PDF conversion timed out") from exc
-    if result.returncode != 0 or not pdf_path.is_file() or pdf_path.stat().st_size < 1000:
+    if (
+        result.returncode != 0
+        or not pdf_path.is_file()
+        or pdf_path.stat().st_size < 1000
+    ):
         raise ValueError(f"Chrome PDF conversion failed: {result.stderr[-500:]}")
+    _validate_pdf(pdf_path, expected_title)
+    _verify_pdf_page_count(pdf_path)
+    _verify_pdf_text(pdf_path, expected_title)
+
+
+def _validate_pdf(pdf_path: Path, expected_title: str) -> None:
     pdf_bytes = pdf_path.read_bytes()
     if pdf_bytes[:5] != b"%PDF-" or b"%%EOF" not in pdf_bytes[-1024:]:
         raise ValueError("generated output is not a valid PDF document")
@@ -623,38 +711,49 @@ def print_pdf(html_path: Path, pdf_path: Path, expected_title: str) -> None:
         raise ValueError("generated PDF contains no page objects")
     if expected_title.encode("utf-8") not in pdf_bytes:
         raise ValueError("generated PDF does not contain the expected report title")
+
+
+def _verify_pdf_page_count(pdf_path: Path) -> None:
     inspector = shutil.which("pdfinfo")
+    if not inspector:
+        return
+    metadata = subprocess.run(
+        [inspector, str(pdf_path)],
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    has_pages = any(
+        line.startswith("Pages:") and int(line.split(":", 1)[1]) > 0
+        for line in metadata.stdout.splitlines()
+    )
+    if metadata.returncode != 0 or not has_pages:
+        raise ValueError("generated PDF did not pass page-count verification")
+
+
+def _verify_pdf_text(pdf_path: Path, expected_title: str) -> None:
     extractor = shutil.which("pdftotext")
-    if inspector:
-        metadata = subprocess.run(
-            [inspector, str(pdf_path)],
-            check=False,
-            capture_output=True,
-            text=True,
-            timeout=30,
-        )
-        if metadata.returncode != 0 or not any(
-            line.startswith("Pages:") and int(line.split(":", 1)[1]) > 0
-            for line in metadata.stdout.splitlines()
-        ):
-            raise ValueError("generated PDF did not pass page-count verification")
-    if extractor:
-        extracted = subprocess.run(
-            [extractor, str(pdf_path), "-"],
-            check=False,
-            capture_output=True,
-            text=True,
-            timeout=30,
-        )
-        if extracted.returncode != 0 or expected_title not in extracted.stdout:
-            raise ValueError("generated PDF did not pass selectable-text verification")
+    if not extractor:
+        return
+    extracted = subprocess.run(
+        [extractor, str(pdf_path), "-"],
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    if extracted.returncode != 0 or expected_title not in extracted.stdout:
+        raise ValueError("generated PDF did not pass selectable-text verification")
 
 
 def write_config_report() -> None:
     report = load_json(Path("reports/ci-config-trivy.json"))
     policy = load_json(Path("reports/ci-config-policy-decision.json"))
     rendered = render_config_report(report, policy)
-    with open("reports/ci-misconfiguration-report.html", "w", encoding="utf-8") as output:
+    with open(
+        "reports/ci-misconfiguration-report.html", "w", encoding="utf-8"
+    ) as output:
         output.write(rendered)
     print_pdf(
         Path("reports/ci-misconfiguration-report.html"),
@@ -668,7 +767,9 @@ def write_prebuild_report() -> None:
     config = load_json(Path("reports/ci-config-trivy.json"))
     policy = load_json(Path("reports/ci-config-policy-decision.json"))
     rendered = render_prebuild_report(sonar, config, policy)
-    with open("reports/ci-prebuild-security-report.html", "w", encoding="utf-8") as output:
+    with open(
+        "reports/ci-prebuild-security-report.html", "w", encoding="utf-8"
+    ) as output:
         output.write(rendered)
     print_pdf(
         Path("reports/ci-prebuild-security-report.html"),
@@ -698,7 +799,9 @@ def write_consolidated_report() -> None:
         else {"agent_status": "unavailable", "failure_category": "report_missing"}
     )
     rendered = render_consolidated_report(unified, agent)
-    with open("reports/ci-consolidated-security-report.html", "w", encoding="utf-8") as output:
+    with open(
+        "reports/ci-consolidated-security-report.html", "w", encoding="utf-8"
+    ) as output:
         output.write(rendered)
     print_pdf(
         Path("reports/ci-consolidated-security-report.html"),

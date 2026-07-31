@@ -15,7 +15,8 @@ SCRIPT = (
 
 def load_script() -> ModuleType:
     spec = importlib.util.spec_from_file_location("render_security_report", SCRIPT)
-    assert spec and spec.loader
+    assert spec is not None
+    assert spec.loader is not None
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -104,9 +105,14 @@ def test_prebuild_html_combines_sonar_and_configuration_evidence() -> None:
     )
 
     assert "Pre-build Code and Configuration Security Report" in rendered
-    assert rendered.index("Overall release decision") < rendered.index("Technical summary")
+    assert rendered.index("Overall release decision") < rendered.index(
+        "Technical summary"
+    )
     assert "not_evaluated" in rendered
-    assert "combined pre-build status is <strong class='decision blocked'>blocked</strong>" in rendered
+    assert (
+        "combined pre-build status is <strong class='decision blocked'>blocked</strong>"
+        in rendered
+    )
     assert "Source-code findings requiring attention" in rendered
     assert "Security hotspots requiring review" in rendered
     assert "Configuration findings blocking or qualifying the build" in rendered
@@ -152,7 +158,9 @@ def test_image_html_uses_sanitized_triage_without_secret_match_values() -> None:
     )
 
     assert "Container Image Security Report" in rendered
-    assert rendered.index("Overall release decision") < rendered.index("Container scan decision")
+    assert rendered.index("Overall release decision") < rendered.index(
+        "Container scan decision"
+    )
     assert "not_evaluated" in rendered
     assert "private-key" in rendered
     assert "Rotate the credential" in rendered
@@ -202,7 +210,10 @@ def test_consolidated_html_separates_agent_advice_from_policy_authority() -> Non
 
     assert "Consolidated Release Security Report" in rendered
     assert rendered.index("Overall release decision") < rendered.index("Decision basis")
-    assert "deterministic release status is <strong class='decision blocked'>blocked</strong>" in rendered
+    assert (
+        "deterministic release status is <strong class='decision blocked'>blocked</strong>"
+        in rendered
+    )
     assert "policy_decision: not_evaluated" in rendered
     assert "Claude Agent SDK advisory interpretation" in rendered
     assert "ADK advisory" not in rendered
