@@ -580,7 +580,14 @@ jobs:
 
       - name: Install pinned Claude Code CLI
         run: |
+          expected_integrity="sha512-ogBrvwkqF9f8okmnXKxmRNHuvtFxFEffe5pWdqOV3iQDxlUOKirFqnyWC7NGXXnDA4WkkbPH8pvSbwyCR2Auyw=="
+          actual_integrity="$(npm view @anthropic-ai/claude-code@2.1.220 dist.integrity)"
+          test "$actual_integrity" = "$expected_integrity" || {
+            echo "Claude Code package integrity did not match the reviewed release"
+            exit 1
+          }
           npm install --global --ignore-scripts @anthropic-ai/claude-code@2.1.220
+          node "$(npm root --global)/@anthropic-ai/claude-code/install.cjs"
           echo "CLAUDE_CODE_CLI_PATH=$(command -v claude)" >> "$GITHUB_ENV"
           claude --version
 
