@@ -189,18 +189,7 @@ def render_config_report(report: dict[str, Any], policy: dict[str, Any]) -> str:
     counts = Counter(item["severity"] for item in findings)
     decision = str(policy.get("policy_decision") or "not_evaluated")
     blocking = int((policy.get("summary") or {}).get("blocking_findings") or 0)
-    rows = []
-    for item in findings:
-        identifier = text(item["id"])
-        if item["reference"]:
-            identifier = f'<a href="{text(item["reference"])}">{identifier}</a>'
-        rows.append(
-            "<tr>"
-            f'<td class="nowrap sev-{text(item["severity"].lower())}">{text(item["severity"])}</td>'
-            f"<td>{identifier}</td><td>{text(item['title'])}</td>"
-            f"<td><code>{text(item['target'])}:{item['line']}</code></td>"
-            f"<td>{text(item['resolution'])}</td></tr>"
-        )
+    rows = _config_table_rows(findings)
     header = (
         "<thead><tr><th style='width:8%'>Severity</th><th style='width:13%'>ID</th>"
         "<th style='width:22%'>Finding</th><th style='width:20%'>Location</th>"
