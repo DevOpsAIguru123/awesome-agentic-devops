@@ -50,3 +50,4 @@ Do not paste secrets, cloud credentials, kubeconfigs, private keys, tokens, or s
 - Write-capable entries must carry the `write` label unless the write surface is clearly isolated.
 - Approval-aware entries should carry `approval` only when a meaningful approval or safety mechanism is documented or strongly evident.
 - Evidence-aware entries should carry `evidence` only when there is a trace, eval, audit, cited evidence, or equivalent mechanism.
+- Deep reviews should use the [agent scorecard template](../templates/agent-scorecard.md) to capture credential boundaries, no-secret-in-context controls, dry-run commands, approval evidence, and audit artifacts before recommending production-adjacent use.
