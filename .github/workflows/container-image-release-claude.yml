@@ -604,9 +604,9 @@ jobs:
           for attempt in 1 2; do
             rm -f reports/ci-agent-review.json reports/ci-agent-review.md
             echo "Claude Agent SDK attempt ${attempt}/2"
-            set +e
-            timeout --signal=TERM --kill-after=10s 75s \
-              PYTHONPATH=src uv run --no-sync --no-build python -m claude_container_hardening.cli \
+          set +e
+          timeout --signal=TERM --kill-after=10s 75s \
+              env PYTHONPATH=src uv run --no-sync --no-build python -m claude_container_hardening.cli \
                 --triage-report .ci-input/ci-triage.json \
                 --json-output reports/ci-agent-review.json \
                 --markdown-output reports/ci-agent-review.md \
@@ -655,7 +655,7 @@ jobs:
             rm -f reports/ci-agent-review.json reports/ci-agent-review.md
             set +e
             timeout --signal=TERM --kill-after=10s 90s \
-              PYTHONPATH=src uv run --no-sync --no-build python -m claude_container_hardening.cli \
+              env PYTHONPATH=src uv run --no-sync --no-build python -m claude_container_hardening.cli \
                 --triage-report .ci-input/ci-triage.json \
                 --json-output reports/ci-agent-review.json \
                 --markdown-output reports/ci-agent-review.md \
