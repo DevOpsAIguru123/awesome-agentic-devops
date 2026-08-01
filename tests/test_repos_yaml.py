@@ -60,7 +60,8 @@ def test_seed_data_has_unique_urls():
 
 @pytest.mark.parametrize("action_level", sorted(ALLOWED_ACTION_LEVELS))
 def test_accepts_allowed_action_levels(action_level):
-    validate_entries([valid_entry(action_level=action_level)])
+    labels = ["prototype", "write"] if action_level == "write-capable" else ["prototype"]
+    validate_entries([valid_entry(action_level=action_level, labels=labels)])
 
 
 @pytest.mark.parametrize("maturity", sorted(ALLOWED_MATURITY))
@@ -123,6 +124,20 @@ def test_rejects_blank_list_items():
     entries = [valid_entry(labels=["official", ""])]
 
     with pytest.raises(ValidationError, match="labels items must be non-empty strings"):
+        validate_entries(entries)
+
+
+def test_write_capable_entries_require_write_label():
+    entries = [valid_entry(action_level="write-capable", labels=["prototype", "approval"])]
+
+    with pytest.raises(ValidationError, match="must include write label"):
+        validate_entries(entries)
+
+
+def test_write_label_requires_write_capable_action_level():
+    entries = [valid_entry(action_level="proposal", labels=["prototype", "write"])]
+
+    with pytest.raises(ValidationError, match="requires action_level write-capable"):
         validate_entries(entries)
 
 
