@@ -86,3 +86,10 @@ What real DevOps, Cloud, SRE, Kubernetes, Terraform, CI/CD, or platform engineer
 - Labels:
 - Operator recommendation:
 - Next action:
+
+## Production-readiness decision
+
+- Safe to run with read-only credentials:
+- Safe to recommend proposal-mode automation:
+- Safe to enable write-capable tools after approval:
+- Required blockers before production use:

@@ -21,7 +21,8 @@ documented here. The format is based on
 - **Expanded the agent scorecard safety review.** The reusable scorecard now
   captures least-privilege credential scope, no-secret-in-context checks,
   redaction expectations, dry-run/preview commands, approval records, and audit
-  artifacts before recommending production-adjacent use.
+  artifacts, plus an explicit production-readiness decision, before recommending
+  production-adjacent use.
 - **Hardened catalog schema validation.** Required string fields now reject blank
   values, and `labels` / `use_cases` must contain at least one non-empty string
   item so incomplete catalog rows fail locally before reaching README generation
