@@ -29,6 +29,10 @@ documented here. The format is based on
 - **Hardened catalog URL validation.** Catalog entries now require absolute
   `https://` URLs, blocking accidental relative links, bare hostnames, and
   insecure `http://` sources from entering the operator index.
+- **Hardened write-capability label validation.** The catalog validator now
+  rejects entries where `action_level: write-capable` and the README-facing
+  `write` label drift apart, keeping blast-radius warnings consistent between
+  `data/repos.yaml` and generated catalog tables.
 - **Replaced the emoji evaluation labels with text badges.** The six glyphs
   (🟢 🟡 🔵 🛡️ 📊 ⚠️) are now readable tokens — `prod`, `prototype`, `mcp`,
   `approval`, `evidence`, `write` — across the legend, all catalog rows,

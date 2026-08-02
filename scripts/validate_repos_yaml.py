@@ -143,6 +143,18 @@ def _validate_unique_field(entries: list[dict[str, Any]], field: str) -> None:
         seen[value] = name
 
 
+def _validate_write_label_consistency(entry: dict[str, Any], index: int) -> None:
+    name = _entry_name(entry, index)
+    labels = set(entry["labels"])
+    is_write_capable = entry["action_level"] == "write-capable"
+    has_write_label = "write" in labels
+
+    if is_write_capable and not has_write_label:
+        raise ValidationError(f"{name}: write-capable entries must include write label")
+    if has_write_label and not is_write_capable:
+        raise ValidationError(f"{name}: write label requires action_level write-capable")
+
+
 def validate_entries(entries: Any) -> list[dict[str, Any]]:
     if not isinstance(entries, list):
         raise ValidationError("data/repos.yaml must contain a list of repo entries")
@@ -151,6 +163,7 @@ def validate_entries(entries: Any) -> list[dict[str, Any]]:
         if not isinstance(entry, dict):
             raise ValidationError(f"entry #{index + 1} must be a mapping")
         _validate_entry(entry, index)
+        _validate_write_label_consistency(entry, index)
 
     _validate_unique_field(entries, "name")
     _validate_unique_field(entries, "url")
