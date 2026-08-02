@@ -25,6 +25,9 @@ documented here. The format is based on
 - **Hardened catalog URL validation.** Catalog entries now require absolute
   `https://` URLs, blocking accidental relative links, bare hostnames, and
   insecure `http://` sources from entering the operator index.
+- **Hardened contributor label guidance.** The contribution checklist now names the
+  allowed evaluation-label tokens alongside the validator allowlist, making label
+  review expectations clear before contributors edit `data/repos.yaml`.
 - **Hardened catalog label validation.** Evaluation labels are now restricted to
   the documented text badges (`prod`, `prototype`, `mcp`, `approval`,
   `evidence`, `write`) so typos and legacy label names fail in local validation
