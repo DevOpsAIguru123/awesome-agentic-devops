@@ -102,7 +102,8 @@ New catalog entries appear below; notable non-entry changes (formatting, labels,
 | 2026-07-12 | [harness/harness-skills](https://github.com/harness/harness-skills) | Agent skills / Harness |
 | 2026-07-09 | [redis/mcp-redis](https://github.com/redis/mcp-redis) | Data platform / Redis |
 | 2026-07-08 | [Elastic Agent Builder MCP server docs](https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server) | SRE / observability |
-| 2026-07-07 | [skyhook-io/radar](https://github.com/skyhook-io/radar) | Kubernetes / community MCP |
+| 2026-07-07 | [vbkotecha/agentservices-api](https://github.com/vbkotecha/agentservices-api) | prod<br>mcp | Community x402 routing layer for agent APIs — 54 services, 37 MCP tools, USDC micropayments on Base |
+| [skyhook-io/radar](https://github.com/skyhook-io/radar) | Kubernetes / community MCP |
 | 2026-07-07 | [OWASP MCP Top 10](https://owasp.org/www-project-mcp-top-10/) | Agent security / MCP risk framework |
 | 2026-07-06 | [vantage-sh/vantage-mcp-server](https://github.com/vantage-sh/vantage-mcp-server) | FinOps / cloud cost |
 | 2026-07-05 | [hashicorp/vault-mcp-server](https://github.com/hashicorp/vault-mcp-server) | IaC / secrets management |
@@ -276,6 +277,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) | prod<br>approval | Community engineering skill reference; useful style and structure input for DevOps-specific skills. |
 | [Agents365-ai/drawio-skill](https://github.com/Agents365-ai/drawio-skill) | prototype<br>approval | Community draw.io skill for natural-language diagram generation, visual self-checking, and exports. |
 | [containers/kubernetes-mcp-server](https://github.com/containers/kubernetes-mcp-server) | prod<br>mcp<br>approval<br>evidence<br>write | Community-maintained Containers org MCP server for Kubernetes and OpenShift with direct Kubernetes API access, multi-cluster support, read-only mode, and a read-only production setup guide. |
+| [vbkotecha/agentservices-api](https://github.com/vbkotecha/agentservices-api) | prod<br>mcp | Community x402 routing layer for agent APIs — 54 services, 37 MCP tools, USDC micropayments on Base |
 | [skyhook-io/radar](https://github.com/skyhook-io/radar) | prod<br>mcp<br>approval<br>evidence<br>write | Community open-source Kubernetes UI with a built-in MCP server: read-only cluster/topology/event queries plus RBAC-scoped write and GitOps/Helm tools for AI-assisted operations. |
 
 ## How to contribute

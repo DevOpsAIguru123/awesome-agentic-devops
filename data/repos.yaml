@@ -1843,3 +1843,25 @@
     - mcp
     - approval
     - write
+
+- name: vbkotecha/agentservices-api
+  url: https://github.com/vbkotecha/agentservices-api
+  category: community-discovery-and-skills
+  type: mcp-server
+  framework: MCP + x402
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - api-access
+    - payments
+    - crypto-market-data
+    - agent-infrastructure
+  action_level: read-only
+  human_approval: false
+  evidence_tracing: none
+  maturity: production-adjacent
+  risk_notes: "x402 pay-per-call APIs with USDC micropayments on Base. Read-only data queries (crypto, DeFi, macro, exchange data). No write operations to external systems."
+  operator_note: "Production x402 routing layer for agent APIs — 54 services, 37 MCP tools, 41 paid endpoints. Listed in MCP Registry as to.agentservices/agentservices."
+  labels:
+    - prod
+    - mcp
