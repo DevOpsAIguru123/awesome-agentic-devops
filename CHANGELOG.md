@@ -18,6 +18,10 @@ documented here. The format is based on
 
 ### Changed
 
+- **Expanded pull request safety checklist.** The PR template now asks
+  contributors to confirm no-secret-in-context handling, least-privilege
+  credential guidance, approval gates, dry-run/preview behavior, audit evidence,
+  rollback expectations, and telemetry/external API disclosure before review.
 - **Hardened catalog schema validation.** Required string fields now reject blank
   values, and `labels` / `use_cases` must contain at least one non-empty string
   item so incomplete catalog rows fail locally before reaching README generation
@@ -25,6 +29,10 @@ documented here. The format is based on
 - **Hardened catalog URL validation.** Catalog entries now require absolute
   `https://` URLs, blocking accidental relative links, bare hostnames, and
   insecure `http://` sources from entering the operator index.
+- **Hardened write-capability label validation.** The catalog validator now
+  rejects entries where `action_level: write-capable` and the README-facing
+  `write` label drift apart, keeping blast-radius warnings consistent between
+  `data/repos.yaml` and generated catalog tables.
 - **Replaced the emoji evaluation labels with text badges.** The six glyphs
   (🟢 🟡 🔵 🛡️ 📊 ⚠️) are now readable tokens — `prod`, `prototype`, `mcp`,
   `approval`, `evidence`, `write` — across the legend, all catalog rows,
