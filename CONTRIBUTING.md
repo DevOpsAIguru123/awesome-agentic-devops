@@ -18,6 +18,7 @@ Thanks for helping make this a practical operator-grade index instead of a hype 
 
 - The repo URL is public and reachable.
 - The entry has a specific category.
+- The `category` value is one of the existing catalog slugs validated by `scripts/validate_repos_yaml.py`; add a new slug only when you are also adding the matching README section and tests.
 - The `risk_notes` field explains what could go wrong.
 - The `operator_note` field explains why an infrastructure operator should care.
 - Labels match the observed behavior, not marketing claims.

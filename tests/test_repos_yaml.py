@@ -5,6 +5,7 @@ import yaml
 
 from scripts.validate_repos_yaml import (
     ALLOWED_ACTION_LEVELS,
+    ALLOWED_CATEGORIES,
     ALLOWED_MATURITY,
     REQUIRED_FIELDS,
     ValidationError,
@@ -18,7 +19,7 @@ def valid_entry(**overrides):
     entry = {
         "name": "antonbabenko/terraform-skill",
         "url": "https://github.com/antonbabenko/terraform-skill",
-        "category": "terraform-iac-agents",
+        "category": "official-iac-mcp-servers",
         "type": "agent",
         "framework": "unknown",
         "primary_language": "Python",
@@ -64,6 +65,11 @@ def test_accepts_allowed_action_levels(action_level):
     validate_entries([valid_entry(action_level=action_level, labels=labels)])
 
 
+@pytest.mark.parametrize("category", sorted(ALLOWED_CATEGORIES))
+def test_accepts_allowed_categories(category):
+    validate_entries([valid_entry(category=category)])
+
+
 @pytest.mark.parametrize("maturity", sorted(ALLOWED_MATURITY))
 def test_accepts_allowed_maturity_values(maturity):
     validate_entries([valid_entry(maturity=maturity)])
@@ -81,6 +87,13 @@ def test_rejects_invalid_action_level():
     entries = [valid_entry(action_level="autonomous-apply")]
 
     with pytest.raises(ValidationError, match="invalid action_level"):
+        validate_entries(entries)
+
+
+def test_rejects_unknown_category():
+    entries = [valid_entry(category="official-cloud-mcp-server")]
+
+    with pytest.raises(ValidationError, match="invalid category"):
         validate_entries(entries)
 
 
