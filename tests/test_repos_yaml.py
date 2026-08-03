@@ -61,7 +61,8 @@ def test_seed_data_has_unique_urls():
 
 @pytest.mark.parametrize("action_level", sorted(ALLOWED_ACTION_LEVELS))
 def test_accepts_allowed_action_levels(action_level):
-    validate_entries([valid_entry(action_level=action_level)])
+    labels = ["prototype", "write"] if action_level == "write-capable" else ["prototype"]
+    validate_entries([valid_entry(action_level=action_level, labels=labels)])
 
 
 @pytest.mark.parametrize("maturity", sorted(ALLOWED_MATURITY))
@@ -71,7 +72,8 @@ def test_accepts_allowed_maturity_values(maturity):
 
 @pytest.mark.parametrize("label", sorted(ALLOWED_LABELS))
 def test_accepts_allowed_labels(label):
-    validate_entries([valid_entry(labels=[label])])
+    action_level = "write-capable" if label == "write" else "proposal"
+    validate_entries([valid_entry(action_level=action_level, labels=[label])])
 
 
 def test_rejects_missing_required_field():
@@ -136,6 +138,20 @@ def test_rejects_unknown_labels():
     entries = [valid_entry(labels=["official"])]
 
     with pytest.raises(ValidationError, match="invalid label"):
+        validate_entries(entries)
+
+
+def test_write_capable_entries_require_write_label():
+    entries = [valid_entry(action_level="write-capable", labels=["prototype", "approval"])]
+
+    with pytest.raises(ValidationError, match="must include write label"):
+        validate_entries(entries)
+
+
+def test_write_label_requires_write_capable_action_level():
+    entries = [valid_entry(action_level="proposal", labels=["prototype", "write"])]
+
+    with pytest.raises(ValidationError, match="requires action_level write-capable"):
         validate_entries(entries)
 
 
