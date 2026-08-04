@@ -29,6 +29,15 @@ documented here. The format is based on
 - **Hardened catalog URL validation.** Catalog entries now require absolute
   `https://` URLs, blocking accidental relative links, bare hostnames, and
   insecure `http://` sources from entering the operator index.
+- **Hardened catalog category validation.** Catalog entries must use one of the
+  curated category slugs, and tests now require the validator allowlist to stay
+  synchronized with the categories currently used in `data/repos.yaml`, preventing
+  README/YAML drift from typos or new sections that lack matching tests and
+  public documentation.
+- **Hardened catalog type validation.** Catalog entries must use one of the
+  curated artifact kinds, and tests now require the validator allowlist to stay
+  synchronized with the `type` values currently used in `data/repos.yaml`,
+  preventing ambiguous or misspelled tool-surface metadata.
 - **Hardened write-capability label validation.** The catalog validator now
   rejects entries where `action_level: write-capable` and the README-facing
   `write` label drift apart, keeping blast-radius warnings consistent between
