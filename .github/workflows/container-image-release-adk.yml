@@ -62,7 +62,7 @@ jobs:
           test -n "$SONAR_ORGANIZATION" || { echo "Missing SONAR_ORGANIZATION repository secret"; exit 1; }
 
       - name: Analyze source with SonarQube
-        uses: SonarSource/sonarqube-scan-action@7006c4492b2e0ee0f816d36501671557c97f5995 # v8.1.0
+        uses: SonarSource/sonarqube-scan-action@22918119ff8e1ca75a623e15c8296b6ea4fbe28f # v8.2.1
         with:
           projectBaseDir: ${{ env.APP_DIR }}
           args: >-
@@ -304,7 +304,7 @@ jobs:
       - name: Send Trivy findings to GitHub Code Scanning
         if: always() && hashFiles('agents/container-image-release-advisor/adk/examples/agentic-devops-portfolio/reports/ci-trivy.sarif') != ''
         continue-on-error: true
-        uses: github/codeql-action/upload-sarif@7211b7c8077ea37d8641b6271f6a365a22a5fbfa # v4.36.0
+        uses: github/codeql-action/upload-sarif@f205ea1c3313d32999d8d6a48b4f6530d4437b38 # v4.37.4
         with:
           sarif_file: ${{ env.APP_DIR }}/reports/ci-trivy.sarif
           category: trivy-container-security
