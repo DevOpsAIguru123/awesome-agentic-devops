@@ -18,6 +18,11 @@ documented here. The format is based on
 
 ### Changed
 
+- **Expanded the agent scorecard safety review.** The reusable scorecard now
+  captures least-privilege credential scope, no-secret-in-context checks,
+  redaction expectations, dry-run/preview commands, approval records, and audit
+  artifacts, plus an explicit production-readiness decision, before recommending
+  production-adjacent use.
 - **Expanded pull request safety checklist.** The PR template now asks
   contributors to confirm no-secret-in-context handling, least-privilege
   credential guidance, approval gates, dry-run/preview behavior, audit evidence,
