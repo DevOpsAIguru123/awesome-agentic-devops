@@ -59,6 +59,13 @@ def test_seed_data_has_unique_urls():
     assert len(urls) == len(set(urls))
 
 
+def test_seed_categories_match_validator_allowlist():
+    entries = validate_file(Path("data/repos.yaml"))
+    categories = {entry["category"] for entry in entries}
+
+    assert categories == ALLOWED_CATEGORIES
+
+
 @pytest.mark.parametrize("action_level", sorted(ALLOWED_ACTION_LEVELS))
 def test_accepts_allowed_action_levels(action_level):
     labels = ["prototype", "write"] if action_level == "write-capable" else ["prototype"]
