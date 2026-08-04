@@ -55,6 +55,31 @@ ALLOWED_CATEGORIES = {
     "official-security-mcp-servers",
     "official-sre-mcp-servers",
 }
+ALLOWED_TYPES = {
+    "agent-framework",
+    "agent-plugin",
+    "agent-security-scanner",
+    "agent-template",
+    "agent-toolkit",
+    "curated-list",
+    "documentation",
+    "hosted-mcp-server",
+    "mcp-operator",
+    "mcp-plugin",
+    "mcp-registry",
+    "mcp-server",
+    "mcp-server-catalog",
+    "mcp-server-collection",
+    "mcp-server-plugin",
+    "reference-architecture",
+    "reference-implementations",
+    "registry",
+    "sdk",
+    "security-guidance",
+    "security-tool",
+    "skill",
+    "skill-library",
+}
 ALLOWED_MATURITY = {
     "production-adjacent",
     "active-oss",
@@ -147,6 +172,7 @@ def _validate_entry(entry: dict[str, Any], index: int) -> None:
         _validate_string_list(name, field, entry[field])
     _validate_https_url(name, entry["url"])
     _validate_choice(name, "category", entry["category"], ALLOWED_CATEGORIES)
+    _validate_choice(name, "type", entry["type"], ALLOWED_TYPES)
     _validate_choice(name, "action_level", entry["action_level"], ALLOWED_ACTION_LEVELS)
     _validate_choice(name, "maturity", entry["maturity"], ALLOWED_MATURITY)
     _validate_choice(

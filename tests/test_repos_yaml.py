@@ -7,6 +7,7 @@ from scripts.validate_repos_yaml import (
     ALLOWED_ACTION_LEVELS,
     ALLOWED_CATEGORIES,
     ALLOWED_MATURITY,
+    ALLOWED_TYPES,
     REQUIRED_FIELDS,
     ValidationError,
     resolve_cli_path,
@@ -20,7 +21,7 @@ def valid_entry(**overrides):
         "name": "antonbabenko/terraform-skill",
         "url": "https://github.com/antonbabenko/terraform-skill",
         "category": "official-iac-mcp-servers",
-        "type": "agent",
+        "type": "mcp-server",
         "framework": "unknown",
         "primary_language": "Python",
         "cloud_provider": "multi-cloud",
@@ -66,6 +67,13 @@ def test_seed_categories_match_validator_allowlist():
     assert categories == ALLOWED_CATEGORIES
 
 
+def test_seed_types_match_validator_allowlist():
+    entries = validate_file(Path("data/repos.yaml"))
+    entry_types = {entry["type"] for entry in entries}
+
+    assert entry_types == ALLOWED_TYPES
+
+
 @pytest.mark.parametrize("action_level", sorted(ALLOWED_ACTION_LEVELS))
 def test_accepts_allowed_action_levels(action_level):
     labels = ["prototype", "write"] if action_level == "write-capable" else ["prototype"]
@@ -75,6 +83,11 @@ def test_accepts_allowed_action_levels(action_level):
 @pytest.mark.parametrize("category", sorted(ALLOWED_CATEGORIES))
 def test_accepts_allowed_categories(category):
     validate_entries([valid_entry(category=category)])
+
+
+@pytest.mark.parametrize("entry_type", sorted(ALLOWED_TYPES))
+def test_accepts_allowed_types(entry_type):
+    validate_entries([valid_entry(type=entry_type)])
 
 
 @pytest.mark.parametrize("maturity", sorted(ALLOWED_MATURITY))
@@ -101,6 +114,13 @@ def test_rejects_unknown_category():
     entries = [valid_entry(category="official-cloud-mcp-server")]
 
     with pytest.raises(ValidationError, match="invalid category"):
+        validate_entries(entries)
+
+
+def test_rejects_unknown_type():
+    entries = [valid_entry(type="mcp-service")]
+
+    with pytest.raises(ValidationError, match="invalid type"):
         validate_entries(entries)
 
 
