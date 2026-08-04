@@ -121,8 +121,9 @@ def test_unbounded_finding_citation_is_rejected() -> None:
             model_usage={MODEL: {"input_tokens": 1, "output_tokens": 1}},
         )
 
+    invocation = invoke_agent(envelope, query_fn=fake_query)
     with pytest.raises(AgentOutputError, match="outside the bounded input") as error:
-        asyncio.run(invoke_agent(envelope, query_fn=fake_query))
+        asyncio.run(invocation)
     assert error.value.actual_models == [MODEL]
 
 
@@ -148,8 +149,9 @@ def test_bounded_triage_item_citation_is_accepted() -> None:
 
 
 def test_trailing_approval_text_is_rejected() -> None:
+    invalid_response = review().model_dump_json() + "\nImage approved"
     with pytest.raises(ValueError, match="text after"):
-        parse_review(review().model_dump_json() + "\nImage approved")
+        parse_review(invalid_response)
 
 
 def test_free_form_json_remains_a_validated_compatibility_fallback() -> None:
@@ -197,8 +199,9 @@ def test_invocation_rejects_an_unexpected_model() -> None:
             model_usage={"claude-opus-4-8": {"input_tokens": 1}},
         )
 
+    invocation = invoke_agent(envelope, query_fn=fake_query)
     with pytest.raises(SdkRuntimeError) as error:
-        asyncio.run(invoke_agent(envelope, query_fn=fake_query))
+        asyncio.run(invocation)
     assert error.value.category == "model_mismatch"
     assert error.value.actual_models == ["claude-opus-4-8"]
 
@@ -217,8 +220,9 @@ def test_invocation_requires_provider_model_usage() -> None:
             result=review().model_dump_json(),
         )
 
+    invocation = invoke_agent(envelope, query_fn=fake_query)
     with pytest.raises(SdkRuntimeError) as error:
-        asyncio.run(invoke_agent(envelope, query_fn=fake_query))
+        asyncio.run(invocation)
     assert error.value.category == "model_usage_unavailable"
 
 
@@ -236,9 +240,7 @@ def test_messages_api_fallback_is_tool_free_and_model_verified() -> None:
             return json.dumps(
                 {
                     "model": MODEL,
-                    "content": [
-                        {"type": "text", "text": review().model_dump_json()}
-                    ],
+                    "content": [{"type": "text", "text": review().model_dump_json()}],
                 }
             ).encode()
 
@@ -265,8 +267,9 @@ def test_messages_api_fallback_is_tool_free_and_model_verified() -> None:
 
 def test_messages_api_fallback_requires_credentials(monkeypatch) -> None:
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    invocation = invoke_messages_api(build_envelope(triage(), 1))
     with pytest.raises(SdkRuntimeError) as error:
-        asyncio.run(invoke_messages_api(build_envelope(triage(), 1)))
+        asyncio.run(invocation)
     assert error.value.category == "credentials_invalid"
 
 

@@ -9,8 +9,9 @@ SCRIPT = (
     / "render_workflow_summary.py"
 )
 spec = importlib.util.spec_from_file_location("render_workflow_summary", SCRIPT)
+assert spec is not None
+assert spec.loader is not None
 module = importlib.util.module_from_spec(spec)
-assert spec and spec.loader
 spec.loader.exec_module(module)
 
 
