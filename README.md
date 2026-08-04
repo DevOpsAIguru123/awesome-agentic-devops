@@ -8,7 +8,7 @@ A curated, **official-first** catalog of MCP servers, agent skills, AI agents, f
 
 Most agent lists stop at discovery. This one is built for operators:
 
-- **Official-first, community-inclusive** — 79 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
+- **Official-first, community-inclusive** — 80 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — GitHub repository entries are checked weekly for reachability and archived status; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-skills-into-your-coding-agent) installs hundreds of skills from cataloged Google, Microsoft, Azure, Azure DevOps, and Harness sources — plus a separate community set — into Claude Code, Cursor, Codex, VS Code, or Antigravity.
@@ -84,6 +84,7 @@ New catalog entries appear below; notable non-entry changes (formatting, labels,
 
 | Date | Entry | Category |
 | --- | --- | --- |
+| 2026-08-05 | [outagedeck/mcp](https://github.com/outagedeck/mcp) | SRE / third-party dependency outage triage |
 | 2026-07-25 | [opentofu/opentofu-mcp-server](https://github.com/opentofu/opentofu-mcp-server) | IaC / OpenTofu Registry MCP |
 | 2026-07-23 | [containers/kubernetes-mcp-server](https://github.com/containers/kubernetes-mcp-server) | Community / Kubernetes and OpenShift |
 | 2026-07-23 | [cisco-ai-defense/mcp-scanner](https://github.com/cisco-ai-defense/mcp-scanner) | Security / MCP server scanning |
@@ -218,6 +219,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | [newrelic/mcp-server](https://github.com/newrelic/mcp-server) | prod<br>mcp<br>approval<br>evidence | Official New Relic MCP server for APM, dashboard, and NRQL-based observability context. |
 | [dynatrace-oss/dynatrace-mcp](https://github.com/dynatrace-oss/dynatrace-mcp) | prod<br>mcp<br>approval<br>evidence<br>write | Official Dynatrace open-source MCP server for DQL querying, anomaly/incident/Kubernetes investigation, Davis Copilot AI chat, and deployment automation. |
 | [Elastic Agent Builder MCP server docs](https://www.elastic.co/docs/explore-analyze/ai-features/agent-builder/mcp-server) | prod<br>mcp<br>approval<br>evidence | Official Elastic documentation for exposing Agent Builder tools through MCP with Kibana URL and API-key authentication. |
+| [outagedeck/mcp](https://github.com/outagedeck/mcp) | prod<br>mcp<br>evidence<br>write | Official OutageDeck hosted MCP server for pre-debugging third-party dependency checks, vendor incident timelines, and 7–90 day uptime history across 172 cloud and SaaS providers; public tools are keyless and read-only, while account-authenticated custom-provider and alert tools are write-capable. |
 
 ### Official Agent Skills and Frameworks
 

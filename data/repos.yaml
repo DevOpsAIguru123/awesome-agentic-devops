@@ -1822,3 +1822,27 @@
     - mcp
     - approval
     - write
+
+- name: outagedeck/mcp
+  url: https://github.com/outagedeck/mcp
+  category: official-sre-mcp-servers
+  type: hosted-mcp-server
+  framework: MCP Streamable HTTP
+  primary_language: unknown
+  cloud_provider: multi-cloud
+  use_cases:
+    - third-party-dependency-outage-triage
+    - pre-debugging-stack-health-checks
+    - vendor-incident-timeline-retrieval
+    - cloud-and-saas-uptime-history
+  action_level: write-capable
+  human_approval: unknown
+  evidence_tracing: partial
+  maturity: production-adjacent
+  risk_notes: "The public status, incident, and uptime tools are keyless and read-only, but account-authenticated tools can create, update, and delete custom providers or start email alerts. Keep anonymous use as the default, scope any OutageDeck API key to the intended account, and require client-side confirmation before calling account mutation tools. Calls send named providers and incident identifiers to the hosted OutageDeck service; they do not require cloud credentials. The production implementation is a hosted commercial service rather than OSS; the public GitHub repository contains documentation and registry metadata. Core public checks are free, while some account features depend on an OutageDeck plan."
+  operator_note: "Official OutageDeck hosted MCP server for answering 'is it us or them?' before debugging: one call can check up to 12 dependencies, while other tools return live status, vendor incident timelines, and 7-90 day uptime history for 172 cloud and SaaS providers from their official feeds. The public endpoint is keyless, is active in the official MCP Registry as com.outagedeck/outagedeck-status, and returns source links and observation timestamps."
+  labels:
+    - prod
+    - mcp
+    - evidence
+    - write
