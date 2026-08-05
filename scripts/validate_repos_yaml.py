@@ -28,6 +28,58 @@ REQUIRED_FIELDS = (
 )
 
 ALLOWED_ACTION_LEVELS = {"read-only", "proposal", "write-capable", "unknown"}
+ALLOWED_CATEGORIES = {
+    "community-agent-skills",
+    "community-discovery",
+    "community-mcp-servers",
+    "official-agent-frameworks",
+    "official-agent-security-tools",
+    "official-agent-skills",
+    "official-browser-automation-mcp-servers",
+    "official-ci-cd-mcp-servers",
+    "official-cloud-agent-toolkits",
+    "official-cloud-mcp-servers",
+    "official-cloud-security-mcp-servers",
+    "official-cloudops-agent-samples",
+    "official-data-platform-mcp-servers",
+    "official-devops-mcp-platforms",
+    "official-devops-mcp-servers",
+    "official-diagramming-mcp-tools",
+    "official-finops-mcp-servers",
+    "official-gitops-mcp-servers",
+    "official-iac-mcp-servers",
+    "official-mcp-reference-implementations",
+    "official-mcp-registry",
+    "official-mcp-sdks",
+    "official-platform-agent-toolkits",
+    "official-security-mcp-servers",
+    "official-sre-mcp-servers",
+}
+ALLOWED_TYPES = {
+    "agent-framework",
+    "agent-plugin",
+    "agent-security-scanner",
+    "agent-template",
+    "agent-toolkit",
+    "curated-list",
+    "documentation",
+    "hosted-mcp-server",
+    "mcp-operator",
+    "mcp-plugin",
+    "mcp-registry",
+    "mcp-server",
+    "mcp-server-catalog",
+    "mcp-server-collection",
+    "mcp-server-plugin",
+    "reference-architecture",
+    "reference-implementations",
+    "registry",
+    "sdk",
+    "security-guidance",
+    "security-tool",
+    "skill",
+    "skill-library",
+}
 ALLOWED_MATURITY = {
     "production-adjacent",
     "active-oss",
@@ -123,6 +175,8 @@ def _validate_entry(entry: dict[str, Any], index: int) -> None:
     _validate_labels(name, entry["labels"])
     _validate_string_list(name, "use_cases", entry["use_cases"])
     _validate_https_url(name, entry["url"])
+    _validate_choice(name, "category", entry["category"], ALLOWED_CATEGORIES)
+    _validate_choice(name, "type", entry["type"], ALLOWED_TYPES)
     _validate_choice(name, "action_level", entry["action_level"], ALLOWED_ACTION_LEVELS)
     _validate_choice(name, "maturity", entry["maturity"], ALLOWED_MATURITY)
     _validate_choice(

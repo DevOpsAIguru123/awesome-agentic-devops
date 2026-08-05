@@ -144,7 +144,8 @@ def test_explicit_owner_repo_source_never_loads_catalog(monkeypatch):
 def test_source_all_still_expands_via_catalog():
     args = argparse.Namespace(source="all", repos="data/repos.yaml")
     sources = resolve_sources(args)
-    assert "google/skills" in sources and len(sources) > 1
+    assert "google/skills" in sources
+    assert len(sources) > 1
 
 
 def test_catalog_path_works_without_pyyaml(tmp_path, monkeypatch):
@@ -193,7 +194,8 @@ def test_source_keywords_select_official_community_or_both():
         return resolve_sources(argparse.Namespace(source=keyword, repos="data/repos.yaml"))
 
     official, community = sources_for("official"), sources_for("community")
-    assert official and community
+    assert official
+    assert community
     assert not set(official) & set(community), "official and community must not overlap"
     assert sorted(sources_for("everything")) == sorted(official + community)
     # 'all' is a published alias for 'official' and must not widen silently.
@@ -305,7 +307,8 @@ def test_selection_flags_pick_official_community_or_both():
     community = resolve_sources(flag_args(community=True))
     everything = resolve_sources(flag_args(all_skills=True))
 
-    assert official and community
+    assert official
+    assert community
     assert not set(official) & set(community)
     assert sorted(everything) == sorted(official + community)
 

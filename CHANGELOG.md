@@ -18,6 +18,11 @@ documented here. The format is based on
 
 ### Changed
 
+- **Expanded the agent scorecard safety review.** The reusable scorecard now
+  captures least-privilege credential scope, no-secret-in-context checks,
+  redaction expectations, dry-run/preview commands, approval records, and audit
+  artifacts, plus an explicit production-readiness decision, before recommending
+  production-adjacent use.
 - **Expanded pull request safety checklist.** The PR template now asks
   contributors to confirm no-secret-in-context handling, least-privilege
   credential guidance, approval gates, dry-run/preview behavior, audit evidence,
@@ -36,6 +41,15 @@ documented here. The format is based on
   the documented text badges (`prod`, `prototype`, `mcp`, `approval`,
   `evidence`, `write`) so typos and legacy label names fail in local validation
   before they can drift into the README.
+- **Hardened catalog category validation.** Catalog entries must use one of the
+  curated category slugs, and tests now require the validator allowlist to stay
+  synchronized with the categories currently used in `data/repos.yaml`, preventing
+  README/YAML drift from typos or new sections that lack matching tests and
+  public documentation.
+- **Hardened catalog type validation.** Catalog entries must use one of the
+  curated artifact kinds, and tests now require the validator allowlist to stay
+  synchronized with the `type` values currently used in `data/repos.yaml`,
+  preventing ambiguous or misspelled tool-surface metadata.
 - **Hardened write-capability label validation.** The catalog validator now
   rejects entries where `action_level: write-capable` and the README-facing
   `write` label drift apart, keeping blast-radius warnings consistent between
