@@ -9,6 +9,10 @@ documented here. The format is based on
 
 ### Added
 
+- **Operator safety checklist.** Added a practical preflight runbook for
+  evaluating DevOps agents and MCP servers with read-only-first credentials,
+  no-secret-in-context handling, dry-run/proposal gates, explicit approvals,
+  blast-radius limits, and audit evidence before production-adjacent use.
 - **Container image release advisor.** Added a complete policy-driven reference
   pipeline with SonarCloud code analysis, pre-build Trivy configuration checks,
   exact-image vulnerability and secret scanning, three team-facing reports,
