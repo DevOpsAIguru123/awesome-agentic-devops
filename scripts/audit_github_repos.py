@@ -117,6 +117,7 @@ def _field_warnings(
 
     return warnings
 
+
 def audit_repo(
     entry: dict[str, Any],
     runner: Runner = run_command,
