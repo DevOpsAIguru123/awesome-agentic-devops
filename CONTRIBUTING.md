@@ -36,3 +36,5 @@ pytest -q
 ```
 
 `sync_readme_counts.py` refreshes the entry/category counts in the README intro from `data/repos.yaml`, so you never edit those numbers by hand.
+
+For a deeper freshness check before substantial catalog work, run `python scripts/audit_github_repos.py --stale-days 365`; it writes JSON and Markdown reports under `reports/` and warns on unreachable, archived, private, language-drifted, or stale GitHub repositories.

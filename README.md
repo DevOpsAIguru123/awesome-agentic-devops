@@ -10,7 +10,7 @@ Most agent lists stop at discovery. This one is built for operators:
 
 - **Official-first, community-inclusive** — 79 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
-- **Audited by CI** — GitHub repository entries are checked weekly for reachability and archived status; non-GitHub documentation links are outside this automated check and require curator review.
+- **Audited by CI** — GitHub repository entries are checked weekly for reachability, archived status, and stale push activity; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-skills-into-your-coding-agent) installs hundreds of skills from cataloged Google, Microsoft, Azure, Azure DevOps, and Harness sources — plus a separate community set — into Claude Code, Cursor, Codex, VS Code, or Antigravity.
 - **Runnable, not just theoretical** — documented [reference-agent examples](#local-reference-agents) cover Terraform plan review, drift detection, and policy-driven container image releases.
 

@@ -1,4 +1,5 @@
 import json
+from datetime import UTC, datetime
 from pathlib import Path
 
 import pytest
@@ -71,6 +72,32 @@ def test_audit_repo_records_unreachable_repo():
 
     assert result.reachable is False
     assert result.error == "Could not resolve to a Repository"
+
+
+def test_audit_repo_warns_when_repository_is_stale():
+    payload = {
+        "nameWithOwner": "vendor/stale-tool",
+        "url": "https://github.com/vendor/stale-tool",
+        "isArchived": False,
+        "isPrivate": False,
+        "defaultBranchRef": {"name": "main"},
+        "pushedAt": "2025-01-01T00:00:00Z",
+        "primaryLanguage": {"name": "Python"},
+        "description": "Stale tool",
+        "stargazerCount": 1,
+    }
+
+    def runner(_cmd):
+        return 0, json.dumps(payload), ""
+
+    result = audit_repo(
+        {"name": "vendor/stale-tool", "url": payload["url"]},
+        runner=runner,
+        stale_days=365,
+        now=datetime(2026, 8, 6, tzinfo=UTC),
+    )
+
+    assert "repository has not been pushed in 365+ days" in result.warnings
 
 
 def test_audit_repo_skips_non_github_urls():

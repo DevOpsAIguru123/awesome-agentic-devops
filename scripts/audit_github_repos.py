@@ -6,6 +6,7 @@ import json
 import subprocess
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict, dataclass, field
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any, Callable
 from urllib.parse import urlparse
@@ -77,7 +78,22 @@ def run_command(cmd: list[str]) -> tuple[int, str, str]:
     return completed.returncode, completed.stdout, completed.stderr
 
 
-def _field_warnings(entry: dict[str, Any], metadata: dict[str, Any]) -> list[str]:
+def _parse_github_timestamp(value: str) -> datetime | None:
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
+def _field_warnings(
+    entry: dict[str, Any],
+    metadata: dict[str, Any],
+    *,
+    stale_days: int | None = 365,
+    now: datetime | None = None,
+) -> list[str]:
     warnings: list[str] = []
     expected_language = str(entry.get("primary_language", "")).strip()
     actual_language = (metadata.get("primaryLanguage") or {}).get("name") or ""
@@ -93,10 +109,21 @@ def _field_warnings(entry: dict[str, Any], metadata: dict[str, Any]) -> list[str
     if metadata.get("isPrivate"):
         warnings.append("repository is private")
 
+    pushed_at = _parse_github_timestamp(metadata.get("pushedAt") or "")
+    if stale_days and pushed_at:
+        reference_time = now or datetime.now(UTC)
+        if pushed_at < reference_time - timedelta(days=stale_days):
+            warnings.append(f"repository has not been pushed in {stale_days}+ days")
+
     return warnings
 
-
-def audit_repo(entry: dict[str, Any], runner: Runner = run_command) -> AuditResult:
+def audit_repo(
+    entry: dict[str, Any],
+    runner: Runner = run_command,
+    *,
+    stale_days: int | None = 365,
+    now: datetime | None = None,
+) -> AuditResult:
     name = str(entry["name"])
     url = str(entry["url"])
     try:
@@ -146,7 +173,7 @@ def audit_repo(entry: dict[str, Any], runner: Runner = run_command) -> AuditResu
         primary_language=primary_language.get("name") or "",
         description=metadata.get("description") or "",
         stars=metadata.get("stargazerCount"),
-        warnings=_field_warnings(entry, metadata),
+        warnings=_field_warnings(entry, metadata, stale_days=stale_days, now=now),
     )
 
 
@@ -158,10 +185,18 @@ def load_entries(path: Path) -> list[dict[str, Any]]:
     return data
 
 
-def audit_entries(entries: list[dict[str, Any]], workers: int) -> list[AuditResult]:
+def audit_entries(
+    entries: list[dict[str, Any]],
+    workers: int,
+    *,
+    stale_days: int | None = 365,
+) -> list[AuditResult]:
     results: list[AuditResult] = []
     with ThreadPoolExecutor(max_workers=workers) as executor:
-        futures = [executor.submit(audit_repo, entry) for entry in entries]
+        futures = [
+            executor.submit(audit_repo, entry, stale_days=stale_days)
+            for entry in entries
+        ]
         for future in as_completed(futures):
             results.append(future.result())
     return sorted(results, key=lambda result: result.name.lower())
@@ -235,6 +270,12 @@ def main() -> int:
         default=Path("reports/github-repo-audit.md"),
     )
     parser.add_argument("--workers", type=int, default=8)
+    parser.add_argument(
+        "--stale-days",
+        type=int,
+        default=365,
+        help="Warn when GitHub repos have no pushes in this many days; use 0 to disable.",
+    )
     parser.add_argument("--fail-on-unreachable", action="store_true")
     args = parser.parse_args()
 
@@ -246,7 +287,12 @@ def main() -> int:
         parser.error(str(exc))
 
     entries = load_entries(data_path)
-    results = audit_entries(entries, workers=max(1, args.workers))
+    stale_days = args.stale_days if args.stale_days > 0 else None
+    results = audit_entries(
+        entries,
+        workers=max(1, args.workers),
+        stale_days=stale_days,
+    )
     write_report(results, json_path=json_path, markdown_path=markdown_path)
 
     summary = build_summary(results)
