@@ -47,6 +47,10 @@ documented here. The format is based on
   rejects entries where `action_level: write-capable` and the README-facing
   `write` label drift apart, keeping blast-radius warnings consistent between
   `data/repos.yaml` and generated catalog tables.
+- **Expanded GitHub repository freshness audits.** The audit script now flags
+  GitHub repos with no pushes in the configured freshness window (`--stale-days`,
+  default 365), alongside reachability, archived/private, and language-drift
+  warnings.
 - **Replaced the emoji evaluation labels with text badges.** The six glyphs
   (🟢 🟡 🔵 🛡️ 📊 ⚠️) are now readable tokens — `prod`, `prototype`, `mcp`,
   `approval`, `evidence`, `write` — across the legend, all catalog rows,
