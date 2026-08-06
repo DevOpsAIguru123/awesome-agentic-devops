@@ -49,7 +49,7 @@ At minimum, record an explicit approval before any write-capable agent mutates i
 
 ## Operator safety checklist
 
-Before wiring any catalog entry into cloud accounts, clusters, CI/CD, identity, secrets, databases, observability, or incident-response systems, run through the [operator safety checklist](docs/operator-safety-checklist.md). It gives teams a concrete preflight for read-only-first evaluation, no-secret-in-context handling, dry-run/proposal evidence, approval gates, blast-radius limits, and audit artifacts.
+Before wiring any catalog entry into cloud accounts, clusters, CI/CD, identity, secrets, databases, observability, or incident-response systems, run through the [operator safety checklist](docs/operator-safety-checklist.md). It gives teams a concrete preflight for read-only-first evaluation, domain-specific credential boundaries, no-secret-in-context handling, dry-run/proposal evidence, approval gates, blast-radius limits, and audit artifacts.
 
 ## Top picks by use case
 

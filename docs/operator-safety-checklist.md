@@ -20,6 +20,17 @@ observability metric/log/trace queries
 issue, PR, incident, or ticket reads
 ```
 
+Before evaluating the agent, write down the exact credential boundary instead of relying on a generic "read-only" label:
+
+| Domain | First credential boundary |
+| --- | --- |
+| Cloud / FinOps | one account, project, subscription, billing workspace, or resource group with list/read and cost-viewer permissions |
+| Kubernetes | one namespace-scoped role for get/list/watch/logs/events; no secrets reads unless the workflow is specifically about secrets |
+| Terraform / OpenTofu | plan-only workspace token or repository read token; keep apply tokens separate |
+| CI/CD and GitOps | repository or project read token for workflows, deployments, artifacts, logs, and pull-request creation if proposal mode is needed |
+| Identity / secrets | test tenant, test app, or non-production secret path; block bulk export and production rotation during evaluation |
+| Observability / incidents | telemetry query scope plus incident read/comment scope; page, resolve, suppress, or escalation writes stay disabled until approved |
+
 ## 2. Keep secrets out of model context
 
 - Never paste raw tokens, kubeconfigs, private keys, customer data, database dumps, or unredacted logs into chat.
