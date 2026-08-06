@@ -12,6 +12,7 @@ Thanks for helping make this a practical operator-grade index instead of a hype 
 - Disclose if the project is commercial-only or if key functionality is not available in OSS form.
 - Do not include tools that require unsafe credential practices.
 - Prefer entries that can be evaluated without real cloud credentials.
+- For write-capable, credentialed, or production-adjacent entries, use the [operator safety checklist](docs/operator-safety-checklist.md) to confirm domain-specific least-privilege credential boundaries, no-secret-in-context handling, dry-run/proposal behavior, approval gates, blast-radius limits, and audit evidence.
 - PRs should update [data/repos.yaml](data/repos.yaml) and [README.md](README.md) when the public index changes.
 
 ## Entry checklist

@@ -2,6 +2,8 @@
 
 Infrastructure agents need a stricter safety bar than generic chat assistants. The default posture should be read-only observation, proposal-mode recommendations, and human approval before any write action.
 
+For a practical preflight before enabling a cataloged MCP server or agent against real infrastructure, use the [operator safety checklist](operator-safety-checklist.md).
+
 ## Principles
 
 ### Read-only first
