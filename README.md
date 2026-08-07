@@ -8,7 +8,7 @@ A curated, **official-first** catalog of MCP servers, agent skills, AI agents, f
 
 Most agent lists stop at discovery. This one is built for operators:
 
-- **Official-first, community-inclusive** — 79 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
+- **Official-first, community-inclusive** — 80 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — GitHub repository entries are checked weekly for reachability, archived status, and stale push activity; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-skills-into-your-coding-agent) installs hundreds of skills from cataloged Google, Microsoft, Azure, Azure DevOps, and Harness sources — plus a separate community set — into Claude Code, Cursor, Codex, VS Code, or Antigravity.
@@ -89,6 +89,7 @@ New catalog entries appear below; notable non-entry changes (formatting, labels,
 
 | Date | Entry | Category |
 | --- | --- | --- |
+| 2026-08-07 | [heroku/heroku-mcp-server](https://github.com/heroku/heroku-mcp-server) | Cloud / Heroku PaaS operations |
 | 2026-07-25 | [opentofu/opentofu-mcp-server](https://github.com/opentofu/opentofu-mcp-server) | IaC / OpenTofu Registry MCP |
 | 2026-07-23 | [containers/kubernetes-mcp-server](https://github.com/containers/kubernetes-mcp-server) | Community / Kubernetes and OpenShift |
 | 2026-07-23 | [cisco-ai-defense/mcp-scanner](https://github.com/cisco-ai-defense/mcp-scanner) | Security / MCP server scanning |
@@ -141,6 +142,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | [googleapis/gcloud-mcp](https://github.com/googleapis/gcloud-mcp) | prod<br>mcp<br>approval<br>write | Official Google API repository for gcloud, observability, storage, and backup/disaster-recovery MCP servers. |
 | [GoogleCloudPlatform/cloud-run-mcp](https://github.com/GoogleCloudPlatform/cloud-run-mcp) | prod<br>mcp<br>approval<br>write | Official Google Cloud Platform MCP server for deploying apps to Cloud Run. |
 | [cloudflare/mcp-server-cloudflare](https://github.com/cloudflare/mcp-server-cloudflare) | prod<br>mcp<br>approval<br>write | Official Cloudflare MCP servers for account, Workers, and edge configuration workflows. |
+| [heroku/heroku-mcp-server](https://github.com/heroku/heroku-mcp-server) | prototype<br>mcp<br>approval<br>write | Official Heroku Platform MCP Server using the Heroku CLI for app lifecycle management, deploys, dyno scaling/restarts, logs, add-ons, pipelines, teams/spaces, and Heroku Postgres operations. |
 | [vercel/vercel-mcp-overview](https://github.com/vercel/vercel-mcp-overview) | prod<br>mcp<br>approval<br>write | Official public overview of Vercel's hosted MCP server for project and deployment context. |
 | [digitalocean-labs/mcp-digitalocean](https://github.com/digitalocean-labs/mcp-digitalocean) | prototype<br>mcp<br>approval<br>write | DigitalOcean Labs MCP integration for self-hosted cloud operations over DigitalOcean droplets, App Platform, databases, and account resources. |
 
