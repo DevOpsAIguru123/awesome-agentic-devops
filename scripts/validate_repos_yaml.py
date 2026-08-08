@@ -159,6 +159,11 @@ def _validate_labels(name: str, value: Any) -> None:
     _validate_string_list(name, "labels", value)
     for label in value:
         _validate_choice(name, "label", label, ALLOWED_LABELS)
+    labels = set(value)
+    if {"prod", "prototype"}.issubset(labels):
+        raise ValidationError(
+            f"{name}: prod and prototype labels are mutually exclusive"
+        )
 
 
 def _validate_https_url(name: str, value: str) -> None:

@@ -181,6 +181,13 @@ def test_rejects_unknown_labels():
         validate_entries(entries)
 
 
+def test_rejects_prod_and_prototype_label_mix():
+    entries = [valid_entry(labels=["prod", "prototype"])]
+
+    with pytest.raises(ValidationError, match="mutually exclusive"):
+        validate_entries(entries)
+
+
 def test_write_capable_entries_require_write_label():
     entries = [valid_entry(action_level="write-capable", labels=["prototype", "approval"])]
 
