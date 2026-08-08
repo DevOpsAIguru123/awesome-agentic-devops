@@ -10,16 +10,17 @@ Most agent lists stop at discovery. This one is built for operators:
 
 - **Official-first, community-inclusive** — 79 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
-- **Audited by CI** — GitHub repository entries are checked weekly for reachability and archived status; non-GitHub documentation links are outside this automated check and require curator review.
+- **Audited by CI** — GitHub repository entries are checked weekly for reachability, archived status, and stale push activity; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-skills-into-your-coding-agent) installs hundreds of skills from cataloged Google, Microsoft, Azure, Azure DevOps, and Harness sources — plus a separate community set — into Claude Code, Cursor, Codex, VS Code, or Antigravity.
 - **Runnable, not just theoretical** — documented [reference-agent examples](#local-reference-agents) cover Terraform plan review, drift detection, and policy-driven container image releases.
 
-**Safety first:** some cataloged tools and agents can change infrastructure. Prefer read-only or proposal mode, require human approval before write actions, and use least-privilege credentials — full guidance in the [safety model](docs/safety-model.md).
+**Safety first:** some cataloged tools and agents can change infrastructure. Prefer read-only or proposal mode, require human approval before write actions, and use least-privilege credentials — full guidance in the [safety model](docs/safety-model.md) and the practical [operator safety checklist](docs/operator-safety-checklist.md).
 
 ## Contents
 
 - [Evaluation labels](#evaluation-labels)
 - [Compliance evidence checklist](#compliance-evidence-checklist)
+- [Operator safety checklist](#operator-safety-checklist)
 - [Top picks by use case](#top-picks-by-use-case)
 - [Install skills into your coding agent](#install-skills-into-your-coding-agent)
 - [Recently added](#recently-added)
@@ -45,6 +46,10 @@ Labels are shorthand for structured fields recorded on every entry in [data/repo
 Production-adjacent agent runs need a reviewable evidence packet, not just a chat transcript. Use the [compliance evidence checklist](docs/compliance-evidence.md) to capture request context, identity and data boundaries, redacted tool calls, approval records, validation output, and follow-ups for MCP servers, skills, incident copilots, Terraform reviewers, and other DevOps agents.
 
 At minimum, record an explicit approval before any write-capable agent mutates infrastructure, source control, CI/CD, identity, secrets, incidents, or production telemetry configuration. If the approval cannot be captured, keep the agent in read-only or proposal mode.
+
+## Operator safety checklist
+
+Before wiring any catalog entry into cloud accounts, clusters, CI/CD, identity, secrets, databases, observability, or incident-response systems, run through the [operator safety checklist](docs/operator-safety-checklist.md). It gives teams a concrete preflight for read-only-first evaluation, domain-specific credential boundaries, no-secret-in-context handling, dry-run/proposal evidence, approval gates, blast-radius limits, and audit artifacts.
 
 ## Top picks by use case
 
