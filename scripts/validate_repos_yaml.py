@@ -90,6 +90,7 @@ ALLOWED_MATURITY = {
 }
 ALLOWED_EVIDENCE_TRACING = {"none", "partial", "yes", "unknown"}
 ALLOWED_HUMAN_APPROVAL = {True, False, "unknown"}
+ALLOWED_LABELS = {"approval", "evidence", "mcp", "prod", "prototype", "write"}
 STRING_FIELDS = (
     "name",
     "url",
@@ -101,9 +102,6 @@ STRING_FIELDS = (
     "risk_notes",
     "operator_note",
 )
-LIST_FIELDS = ("labels", "use_cases")
-
-
 class ValidationError(Exception):
     """Raised when data/repos.yaml does not match the expected seed schema."""
 
@@ -157,6 +155,17 @@ def _validate_string_list(name: str, field: str, value: Any) -> None:
             raise ValidationError(f"{name}: {field} items must be non-empty strings")
 
 
+def _validate_labels(name: str, value: Any) -> None:
+    _validate_string_list(name, "labels", value)
+    for label in value:
+        _validate_choice(name, "label", label, ALLOWED_LABELS)
+    labels = set(value)
+    if {"prod", "prototype"}.issubset(labels):
+        raise ValidationError(
+            f"{name}: prod and prototype labels are mutually exclusive"
+        )
+
+
 def _validate_https_url(name: str, value: str) -> None:
     parsed = urlparse(value)
     if parsed.scheme != "https" or not parsed.netloc:
@@ -168,8 +177,8 @@ def _validate_entry(entry: dict[str, Any], index: int) -> None:
     _require_fields(entry, name)
     for field in STRING_FIELDS:
         _validate_non_empty_string(name, field, entry[field])
-    for field in LIST_FIELDS:
-        _validate_string_list(name, field, entry[field])
+    _validate_labels(name, entry["labels"])
+    _validate_string_list(name, "use_cases", entry["use_cases"])
     _validate_https_url(name, entry["url"])
     _validate_choice(name, "category", entry["category"], ALLOWED_CATEGORIES)
     _validate_choice(name, "type", entry["type"], ALLOWED_TYPES)

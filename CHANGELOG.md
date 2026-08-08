@@ -39,6 +39,13 @@ documented here. The format is based on
 - **Hardened catalog URL validation.** Catalog entries now require absolute
   `https://` URLs, blocking accidental relative links, bare hostnames, and
   insecure `http://` sources from entering the operator index.
+- **Hardened contributor label guidance.** The contribution checklist now names the
+  allowed evaluation-label tokens alongside the validator allowlist, making label
+  review expectations clear before contributors edit `data/repos.yaml`.
+- **Hardened catalog label validation.** Evaluation labels are now restricted to
+  the documented text badges (`prod`, `prototype`, `mcp`, `approval`,
+  `evidence`, `write`) so typos and legacy label names fail in local validation
+  before they can drift into the README.
 - **Hardened catalog category validation.** Catalog entries must use one of the
   curated category slugs, and tests now require the validator allowlist to stay
   synchronized with the categories currently used in `data/repos.yaml`, preventing
@@ -52,6 +59,9 @@ documented here. The format is based on
   rejects entries where `action_level: write-capable` and the README-facing
   `write` label drift apart, keeping blast-radius warnings consistent between
   `data/repos.yaml` and generated catalog tables.
+- **Hardened maturity label validation.** The catalog validator now rejects rows
+  that mix `prod` and `prototype` labels, forcing contributors to choose one
+  maturity signal instead of publishing conflicting readiness shorthand.
 - **Expanded GitHub repository freshness audits.** The audit script now flags
   GitHub repos with no pushes in the configured freshness window (`--stale-days`,
   default 365), alongside reachability, archived/private, and language-drift
