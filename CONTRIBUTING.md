@@ -24,6 +24,8 @@ Thanks for helping make this a practical operator-grade index instead of a hype 
 - The `risk_notes` field explains what could go wrong.
 - The `operator_note` field explains why an infrastructure operator should care.
 - Labels match the observed behavior, not marketing claims.
+- `labels` uses only the current evaluation tokens: `prod`, `prototype`, `mcp`, `approval`, `evidence`, and `write`.
+- Do not combine `prod` and `prototype` on the same entry; choose the stricter maturity signal that matches the evidence.
 
 ## Local validation
 
