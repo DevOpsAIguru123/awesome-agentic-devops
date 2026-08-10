@@ -36,6 +36,10 @@ documented here. The format is based on
   values, and `labels` / `use_cases` must contain at least one non-empty string
   item so incomplete catalog rows fail locally before reaching README generation
   or CI.
+- **Hardened score-to-label consistency.** The catalog validator now keeps
+  README-facing `approval` and `evidence` labels synchronized with the structured
+  `human_approval` and `evidence_tracing` fields, preventing safety and audit
+  signals from drifting between `data/repos.yaml` and the public tables.
 - **Hardened catalog URL validation.** Catalog entries now require absolute
   `https://` URLs, blocking accidental relative links, bare hostnames, and
   insecure `http://` sources from entering the operator index.

@@ -33,7 +33,7 @@ def valid_entry(**overrides):
         "maturity": "prototype",
         "risk_notes": "Requires review before use.",
         "operator_note": "Useful reference pattern.",
-        "labels": ["prototype"],
+        "labels": ["prototype", "approval"],
     }
     entry.update(overrides)
     return entry
@@ -77,7 +77,7 @@ def test_seed_types_match_validator_allowlist():
 
 @pytest.mark.parametrize("action_level", sorted(ALLOWED_ACTION_LEVELS))
 def test_accepts_allowed_action_levels(action_level):
-    labels = ["prototype", "write"] if action_level == "write-capable" else ["prototype"]
+    labels = ["prototype", "approval", "write"] if action_level == "write-capable" else ["prototype", "approval"]
     validate_entries([valid_entry(action_level=action_level, labels=labels)])
 
 
@@ -99,7 +99,18 @@ def test_accepts_allowed_maturity_values(maturity):
 @pytest.mark.parametrize("label", sorted(ALLOWED_LABELS))
 def test_accepts_allowed_labels(label):
     action_level = "write-capable" if label == "write" else "proposal"
-    validate_entries([valid_entry(action_level=action_level, labels=[label])])
+    labels = ["prod" if label == "prod" else "prototype", "approval"]
+    if label not in labels:
+        labels.append(label)
+    validate_entries(
+        [
+            valid_entry(
+                action_level=action_level,
+                evidence_tracing="partial",
+                labels=labels,
+            )
+        ]
+    )
 
 
 def test_rejects_missing_required_field():
@@ -199,6 +210,50 @@ def test_write_label_requires_write_capable_action_level():
     entries = [valid_entry(action_level="proposal", labels=["prototype", "write"])]
 
     with pytest.raises(ValidationError, match="requires action_level write-capable"):
+        validate_entries(entries)
+
+
+def test_human_approval_true_requires_approval_label():
+    entries = [valid_entry(human_approval=True, labels=["prototype"])]
+
+    with pytest.raises(ValidationError, match="requires approval label"):
+        validate_entries(entries)
+
+
+def test_approval_label_requires_human_approval_true():
+    entries = [
+        valid_entry(
+            human_approval="unknown",
+            labels=["prototype", "approval"],
+        )
+    ]
+
+    with pytest.raises(ValidationError, match="requires human_approval true"):
+        validate_entries(entries)
+
+
+def test_evidence_tracing_yes_requires_evidence_label():
+    entries = [
+        valid_entry(
+            evidence_tracing="yes",
+            labels=["prototype", "approval"],
+        )
+    ]
+
+    with pytest.raises(ValidationError, match="requires evidence label"):
+        validate_entries(entries)
+
+
+@pytest.mark.parametrize("evidence_tracing", ["none", "unknown"])
+def test_evidence_label_requires_positive_evidence_tracing(evidence_tracing):
+    entries = [
+        valid_entry(
+            evidence_tracing=evidence_tracing,
+            labels=["prototype", "approval", "evidence"],
+        )
+    ]
+
+    with pytest.raises(ValidationError, match="requires evidence_tracing yes or partial"):
         validate_entries(entries)
 
 

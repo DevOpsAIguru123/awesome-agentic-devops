@@ -14,7 +14,7 @@ Most agent lists stop at discovery. Infrastructure teams need more: whether a to
 
 ## How fields map to README labels
 
-The text labels in the README catalog are shorthand for these fields: `write` maps to `action_level: write-capable`, `approval` to `human_approval: true`, `evidence` to tracing or eval evidence, and `prod`/`prototype` to `maturity`. An `approval` label may represent a server-enforced gate, a client permission prompt, or another documented safety mechanism; consult the entry and upstream documentation to determine enforcement strength.
+The text labels in the README catalog are shorthand for these fields: `write` maps to `action_level: write-capable`, `approval` to `human_approval: true`, `evidence` to tracing or eval evidence, and `prod`/`prototype` to `maturity`. The validator enforces the highest-risk mappings: write-capable rows must carry `write`, human-approval rows must carry `approval`, `evidence_tracing: yes` rows must carry `evidence`, and `evidence` cannot be paired with `evidence_tracing: none` or `unknown`. An `approval` label may represent a server-enforced gate, a client permission prompt, or another documented safety mechanism; consult the entry and upstream documentation to determine enforcement strength.
 
 ## Example: reading one entry
 
