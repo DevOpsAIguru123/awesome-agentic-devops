@@ -8,7 +8,7 @@ A curated, **official-first** catalog of MCP servers, agent skills, AI agents, f
 
 Most agent lists stop at discovery. This one is built for operators:
 
-- **Official-first, community-inclusive** — 79 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
+- **Official-first, community-inclusive** — 80 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — GitHub repository entries are checked weekly for reachability, archived status, and stale push activity; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-skills-into-your-coding-agent) installs hundreds of skills from cataloged Google, Microsoft, Azure, Azure DevOps, and Harness sources — plus a separate community set — into Claude Code, Cursor, Codex, VS Code, or Antigravity.
@@ -89,6 +89,7 @@ New catalog entries appear below; notable non-entry changes (formatting, labels,
 
 | Date | Entry | Category |
 | --- | --- | --- |
+| 2026-08-10 | [Nexus Shell Agent Bridge](https://github.com/viewer12/Nexus-Shell-Releases) | DevOps / local SSH and SFTP operations |
 | 2026-07-25 | [opentofu/opentofu-mcp-server](https://github.com/opentofu/opentofu-mcp-server) | IaC / OpenTofu Registry MCP |
 | 2026-07-23 | [containers/kubernetes-mcp-server](https://github.com/containers/kubernetes-mcp-server) | Community / Kubernetes and OpenShift |
 | 2026-07-23 | [cisco-ai-defense/mcp-scanner](https://github.com/cisco-ai-defense/mcp-scanner) | Security / MCP server scanning |
@@ -156,6 +157,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | [docker/mcp-registry](https://github.com/docker/mcp-registry) | prod<br>mcp<br>approval<br>evidence | Official Docker MCP registry and catalog source for verified containerized MCP servers. |
 | [docker/hub-mcp](https://github.com/docker/hub-mcp) | prototype<br>mcp<br>approval<br>write | Official Docker Hub MCP server for AI-assisted image discovery, image recommendations, and Docker Hub repository workflows. |
 | [kubernetes-sigs/mcp-lifecycle-operator](https://github.com/kubernetes-sigs/mcp-lifecycle-operator) | prototype<br>mcp<br>approval<br>write | Official Kubernetes SIG operator for declaratively deploying and rolling out MCP servers, not a general kubectl MCP server. |
+| [Nexus Shell Agent Bridge](https://github.com/viewer12/Nexus-Shell-Releases) | prototype<br>mcp<br>approval<br>evidence<br>write | Official local MCP server in the proprietary Nexus Shell macOS app for visible SSH terminal operations, SFTP, SSH keys, and read-only monitoring, with per-agent consent and a redacted local audit trail. |
 
 ### Official Security and Code-Quality MCP Servers
 

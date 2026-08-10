@@ -433,6 +433,31 @@
     - approval
     - write
 
+- name: Nexus Shell Agent Bridge
+  url: https://github.com/viewer12/Nexus-Shell-Releases
+  category: official-devops-mcp-servers
+  type: mcp-server
+  framework: MCP + native macOS SSH/SFTP client
+  primary_language: Swift
+  cloud_provider: multi-cloud
+  use_cases:
+    - visible-ssh-terminal-operations
+    - sftp-file-transfer
+    - ssh-key-management
+    - read-only-server-and-network-monitoring
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: prototype
+  risk_notes: "After an agent is approved, it can run arbitrary shell commands and create, update, or delete connections and remote files using the app's saved credentials. Consent is per agent (once or always), not per command, and there is no built-in dry-run mode. Start on non-production hosts with least-privilege remote accounts, review visible terminal tabs, revoke access after use, and assume command output may expose secrets to the model."
+  operator_note: "Official local MCP server built into the proprietary Nexus Shell macOS app, exposing 26 tools for SSH terminals, SFTP, SSH keys, session metadata, and read-only monitoring. It uses a same-user Unix socket, never returns stored passwords or private keys, shows agent-opened terminals in the app, and writes a redacted local JSONL audit trail. Agent Bridge is available only in the direct-download and Homebrew builds."
+  labels:
+    - prototype
+    - mcp
+    - approval
+    - evidence
+    - write
+
 - name: SonarSource/sonarqube-mcp-server
   url: https://github.com/SonarSource/sonarqube-mcp-server
   category: official-security-mcp-servers
