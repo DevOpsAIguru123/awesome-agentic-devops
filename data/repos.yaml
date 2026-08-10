@@ -1355,6 +1355,30 @@
     - approval
     - write
 
+- name: heroku/heroku-mcp-server
+  url: https://github.com/heroku/heroku-mcp-server
+  category: official-cloud-mcp-servers
+  type: mcp-server
+  framework: MCP + Heroku CLI
+  primary_language: TypeScript
+  cloud_provider: Heroku
+  use_cases:
+    - heroku-app-management
+    - paas-deployment-and-scaling
+    - postgres-and-add-on-operations
+    - platform-agent-workflows
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: prototype
+  risk_notes: "Early-development official server that uses Heroku CLI auth or HEROKU_API_KEY to read and mutate live Heroku apps, dynos, add-ons, pipelines, and Postgres databases. Prefer `heroku mcp:start` to avoid exposing API keys, scope authorization tokens tightly, and require approval before deploy, scale, restart, add-on, maintenance, pipeline, or SQL actions."
+  operator_note: "Official Heroku Platform MCP Server using the Heroku CLI, with tools for app lifecycle management, deploys, dyno scaling/restarts, logs, add-ons, pipelines, teams/spaces, and Heroku Postgres operations."
+  labels:
+    - prototype
+    - mcp
+    - approval
+    - write
+
 - name: CircleCI-Public/mcp-server-circleci
   url: https://github.com/CircleCI-Public/mcp-server-circleci
   category: official-ci-cd-mcp-servers
