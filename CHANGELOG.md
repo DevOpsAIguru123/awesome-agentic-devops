@@ -64,8 +64,9 @@ documented here. The format is based on
   `write` label drift apart, keeping blast-radius warnings consistent between
   `data/repos.yaml` and generated catalog tables.
 - **Hardened maturity label validation.** The catalog validator now rejects rows
-  that mix `prod` and `prototype` labels, forcing contributors to choose one
-  maturity signal instead of publishing conflicting readiness shorthand.
+  that mix `prod` and `prototype` labels, and rejects `maturity: prototype` rows
+  that omit `prototype` or use `prod`, forcing contributors to keep beta and
+  experimental entries aligned with README readiness shorthand.
 - **Expanded GitHub repository freshness audits.** The audit script now flags
   GitHub repos with no pushes in the configured freshness window (`--stale-days`,
   default 365), alongside reachability, archived/private, and language-drift

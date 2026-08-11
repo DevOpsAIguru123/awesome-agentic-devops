@@ -223,6 +223,8 @@ def _validate_score_label_consistency(entry: dict[str, Any], index: int) -> None
     labels = set(entry["labels"])
     has_approval_label = "approval" in labels
     has_evidence_label = "evidence" in labels
+    has_prod_label = "prod" in labels
+    has_prototype_label = "prototype" in labels
 
     if entry["human_approval"] is True and not has_approval_label:
         raise ValidationError(f"{name}: human_approval true requires approval label")
@@ -234,6 +236,14 @@ def _validate_score_label_consistency(entry: dict[str, Any], index: int) -> None
         raise ValidationError(
             f"{name}: evidence label requires evidence_tracing yes or partial"
         )
+    if entry["maturity"] == "production-adjacent" and has_prototype_label:
+        raise ValidationError(
+            f"{name}: production-adjacent maturity cannot use prototype label"
+        )
+    if entry["maturity"] == "prototype" and has_prod_label:
+        raise ValidationError(f"{name}: prototype maturity cannot use prod label")
+    if entry["maturity"] == "prototype" and not has_prototype_label:
+        raise ValidationError(f"{name}: prototype maturity requires prototype label")
 
 
 def validate_entries(entries: Any) -> list[dict[str, Any]]:

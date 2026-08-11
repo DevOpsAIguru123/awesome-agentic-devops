@@ -93,12 +93,18 @@ def test_accepts_allowed_types(entry_type):
 
 @pytest.mark.parametrize("maturity", sorted(ALLOWED_MATURITY))
 def test_accepts_allowed_maturity_values(maturity):
-    validate_entries([valid_entry(maturity=maturity)])
+    labels = (
+        ["prod", "approval"]
+        if maturity == "production-adjacent"
+        else ["prototype", "approval"]
+    )
+    validate_entries([valid_entry(maturity=maturity, labels=labels)])
 
 
 @pytest.mark.parametrize("label", sorted(ALLOWED_LABELS))
 def test_accepts_allowed_labels(label):
     action_level = "write-capable" if label == "write" else "proposal"
+    maturity = "production-adjacent" if label == "prod" else "prototype"
     labels = ["prod" if label == "prod" else "prototype", "approval"]
     if label not in labels:
         labels.append(label)
@@ -107,6 +113,7 @@ def test_accepts_allowed_labels(label):
             valid_entry(
                 action_level=action_level,
                 evidence_tracing="partial",
+                maturity=maturity,
                 labels=labels,
             )
         ]
@@ -254,6 +261,37 @@ def test_evidence_label_requires_positive_evidence_tracing(evidence_tracing):
     ]
 
     with pytest.raises(ValidationError, match="requires evidence_tracing yes or partial"):
+        validate_entries(entries)
+
+
+def test_production_adjacent_maturity_rejects_prototype_label():
+    entries = [
+        valid_entry(
+            maturity="production-adjacent",
+            labels=["prototype", "approval"],
+        )
+    ]
+
+    with pytest.raises(ValidationError, match="cannot use prototype label"):
+        validate_entries(entries)
+
+
+def test_prototype_maturity_requires_prototype_label():
+    entries = [valid_entry(maturity="prototype", labels=["approval"])]
+
+    with pytest.raises(ValidationError, match="requires prototype label"):
+        validate_entries(entries)
+
+
+def test_prototype_maturity_rejects_prod_label():
+    entries = [
+        valid_entry(
+            maturity="prototype",
+            labels=["prod", "approval"],
+        )
+    ]
+
+    with pytest.raises(ValidationError, match="cannot use prod label"):
         validate_entries(entries)
 
 
