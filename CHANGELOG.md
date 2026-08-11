@@ -36,6 +36,10 @@ documented here. The format is based on
   values, and `labels` / `use_cases` must contain at least one non-empty string
   item so incomplete catalog rows fail locally before reaching README generation
   or CI.
+- **Hardened score-to-label consistency.** The catalog validator now keeps
+  README-facing `approval` and `evidence` labels synchronized with the structured
+  `human_approval` and `evidence_tracing` fields, preventing safety and audit
+  signals from drifting between `data/repos.yaml` and the public tables.
 - **Hardened catalog URL validation.** Catalog entries now require absolute
   `https://` URLs, blocking accidental relative links, bare hostnames, and
   insecure `http://` sources from entering the operator index.
@@ -60,8 +64,9 @@ documented here. The format is based on
   `write` label drift apart, keeping blast-radius warnings consistent between
   `data/repos.yaml` and generated catalog tables.
 - **Hardened maturity label validation.** The catalog validator now rejects rows
-  that mix `prod` and `prototype` labels, forcing contributors to choose one
-  maturity signal instead of publishing conflicting readiness shorthand.
+  that mix `prod` and `prototype` labels, and rejects `maturity: prototype` rows
+  that omit `prototype` or use `prod`, forcing contributors to keep beta and
+  experimental entries aligned with README readiness shorthand.
 - **Expanded GitHub repository freshness audits.** The audit script now flags
   GitHub repos with no pushes in the configured freshness window (`--stale-days`,
   default 365), alongside reachability, archived/private, and language-drift

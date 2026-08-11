@@ -208,7 +208,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | --- | --- | --- |
 | [hashicorp/terraform-mcp-server](https://github.com/hashicorp/terraform-mcp-server) | prod<br>mcp<br>approval<br>evidence<br>write | Official HashiCorp Terraform MCP server with registry, HCP Terraform, Terraform Enterprise, and OTel support. |
 | [Pulumi MCP Server](https://www.pulumi.com/docs/ai/mcp-server/) | prod<br>mcp<br>approval<br>write | Official Pulumi hosted MCP server for Pulumi Cloud resources, registry lookup, policies, and Pulumi Neo workflows. |
-| [hashicorp/vault-mcp-server](https://github.com/hashicorp/vault-mcp-server) | prod<br>mcp<br>approval<br>write | Official HashiCorp Vault MCP server (beta) for secrets and mount management alongside Terraform-driven IaC workflows. |
+| [hashicorp/vault-mcp-server](https://github.com/hashicorp/vault-mcp-server) | prototype<br>mcp<br>approval<br>write | Official HashiCorp Vault MCP server for secrets and mount management, complementing the Terraform MCP server for IaC workflows. |
 | [opentofu/opentofu-mcp-server](https://github.com/opentofu/opentofu-mcp-server) | prototype<br>mcp<br>approval | Official OpenTofu MCP server for searching the OpenTofu Registry, retrieving provider/module details, resource and data-source docs, and configuration examples via hosted or local MCP deployment. |
 
 ### Official SRE MCP Servers

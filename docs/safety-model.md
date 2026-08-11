@@ -50,6 +50,6 @@ Do not paste secrets, cloud credentials, kubeconfigs, private keys, tokens, or s
 
 - Every listed project must have an `action_level`.
 - Write-capable entries must carry the `write` label unless the write surface is clearly isolated.
-- Approval-aware entries should carry `approval` only when a meaningful approval or safety mechanism is documented or strongly evident.
-- Evidence-aware entries should carry `evidence` only when there is a trace, eval, audit, cited evidence, or equivalent mechanism.
+- Entries with `human_approval: true` must carry the `approval` label, and `approval` must not be used when the structured field is `false` or `unknown`.
+- Entries with `evidence_tracing: yes` must carry the `evidence` label. The `evidence` label may also be used for partial evidence, but must not be used when tracing is `none` or `unknown`.
 - Deep reviews should use the [agent scorecard template](../templates/agent-scorecard.md) to capture credential boundaries, no-secret-in-context controls, dry-run commands, approval evidence, audit artifacts, and an explicit production-readiness decision before recommending production-adjacent use.

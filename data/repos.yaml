@@ -1509,7 +1509,7 @@
   risk_notes: "Beta; tools can touch live secrets engines and mounts, so run locally only, avoid exposing it to other network users, and require approval before write operations."
   operator_note: "Official HashiCorp Vault MCP server for secrets and mount management, complementing the Terraform MCP server for IaC workflows."
   labels:
-    - prod
+    - prototype
     - mcp
     - approval
     - write

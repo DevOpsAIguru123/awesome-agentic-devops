@@ -218,6 +218,34 @@ def _validate_write_label_consistency(entry: dict[str, Any], index: int) -> None
         raise ValidationError(f"{name}: write label requires action_level write-capable")
 
 
+def _validate_score_label_consistency(entry: dict[str, Any], index: int) -> None:
+    name = _entry_name(entry, index)
+    labels = set(entry["labels"])
+    has_approval_label = "approval" in labels
+    has_evidence_label = "evidence" in labels
+    has_prod_label = "prod" in labels
+    has_prototype_label = "prototype" in labels
+
+    if entry["human_approval"] is True and not has_approval_label:
+        raise ValidationError(f"{name}: human_approval true requires approval label")
+    if has_approval_label and entry["human_approval"] is not True:
+        raise ValidationError(f"{name}: approval label requires human_approval true")
+    if entry["evidence_tracing"] == "yes" and not has_evidence_label:
+        raise ValidationError(f"{name}: evidence_tracing yes requires evidence label")
+    if has_evidence_label and entry["evidence_tracing"] in {"none", "unknown"}:
+        raise ValidationError(
+            f"{name}: evidence label requires evidence_tracing yes or partial"
+        )
+    if entry["maturity"] == "production-adjacent" and has_prototype_label:
+        raise ValidationError(
+            f"{name}: production-adjacent maturity cannot use prototype label"
+        )
+    if entry["maturity"] == "prototype" and has_prod_label:
+        raise ValidationError(f"{name}: prototype maturity cannot use prod label")
+    if entry["maturity"] == "prototype" and not has_prototype_label:
+        raise ValidationError(f"{name}: prototype maturity requires prototype label")
+
+
 def validate_entries(entries: Any) -> list[dict[str, Any]]:
     if not isinstance(entries, list):
         raise ValidationError("data/repos.yaml must contain a list of repo entries")
@@ -227,6 +255,7 @@ def validate_entries(entries: Any) -> list[dict[str, Any]]:
             raise ValidationError(f"entry #{index + 1} must be a mapping")
         _validate_entry(entry, index)
         _validate_write_label_consistency(entry, index)
+        _validate_score_label_consistency(entry, index)
 
     _validate_unique_field(entries, "name")
     _validate_unique_field(entries, "url")
