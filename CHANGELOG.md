@@ -9,6 +9,10 @@ documented here. The format is based on
 
 ### Added
 
+- **Catalog schema reference.** Added a validator-backed reference for required
+  `data/repos.yaml` fields, allowed category slugs, artifact types, maturity
+  values, evaluation labels, score-to-label invariants, and pre-submit commands
+  so contributors can classify entries consistently before CI runs.
 - **Operator safety checklist.** Added a practical preflight runbook for
   evaluating DevOps agents and MCP servers with read-only-first credentials,
   domain-specific credential boundaries, no-secret-in-context handling,
