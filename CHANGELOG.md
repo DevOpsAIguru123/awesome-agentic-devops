@@ -27,6 +27,10 @@ documented here. The format is based on
 
 ### Changed
 
+- **Clarified catalog provenance classification.** The catalog schema reference now
+  defines when `official-*` categories are appropriate versus `community-*`
+  categories, and regression tests keep that contributor guidance present so
+  ecosystem-adjacent tools are not misclassified as official sources.
 - **Expanded the agent scorecard safety review.** The reusable scorecard now
   captures least-privilege credential scope, no-secret-in-context checks,
   redaction expectations, dry-run/preview commands, approval records, and audit

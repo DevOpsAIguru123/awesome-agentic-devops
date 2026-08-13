@@ -24,7 +24,12 @@ Every catalog entry must include:
 
 ## Allowed categories
 
-Category slugs define the curated README sections and are validated in CI:
+Category slugs define the curated README sections and are validated in CI. The prefix is also a provenance signal:
+
+- `official-*` categories are for first-party vendor, CNCF/Kubernetes SIG, foundation, or upstream project-governed sources where maintainership is clear from the repository owner or official documentation.
+- `community-*` categories are for useful third-party tools, discovery lists, or skill collections that are not governed by the vendor/project whose platform they operate.
+
+Do not classify a repo as official just because it integrates with an official API, appears in a third-party list, or uses a vendor name. When provenance is unclear, prefer a community category or hold the entry until a first-party source confirms ownership.
 
 - `community-agent-skills`
 - `community-discovery`

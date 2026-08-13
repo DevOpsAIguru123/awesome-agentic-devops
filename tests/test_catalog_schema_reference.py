@@ -32,6 +32,15 @@ def test_catalog_schema_reference_lists_allowed_categories():
         assert f"`{category}`" in text
 
 
+def test_catalog_schema_reference_documents_category_provenance():
+    text = _schema_text()
+
+    assert "`official-*`" in text
+    assert "first-party vendor" in text
+    assert "`community-*`" in text
+    assert "not governed by the vendor/project" in text
+
+
 def test_catalog_schema_reference_lists_allowed_action_levels():
     text = _schema_text()
 
