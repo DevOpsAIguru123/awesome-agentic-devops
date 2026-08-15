@@ -1846,3 +1846,27 @@
     - mcp
     - approval
     - write
+
+- name: vostride/agent-qa
+  url: https://github.com/vostride/agent-qa
+  category: community-mcp-servers
+  type: agent-toolkit
+  framework: MCP + Playwright + Appium + Agent Skills
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - web-and-mobile-regression-testing
+    - ci-quality-gates
+    - test-failure-triage
+    - agent-driven-qa
+  action_level: write-capable
+  human_approval: unknown
+  evidence_tracing: "yes"
+  maturity: prototype
+  risk_notes: "Runs browser and mobile actions that can click, type, submit forms, invoke hooks, and mutate authenticated test environments; use disposable accounts and test tenants, review scenarios and hooks, scope credentials, and require approval before destructive or production-adjacent steps."
+  operator_note: "Community QA toolkit with a dashboard, CLI, MCP server, and Agent Skills for natural-language web/mobile regression tests; persistent execution memory and self-healing reuse prior observations and produce reviewable run artifacts."
+  labels:
+    - prototype
+    - mcp
+    - evidence
+    - write
