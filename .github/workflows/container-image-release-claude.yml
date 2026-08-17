@@ -318,7 +318,7 @@ jobs:
       - name: Send Trivy findings to GitHub Code Scanning
         if: always() && hashFiles('agents/container-image-release-advisor/adk/examples/agentic-devops-portfolio/reports/ci-trivy.sarif') != ''
         continue-on-error: true
-        uses: github/codeql-action/upload-sarif@5595ccaf912efad79be6eef63a5619ff05969be3 # v4.37.6
+        uses: github/codeql-action/upload-sarif@ff2f1c621b7f889edc0d3c761ac2e6a3f8cdb0dd # v4.37.7
         with:
           sarif_file: ${{ env.APP_DIR }}/reports/ci-trivy.sarif
           category: trivy-container-security
