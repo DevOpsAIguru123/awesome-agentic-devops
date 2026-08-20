@@ -1846,3 +1846,27 @@
     - mcp
     - approval
     - write
+
+- name: dbhq-uk/heliograph-skill
+  url: https://github.com/dbhq-uk/heliograph-skill
+  category: community-agent-skills
+  type: skill
+  framework: skills
+  primary_language: Shell
+  cloud_provider: multi-cloud
+  use_cases:
+    - air-gapped-diagnostics
+    - remote-incident-investigation
+    - operator-mediated-troubleshooting
+    - timestamped-evidence-capture
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: prototype
+  risk_notes: "Steps are arbitrary shell run on the operator's control node, so scope the account that executes them and keep the transport repo private. Logs are committed and pushed, so anything a command prints is in git history permanently; built-in redaction masks common secret shapes and is a safety net, not a guarantee. The default loop is operator-run per step, but the optional unattended runner executes whatever is pushed to the branch it watches, so per-step human review only holds in the manual mode."
+  operator_note: "Diagnoses hosts the agent cannot reach at all - air-gapped, client-owned or change-controlled estates - by moving steps out and UTC-timestamped logs back over a private git repo. No tunnel, proxy or held-open connection; the only thing crossing the gap is a commit, run by someone who already has legitimate access. Every line is stamped, so a hang reads as a gap, and the log is pushed with its exit code even when the step fails."
+  labels:
+    - prototype
+    - approval
+    - evidence
+    - write

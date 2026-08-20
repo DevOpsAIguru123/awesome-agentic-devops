@@ -18,6 +18,11 @@
       "category": "community-agent-skills"
     },
     {
+      "name": "dbhq-uk/heliograph-skill",
+      "url": "https://github.com/dbhq-uk/heliograph-skill",
+      "category": "community-agent-skills"
+    },
+    {
       "name": "google/skills",
       "url": "https://github.com/google/skills",
       "category": "official-agent-skills"
