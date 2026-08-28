@@ -13,6 +13,10 @@ documented here. The format is based on
   `data/repos.yaml` fields, allowed category slugs, artifact types, maturity
   values, evaluation labels, score-to-label invariants, and pre-submit commands
   so contributors can classify entries consistently before CI runs.
+- **Catalog entry template.** Added a minimal `data/repos.yaml` entry template
+  and review checklist to the schema reference so daily catalog additions start
+  with safe defaults, top-level list placement, credential-scoping notes, and
+  label-to-score consistency reminders.
 - **Operator safety checklist.** Added a practical preflight runbook for
   evaluating DevOps agents and MCP servers with read-only-first credentials,
   domain-specific credential boundaries, no-secret-in-context handling,

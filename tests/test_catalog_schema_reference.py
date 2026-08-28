@@ -41,6 +41,20 @@ def test_catalog_schema_reference_documents_category_provenance():
     assert "not governed by the vendor/project" in text
 
 
+def test_catalog_schema_reference_includes_minimal_entry_template():
+    text = _schema_text()
+
+    assert "## Minimal entry template" in text
+    assert "add this as a new top-level list item" in text
+    assert "```yaml" in text
+    assert "- name: owner/repo-or-doc-name" in text
+    assert "action_level: read-only" in text
+    assert "labels:" in text
+    assert "- mcp" in text
+    assert "Template review checklist" in text
+    assert "do not paste" in text
+
+
 def test_catalog_schema_reference_lists_allowed_action_levels():
     text = _schema_text()
 

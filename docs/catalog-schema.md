@@ -94,6 +94,46 @@ Use the narrowest type that describes the actual operator surface:
 
 Docs pages and runnable servers are distinct artifacts. A vendor may have both a `documentation` entry and a separate `mcp-server` or `hosted-mcp-server` entry when both are useful to operators.
 
+## Minimal entry template
+
+Start new entries from this shape, then replace every placeholder with verified
+facts from the official repository or documentation. `data/repos.yaml` is a flat
+list, so add this as a new top-level list item rather than nesting it under a
+category key.
+
+```yaml
+- name: owner/repo-or-doc-name
+  url: https://example.com/official-source
+  category: official-devops-mcp-servers
+  type: mcp-server
+  framework: unknown
+  primary_language: unknown
+  cloud_provider: none
+  use_cases:
+    - Short operator task this tool supports
+  action_level: read-only
+  human_approval: unknown
+  evidence_tracing: unknown
+  maturity: production-adjacent
+  risk_notes: Verify credential scope, write tools, telemetry, and audit behavior before production-adjacent use.
+  operator_note: Explain why a DevOps, SRE, platform, cloud, security, or MLOps operator should evaluate it.
+  labels:
+    - mcp
+```
+
+Template review checklist:
+
+- Replace placeholder `unknown` values whenever official docs expose a more
+  specific framework, language, credential, approval, or tracing signal.
+- Use `action_level: proposal` for dry-run or plan-generating tools, and
+  `action_level: write-capable` plus the `write` label when any tool can mutate
+  infrastructure, code, tickets, cloud resources, or production data.
+- Prefer read-only, scoped, or test credentials in `risk_notes`; do not paste
+  secrets, tokens, customer data, or private endpoints into catalog metadata.
+- Add `approval` only with `human_approval: true`, and add `evidence` only when
+  official docs or code show audit logs, traces, citations, run artifacts, or
+  similarly durable evidence.
+
 ## Maturity values
 
 - `production-adjacent` — official or mature enough to evaluate near production, but not a production-readiness guarantee.
