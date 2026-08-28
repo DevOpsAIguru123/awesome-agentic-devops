@@ -55,6 +55,19 @@ def test_catalog_schema_reference_includes_minimal_entry_template():
     assert "do not paste" in text
 
 
+def test_catalog_schema_reference_includes_source_verification_checklist():
+    text = _schema_text()
+
+    assert "## Source verification checklist" in text
+    assert "without secrets" in text
+    assert "Reachability" in text
+    assert "Freshness" in text
+    assert "not archived" in text
+    assert "Tool surface" in text
+    assert "Credential boundary" in text
+    assert "Safety signals" in text
+
+
 def test_catalog_schema_reference_lists_allowed_action_levels():
     text = _schema_text()
 

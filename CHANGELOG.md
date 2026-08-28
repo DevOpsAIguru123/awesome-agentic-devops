@@ -17,6 +17,10 @@ documented here. The format is based on
   and review checklist to the schema reference so daily catalog additions start
   with safe defaults, top-level list placement, credential-scoping notes, and
   label-to-score consistency reminders.
+- **Catalog source verification checklist.** Added reproducible pre-submit checks
+  for reachability, freshness, tool surface, credential boundaries, and safety
+  signals so catalog reviewers can validate entries from public evidence before
+  trusting external indexes or marketing copy.
 - **Operator safety checklist.** Added a practical preflight runbook for
   evaluating DevOps agents and MCP servers with read-only-first credentials,
   domain-specific credential boundaries, no-secret-in-context handling,

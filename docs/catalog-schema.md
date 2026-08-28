@@ -134,6 +134,27 @@ Template review checklist:
   official docs or code show audit logs, traces, citations, run artifacts, or
   similarly durable evidence.
 
+## Source verification checklist
+
+Before adding or refreshing a catalog row, collect harmless public evidence for
+the operator-facing surface rather than relying on marketing copy or a broad MCP
+index. A reviewer should be able to reproduce these checks without secrets:
+
+- Reachability: confirm the repository or documentation URL returns successfully
+  and is the canonical upstream, vendor, foundation, or community project page.
+- Freshness: for GitHub projects, check that the repository is not archived and
+  has recent enough activity for the maturity claim; otherwise explain the stale
+  or archival signal in `risk_notes`.
+- Tool surface: verify whether the artifact is a runnable `mcp-server`, a hosted
+  endpoint, an SDK, documentation, a skill, or only a curated list, then set
+  `type` to the narrowest matching value.
+- Credential boundary: identify the least-privilege credential mode an operator
+  can use for evaluation, or state clearly when the project only documents broad
+  credentials or leaves credential scope unspecified.
+- Safety signals: map observed dry-run behavior, approval gates, evidence or
+  audit artifacts, telemetry, and write capability back to `action_level`,
+  `human_approval`, `evidence_tracing`, `risk_notes`, and `labels`.
+
 ## Maturity values
 
 - `production-adjacent` — official or mature enough to evaluate near production, but not a production-readiness guarantee.
