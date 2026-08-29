@@ -38,6 +38,10 @@ documented here. The format is based on
 
 ### Changed
 
+- **Guarded the operator safety checklist.** Added regression coverage so the
+  read-only-first, no-secret-in-context, dry-run/proposal, approval, blast-radius,
+  audit-evidence, and go/no-go guidance stays linked from the main entry points
+  and remains present during future documentation edits.
 - **Clarified catalog provenance classification.** The catalog schema reference now
   defines when `official-*` categories are appropriate versus `community-*`
   categories, and regression tests keep that contributor guidance present so
