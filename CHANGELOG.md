@@ -21,6 +21,9 @@ documented here. The format is based on
   for reachability, freshness, tool surface, credential boundaries, and safety
   signals so catalog reviewers can validate entries from public evidence before
   trusting external indexes or marketing copy.
+- **Catalog evidence capture worksheet.** Added a PR-ready source-evidence note
+  template with harmless GitHub metadata checks and no-secret reminders so
+  reviewers can reproduce catalog claims without exposing credentials.
 - **Operator safety checklist.** Added a practical preflight runbook for
   evaluating DevOps agents and MCP servers with read-only-first credentials,
   domain-specific credential boundaries, no-secret-in-context handling,

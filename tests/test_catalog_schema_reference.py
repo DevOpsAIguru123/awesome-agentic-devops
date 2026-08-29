@@ -68,6 +68,19 @@ def test_catalog_schema_reference_includes_source_verification_checklist():
     assert "Safety signals" in text
 
 
+def test_catalog_schema_reference_includes_evidence_capture_worksheet():
+    text = _schema_text()
+
+    assert "### Evidence capture worksheet" in text
+    assert "pull request body" in text
+    assert "Source evidence:" in text
+    assert "Canonical source" in text
+    assert "Reachability check" in text
+    assert "Credential boundary" in text
+    assert "gh repo view OWNER/REPO --json" in text
+    assert "Do not include access tokens" in text
+
+
 def test_catalog_schema_reference_lists_allowed_action_levels():
     text = _schema_text()
 

@@ -155,6 +155,32 @@ index. A reviewer should be able to reproduce these checks without secrets:
   audit artifacts, telemetry, and write capability back to `action_level`,
   `human_approval`, `evidence_tracing`, `risk_notes`, and `labels`.
 
+### Evidence capture worksheet
+
+Paste a short evidence note into the pull request body when catalog metadata
+changes. Keep it factual, reproducible, and free of secrets:
+
+```markdown
+Source evidence:
+- Canonical source: <official repository or vendor docs URL>
+- Reachability check: <command or URL check used, with date>
+- Freshness signal: <GitHub pushedAt/not archived, docs date, or documented caveat>
+- Tool surface: <mcp-server | hosted endpoint | sdk | docs | skill | list>
+- Credential boundary: <read-only token, scoped test credential, OAuth scope, or unknown>
+- Safety signals: <dry-run/proposal mode, approval gate, tracing/audit artifact, write capability>
+```
+
+Suggested harmless commands for GitHub-backed entries:
+
+```bash
+gh repo view OWNER/REPO --json nameWithOwner,isArchived,pushedAt,defaultBranchRef,licenseInfo,url,repositoryTopics
+gh api repos/OWNER/REPO/contents/README.md --jq .download_url
+```
+
+For non-GitHub documentation, record the canonical URL, HTTP status, redirected
+URL if any, and content type. Do not include access tokens, private tenant URLs,
+internal hostnames, customer data, or screenshots that expose credentials.
+
 ## Maturity values
 
 - `production-adjacent` — official or mature enough to evaluate near production, but not a production-readiness guarantee.
