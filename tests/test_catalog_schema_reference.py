@@ -36,6 +36,18 @@ def test_catalog_schema_reference_documents_identity_and_duplicate_rules():
     assert "Separate documentation and runnable surfaces" in text
 
 
+def test_catalog_schema_reference_documents_readme_synchronization_rules():
+    text = _schema_text()
+
+    assert "## README synchronization rules" in text
+    assert "python3 scripts/sync_readme_counts.py" in text
+    assert "python3 scripts/sync_readme_counts.py --check" in text
+    assert "## Recently added" in text
+    assert "matching catalog section table" in text
+    assert "intro quick-pick table" in text
+    assert "## Top picks by use case" in text
+
+
 def test_catalog_schema_reference_lists_allowed_categories():
     text = _schema_text()
 

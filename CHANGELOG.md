@@ -27,6 +27,9 @@ documented here. The format is based on
 - **Catalog identity rules.** Documented unique `name` and `url` expectations,
   canonical source selection, single-row use-case handling, and the narrow case
   where separate documentation and runnable artifact rows can coexist.
+- **README synchronization rules.** Documented the README surfaces that must stay
+  aligned with `data/repos.yaml`, including Recently added, catalog section
+  tables, quick picks, top-picks guidance, and the README count check.
 - **Operator safety checklist.** Added a practical preflight runbook for
   evaluating DevOps agents and MCP servers with read-only-first credentials,
   domain-specific credential boundaries, no-secret-in-context handling,

@@ -39,6 +39,22 @@ review discussions can point to a single stable row:
   they are genuinely different artifacts, such as vendor docs plus a separate
   installable `mcp-server` repository.
 
+## README synchronization rules
+
+When `data/repos.yaml` changes, update every README surface that helps operators
+discover or verify the row. At minimum, run `python3 scripts/sync_readme_counts.py`
+so the intro count stays aligned with the YAML source of truth. For new catalog
+entries, also update these README sections in the same pull request:
+
+- `## Recently added` — prepend a dated row for the new or refreshed entry.
+- The matching catalog section table for the entry's `category`.
+- The intro quick-pick table when the category already has a representative row.
+- `## Top picks by use case` only when the entry is genuinely a top recommendation
+  for that operator workflow; do not add weak entries just to fill the table.
+
+Run `python3 scripts/sync_readme_counts.py --check` before review so README count
+drift fails locally rather than in CI.
+
 ## Allowed categories
 
 Category slugs define the curated README sections and are validated in CI. The prefix is also a provenance signal:
