@@ -22,6 +22,23 @@ Every catalog entry must include:
 - `operator_note` — non-empty reason an infrastructure operator should care.
 - `labels` — non-empty list using only the README evaluation labels below.
 
+## Identity and duplicate rules
+
+Catalog identity is intentionally strict so generated README tables, audits, and
+review discussions can point to a single stable row:
+
+- `name` must be unique across the whole flat list. Prefer `owner/repo` for
+  GitHub-backed projects so the display name stays stable even if the README
+  section changes.
+- `url` must be unique across the whole flat list and must be the canonical
+  operator-facing source for the artifact being cataloged.
+- Do not add a second row for the same artifact only to represent another use
+  case or README section. Capture additional operator use cases in `use_cases`
+  and choose the best single `category`.
+- Separate documentation and runnable surfaces may have distinct rows only when
+  they are genuinely different artifacts, such as vendor docs plus a separate
+  installable `mcp-server` repository.
+
 ## Allowed categories
 
 Category slugs define the curated README sections and are validated in CI. The prefix is also a provenance signal:

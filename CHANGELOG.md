@@ -24,6 +24,9 @@ documented here. The format is based on
 - **Catalog evidence capture worksheet.** Added a PR-ready source-evidence note
   template with harmless GitHub metadata checks and no-secret reminders so
   reviewers can reproduce catalog claims without exposing credentials.
+- **Catalog identity rules.** Documented unique `name` and `url` expectations,
+  canonical source selection, single-row use-case handling, and the narrow case
+  where separate documentation and runnable artifact rows can coexist.
 - **Operator safety checklist.** Added a practical preflight runbook for
   evaluating DevOps agents and MCP servers with read-only-first credentials,
   domain-specific credential boundaries, no-secret-in-context handling,

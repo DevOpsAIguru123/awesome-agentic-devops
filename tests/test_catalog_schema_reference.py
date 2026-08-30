@@ -25,6 +25,17 @@ def test_catalog_schema_reference_lists_required_fields():
         assert f"`{field}`" in text
 
 
+def test_catalog_schema_reference_documents_identity_and_duplicate_rules():
+    text = _schema_text()
+
+    assert "## Identity and duplicate rules" in text
+    assert "`name` must be unique" in text
+    assert "`url` must be unique" in text
+    assert "canonical" in text
+    assert "Do not add a second row for the same artifact" in text
+    assert "Separate documentation and runnable surfaces" in text
+
+
 def test_catalog_schema_reference_lists_allowed_categories():
     text = _schema_text()
 
