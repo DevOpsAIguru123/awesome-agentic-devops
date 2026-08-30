@@ -8,7 +8,7 @@ A curated, **official-first** catalog of MCP servers, agent skills, AI agents, f
 
 Most agent lists stop at discovery. This one is built for operators:
 
-- **Official-first, community-inclusive** — 80 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
+- **Official-first, community-inclusive** — 81 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — GitHub repository entries are checked weekly for reachability, archived status, and stale push activity; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-skills-into-your-coding-agent) installs hundreds of skills from cataloged Google, Microsoft, Azure, Azure DevOps, and Harness sources — plus a separate community set — into Claude Code, Cursor, Codex, VS Code, or Antigravity.
@@ -116,6 +116,7 @@ New catalog entries appear below; notable non-entry changes (formatting, labels,
 | 2026-07-05 | [CircleCI-Public/mcp-server-circleci](https://github.com/CircleCI-Public/mcp-server-circleci) | CI/CD |
 | 2026-07-05 | [mongodb-js/mongodb-mcp-server](https://github.com/mongodb-js/mongodb-mcp-server) | Data platform |
 | 2026-07-05 | [backstage/backstage (mcp-actions-backend)](https://github.com/backstage/backstage/tree/master/plugins/mcp-actions-backend) | Platform toolkits |
+| 2026-08-30 | [sandbaseai/sandbase-harness](https://github.com/sandbaseai/sandbase-harness) | Community / local agent runtime, sandboxed sessions, MCP governance, and audit/replay |
 
 ## Local reference agents
 
@@ -285,6 +286,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | [Agents365-ai/drawio-skill](https://github.com/Agents365-ai/drawio-skill) | prototype<br>approval | Community draw.io skill for natural-language diagram generation, visual self-checking, and exports. |
 | [containers/kubernetes-mcp-server](https://github.com/containers/kubernetes-mcp-server) | prod<br>mcp<br>approval<br>evidence<br>write | Community-maintained Containers org MCP server for Kubernetes and OpenShift with direct Kubernetes API access, multi-cluster support, read-only mode, and a read-only production setup guide. |
 | [skyhook-io/radar](https://github.com/skyhook-io/radar) | prod<br>mcp<br>approval<br>evidence<br>write | Community open-source Kubernetes UI with a built-in MCP server: read-only cluster/topology/event queries plus RBAC-scoped write and GitOps/Helm tools for AI-assisted operations. |
+| [sandbaseai/sandbase-harness](https://github.com/sandbaseai/sandbase-harness) | prototype<br>mcp<br>approval<br>evidence<br>write | Local-first, self-hosted MCP bridge and agent runtime with persistent sessions, sandboxed turns, credentials, approvals, audit records, and replay; effective isolation depends on the selected backend and deployment configuration. |
 
 ## How to contribute
 
