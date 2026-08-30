@@ -1846,3 +1846,28 @@
     - mcp
     - approval
     - write
+
+- name: sandbaseai/sandbase-harness
+  url: https://github.com/sandbaseai/sandbase-harness
+  category: community-mcp-servers
+  type: mcp-server
+  framework: MCP + local agent runtime
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - sandboxed-agent-sessions
+    - governed-mcp-tool-execution
+    - credential-and-approval-controls
+    - audit-and-session-replay
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: "yes"
+  maturity: prototype
+  risk_notes: "The MCP bridge can start and manage agent sessions and invoke configured tools; scope MANAGED_AGENTS_URL/API credentials, keep write-capable tools disabled or approval-gated by default, and treat effective isolation as dependent on the selected Docker, Kubernetes, or worker backend and deployment configuration."
+  operator_note: "Local-first, self-hosted SandBase Harness runtime with persistent sessions, sandboxed turns, MCP governance, credentials, memory, artifacts, approvals, audit records, and replay support; current release and MCP bridge are documented in the public repository."
+  labels:
+    - prototype
+    - mcp
+    - approval
+    - evidence
+    - write
