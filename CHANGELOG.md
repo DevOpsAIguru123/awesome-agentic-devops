@@ -9,6 +9,10 @@ documented here. The format is based on
 
 ### Added
 
+- **Catalog freshness audit guidance.** The schema reference now tells
+  contributors when and how to run the GitHub metadata audit, what report files
+  it produces, how to treat stale or archived warnings, and when manual
+  non-GitHub reachability checks are still required.
 - **Catalog schema reference.** Added a validator-backed reference for required
   `data/repos.yaml` fields, allowed category slugs, artifact types, maturity
   values, evaluation labels, score-to-label invariants, and pre-submit commands

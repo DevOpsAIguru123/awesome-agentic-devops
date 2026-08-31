@@ -188,6 +188,27 @@ index. A reviewer should be able to reproduce these checks without secrets:
   audit artifacts, telemetry, and write capability back to `action_level`,
   `human_approval`, `evidence_tracing`, `risk_notes`, and `labels`.
 
+### Automated GitHub freshness audit
+
+For substantial catalog edits, run the lightweight GitHub metadata audit before
+review so stale or unreachable repositories are visible next to the proposed
+metadata change:
+
+```bash
+python3 scripts/audit_github_repos.py --stale-days 365
+```
+
+The command writes `reports/github-repo-audit.json` and
+`reports/github-repo-audit.md` with reachability, archived/private status,
+primary-language drift, last push time, and stale-repository warnings for GitHub
+URLs in `data/repos.yaml`. Treat the reports as curator evidence, not generated
+catalog source: summarize relevant warnings in the pull request body, update
+`risk_notes` when an entry is stale or archived, and do not commit the reports
+unless a reviewer explicitly asks for a point-in-time audit artifact.
+
+For non-GitHub documentation and hosted MCP endpoints, record a separate manual
+reachability check because the GitHub audit intentionally skips those URLs.
+
 ### Evidence capture worksheet
 
 Paste a short evidence note into the pull request body when catalog metadata

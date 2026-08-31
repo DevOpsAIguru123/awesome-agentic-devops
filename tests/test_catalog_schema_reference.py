@@ -91,6 +91,18 @@ def test_catalog_schema_reference_includes_source_verification_checklist():
     assert "Safety signals" in text
 
 
+def test_catalog_schema_reference_includes_github_freshness_audit_guidance():
+    text = _schema_text()
+
+    assert "### Automated GitHub freshness audit" in text
+    assert "python3 scripts/audit_github_repos.py --stale-days 365" in text
+    assert "reports/github-repo-audit.json" in text
+    assert "reports/github-repo-audit.md" in text
+    assert "reachability, archived/private status" in text
+    assert "do not commit the reports" in text
+    assert "non-GitHub documentation and hosted MCP endpoints" in text
+
+
 def test_catalog_schema_reference_includes_evidence_capture_worksheet():
     text = _schema_text()
 
