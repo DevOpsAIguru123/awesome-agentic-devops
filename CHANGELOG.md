@@ -58,9 +58,10 @@ documented here. The format is based on
   artifacts, plus an explicit production-readiness decision, before recommending
   production-adjacent use.
 - **Expanded pull request safety checklist.** The PR template now asks
-  contributors to confirm no-secret-in-context handling, least-privilege
-  credential guidance, approval gates, dry-run/preview behavior, audit evidence,
-  rollback expectations, and telemetry/external API disclosure before review.
+  contributors to confirm schema-reference alignment, source-evidence capture,
+  no-secret-in-context handling, least-privilege credential guidance, approval
+  gates, dry-run/preview behavior, audit evidence, rollback expectations, and
+  telemetry/external API disclosure before review.
 - **Hardened catalog schema validation.** Required string fields now reject blank
   values, and `labels` / `use_cases` must contain at least one non-empty string
   item so incomplete catalog rows fail locally before reaching README generation
