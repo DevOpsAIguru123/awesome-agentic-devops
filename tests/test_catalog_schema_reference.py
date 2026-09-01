@@ -91,6 +91,19 @@ def test_catalog_schema_reference_includes_source_verification_checklist():
     assert "Safety signals" in text
 
 
+def test_catalog_schema_reference_includes_risk_notes_writing_guide():
+    text = _schema_text()
+
+    assert "### Risk notes writing guide" in text
+    assert "short operator warning" in text
+    assert "credential boundary" in text
+    assert "write capability" in text
+    assert "telemetry" in text
+    assert "dry-run, proposal, preview, or plan-only" in text
+    assert "missing evidence" in text
+    assert "risk_notes: Use a read-only GitHub token" in text
+
+
 def test_catalog_schema_reference_includes_github_freshness_audit_guidance():
     text = _schema_text()
 

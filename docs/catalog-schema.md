@@ -188,6 +188,29 @@ index. A reviewer should be able to reproduce these checks without secrets:
   audit artifacts, telemetry, and write capability back to `action_level`,
   `human_approval`, `evidence_tracing`, `risk_notes`, and `labels`.
 
+### Risk notes writing guide
+
+Write `risk_notes` as a short operator warning, not a marketing summary. Good
+risk notes answer what could go wrong during evaluation and what guardrail should
+be used first:
+
+- Name the credential boundary: read-only token, scoped test account, sandbox
+  cloud project, limited Kubernetes namespace, or unknown scope.
+- Identify write capability, destructive actions, external API calls, telemetry,
+  or data exfiltration paths when the tool can reach infrastructure or sensitive
+  systems.
+- Prefer dry-run, proposal, preview, or plan-only workflows before write-capable
+  execution, and mention required human approval when official docs or code show
+  an approval gate.
+- Call out missing evidence honestly: use `unknown` scoring or note when audit
+  logs, traces, citations, or run artifacts are not documented.
+
+Example:
+
+```yaml
+risk_notes: Use a read-only GitHub token for evaluation; write-capable issue and pull-request tools require scoped test repositories, explicit approval, and audit-log review before production use.
+```
+
 ### Automated GitHub freshness audit
 
 For substantial catalog edits, run the lightweight GitHub metadata audit before

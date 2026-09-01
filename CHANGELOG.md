@@ -9,6 +9,10 @@ documented here. The format is based on
 
 ### Added
 
+- **Catalog risk-note writing guide.** Added contributor guidance and regression
+  coverage for writing `risk_notes` as concrete operator warnings that name
+  credential boundaries, write/telemetry risks, dry-run-first controls, approval
+  expectations, and missing evidence.
 - **Catalog freshness audit guidance.** The schema reference now tells
   contributors when and how to run the GitHub metadata audit, what report files
   it produces, how to treat stale or archived warnings, and when manual
