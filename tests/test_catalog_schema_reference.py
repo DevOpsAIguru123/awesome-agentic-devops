@@ -116,6 +116,18 @@ def test_catalog_schema_reference_includes_github_freshness_audit_guidance():
     assert "non-GitHub documentation and hosted MCP endpoints" in text
 
 
+def test_catalog_schema_reference_includes_deprecation_and_removal_guidance():
+    text = _schema_text()
+
+    assert "### Deprecation and removal handling" in text
+    assert "archived, deprecated, unreachable" in text
+    assert "current official successor" in text
+    assert "lower the maturity or" in text
+    assert "explain the archived, deprecated, or unsupported" in text
+    assert "Remove a row when the source is unreachable" in text
+    assert "Never preserve an obsolete entry just to maintain README counts" in text
+
+
 def test_catalog_schema_reference_includes_evidence_capture_worksheet():
     text = _schema_text()
 

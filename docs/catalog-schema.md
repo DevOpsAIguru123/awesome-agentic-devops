@@ -232,6 +232,23 @@ unless a reviewer explicitly asks for a point-in-time audit artifact.
 For non-GitHub documentation and hosted MCP endpoints, record a separate manual
 reachability check because the GitHub audit intentionally skips those URLs.
 
+### Deprecation and removal handling
+
+When a cataloged project becomes archived, deprecated, unreachable, or materially
+less safe than its current score suggests, prefer a traceable refresh over a
+silent delete:
+
+- Replace the row with the current official successor when vendor or upstream
+  documentation points to a maintained repository, hosted endpoint, or docs page.
+- Keep a stale row only when it still has operator value, lower the maturity or
+  action score as needed, and explain the archived, deprecated, or unsupported
+  status in `risk_notes`.
+- Remove a row when the source is unreachable, unsafe, abandoned without clear
+  operator value, or superseded by a better canonical entry; mention the removal
+  in `CHANGELOG.md` unless it is part of routine duplicate cleanup.
+- Never preserve an obsolete entry just to maintain README counts. Run
+  `python3 scripts/sync_readme_counts.py` after removals or replacements.
+
 ### Evidence capture worksheet
 
 Paste a short evidence note into the pull request body when catalog metadata

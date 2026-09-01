@@ -9,6 +9,10 @@ documented here. The format is based on
 
 ### Added
 
+- **Catalog deprecation/removal guidance.** Added schema-reference guidance and
+  regression coverage for refreshing, downgrading, replacing, or removing
+  archived, deprecated, unreachable, unsafe, or superseded catalog entries
+  without preserving obsolete rows just to maintain counts.
 - **Catalog risk-note writing guide.** Added contributor guidance and regression
   coverage for writing `risk_notes` as concrete operator warnings that name
   credential boundaries, write/telemetry risks, dry-run-first controls, approval
