@@ -9,6 +9,10 @@ documented here. The format is based on
 
 ### Added
 
+- **Catalog external-signal guidance.** Added schema-reference guidance and
+  regression coverage for using broad MCP indexes, registry mirrors, popularity
+  dashboards, and third-party evaluations as discovery prompts rather than
+  acceptance evidence or replacements for first-party source verification.
 - **Catalog change decision guide.** Added schema-reference guidance and
   regression coverage for choosing whether a catalog PR should refresh, replace,
   add, downgrade, or remove a row based on canonical-source and operator-safety

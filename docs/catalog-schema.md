@@ -208,6 +208,25 @@ index. A reviewer should be able to reproduce these checks without secrets:
   audit artifacts, telemetry, and write capability back to `action_level`,
   `human_approval`, `evidence_tracing`, `risk_notes`, and `labels`.
 
+### External index and evaluation signals
+
+Broad MCP indexes, registry mirrors, popularity dashboards, and third-party
+evaluation scorecards are useful discovery inputs, but they are not catalog
+acceptance evidence by themselves. Treat external signals as review prompts:
+
+- Use external indexes to find candidates, duplicates, aliases, or missing
+  official documentation, then verify every catalog claim against first-party
+  vendor, foundation, CNCF/Kubernetes SIG, or upstream project sources before
+  editing `data/repos.yaml`.
+- Keep imported rankings, popularity metrics, automated evaluations, and broad
+  MCP index scores in generated sidecars or review notes rather than copying
+  them into safety-scored catalog fields.
+- Do not let third-party scores override the local rubric for `action_level`,
+  `human_approval`, `evidence_tracing`, `maturity`, `risk_notes`, or labels.
+- When external sources disagree with first-party docs, document the conflict in
+  the pull request evidence worksheet and prefer the canonical upstream source
+  for catalog metadata.
+
 ### Risk notes writing guide
 
 Write `risk_notes` as a short operator warning, not a marketing summary. Good

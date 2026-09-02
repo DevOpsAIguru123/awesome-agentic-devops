@@ -104,6 +104,19 @@ def test_catalog_schema_reference_includes_source_verification_checklist():
     assert "Safety signals" in text
 
 
+def test_catalog_schema_reference_includes_external_signal_guidance():
+    text = _schema_text()
+
+    assert "### External index and evaluation signals" in text
+    assert "not catalog" in text
+    assert "acceptance evidence by themselves" in text
+    assert "review prompts" in text
+    assert "first-party" in text
+    assert "generated sidecars" in text
+    assert "Do not let third-party scores override the local rubric" in text
+    assert "pull request evidence worksheet" in text
+
+
 def test_catalog_schema_reference_includes_risk_notes_writing_guide():
     text = _schema_text()
 
