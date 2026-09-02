@@ -22,6 +22,26 @@ Every catalog entry must include:
 - `operator_note` — non-empty reason an infrastructure operator should care.
 - `labels` — non-empty list using only the README evaluation labels below.
 
+## Catalog change decision guide
+
+Use the smallest safe catalog change that keeps operator trust high:
+
+1. **Refresh** an existing row when the source is still canonical but metadata,
+   scoring, README wording, or safety notes are stale.
+2. **Replace** a row when vendor or upstream docs point to a maintained official
+   successor for a deprecated, archived, or superseded artifact.
+3. **Add** a row only after verifying the source is a distinct operator-facing
+   artifact with non-duplicative use cases and enough public evidence to score it.
+4. **Downgrade** maturity, action level, or labels when freshness, approval,
+   tracing, credential, or blast-radius signals are weaker than the current row
+   claims.
+5. **Remove** a row when it is unreachable, unsafe, obsolete, duplicated, or lacks
+   clear operator value after checking for a current official successor.
+
+Document the chosen path in the pull request body with the evidence worksheet
+below, and keep `risk_notes`, labels, and README discovery surfaces aligned with
+that decision.
+
 ## Identity and duplicate rules
 
 Catalog identity is intentionally strict so generated README tables, audits, and

@@ -25,6 +25,19 @@ def test_catalog_schema_reference_lists_required_fields():
         assert f"`{field}`" in text
 
 
+def test_catalog_schema_reference_documents_catalog_change_decision_guide():
+    text = _schema_text()
+
+    assert "## Catalog change decision guide" in text
+    assert "smallest safe catalog change" in text
+    assert "**Refresh**" in text
+    assert "**Replace**" in text
+    assert "**Add**" in text
+    assert "**Downgrade**" in text
+    assert "**Remove**" in text
+    assert "evidence worksheet" in text
+
+
 def test_catalog_schema_reference_documents_identity_and_duplicate_rules():
     text = _schema_text()
 

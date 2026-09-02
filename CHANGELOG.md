@@ -9,6 +9,10 @@ documented here. The format is based on
 
 ### Added
 
+- **Catalog change decision guide.** Added schema-reference guidance and
+  regression coverage for choosing whether a catalog PR should refresh, replace,
+  add, downgrade, or remove a row based on canonical-source and operator-safety
+  evidence.
 - **Catalog deprecation/removal guidance.** Added schema-reference guidance and
   regression coverage for refreshing, downgrading, replacing, or removing
   archived, deprecated, unreachable, unsafe, or superseded catalog entries
