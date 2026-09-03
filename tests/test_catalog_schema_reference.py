@@ -104,6 +104,22 @@ def test_catalog_schema_reference_includes_source_verification_checklist():
     assert "Safety signals" in text
 
 
+def test_catalog_schema_reference_includes_safety_score_evidence_rules():
+    text = _schema_text()
+
+    assert "### Safety-score evidence rules" in text
+    assert "category assumptions or marketing language" in text
+    assert "`action_level: read-only`" in text
+    assert "`action_level: write-capable`" in text
+    assert "create," in text
+    assert "rotate, acknowledge, remediate" in text
+    assert "`human_approval: true` only when" in text
+    assert "explicit approval gate" in text
+    assert "`evidence_tracing: \"yes\"` or `partial`" in text
+    assert "durable traces" in text
+    assert "Keep labels synchronized" in text
+
+
 def test_catalog_schema_reference_includes_external_signal_guidance():
     text = _schema_text()
 

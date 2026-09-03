@@ -208,6 +208,31 @@ index. A reviewer should be able to reproduce these checks without secrets:
   audit artifacts, telemetry, and write capability back to `action_level`,
   `human_approval`, `evidence_tracing`, `risk_notes`, and `labels`.
 
+### Safety-score evidence rules
+
+Safety scores must be backed by the tool surface you inspected, not by broad
+category assumptions or marketing language. Use conservative values when the
+source is unclear:
+
+- Set `action_level: read-only` only when the documented tools expose lookup,
+  search, describe, or export behavior without mutation; set `proposal` when the
+  artifact produces plans, diffs, previews, or recommendations that require a
+  separate apply step.
+- Set `action_level: write-capable` whenever any documented tool can create,
+  update, delete, trigger, deploy, merge, rotate, acknowledge, remediate, or run
+  commands against source control, cloud resources, clusters, CI/CD, identity,
+  secrets, databases, observability, or incident systems.
+- Set `human_approval: true` only when official docs, code, or examples show an
+  explicit approval gate before the write-capable operation. A general statement
+  that operators should review output is not enough.
+- Set `evidence_tracing: "yes"` or `partial` only when the source documents
+  durable traces such as audit logs, citations, run artifacts, change records,
+  request IDs, or exported reports. If evidence is not documented, use `unknown`
+  or `none` and explain the gap in `risk_notes`.
+- Keep labels synchronized with these structured fields: `write` for
+  write-capable tools, `approval` for explicit approval gates, and `evidence` for
+  documented tracing or audit artifacts.
+
 ### External index and evaluation signals
 
 Broad MCP indexes, registry mirrors, popularity dashboards, and third-party

@@ -9,6 +9,10 @@ documented here. The format is based on
 
 ### Added
 
+- **Catalog safety-score evidence rules.** Added schema-reference guidance and
+  regression coverage for assigning action level, approval, evidence tracing,
+  and labels from inspected tool-surface evidence instead of broad category
+  assumptions or marketing language.
 - **Catalog external-signal guidance.** Added schema-reference guidance and
   regression coverage for using broad MCP indexes, registry mirrors, popularity
   dashboards, and third-party evaluations as discovery prompts rather than
