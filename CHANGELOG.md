@@ -9,6 +9,10 @@ documented here. The format is based on
 
 ### Added
 
+- **Hosted MCP credential-boundary guidance.** Added schema-reference guidance and
+  regression coverage for checking hosted MCP authentication modes, OAuth or token
+  scopes, remote data-handling signals, read-only endpoints, and no-secret review
+  practices before cataloging vendor-hosted MCP endpoints.
 - **Catalog safety-score evidence rules.** Added schema-reference guidance and
   regression coverage for assigning action level, approval, evidence tracing,
   and labels from inspected tool-surface evidence instead of broad category

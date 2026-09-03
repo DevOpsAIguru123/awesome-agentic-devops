@@ -208,6 +208,28 @@ index. A reviewer should be able to reproduce these checks without secrets:
   audit artifacts, telemetry, and write capability back to `action_level`,
   `human_approval`, `evidence_tracing`, `risk_notes`, and `labels`.
 
+### Hosted MCP credential boundary guidance
+
+Hosted MCP servers deserve extra credential scrutiny because the runnable surface
+is remote and may proxy operator data through a vendor-controlled endpoint. Before
+cataloging a `hosted-mcp-server`, verify and document:
+
+- Authentication mode: OAuth, API key, bearer token, SSO, unauthenticated public
+  endpoint, or unknown. Prefer OAuth or scoped tokens over long-lived broad keys.
+- Scope boundary: read-only endpoint, documented OAuth scopes, project or tenant
+  scoping, sandbox workspace, or unknown scope. If only broad account access is
+  documented, say so in `risk_notes`.
+- Data handling: whether prompts, tool arguments, logs, traces, or retrieved
+  records leave the operator's environment, and whether vendor docs describe
+  retention, audit logs, or telemetry controls.
+- Evaluation guardrail: start with disposable workspaces, test tenants, or
+  read-only scopes, and never paste tokens, customer data, tenant URLs, or private
+  hostnames into `data/repos.yaml`, README rows, screenshots, or PR comments.
+
+For hosted endpoints that expose both read-only and write-capable tool groups,
+score the row by the most privileged documented capability unless the catalog row
+explicitly points to a separate read-only endpoint or mode.
+
 ### Safety-score evidence rules
 
 Safety scores must be backed by the tool surface you inspected, not by broad

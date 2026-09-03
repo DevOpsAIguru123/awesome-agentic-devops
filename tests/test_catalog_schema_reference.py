@@ -120,6 +120,22 @@ def test_catalog_schema_reference_includes_safety_score_evidence_rules():
     assert "Keep labels synchronized" in text
 
 
+def test_catalog_schema_reference_includes_hosted_mcp_credential_boundary_guidance():
+    text = _schema_text()
+
+    assert "### Hosted MCP credential boundary guidance" in text
+    assert "`hosted-mcp-server`" in text
+    assert "Authentication mode" in text
+    assert "OAuth" in text
+    assert "Scope boundary" in text
+    assert "read-only endpoint" in text
+    assert "Data handling" in text
+    assert "prompts, tool arguments, logs, traces" in text
+    assert "disposable workspaces" in text
+    assert "never paste tokens" in text
+    assert "most privileged documented capability" in text
+
+
 def test_catalog_schema_reference_includes_external_signal_guidance():
     text = _schema_text()
 
