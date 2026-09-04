@@ -9,6 +9,10 @@ documented here. The format is based on
 
 ### Added
 
+- **Catalog PR review checklist.** Added schema-reference guidance and regression
+  coverage for reviewing catalog pull requests against coherent scope,
+  reproducible source evidence, safety-score alignment, README/generated-sidecar
+  sync, no-secret hygiene, and recorded validation commands.
 - **Hosted MCP credential-boundary guidance.** Added schema-reference guidance and
   regression coverage for checking hosted MCP authentication modes, OAuth or token
   scopes, remote data-handling signals, read-only endpoints, and no-secret review

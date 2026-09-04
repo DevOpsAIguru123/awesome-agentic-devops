@@ -42,6 +42,29 @@ Document the chosen path in the pull request body with the evidence worksheet
 below, and keep `risk_notes`, labels, and README discovery surfaces aligned with
 that decision.
 
+## Catalog PR review checklist
+
+Before merging a catalog change, reviewers should be able to trace every changed
+row from public source evidence to README presentation and safety scoring:
+
+- Scope: the pull request changes one coherent catalog, schema, safety, or docs
+  concern rather than bundling unrelated vendor additions and tooling changes.
+- Source evidence: each added, refreshed, replaced, downgraded, or removed row
+  includes a reproducible evidence worksheet with canonical source, reachability,
+  freshness, tool surface, credential boundary, and safety-signal notes.
+- Safety scoring: `action_level`, `human_approval`, `evidence_tracing`,
+  `maturity`, `risk_notes`, and labels match the most privileged documented tool
+  capability, not the safest hoped-for use case.
+- Discovery sync: README Recently added, catalog section tables, quick picks,
+  top picks, generated sidecars, and entry counts are updated when
+  `data/repos.yaml` changes.
+- Secrets hygiene: PR text, screenshots, catalog metadata, and generated reports
+  contain no tokens, tenant URLs, private hostnames, customer data, or copied
+  production prompts.
+- Verification: the PR records the local commands run, including schema
+  validation, tests, README count checks, sidecar sync when available, and
+  whitespace checks.
+
 ## Identity and duplicate rules
 
 Catalog identity is intentionally strict so generated README tables, audits, and
