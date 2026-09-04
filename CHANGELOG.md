@@ -9,6 +9,10 @@ documented here. The format is based on
 
 ### Added
 
+- **Public-safe catalog metadata rules.** Added schema-reference guidance and
+  regression coverage that keeps tokens, customer data, tenant URLs, private
+  hostnames, production prompts, and private evidence out of catalog metadata,
+  README rows, generated reports, and PR notes.
 - **Catalog PR review checklist.** Added schema-reference guidance and regression
   coverage for reviewing catalog pull requests against coherent scope,
   reproducible source evidence, safety-score alignment, README/generated-sidecar

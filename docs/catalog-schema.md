@@ -253,6 +253,27 @@ For hosted endpoints that expose both read-only and write-capable tool groups,
 score the row by the most privileged documented capability unless the catalog row
 explicitly points to a separate read-only endpoint or mode.
 
+### Public-safe metadata rules
+
+Catalog metadata, README rows, screenshots, generated reports, and pull request
+notes must be safe to publish. Treat every catalog review as public by default:
+
+- Do not include API tokens, OAuth refresh tokens, bearer tokens, service-account
+  keys, kubeconfigs, SSH keys, webhook secrets, session cookies, or one-time auth
+  codes.
+- Do not paste customer data, production prompts, tenant-specific URLs, private
+  hostnames, internal repository paths, account IDs, project IDs, cluster names,
+  database names, or log snippets that could identify a real environment.
+- Use generic placeholders such as `<scoped-test-token>`, `<sandbox-project>`,
+  `<test-tenant>`, or `<read-only-workspace>` when explaining credential or
+  environment boundaries.
+- If source evidence requires a private console, API response, or screenshot,
+  summarize the public documentation claim instead and keep private evidence out
+  of the catalog PR.
+- When a tool's safety posture depends on secret scanning or redaction features,
+  mention the documented control in `risk_notes` without copying example secrets
+  or live configuration values.
+
 ### Safety-score evidence rules
 
 Safety scores must be backed by the tool surface you inspected, not by broad

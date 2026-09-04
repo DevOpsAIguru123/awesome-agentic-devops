@@ -148,6 +148,21 @@ def test_catalog_schema_reference_includes_hosted_mcp_credential_boundary_guidan
     assert "most privileged documented capability" in text
 
 
+def test_catalog_schema_reference_includes_public_safe_metadata_rules():
+    text = _schema_text()
+
+    assert "### Public-safe metadata rules" in text
+    assert "safe to publish" in text
+    assert "API tokens" in text
+    assert "service-account" in text
+    assert "customer data" in text
+    assert "tenant-specific URLs" in text
+    assert "<scoped-test-token>" in text
+    assert "<sandbox-project>" in text
+    assert "keep private evidence out" in text
+    assert "without copying example secrets" in text
+
+
 def test_catalog_schema_reference_includes_external_signal_guidance():
     text = _schema_text()
 
