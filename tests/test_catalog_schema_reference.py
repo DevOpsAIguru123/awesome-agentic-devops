@@ -132,6 +132,21 @@ def test_catalog_schema_reference_includes_safety_score_evidence_rules():
     assert "Keep labels synchronized" in text
 
 
+def test_catalog_schema_reference_includes_evaluation_environment_boundary_guidance():
+    text = _schema_text()
+
+    assert "### Evaluation environment boundary guidance" in text
+    assert "disposable environment" in text
+    assert "sandbox cloud projects" in text
+    assert "test tenants" in text
+    assert "fixture repositories" in text
+    assert "read-only credentials and narrow OAuth scopes" in text
+    assert "network egress" in text
+    assert "webhook targets" in text
+    assert "redacted and public" in text
+    assert "without production credentials or customer" in text
+
+
 def test_catalog_schema_reference_includes_hosted_mcp_credential_boundary_guidance():
     text = _schema_text()
 

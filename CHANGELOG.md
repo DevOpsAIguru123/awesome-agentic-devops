@@ -9,6 +9,10 @@ documented here. The format is based on
 
 ### Added
 
+- **Evaluation environment boundary guidance.** Added schema-reference guidance
+  and regression coverage for using sandbox projects, test tenants, fixture
+  repositories, read-only workspaces, narrow OAuth scopes, limited egress, and
+  redacted public-safe evidence before raising production-adjacent maturity.
 - **Agent instruction-boundary review guidance.** Added schema-reference guidance
   and regression coverage for treating repository content, logs, tickets,
   generated plans, and third-party MCP metadata as untrusted data rather than

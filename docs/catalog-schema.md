@@ -231,6 +231,27 @@ index. A reviewer should be able to reproduce these checks without secrets:
   audit artifacts, telemetry, and write capability back to `action_level`,
   `human_approval`, `evidence_tracing`, `risk_notes`, and `labels`.
 
+### Evaluation environment boundary guidance
+
+Catalog review should start in a disposable environment that cannot mutate or
+expose production systems. Before treating an agent, MCP server, or toolkit as
+production-adjacent, verify and document the evaluation boundary:
+
+- Use sandbox cloud projects, test tenants, fixture repositories, disposable
+  issue trackers, demo clusters, or read-only workspaces before connecting real
+  infrastructure.
+- Prefer read-only credentials and narrow OAuth scopes first; move to scoped
+  write credentials only when a documented dry-run, preview, or approval flow has
+  already been inspected.
+- Keep network egress, webhook targets, CI/CD triggers, and external API access
+  limited to test systems while validating tool behavior.
+- Confirm logs, traces, exported reports, and screenshots are redacted and public
+  safe before referencing them in `risk_notes`, README rows, or pull request
+  evidence.
+- If a tool cannot be evaluated safely without production credentials or customer
+  data, do not raise its maturity score; record the evaluation blocker in
+  `risk_notes` instead.
+
 ### Hosted MCP credential boundary guidance
 
 Hosted MCP servers deserve extra credential scrutiny because the runnable surface
