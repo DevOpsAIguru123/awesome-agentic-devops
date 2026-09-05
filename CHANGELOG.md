@@ -9,6 +9,71 @@ documented here. The format is based on
 
 ### Added
 
+- **Evaluation environment boundary guidance.** Added schema-reference guidance
+  and regression coverage for using sandbox projects, test tenants, fixture
+  repositories, read-only workspaces, narrow OAuth scopes, limited egress, and
+  redacted public-safe evidence before raising production-adjacent maturity.
+- **Agent instruction-boundary review guidance.** Added schema-reference guidance
+  and regression coverage for treating repository content, logs, tickets,
+  generated plans, and third-party MCP metadata as untrusted data rather than
+  executable instructions when scoring DevOps agents and MCP servers.
+- **Public-safe catalog metadata rules.** Added schema-reference guidance and
+  regression coverage that keeps tokens, customer data, tenant URLs, private
+  hostnames, production prompts, and private evidence out of catalog metadata,
+  README rows, generated reports, and PR notes.
+- **Catalog PR review checklist.** Added schema-reference guidance and regression
+  coverage for reviewing catalog pull requests against coherent scope,
+  reproducible source evidence, safety-score alignment, README/generated-sidecar
+  sync, no-secret hygiene, and recorded validation commands.
+- **Hosted MCP credential-boundary guidance.** Added schema-reference guidance and
+  regression coverage for checking hosted MCP authentication modes, OAuth or token
+  scopes, remote data-handling signals, read-only endpoints, and no-secret review
+  practices before cataloging vendor-hosted MCP endpoints.
+- **Catalog safety-score evidence rules.** Added schema-reference guidance and
+  regression coverage for assigning action level, approval, evidence tracing,
+  and labels from inspected tool-surface evidence instead of broad category
+  assumptions or marketing language.
+- **Catalog external-signal guidance.** Added schema-reference guidance and
+  regression coverage for using broad MCP indexes, registry mirrors, popularity
+  dashboards, and third-party evaluations as discovery prompts rather than
+  acceptance evidence or replacements for first-party source verification.
+- **Catalog change decision guide.** Added schema-reference guidance and
+  regression coverage for choosing whether a catalog PR should refresh, replace,
+  add, downgrade, or remove a row based on canonical-source and operator-safety
+  evidence.
+- **Catalog deprecation/removal guidance.** Added schema-reference guidance and
+  regression coverage for refreshing, downgrading, replacing, or removing
+  archived, deprecated, unreachable, unsafe, or superseded catalog entries
+  without preserving obsolete rows just to maintain counts.
+- **Catalog risk-note writing guide.** Added contributor guidance and regression
+  coverage for writing `risk_notes` as concrete operator warnings that name
+  credential boundaries, write/telemetry risks, dry-run-first controls, approval
+  expectations, and missing evidence.
+- **Catalog freshness audit guidance.** The schema reference now tells
+  contributors when and how to run the GitHub metadata audit, what report files
+  it produces, how to treat stale or archived warnings, and when manual
+  non-GitHub reachability checks are still required.
+- **Catalog schema reference.** Added a validator-backed reference for required
+  `data/repos.yaml` fields, allowed category slugs, artifact types, maturity
+  values, evaluation labels, score-to-label invariants, and pre-submit commands
+  so contributors can classify entries consistently before CI runs.
+- **Catalog entry template.** Added a minimal `data/repos.yaml` entry template
+  and review checklist to the schema reference so daily catalog additions start
+  with safe defaults, top-level list placement, credential-scoping notes, and
+  label-to-score consistency reminders.
+- **Catalog source verification checklist.** Added reproducible pre-submit checks
+  for reachability, freshness, tool surface, credential boundaries, and safety
+  signals so catalog reviewers can validate entries from public evidence before
+  trusting external indexes or marketing copy.
+- **Catalog evidence capture worksheet.** Added a PR-ready source-evidence note
+  template with harmless GitHub metadata checks and no-secret reminders so
+  reviewers can reproduce catalog claims without exposing credentials.
+- **Catalog identity rules.** Documented unique `name` and `url` expectations,
+  canonical source selection, single-row use-case handling, and the narrow case
+  where separate documentation and runnable artifact rows can coexist.
+- **README synchronization rules.** Documented the README surfaces that must stay
+  aligned with `data/repos.yaml`, including Recently added, catalog section
+  tables, quick picks, top-picks guidance, and the README count check.
 - **Operator safety checklist.** Added a practical preflight runbook for
   evaluating DevOps agents and MCP servers with read-only-first credentials,
   domain-specific credential boundaries, no-secret-in-context handling,
@@ -23,15 +88,24 @@ documented here. The format is based on
 
 ### Changed
 
+- **Guarded the operator safety checklist.** Added regression coverage so the
+  read-only-first, no-secret-in-context, dry-run/proposal, approval, blast-radius,
+  audit-evidence, and go/no-go guidance stays linked from the main entry points
+  and remains present during future documentation edits.
+- **Clarified catalog provenance classification.** The catalog schema reference now
+  defines when `official-*` categories are appropriate versus `community-*`
+  categories, and regression tests keep that contributor guidance present so
+  ecosystem-adjacent tools are not misclassified as official sources.
 - **Expanded the agent scorecard safety review.** The reusable scorecard now
   captures least-privilege credential scope, no-secret-in-context checks,
   redaction expectations, dry-run/preview commands, approval records, and audit
   artifacts, plus an explicit production-readiness decision, before recommending
   production-adjacent use.
 - **Expanded pull request safety checklist.** The PR template now asks
-  contributors to confirm no-secret-in-context handling, least-privilege
-  credential guidance, approval gates, dry-run/preview behavior, audit evidence,
-  rollback expectations, and telemetry/external API disclosure before review.
+  contributors to confirm schema-reference alignment, source-evidence capture,
+  no-secret-in-context handling, least-privilege credential guidance, approval
+  gates, dry-run/preview behavior, audit evidence, rollback expectations, and
+  telemetry/external API disclosure before review.
 - **Hardened catalog schema validation.** Required string fields now reject blank
   values, and `labels` / `use_cases` must contain at least one non-empty string
   item so incomplete catalog rows fail locally before reaching README generation
