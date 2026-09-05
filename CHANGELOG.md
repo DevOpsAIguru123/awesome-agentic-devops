@@ -9,6 +9,10 @@ documented here. The format is based on
 
 ### Added
 
+- **Agent instruction-boundary review guidance.** Added schema-reference guidance
+  and regression coverage for treating repository content, logs, tickets,
+  generated plans, and third-party MCP metadata as untrusted data rather than
+  executable instructions when scoring DevOps agents and MCP servers.
 - **Public-safe catalog metadata rules.** Added schema-reference guidance and
   regression coverage that keeps tokens, customer data, tenant URLs, private
   hostnames, production prompts, and private evidence out of catalog metadata,

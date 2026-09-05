@@ -163,6 +163,20 @@ def test_catalog_schema_reference_includes_public_safe_metadata_rules():
     assert "without copying example secrets" in text
 
 
+def test_catalog_schema_reference_includes_agent_instruction_boundary_review():
+    text = _schema_text()
+
+    assert "### Agent instruction-boundary review" in text
+    assert "prompt-injection" in text
+    assert "tool-output trust-boundary" in text
+    assert "as data, not executable" in text
+    assert "system/developer instructions" in text
+    assert "embedded in tool results" in text
+    assert "dry-run/proposal mode" in text
+    assert "instruction-boundary" in text
+    assert "prompt-injection examples synthetic" in text
+
+
 def test_catalog_schema_reference_includes_external_signal_guidance():
     text = _schema_text()
 
