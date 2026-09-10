@@ -177,6 +177,21 @@ def test_catalog_schema_reference_includes_tool_permission_and_consent_boundary_
     assert "most privileged tool exposed" in text
 
 
+def test_catalog_schema_reference_includes_credential_lifecycle_guidance():
+    text = _schema_text()
+
+    assert "### Credential lifecycle and revocation guidance" in text
+    assert "issued, rotated, revoked, and audited" in text
+    assert "OAuth apps, short-lived tokens" in text
+    assert "scoped service" in text
+    assert "rotate or revoke credentials" in text
+    assert "disable webhooks" in text
+    assert "bot, service account" in text
+    assert "missing revocation, rotation, expiration" in text
+    assert "hosted MCP servers" in text
+    assert "Do not catalog example credential values" in text
+
+
 def test_catalog_schema_reference_includes_telemetry_and_retention_boundary_guidance():
     text = _schema_text()
 

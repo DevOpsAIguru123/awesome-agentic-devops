@@ -9,6 +9,11 @@ documented here. The format is based on
 
 ### Added
 
+- **Credential lifecycle and revocation guidance.** Added schema-reference
+  guidance and regression coverage for checking whether agent and MCP credentials
+  can be safely issued, rotated, revoked, audited, disconnected from webhooks or
+  integrations, and attributed to scoped bot/service identities instead of broad
+  human administrator access.
 - **Telemetry and retention boundary guidance.** Added schema-reference guidance
   and regression coverage for checking prompt/tool-output telemetry, hosted logs,
   retention/deletion/export controls, redaction, local logging, data residency,

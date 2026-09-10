@@ -294,6 +294,27 @@ record how consent is enforced:
   behavior in `risk_notes`, and score by the most privileged tool exposed by the
   configured artifact.
 
+### Credential lifecycle and revocation guidance
+
+Catalog reviewers should check not only which credentials an artifact needs, but
+also how safely those credentials can be issued, rotated, revoked, and audited
+after evaluation. Before raising maturity for an agent, MCP server, or toolkit,
+look for lifecycle controls that keep abandoned experiments from becoming
+long-lived production access paths:
+
+- Prefer OAuth apps, short-lived tokens, workload identity, or scoped service
+  accounts over shared personal access tokens and static cloud keys.
+- Verify that setup docs describe how to rotate or revoke credentials, remove
+  installed apps, disable webhooks, and disconnect CI/CD or chat integrations.
+- Check whether credential use is attributable to a bot, service account,
+  workspace, project, tenant, repository, or environment rather than a broad
+  human administrator identity.
+- Treat missing revocation, rotation, expiration, or audit guidance as a safety
+  gap in `risk_notes`, especially for write-capable tools and hosted MCP servers.
+- Do not catalog example credential values, tenant-specific callback URLs, app
+  client secrets, or private installation IDs; describe the public lifecycle
+  control instead.
+
 ### Telemetry and retention boundary guidance
 
 Agents and MCP servers often observe prompts, tool arguments, command output,
