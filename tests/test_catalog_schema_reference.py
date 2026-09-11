@@ -206,6 +206,21 @@ def test_catalog_schema_reference_includes_telemetry_and_retention_boundary_guid
     assert "telemetry-only signals" in text
 
 
+def test_catalog_schema_reference_includes_dependency_supply_chain_boundary_guidance():
+    text = _schema_text()
+
+    assert "### Dependency and supply-chain boundary guidance" in text
+    assert "packages, container" in text
+    assert "official package registries" in text
+    assert "first-party container registries" in text
+    assert "curl-to-shell installers" in text
+    assert "privileged Docker socket" in text
+    assert "Pin versions for evaluation" in text
+    assert "transitive tool downloads as" in text
+    assert "signing or checksum signals" in text
+    assert "safe rollback/uninstall guidance" in text
+
+
 def test_catalog_schema_reference_includes_public_safe_metadata_rules():
     text = _schema_text()
 

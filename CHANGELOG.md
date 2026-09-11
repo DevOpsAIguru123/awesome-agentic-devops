@@ -9,6 +9,10 @@ documented here. The format is based on
 
 ### Added
 
+- **Dependency and supply-chain boundary guidance.** Added schema-reference
+  guidance and regression coverage for reviewing package, container, CI action,
+  plugin, generated-code, curl-to-shell, Docker socket, version-pinning, signing,
+  checksum, and rollback/uninstall risks before raising catalog maturity.
 - **Credential lifecycle and revocation guidance.** Added schema-reference
   guidance and regression coverage for checking whether agent and MCP credentials
   can be safely issued, rotated, revoked, audited, disconnected from webhooks or

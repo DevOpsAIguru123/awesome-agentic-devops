@@ -335,6 +335,29 @@ raising maturity or evidence scores, verify where that data can flow:
   telemetry-only signals unless the evidence is durable, reviewable, and safe to
   share.
 
+### Dependency and supply-chain boundary guidance
+
+Agent toolkits and MCP servers often ask operators to install packages, container
+images, browser extensions, CI actions, plugins, or generated code before a tool
+can run. Review the install path as part of safety scoring, not as a separate
+afterthought:
+
+- Prefer artifacts that are published from official package registries,
+  first-party container registries, signed releases, or reproducible source builds
+  with clear version tags.
+- Check whether setup requires curl-to-shell installers, privileged Docker socket
+  access, host filesystem mounts, broad CI secrets, or dynamically downloaded
+  plugins, and call out those risks in `risk_notes`.
+- Pin versions for evaluation where possible, record the inspected release or
+  commit in PR evidence, and avoid cataloging instructions that require running
+  unpinned install scripts against production workstations or runners.
+- Treat generated code, third-party plugins, and transitive tool downloads as
+  untrusted until reviewed; evaluate them in disposable environments before
+  granting repository, cloud, cluster, or identity permissions.
+- Do not raise maturity solely because a project has many stars or package
+  downloads; use provenance, release freshness, least-privilege install docs,
+  signing or checksum signals, and safe rollback/uninstall guidance.
+
 ### Public-safe metadata rules
 
 Catalog metadata, README rows, screenshots, generated reports, and pull request
