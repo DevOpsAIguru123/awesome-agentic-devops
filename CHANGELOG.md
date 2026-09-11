@@ -9,6 +9,11 @@ documented here. The format is based on
 
 ### Added
 
+- **Runtime isolation boundary guidance.** Added schema-reference guidance and
+  regression coverage for checking where agents and MCP servers execute,
+  including sandboxes, disposable containers, ephemeral CI runners, host
+  filesystem mounts, Docker sockets, kubeconfig contexts, browser profiles,
+  outbound egress, and public-safe fixture evidence.
 - **Dependency and supply-chain boundary guidance.** Added schema-reference
   guidance and regression coverage for reviewing package, container, CI action,
   plugin, generated-code, curl-to-shell, Docker socket, version-pinning, signing,

@@ -252,6 +252,28 @@ production-adjacent, verify and document the evaluation boundary:
   data, do not raise its maturity score; record the evaluation blocker in
   `risk_notes` instead.
 
+### Runtime isolation boundary guidance
+
+Catalog reviewers should also verify where the agent or MCP server executes. A
+safe credential story is not enough when the runtime can see the operator's host,
+cluster, browser session, or CI runner filesystem:
+
+- Prefer local sandboxes, disposable containers, ephemeral CI runners, dev
+  clusters, or test workstations before running an agent on laptops or shared
+  runners that contain production credentials.
+- Check whether the tool needs host filesystem mounts, shell access, Docker
+  socket access, kubeconfig contexts, browser profiles, SSH agents, package
+  managers, or cloud CLIs that can inherit ambient credentials.
+- Limit outbound network egress and webhook callbacks to known test endpoints
+  while evaluating tools that can execute commands, fetch plugins, open browser
+  sessions, or call external APIs.
+- Treat missing sandboxing, namespace, filesystem, process, or egress controls as
+  maturity blockers for write-capable artifacts; name the runtime boundary in
+  `risk_notes` instead of assuming the host environment is safe.
+- Capture evidence with synthetic fixture repositories, demo clusters, and public
+  test data only; do not publish local paths, usernames, private runner labels,
+  kubeconfig context names, or internal hostnames.
+
 ### Hosted MCP credential boundary guidance
 
 Hosted MCP servers deserve extra credential scrutiny because the runnable surface

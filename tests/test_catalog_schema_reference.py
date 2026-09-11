@@ -147,6 +147,23 @@ def test_catalog_schema_reference_includes_evaluation_environment_boundary_guida
     assert "without production credentials or customer" in text
 
 
+def test_catalog_schema_reference_includes_runtime_isolation_boundary_guidance():
+    text = _schema_text()
+
+    assert "### Runtime isolation boundary guidance" in text
+    assert "where the agent or MCP server executes" in text
+    assert "local sandboxes" in text
+    assert "disposable containers" in text
+    assert "ephemeral CI runners" in text
+    assert "host filesystem mounts" in text
+    assert "Docker\n  socket access" in text
+    assert "kubeconfig contexts" in text
+    assert "outbound network egress" in text
+    assert "maturity blockers for write-capable artifacts" in text
+    assert "synthetic fixture repositories" in text
+    assert "do not publish local paths" in text
+
+
 def test_catalog_schema_reference_includes_hosted_mcp_credential_boundary_guidance():
     text = _schema_text()
 
