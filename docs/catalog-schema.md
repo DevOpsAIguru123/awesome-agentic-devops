@@ -316,6 +316,28 @@ record how consent is enforced:
   behavior in `risk_notes`, and score by the most privileged tool exposed by the
   configured artifact.
 
+### Approval evidence and change-control guidance
+
+For write-capable agents and MCP servers, `human_approval: true` should mean an
+operator can verify who approved which action, against which target, and with what
+rollback or change-control context. Before giving approval credit, inspect whether
+the artifact or host workflow documents durable approval evidence:
+
+- Identify the approval surface: pull request review, chat approval, ticket state,
+  deployment environment gate, policy decision, signed plan, or explicit CLI/UI
+  confirmation.
+- Check that approval records include actor identity, timestamp, requested action,
+  target environment or resource, diff/plan or command summary, and outcome.
+- Prefer workflows that bind approvals to scoped test repositories, sandbox
+  projects, change tickets, or deployment environments instead of broad one-time
+  consent for future writes.
+- Treat break-glass or auto-approval modes as production risks; mention required
+  compensating controls such as post-change audit review, rollback plan, or
+  limited-duration access in `risk_notes`.
+- Do not mark `approval` or `evidence` labels solely because a demo asks the user
+  to press enter; require a durable review artifact, audit log, ticket, or run
+  record that can be inspected after the action.
+
 ### Credential lifecycle and revocation guidance
 
 Catalog reviewers should check not only which credentials an artifact needs, but

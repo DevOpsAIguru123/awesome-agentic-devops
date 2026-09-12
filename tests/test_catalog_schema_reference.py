@@ -194,6 +194,21 @@ def test_catalog_schema_reference_includes_tool_permission_and_consent_boundary_
     assert "most privileged tool exposed" in text
 
 
+def test_catalog_schema_reference_includes_approval_evidence_change_control_guidance():
+    text = _schema_text()
+
+    assert "### Approval evidence and change-control guidance" in text
+    assert "who approved which action" in text
+    assert "pull request review" in text
+    assert "chat approval" in text
+    assert "ticket state" in text
+    assert "deployment environment gate" in text
+    assert "actor identity" in text
+    assert "target environment or resource" in text
+    assert "break-glass or auto-approval modes" in text
+    assert "durable review artifact" in text
+
+
 def test_catalog_schema_reference_includes_credential_lifecycle_guidance():
     text = _schema_text()
 

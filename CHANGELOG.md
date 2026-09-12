@@ -9,6 +9,11 @@ documented here. The format is based on
 
 ### Added
 
+- **Approval evidence and change-control guidance.** Added schema-reference
+  guidance and regression coverage for checking durable approval artifacts,
+  actor identity, target resource context, change tickets, environment gates,
+  break-glass or auto-approval risks, and post-change audit/rollback evidence
+  before assigning approval or evidence labels to write-capable agents.
 - **Runtime isolation boundary guidance.** Added schema-reference guidance and
   regression coverage for checking where agents and MCP servers execute,
   including sandboxes, disposable containers, ephemeral CI runners, host
