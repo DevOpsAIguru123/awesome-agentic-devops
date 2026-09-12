@@ -9,6 +9,10 @@ documented here. The format is based on
 
 ### Added
 
+- **Incident automation and escalation guidance.** Added schema-reference
+  guidance and regression coverage for scoring incident, on-call, and runbook
+  agents by paging, alert-silence, escalation, remediation, audit, rollback, and
+  public-safe incident-evidence boundaries.
 - **Approval evidence and change-control guidance.** Added schema-reference
   guidance and regression coverage for checking durable approval artifacts,
   actor identity, target resource context, change tickets, environment gates,

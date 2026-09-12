@@ -209,6 +209,23 @@ def test_catalog_schema_reference_includes_approval_evidence_change_control_guid
     assert "durable review artifact" in text
 
 
+def test_catalog_schema_reference_includes_incident_automation_escalation_guidance():
+    text = _schema_text()
+
+    assert "### Incident automation and escalation guidance" in text
+    assert "Incident, on-call, and runbook agents" in text
+    assert "page people" in text
+    assert "silence alerts" in text
+    assert "read-only timeline tools" in text
+    assert "acknowledge, silence, escalate" in text
+    assert "dry-run runbooks" in text
+    assert "sandbox incident rooms" in text
+    assert "incident ID" in text
+    assert "rollback path" in text
+    assert "auto-remediation" in text
+    assert "<test-service>" in text
+
+
 def test_catalog_schema_reference_includes_credential_lifecycle_guidance():
     text = _schema_text()
 

@@ -338,6 +338,28 @@ the artifact or host workflow documents durable approval evidence:
   to press enter; require a durable review artifact, audit log, ticket, or run
   record that can be inspected after the action.
 
+### Incident automation and escalation guidance
+
+Incident, on-call, and runbook agents can page people, silence alerts, modify
+incident state, run remediation commands, or publish stakeholder updates. Score
+these rows by the operational blast radius of their most privileged documented
+workflow:
+
+- Separate notification, summarization, and read-only timeline tools from actions
+  that acknowledge, silence, escalate, reassign, resolve, or trigger remediation.
+- Prefer dry-run runbooks, proposed remediation steps, test services, demo alerts,
+  and sandbox incident rooms before granting access to live on-call rotations or
+  production paging policies.
+- Check whether escalation changes and alert silences capture actor identity,
+  incident ID, service or environment, duration, reason, rollback path, and audit
+  evidence.
+- Treat auto-remediation, bulk alert suppression, broad paging-policy access, or
+  undocumented escalation controls as write-capable production risks and call them
+  out in `risk_notes`.
+- Keep incident examples public-safe: use synthetic incidents, fixture alerts,
+  redacted timelines, and placeholders such as `<test-service>` instead of real
+  outage details, customer impact, phone numbers, or private escalation targets.
+
 ### Credential lifecycle and revocation guidance
 
 Catalog reviewers should check not only which credentials an artifact needs, but
