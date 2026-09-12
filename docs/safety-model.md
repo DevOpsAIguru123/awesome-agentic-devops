@@ -4,6 +4,8 @@ Infrastructure agents need a stricter safety bar than generic chat assistants. T
 
 For a practical preflight before enabling a cataloged MCP server or agent against real infrastructure, use the [operator safety checklist](operator-safety-checklist.md).
 
+For curator-facing schema rules that keep `data/repos.yaml` and README labels aligned, see the [catalog schema reference](catalog-schema.md).
+
 ## Principles
 
 ### Read-only first

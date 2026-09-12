@@ -1,0 +1,408 @@
+from pathlib import Path
+
+from scripts.validate_repos_yaml import (
+    ALLOWED_ACTION_LEVELS,
+    ALLOWED_CATEGORIES,
+    ALLOWED_EVIDENCE_TRACING,
+    ALLOWED_HUMAN_APPROVAL,
+    ALLOWED_LABELS,
+    ALLOWED_MATURITY,
+    ALLOWED_TYPES,
+    REQUIRED_FIELDS,
+)
+
+SCHEMA_DOC = Path("docs/catalog-schema.md")
+
+
+def _schema_text() -> str:
+    return SCHEMA_DOC.read_text(encoding="utf-8")
+
+
+def test_catalog_schema_reference_lists_required_fields():
+    text = _schema_text()
+
+    for field in REQUIRED_FIELDS:
+        assert f"`{field}`" in text
+
+
+def test_catalog_schema_reference_documents_catalog_change_decision_guide():
+    text = _schema_text()
+
+    assert "## Catalog change decision guide" in text
+    assert "smallest safe catalog change" in text
+    assert "**Refresh**" in text
+    assert "**Replace**" in text
+    assert "**Add**" in text
+    assert "**Downgrade**" in text
+    assert "**Remove**" in text
+    assert "evidence worksheet" in text
+
+
+def test_catalog_schema_reference_includes_catalog_pr_review_checklist():
+    text = _schema_text()
+
+    assert "## Catalog PR review checklist" in text
+    assert "one coherent catalog, schema, safety, or docs" in text
+    assert "reproducible evidence worksheet" in text
+    assert "most privileged documented tool" in text
+    assert "generated sidecars" in text
+    assert "no tokens, tenant URLs" in text
+    assert "local commands run" in text
+
+
+def test_catalog_schema_reference_documents_identity_and_duplicate_rules():
+    text = _schema_text()
+
+    assert "## Identity and duplicate rules" in text
+    assert "`name` must be unique" in text
+    assert "`url` must be unique" in text
+    assert "canonical" in text
+    assert "Do not add a second row for the same artifact" in text
+    assert "Separate documentation and runnable surfaces" in text
+
+
+def test_catalog_schema_reference_documents_readme_synchronization_rules():
+    text = _schema_text()
+
+    assert "## README synchronization rules" in text
+    assert "python3 scripts/sync_readme_counts.py" in text
+    assert "python3 scripts/sync_readme_counts.py --check" in text
+    assert "## Recently added" in text
+    assert "matching catalog section table" in text
+    assert "intro quick-pick table" in text
+    assert "## Top picks by use case" in text
+
+
+def test_catalog_schema_reference_lists_allowed_categories():
+    text = _schema_text()
+
+    for category in ALLOWED_CATEGORIES:
+        assert f"`{category}`" in text
+
+
+def test_catalog_schema_reference_documents_category_provenance():
+    text = _schema_text()
+
+    assert "`official-*`" in text
+    assert "first-party vendor" in text
+    assert "`community-*`" in text
+    assert "not governed by the vendor/project" in text
+
+
+def test_catalog_schema_reference_includes_minimal_entry_template():
+    text = _schema_text()
+
+    assert "## Minimal entry template" in text
+    assert "add this as a new top-level list item" in text
+    assert "```yaml" in text
+    assert "- name: owner/repo-or-doc-name" in text
+    assert "action_level: read-only" in text
+    assert "labels:" in text
+    assert "- mcp" in text
+    assert "Template review checklist" in text
+    assert "do not paste" in text
+
+
+def test_catalog_schema_reference_includes_source_verification_checklist():
+    text = _schema_text()
+
+    assert "## Source verification checklist" in text
+    assert "without secrets" in text
+    assert "Reachability" in text
+    assert "Freshness" in text
+    assert "not archived" in text
+    assert "Tool surface" in text
+    assert "Credential boundary" in text
+    assert "Safety signals" in text
+
+
+def test_catalog_schema_reference_includes_safety_score_evidence_rules():
+    text = _schema_text()
+
+    assert "### Safety-score evidence rules" in text
+    assert "category assumptions or marketing language" in text
+    assert "`action_level: read-only`" in text
+    assert "`action_level: write-capable`" in text
+    assert "create," in text
+    assert "rotate, acknowledge, remediate" in text
+    assert "`human_approval: true` only when" in text
+    assert "explicit approval gate" in text
+    assert "`evidence_tracing: \"yes\"` or `partial`" in text
+    assert "durable traces" in text
+    assert "Keep labels synchronized" in text
+
+
+def test_catalog_schema_reference_includes_evaluation_environment_boundary_guidance():
+    text = _schema_text()
+
+    assert "### Evaluation environment boundary guidance" in text
+    assert "disposable environment" in text
+    assert "sandbox cloud projects" in text
+    assert "test tenants" in text
+    assert "fixture repositories" in text
+    assert "read-only credentials and narrow OAuth scopes" in text
+    assert "network egress" in text
+    assert "webhook targets" in text
+    assert "redacted and public" in text
+    assert "without production credentials or customer" in text
+
+
+def test_catalog_schema_reference_includes_runtime_isolation_boundary_guidance():
+    text = _schema_text()
+
+    assert "### Runtime isolation boundary guidance" in text
+    assert "where the agent or MCP server executes" in text
+    assert "local sandboxes" in text
+    assert "disposable containers" in text
+    assert "ephemeral CI runners" in text
+    assert "host filesystem mounts" in text
+    assert "Docker\n  socket access" in text
+    assert "kubeconfig contexts" in text
+    assert "outbound network egress" in text
+    assert "maturity blockers for write-capable artifacts" in text
+    assert "synthetic fixture repositories" in text
+    assert "do not publish local paths" in text
+
+
+def test_catalog_schema_reference_includes_hosted_mcp_credential_boundary_guidance():
+    text = _schema_text()
+
+    assert "### Hosted MCP credential boundary guidance" in text
+    assert "`hosted-mcp-server`" in text
+    assert "Authentication mode" in text
+    assert "OAuth" in text
+    assert "Scope boundary" in text
+    assert "read-only endpoint" in text
+    assert "Data handling" in text
+    assert "prompts, tool arguments, logs, traces" in text
+    assert "disposable workspaces" in text
+    assert "never paste tokens" in text
+    assert "most privileged documented capability" in text
+
+
+def test_catalog_schema_reference_includes_tool_permission_and_consent_boundary_guidance():
+    text = _schema_text()
+
+    assert "### Tool permission and consent boundary guidance" in text
+    assert "documented tool list" in text
+    assert "default permission posture" in text
+    assert "read-only by default" in text
+    assert "destructive tools such as deploy" in text
+    assert "per-tool allowlists" in text
+    assert "scoped runner identities" in text
+    assert "enforced approval gate" in text
+    assert "most privileged tool exposed" in text
+
+
+def test_catalog_schema_reference_includes_approval_evidence_change_control_guidance():
+    text = _schema_text()
+
+    assert "### Approval evidence and change-control guidance" in text
+    assert "who approved which action" in text
+    assert "pull request review" in text
+    assert "chat approval" in text
+    assert "ticket state" in text
+    assert "deployment environment gate" in text
+    assert "actor identity" in text
+    assert "target environment or resource" in text
+    assert "break-glass or auto-approval modes" in text
+    assert "durable review artifact" in text
+
+
+def test_catalog_schema_reference_includes_incident_automation_escalation_guidance():
+    text = _schema_text()
+
+    assert "### Incident automation and escalation guidance" in text
+    assert "Incident, on-call, and runbook agents" in text
+    assert "page people" in text
+    assert "silence alerts" in text
+    assert "read-only timeline tools" in text
+    assert "acknowledge, silence, escalate" in text
+    assert "dry-run runbooks" in text
+    assert "sandbox incident rooms" in text
+    assert "incident ID" in text
+    assert "rollback path" in text
+    assert "auto-remediation" in text
+    assert "<test-service>" in text
+
+
+def test_catalog_schema_reference_includes_credential_lifecycle_guidance():
+    text = _schema_text()
+
+    assert "### Credential lifecycle and revocation guidance" in text
+    assert "issued, rotated, revoked, and audited" in text
+    assert "OAuth apps, short-lived tokens" in text
+    assert "scoped service" in text
+    assert "rotate or revoke credentials" in text
+    assert "disable webhooks" in text
+    assert "bot, service account" in text
+    assert "missing revocation, rotation, expiration" in text
+    assert "hosted MCP servers" in text
+    assert "Do not catalog example credential values" in text
+
+
+def test_catalog_schema_reference_includes_telemetry_and_retention_boundary_guidance():
+    text = _schema_text()
+
+    assert "### Telemetry and retention boundary guidance" in text
+    assert "prompts, tool arguments, command output" in text
+    assert "telemetry, analytics, hosted logs" in text
+    assert "enabled by default, opt-in" in text
+    assert "retention, deletion, export" in text
+    assert "disable telemetry" in text
+    assert "operator-controlled storage" in text
+    assert "unknown retention" in text
+    assert "telemetry-only signals" in text
+
+
+def test_catalog_schema_reference_includes_dependency_supply_chain_boundary_guidance():
+    text = _schema_text()
+
+    assert "### Dependency and supply-chain boundary guidance" in text
+    assert "packages, container" in text
+    assert "official package registries" in text
+    assert "first-party container registries" in text
+    assert "curl-to-shell installers" in text
+    assert "privileged Docker socket" in text
+    assert "Pin versions for evaluation" in text
+    assert "transitive tool downloads as" in text
+    assert "signing or checksum signals" in text
+    assert "safe rollback/uninstall guidance" in text
+
+
+def test_catalog_schema_reference_includes_public_safe_metadata_rules():
+    text = _schema_text()
+
+    assert "### Public-safe metadata rules" in text
+    assert "safe to publish" in text
+    assert "API tokens" in text
+    assert "service-account" in text
+    assert "customer data" in text
+    assert "tenant-specific URLs" in text
+    assert "<scoped-test-token>" in text
+    assert "<sandbox-project>" in text
+    assert "keep private evidence out" in text
+    assert "without copying example secrets" in text
+
+
+def test_catalog_schema_reference_includes_agent_instruction_boundary_review():
+    text = _schema_text()
+
+    assert "### Agent instruction-boundary review" in text
+    assert "prompt-injection" in text
+    assert "tool-output trust-boundary" in text
+    assert "as data, not executable" in text
+    assert "system/developer instructions" in text
+    assert "embedded in tool results" in text
+    assert "dry-run/proposal mode" in text
+    assert "instruction-boundary" in text
+    assert "prompt-injection examples synthetic" in text
+
+
+def test_catalog_schema_reference_includes_external_signal_guidance():
+    text = _schema_text()
+
+    assert "### External index and evaluation signals" in text
+    assert "not catalog" in text
+    assert "acceptance evidence by themselves" in text
+    assert "review prompts" in text
+    assert "first-party" in text
+    assert "generated sidecars" in text
+    assert "Do not let third-party scores override the local rubric" in text
+    assert "pull request evidence worksheet" in text
+
+
+def test_catalog_schema_reference_includes_risk_notes_writing_guide():
+    text = _schema_text()
+
+    assert "### Risk notes writing guide" in text
+    assert "short operator warning" in text
+    assert "credential boundary" in text
+    assert "write capability" in text
+    assert "telemetry" in text
+    assert "dry-run, proposal, preview, or plan-only" in text
+    assert "missing evidence" in text
+    assert "risk_notes: Use a read-only GitHub token" in text
+
+
+def test_catalog_schema_reference_includes_github_freshness_audit_guidance():
+    text = _schema_text()
+
+    assert "### Automated GitHub freshness audit" in text
+    assert "python3 scripts/audit_github_repos.py --stale-days 365" in text
+    assert "reports/github-repo-audit.json" in text
+    assert "reports/github-repo-audit.md" in text
+    assert "reachability, archived/private status" in text
+    assert "do not commit the reports" in text
+    assert "non-GitHub documentation and hosted MCP endpoints" in text
+
+
+def test_catalog_schema_reference_includes_deprecation_and_removal_guidance():
+    text = _schema_text()
+
+    assert "### Deprecation and removal handling" in text
+    assert "archived, deprecated, unreachable" in text
+    assert "current official successor" in text
+    assert "lower the maturity or" in text
+    assert "explain the archived, deprecated, or unsupported" in text
+    assert "Remove a row when the source is unreachable" in text
+    assert "Never preserve an obsolete entry just to maintain README counts" in text
+
+
+def test_catalog_schema_reference_includes_evidence_capture_worksheet():
+    text = _schema_text()
+
+    assert "### Evidence capture worksheet" in text
+    assert "pull request body" in text
+    assert "Source evidence:" in text
+    assert "Canonical source" in text
+    assert "Reachability check" in text
+    assert "Credential boundary" in text
+    assert "gh repo view OWNER/REPO --json" in text
+    assert "Do not include access tokens" in text
+
+
+def test_catalog_schema_reference_lists_allowed_action_levels():
+    text = _schema_text()
+
+    for action_level in ALLOWED_ACTION_LEVELS:
+        assert f"`{action_level}`" in text
+
+
+def test_catalog_schema_reference_lists_allowed_human_approval_values():
+    text = _schema_text()
+
+    expected_values = {
+        "true" if value is True else "false" if value is False else value
+        for value in ALLOWED_HUMAN_APPROVAL
+    }
+    for human_approval in expected_values:
+        assert f"`{human_approval}`" in text
+
+
+def test_catalog_schema_reference_lists_allowed_evidence_tracing_values():
+    text = _schema_text()
+
+    for evidence_tracing in ALLOWED_EVIDENCE_TRACING:
+        assert f"`{evidence_tracing}`" in text
+
+
+def test_catalog_schema_reference_lists_allowed_artifact_types():
+    text = _schema_text()
+
+    for artifact_type in ALLOWED_TYPES:
+        assert f"`{artifact_type}`" in text
+
+
+def test_catalog_schema_reference_lists_allowed_maturity_values():
+    text = _schema_text()
+
+    for maturity in ALLOWED_MATURITY:
+        assert f"`{maturity}`" in text
+
+
+def test_catalog_schema_reference_lists_allowed_evaluation_labels():
+    text = _schema_text()
+
+    for label in ALLOWED_LABELS:
+        assert f"`{label}`" in text
