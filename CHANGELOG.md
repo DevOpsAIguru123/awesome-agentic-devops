@@ -9,6 +9,11 @@ documented here. The format is based on
 
 ### Added
 
+- **Data platform operations and data movement guidance.** Added
+  schema-reference guidance and regression coverage for reviewing data-platform
+  agents against metadata lookup, production queries, writes/backfills/deletes,
+  dataset scope, masking, retention, audit evidence, rollback, and public-safe
+  synthetic warehouse examples.
 - **Compliance evidence and audit export guidance.** Added schema-reference
   guidance and regression coverage for reviewing compliance/GRC agents against
   control scope, evidence stores, read-only audit exports, remediation actions,

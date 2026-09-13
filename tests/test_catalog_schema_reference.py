@@ -243,6 +243,25 @@ def test_catalog_schema_reference_includes_compliance_evidence_audit_export_guid
     assert "<sandbox-audit-export>" in text
 
 
+def test_catalog_schema_reference_includes_data_platform_operations_guidance():
+    text = _schema_text()
+
+    assert "### Data platform operations and data movement guidance" in text
+    assert "Data platform agents and MCP servers" in text
+    assert "schemas, query production data" in text
+    assert "metadata discovery, lineage lookup" in text
+    assert "writes, backfills, deletes" in text
+    assert "sample databases" in text
+    assert "masked datasets" in text
+    assert "read-only roles" in text
+    assert "query logs, exported rows, embeddings" in text
+    assert "PII, secrets, customer data" in text
+    assert "query or job ID" in text
+    assert "row-count or partition impact" in text
+    assert "<sample-dataset>" in text
+    assert "<test-warehouse>" in text
+
+
 def test_catalog_schema_reference_includes_credential_lifecycle_guidance():
     text = _schema_text()
 

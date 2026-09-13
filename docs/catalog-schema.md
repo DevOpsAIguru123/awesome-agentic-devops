@@ -384,6 +384,28 @@ they can access or change:
   IDs instead of customer evidence, private policies, legal opinions, or regulated
   data.
 
+### Data platform operations and data movement guidance
+
+Data platform agents and MCP servers may inspect schemas, query production data,
+move records between systems, update pipelines, or expose warehouse metadata.
+Score these rows by the most sensitive dataset or mutation path they can reach:
+
+- Separate metadata discovery, lineage lookup, and read-only query helpers from
+  tools that run writes, backfills, deletes, schema migrations, access grants, or
+  pipeline triggers.
+- Prefer sample databases, masked datasets, test warehouses, read-only roles, and
+  narrow project or dataset scopes before granting access to production
+  warehouses, queues, buckets, or streaming topics.
+- Check whether query logs, exported rows, embeddings, lineage graphs, and cached
+  results can contain PII, secrets, customer data, or regulated records, then
+  document masking, retention, and deletion boundaries in `risk_notes`.
+- Verify whether data mutations capture actor identity, query or job ID, dataset
+  and table scope, row-count or partition impact, timestamp, rollback plan, and
+  audit evidence before using `approval` or `evidence` labels.
+- Keep data examples public-safe: use fixture schemas, synthetic rows,
+  `<sample-dataset>`, `<test-warehouse>`, and redacted query plans instead of real
+  table names, customer identifiers, exported records, or private lineage graphs.
+
 ### Credential lifecycle and revocation guidance
 
 Catalog reviewers should check not only which credentials an artifact needs, but
