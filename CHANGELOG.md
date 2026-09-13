@@ -9,6 +9,11 @@ documented here. The format is based on
 
 ### Added
 
+- **Compliance evidence and audit export guidance.** Added schema-reference
+  guidance and regression coverage for reviewing compliance/GRC agents against
+  control scope, evidence stores, read-only audit exports, remediation actions,
+  actor identity, retention boundaries, audit trails, and public-safe synthetic
+  compliance examples.
 - **Incident automation and escalation guidance.** Added schema-reference
   guidance and regression coverage for scoring incident, on-call, and runbook
   agents by paging, alert-silence, escalation, remediation, audit, rollback, and

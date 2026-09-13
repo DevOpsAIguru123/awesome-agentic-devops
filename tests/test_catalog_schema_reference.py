@@ -226,6 +226,23 @@ def test_catalog_schema_reference_includes_incident_automation_escalation_guidan
     assert "<test-service>" in text
 
 
+def test_catalog_schema_reference_includes_compliance_evidence_audit_export_guidance():
+    text = _schema_text()
+
+    assert "### Compliance evidence and audit export guidance" in text
+    assert "Compliance, GRC, and audit-assistance agents" in text
+    assert "control status" in text
+    assert "evidence collection and gap summaries" in text
+    assert "approve exceptions" in text
+    assert "fixture evidence folders" in text
+    assert "read-only audit exports" in text
+    assert "actor identity" in text
+    assert "control\n  ID" in text
+    assert "retention boundary" in text
+    assert "<test-control>" in text
+    assert "<sandbox-audit-export>" in text
+
+
 def test_catalog_schema_reference_includes_credential_lifecycle_guidance():
     text = _schema_text()
 

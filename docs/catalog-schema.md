@@ -360,6 +360,30 @@ workflow:
   redacted timelines, and placeholders such as `<test-service>` instead of real
   outage details, customer impact, phone numbers, or private escalation targets.
 
+### Compliance evidence and audit export guidance
+
+Compliance, GRC, and audit-assistance agents can collect policy evidence, inspect
+control status, open remediation tickets, or export reports that may expose
+regulated environment details. Score these rows by the evidence and control data
+they can access or change:
+
+- Verify the artifact documents which compliance frameworks, controls, evidence
+  stores, tickets, cloud accounts, repositories, or identity systems it can read
+  before treating it as production-adjacent.
+- Separate evidence collection and gap summaries from actions that change control
+  status, approve exceptions, create attestations, assign findings, or trigger
+  remediation workflows.
+- Prefer sandbox frameworks, fixture evidence folders, demo cloud accounts,
+  read-only audit exports, and redacted reports before connecting real compliance
+  workspaces or customer environments.
+- Check whether exported evidence includes actor identity, source system, control
+  ID, resource scope, timestamp, hash or version, retention boundary, and audit
+  trail so `evidence_tracing` claims are reproducible.
+- Keep compliance examples public-safe: use synthetic controls, placeholder
+  auditor names, `<test-control>`, `<sandbox-audit-export>`, and redacted finding
+  IDs instead of customer evidence, private policies, legal opinions, or regulated
+  data.
+
 ### Credential lifecycle and revocation guidance
 
 Catalog reviewers should check not only which credentials an artifact needs, but
