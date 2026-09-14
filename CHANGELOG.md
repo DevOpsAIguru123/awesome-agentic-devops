@@ -9,6 +9,11 @@ documented here. The format is based on
 
 ### Added
 
+- **MLOps model operation and evaluation guidance.** Added schema-reference
+  guidance and regression coverage for reviewing MLOps agents against experiment
+  lookup, model training, registry promotion, endpoint deployment, feature-store
+  writes, prompt/eval data exposure, rollback, audit evidence, and public-safe
+  synthetic model-operation examples.
 - **Data platform operations and data movement guidance.** Added
   schema-reference guidance and regression coverage for reviewing data-platform
   agents against metadata lookup, production queries, writes/backfills/deletes,

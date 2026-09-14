@@ -406,6 +406,32 @@ Score these rows by the most sensitive dataset or mutation path they can reach:
   `<sample-dataset>`, `<test-warehouse>`, and redacted query plans instead of real
   table names, customer identifiers, exported records, or private lineage graphs.
 
+### MLOps model operation and evaluation guidance
+
+MLOps agents and MCP servers may inspect experiments, fine-tune models, deploy
+endpoints, change feature pipelines, or export evaluation artifacts. Score these
+rows by the most privileged model, data, or deployment workflow they document:
+
+- Separate read-only experiment lookup, model-card summarization, and evaluation
+  report generation from actions that start training jobs, register models,
+  approve promotions, deploy endpoints, update feature stores, or trigger batch
+  inference.
+- Prefer toy datasets, masked evaluation sets, sandbox model registries, test
+  inference endpoints, and read-only tracking credentials before connecting
+  production training clusters, registries, feature stores, or customer prompts.
+- Check whether prompts, labels, embeddings, model outputs, checkpoints,
+  fine-tuning datasets, and eval traces can expose PII, secrets, licensed data, or
+  unreleased model behavior; document retention, deletion, export, and redaction
+  boundaries in `risk_notes`.
+- Verify whether model promotions, endpoint deployments, feature-pipeline writes,
+  and training runs capture actor identity, model or run ID, dataset version,
+  evaluation threshold, rollback path, timestamp, and audit evidence before using
+  `approval` or `evidence` labels.
+- Keep MLOps examples public-safe: use `<toy-dataset>`, `<sandbox-model-registry>`,
+  `<test-endpoint>`, synthetic prompts, and redacted scorecards instead of real
+  customer data, proprietary checkpoints, private model names, or production eval
+  logs.
+
 ### Credential lifecycle and revocation guidance
 
 Catalog reviewers should check not only which credentials an artifact needs, but

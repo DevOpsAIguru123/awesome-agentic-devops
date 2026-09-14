@@ -262,6 +262,25 @@ def test_catalog_schema_reference_includes_data_platform_operations_guidance():
     assert "<test-warehouse>" in text
 
 
+def test_catalog_schema_reference_includes_mlops_model_operation_guidance():
+    text = _schema_text()
+
+    assert "### MLOps model operation and evaluation guidance" in text
+    assert "MLOps agents and MCP servers" in text
+    assert "fine-tune models" in text
+    assert "deploy endpoints" in text
+    assert "read-only experiment lookup" in text
+    assert "start training jobs" in text
+    assert "sandbox model registries" in text
+    assert "test\n  inference endpoints" in text
+    assert "prompts, labels, embeddings" in text
+    assert "dataset version" in text
+    assert "evaluation threshold" in text
+    assert "<toy-dataset>" in text
+    assert "<sandbox-model-registry>" in text
+    assert "<test-endpoint>" in text
+
+
 def test_catalog_schema_reference_includes_credential_lifecycle_guidance():
     text = _schema_text()
 
