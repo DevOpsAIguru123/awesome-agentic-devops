@@ -432,6 +432,32 @@ rows by the most privileged model, data, or deployment workflow they document:
   customer data, proprietary checkpoints, private model names, or production eval
   logs.
 
+### Secrets and identity operations guidance
+
+Secrets managers, identity platforms, and access-review agents can expose or
+change some of the highest-impact credentials in an operator environment. Score
+these rows by the most privileged secret, principal, or policy workflow they can
+reach:
+
+- Separate read-only lookup, inventory, posture summaries, and access-review
+  recommendations from actions that create, rotate, revoke, delete, reveal, or
+  grant secrets, keys, tokens, users, groups, roles, policies, and bindings.
+- Prefer sandbox vaults, test directories, read-only identity scopes, short-lived
+  credentials, and fixture principals before connecting production secrets
+  stores, SSO tenants, cloud IAM, Kubernetes service accounts, or CI/CD secrets.
+- Check whether command output, traces, screenshots, reports, and model context
+  can contain secret values, token metadata, principal names, group membership,
+  policy documents, or access paths; document redaction, masking, retention, and
+  audit boundaries in `risk_notes`.
+- Verify whether identity or secret mutations capture actor identity, target
+  principal or secret path, policy diff, reason, ticket/change ID, timestamp,
+  expiration, rollback or revocation path, and audit evidence before using
+  `approval` or `evidence` labels.
+- Keep examples public-safe: use `<test-principal>`, `<sandbox-vault>`,
+  `<fixture-secret-path>`, redacted policy snippets, and synthetic access-review
+  findings instead of real usernames, tenant IDs, vault paths, token prefixes, or
+  production IAM policies.
+
 ### Credential lifecycle and revocation guidance
 
 Catalog reviewers should check not only which credentials an artifact needs, but

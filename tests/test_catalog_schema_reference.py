@@ -281,6 +281,26 @@ def test_catalog_schema_reference_includes_mlops_model_operation_guidance():
     assert "<test-endpoint>" in text
 
 
+def test_catalog_schema_reference_includes_secrets_identity_operations_guidance():
+    text = _schema_text()
+
+    assert "### Secrets and identity operations guidance" in text
+    assert "Secrets managers, identity platforms" in text
+    assert "read-only lookup" in text
+    assert "create, rotate, revoke, delete" in text
+    assert "sandbox vaults" in text
+    assert "test directories" in text
+    assert "read-only identity scopes" in text
+    assert "Kubernetes service accounts" in text
+    assert "secret values, token metadata" in text
+    assert "policy diff" in text
+    assert "ticket/change ID" in text
+    assert "rollback or revocation path" in text
+    assert "<test-principal>" in text
+    assert "<sandbox-vault>" in text
+    assert "<fixture-secret-path>" in text
+
+
 def test_catalog_schema_reference_includes_credential_lifecycle_guidance():
     text = _schema_text()
 

@@ -9,6 +9,11 @@ documented here. The format is based on
 
 ### Added
 
+- **Secrets and identity operations guidance.** Added schema-reference guidance
+  and regression coverage for reviewing secrets-manager, identity-platform, and
+  access-review agents against secret reveal/rotation/revocation, principal and
+  policy changes, redaction, audit evidence, expiration, rollback, and public-safe
+  synthetic identity examples.
 - **MLOps model operation and evaluation guidance.** Added schema-reference
   guidance and regression coverage for reviewing MLOps agents against experiment
   lookup, model training, registry promotion, endpoint deployment, feature-store
