@@ -6,6 +6,8 @@
 
 - [ ] The repo URL is public and reachable.
 - [ ] The entry has a specific category.
+- [ ] Required fields, category slug, artifact type, maturity, and labels match the [catalog schema reference](../docs/catalog-schema.md).
+- [ ] Source evidence is captured in the PR body using the worksheet in the [catalog schema reference](../docs/catalog-schema.md#evidence-capture-worksheet).
 - [ ] The `risk_notes` field explains what could go wrong.
 - [ ] The `operator_note` field explains why an infrastructure operator should care.
 - [ ] Labels match the observed behavior, not marketing claims.

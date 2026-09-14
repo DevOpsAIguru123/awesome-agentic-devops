@@ -14,6 +14,7 @@ Thanks for helping make this a practical operator-grade index instead of a hype 
 - Prefer entries that can be evaluated without real cloud credentials.
 - For write-capable, credentialed, or production-adjacent entries, use the [operator safety checklist](docs/operator-safety-checklist.md) to confirm domain-specific least-privilege credential boundaries, no-secret-in-context handling, dry-run/proposal behavior, approval gates, blast-radius limits, and audit evidence.
 - PRs should update [data/repos.yaml](data/repos.yaml) and [README.md](README.md) when the public index changes.
+- Use the [catalog schema reference](docs/catalog-schema.md) when choosing category slugs, artifact types, maturity values, and evaluation labels.
 
 ## Entry checklist
 
