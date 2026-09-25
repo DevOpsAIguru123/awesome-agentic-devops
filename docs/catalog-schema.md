@@ -384,6 +384,30 @@ they can access or change:
   IDs instead of customer evidence, private policies, legal opinions, or regulated
   data.
 
+### Policy-as-code and guardrail evaluation guidance
+
+Policy-as-code agents can inspect, generate, waive, or enforce controls across
+repositories, CI/CD pipelines, infrastructure plans, Kubernetes admission,
+identity policy, and cloud organizations. Score these rows by the strongest policy
+decision or enforcement path they can influence:
+
+- Separate read-only policy lookup, drift summaries, and recommendation generation
+  from actions that approve exceptions, suppress findings, change deny rules,
+  update admission controllers, merge policy bundles, or trigger enforcement.
+- Prefer fixture repositories, sample Terraform plans, demo clusters, sandbox
+  cloud accounts, and read-only policy engines before connecting production CI,
+  admission webhooks, organization policies, or compliance systems.
+- Check whether policy decisions capture actor identity, resource scope, rule or
+  control ID, input artifact hash, exception reason, expiration, and audit trail
+  before using `approval` or `evidence` labels.
+- Treat automatic remediation, broad exception creation, silent policy downgrade,
+  or undocumented enforcement order as write-capable risks and explain them in
+  `risk_notes`.
+- Keep examples public-safe: use `<sample-plan>`, `<test-policy>`,
+  `<sandbox-cluster>`, and synthetic violation reports instead of customer policy
+  bundles, production resource IDs, private compliance mappings, or real drift
+  exports.
+
 ### Data platform operations and data movement guidance
 
 Data platform agents and MCP servers may inspect schemas, query production data,

@@ -9,6 +9,11 @@ documented here. The format is based on
 
 ### Added
 
+- **Policy-as-code and guardrail evaluation guidance.** Added schema-reference
+  guidance and regression coverage for reviewing policy agents against read-only
+  recommendations, exception approval, admission-controller changes, enforcement
+  paths, artifact hashes, audit evidence, remediation risks, and public-safe
+  synthetic policy examples.
 - **Cost, quota, and FinOps impact guidance.** Added schema-reference guidance
   and regression coverage for reviewing cost and FinOps agents against billing
   lookup, budget/quota/resource mutations, optimization tradeoffs, sensitive cost

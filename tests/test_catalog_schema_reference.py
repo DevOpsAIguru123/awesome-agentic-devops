@@ -282,6 +282,27 @@ def test_catalog_schema_reference_includes_cost_quota_finops_guidance():
     assert "<fixture-usage-report>" in text
 
 
+def test_catalog_schema_reference_includes_policy_as_code_guidance():
+    text = _schema_text()
+
+    assert "### Policy-as-code and guardrail evaluation guidance" in text
+    assert "Policy-as-code agents" in text
+    assert "strongest policy" in text
+    assert "approve exceptions" in text
+    assert "update admission controllers" in text
+    assert "fixture repositories" in text
+    assert "sample Terraform plans" in text
+    assert "demo clusters" in text
+    assert "actor identity" in text
+    assert "rule or\n  control ID" in text
+    assert "input artifact hash" in text
+    assert "automatic remediation" in text
+    assert "broad exception creation" in text
+    assert "<sample-plan>" in text
+    assert "<test-policy>" in text
+    assert "<sandbox-cluster>" in text
+
+
 def test_catalog_schema_reference_includes_mlops_model_operation_guidance():
     text = _schema_text()
 
