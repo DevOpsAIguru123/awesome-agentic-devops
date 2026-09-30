@@ -9,6 +9,9 @@ documented here. The format is based on
 
 ### Added
 
+- **PR validation checklist coverage.** Added regression tests for the pull
+  request template's catalog schema links and local validation command block, and
+  updated contributor guidance to require `python3` plus generated-sidecar checks.
 - **Policy-as-code and guardrail evaluation guidance.** Added schema-reference
   guidance and regression coverage for reviewing policy agents against read-only
   recommendations, exception approval, admission-controller changes, enforcement

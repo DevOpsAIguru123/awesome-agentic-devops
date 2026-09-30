@@ -23,11 +23,12 @@
 ## Validation
 
 ```bash
-python scripts/validate_repos_yaml.py
-python scripts/sync_readme_counts.py --check
-python -m pytest -q
-python scripts/run_mock_eval_scenarios.py
-python scripts/audit_github_repos.py --workers 12 --fail-on-unreachable
+python3 scripts/validate_repos_yaml.py
+python3 scripts/sync_readme_counts.py --check
+python3 scripts/sync_catalog_json.py --check
+python3 -m pytest -q
+python3 scripts/run_mock_eval_scenarios.py
+python3 scripts/audit_github_repos.py --workers 12 --fail-on-unreachable
 ```
 
 - [ ] Relevant commands above pass locally, or this PR explains why a command is not applicable.
