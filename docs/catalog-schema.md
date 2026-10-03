@@ -505,6 +505,32 @@ reach:
   findings instead of real usernames, tenant IDs, vault paths, token prefixes, or
   production IAM policies.
 
+### CI/CD and release automation guidance
+
+CI/CD, deployment, and release-engineering agents can change source control,
+trigger pipelines, publish artifacts, deploy environments, or alter release
+gates. Score these rows by the highest-impact pipeline or release action they can
+perform:
+
+- Separate read-only build lookup, log summarization, and deployment status tools
+  from actions that rerun jobs, cancel pipelines, approve environments, merge
+  pull requests, publish packages, tag releases, or deploy/rollback workloads.
+- Prefer fixture repositories, non-production runners, protected test
+  environments, dry-run workflows, and scoped CI tokens before granting access to
+  production pipelines, package registries, deployment keys, or release branches.
+- Check whether pipeline logs, artifacts, environment variables, dependency
+  reports, and deployment manifests can expose secrets, customer data, internal
+  hostnames, or unreleased product details; document masking, retention, and
+  artifact access boundaries in `risk_notes`.
+- Verify whether release actions capture actor identity, repository or environment
+  scope, commit SHA, workflow run ID, artifact digest, approval record, rollback
+  path, timestamp, and audit evidence before using `approval` or `evidence`
+  labels.
+- Keep examples public-safe: use `<fixture-repo>`, `<test-runner>`,
+  `<staging-environment>`, synthetic pipeline logs, and redacted artifact names
+  instead of production release IDs, private package names, runner labels, or
+  deployment URLs.
+
 ### Credential lifecycle and revocation guidance
 
 Catalog reviewers should check not only which credentials an artifact needs, but

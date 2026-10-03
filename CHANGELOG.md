@@ -9,6 +9,10 @@ documented here. The format is based on
 
 ### Added
 
+- **CI/CD and release automation guidance.** Added schema-reference guidance and
+  regression coverage for reviewing release agents against pipeline triggers,
+  artifact publication, protected environments, scoped CI tokens, log/artifact
+  exposure, approval records, rollback evidence, and public-safe fixture examples.
 - **PR validation checklist coverage.** Added regression tests for the pull
   request template's catalog schema links and local validation command block, and
   updated contributor guidance to require `python3` plus generated-sidecar checks.

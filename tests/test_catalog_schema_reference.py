@@ -342,6 +342,29 @@ def test_catalog_schema_reference_includes_secrets_identity_operations_guidance(
     assert "<fixture-secret-path>" in text
 
 
+def test_catalog_schema_reference_includes_ci_cd_release_automation_guidance():
+    text = _schema_text()
+
+    assert "### CI/CD and release automation guidance" in text
+    assert "CI/CD, deployment, and release-engineering agents" in text
+    assert "trigger pipelines" in text
+    assert "publish artifacts" in text
+    assert "read-only build lookup" in text
+    assert "rerun jobs" in text
+    assert "approve environments" in text
+    assert "merge\n  pull requests" in text
+    assert "fixture repositories" in text
+    assert "non-production runners" in text
+    assert "scoped CI tokens" in text
+    assert "pipeline logs, artifacts" in text
+    assert "commit SHA" in text
+    assert "workflow run ID" in text
+    assert "artifact digest" in text
+    assert "<fixture-repo>" in text
+    assert "<test-runner>" in text
+    assert "<staging-environment>" in text
+
+
 def test_catalog_schema_reference_includes_credential_lifecycle_guidance():
     text = _schema_text()
 
