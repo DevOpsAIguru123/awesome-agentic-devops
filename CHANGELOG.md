@@ -9,6 +9,11 @@ documented here. The format is based on
 
 ### Added
 
+- **Observability and monitoring operations guidance.** Added schema-reference
+  guidance and regression coverage for reviewing observability agents against
+  dashboard lookup, alert and SLO changes, sandbox tenants, log/trace/profile data
+  exposure, retention and export controls, audit evidence, rollback, and
+  public-safe synthetic monitoring examples.
 - **CI/CD and release automation guidance.** Added schema-reference guidance and
   regression coverage for reviewing release agents against pipeline triggers,
   artifact publication, protected environments, scoped CI tokens, log/artifact

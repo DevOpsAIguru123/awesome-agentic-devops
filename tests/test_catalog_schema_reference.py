@@ -226,6 +226,26 @@ def test_catalog_schema_reference_includes_incident_automation_escalation_guidan
     assert "<test-service>" in text
 
 
+def test_catalog_schema_reference_includes_observability_monitoring_operations_guidance():
+    text = _schema_text()
+
+    assert "### Observability and monitoring operations guidance" in text
+    assert "Observability, monitoring, and telemetry agents" in text
+    assert "metrics, logs, traces" in text
+    assert "dashboard lookup" in text
+    assert "create or mute alerts" in text
+    assert "update SLOs" in text
+    assert "sandbox observability tenants" in text
+    assert "read-only API scopes" in text
+    assert "log lines, spans, profiling data" in text
+    assert "secrets, customer identifiers" in text
+    assert "monitor or dashboard ID" in text
+    assert "synthetic-check mutations" in text
+    assert "<demo-dashboard>" in text
+    assert "<test-alert-policy>" in text
+    assert "<synthetic-trace>" in text
+
+
 def test_catalog_schema_reference_includes_compliance_evidence_audit_export_guidance():
     text = _schema_text()
 

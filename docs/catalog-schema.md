@@ -360,6 +360,32 @@ workflow:
   redacted timelines, and placeholders such as `<test-service>` instead of real
   outage details, customer impact, phone numbers, or private escalation targets.
 
+### Observability and monitoring operations guidance
+
+Observability, monitoring, and telemetry agents can inspect metrics, logs, traces,
+dashboards, alerts, synthetic checks, and service maps. Score these rows by the
+most privileged monitoring system or operational signal they can reach or change:
+
+- Separate read-only dashboard lookup, metric explanation, log summarization, and
+  trace search from actions that create or mute alerts, edit dashboards, change
+  monitors, update SLOs, alter retention, trigger synthetic checks, or run
+  remediation from observability workflows.
+- Prefer demo data sources, sandbox observability tenants, fixture dashboards,
+  test alert policies, and read-only API scopes before connecting production log,
+  metric, trace, or profiling backends.
+- Check whether log lines, spans, profiling data, metric labels, dashboards, and
+  notebook exports can expose secrets, customer identifiers, request payloads,
+  tenant names, internal hostnames, or incident details; document masking,
+  sampling, retention, and export controls in `risk_notes`.
+- Verify whether alert, SLO, dashboard, retention, or synthetic-check mutations
+  capture actor identity, monitor or dashboard ID, service/environment scope,
+  change reason, timestamp, rollback path, and audit evidence before using
+  `approval` or `evidence` labels.
+- Keep observability examples public-safe: use `<demo-dashboard>`,
+  `<test-alert-policy>`, `<synthetic-trace>`, redacted logs, and fixture metrics
+  instead of production incident screenshots, customer identifiers, real trace IDs,
+  or private service names.
+
 ### Compliance evidence and audit export guidance
 
 Compliance, GRC, and audit-assistance agents can collect policy evidence, inspect
