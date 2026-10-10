@@ -19,6 +19,7 @@ Most agent lists stop at discovery. This one is built for operators:
 ## Contents
 
 - [Evaluation labels](#evaluation-labels)
+- [Catalog schema reference](#catalog-schema-reference)
 - [Compliance evidence checklist](#compliance-evidence-checklist)
 - [Operator safety checklist](#operator-safety-checklist)
 - [Top picks by use case](#top-picks-by-use-case)
@@ -40,6 +41,10 @@ Most agent lists stop at discovery. This one is built for operators:
 | write | write-capable; review before use |
 
 Labels are shorthand for structured fields recorded on every entry in [data/repos.yaml](data/repos.yaml) — [how entries are scored](docs/scoring.md) explains each field and how it is verified.
+
+## Catalog schema reference
+
+Catalog entries are validated against a curator-owned schema for required fields, allowed category slugs, artifact types, maturity values, evaluation labels, absolute `https://` URLs, duplicate names/URLs, and score-to-label consistency. See the [catalog schema reference](docs/catalog-schema.md) before adding or reclassifying entries.
 
 ## Compliance evidence checklist
 

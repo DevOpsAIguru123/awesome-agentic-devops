@@ -2,6 +2,8 @@
 
 Most agent lists stop at discovery. Infrastructure teams need more: whether a tool can perform write actions, whether it has approval gates, whether it preserves evidence, and whether it is stable enough to depend on. Every entry in [data/repos.yaml](../data/repos.yaml) records five dimensions, assessed from project documentation and exposed tool surfaces rather than marketing claims.
 
+For the full validator-backed field list, category slugs, artifact types, maturity values, labels, and pre-submit commands, see the [catalog schema reference](catalog-schema.md).
+
 ## The five fields
 
 | Field | Question it answers | How it is verified |
