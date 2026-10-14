@@ -8,7 +8,7 @@ A curated, **official-first** catalog of MCP servers, agent skills, AI agents, f
 
 Most agent lists stop at discovery. This one is built for operators:
 
-- **Official-first, community-inclusive** — 80 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
+- **Official-first, community-inclusive** — 81 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — GitHub repository entries are checked weekly for reachability, archived status, and stale push activity; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-skills-into-your-coding-agent) installs hundreds of skills from cataloged Google, Microsoft, Azure, Azure DevOps, and Harness sources — plus a separate community set — into Claude Code, Cursor, Codex, VS Code, or Antigravity.
@@ -184,6 +184,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | [controlplaneio-fluxcd/flux-operator (MCP)](https://github.com/controlplaneio-fluxcd/flux-operator/tree/main/cmd/mcp) | prod<br>mcp<br>approval<br>evidence<br>write | Official Flux Operator MCP server from CNCF Flux core maintainers; Go single-binary with read-only mode, kubeconfig scoping, and Kubernetes impersonation. Covers Kustomizations, HelmReleases, drift detection, root cause analysis, and multi-cluster comparison. |
 | [CircleCI-Public/mcp-server-circleci](https://github.com/CircleCI-Public/mcp-server-circleci) | prod<br>mcp<br>approval<br>evidence | Official CircleCI MCP server for build failure logs, pipeline status, flaky test detection, and usage analysis. |
 | [harness/mcp-server](https://github.com/harness/mcp-server) | prod<br>mcp<br>approval<br>write | Official Harness MCP server (Go) for CI/CD pipelines, deployments, connectors, feature flags, and infrastructure operations; risk-tiered model blocks destructive ops without confirmation. |
+| [Latchkey MCP server](https://latchkey.dev/documentation/connect-your-ai-agent) | prod<br>mcp<br>evidence<br>write | Official hosted MCP server for Latchkey's self-healing GitHub Actions runners: failure bundles with root cause and logs for runs self-heal could not fix, run status, workflow dispatch, and one-off commands on fresh ephemeral runners; bearer API key with jobs:read / jobs:run scopes, no built-in approval gate. |
 
 ### Official MCP SDKs, Reference Implementations, Registries, and Governance Platforms
 
