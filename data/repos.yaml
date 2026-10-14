@@ -1846,3 +1846,27 @@
     - mcp
     - approval
     - write
+
+- name: Latchkey MCP server
+  url: https://latchkey.dev/documentation/connect-your-ai-agent
+  category: official-ci-cd-mcp-servers
+  type: hosted-mcp-server
+  framework: MCP
+  primary_language: unknown
+  cloud_provider: Latchkey
+  use_cases:
+    - github-actions-failure-triage
+    - ci-run-status-and-logs
+    - workflow-dispatch
+    - one-off-jobs-on-ephemeral-runners
+  action_level: write-capable
+  human_approval: false
+  evidence_tracing: partial
+  maturity: production-adjacent
+  risk_notes: "API keys carry jobs:read or jobs:run scopes plus a per-key switch for running CLI/MCP jobs; dispatch_workflow and run_job trigger real CI and spend runner minutes, so scope keys per workspace and treat them as secrets. Logs returned to the agent are secret-scrubbed; the server never edits repository code."
+  operator_note: "Official hosted MCP server for Latchkey's self-healing GitHub Actions runners: failure bundles with root cause, failing file and logs for runs self-heal could not fix, run status, workflow dispatch, and one-off commands on fresh ephemeral runners."
+  labels:
+    - prod
+    - mcp
+    - evidence
+    - write
