@@ -8,7 +8,7 @@ A curated, **official-first** catalog of MCP servers, agent skills, AI agents, f
 
 Most agent lists stop at discovery. This one is built for operators:
 
-- **Official-first, community-inclusive** — 80 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
+- **Official-first, community-inclusive** — 81 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — GitHub repository entries are checked weekly for reachability, archived status, and stale push activity; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-skills-into-your-coding-agent) installs hundreds of skills from cataloged Google, Microsoft, Azure, Azure DevOps, and Harness sources — plus a separate community set — into Claude Code, Cursor, Codex, VS Code, or Antigravity.
@@ -268,6 +268,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | [googleapis/mcp-toolbox](https://github.com/googleapis/mcp-toolbox) | prod<br>mcp<br>approval<br>evidence<br>write | Official Google APIs MCP Toolbox for Databases with self-hosted database tools, SDKs, integrated auth, and OpenTelemetry support. |
 | [dbt-labs/dbt-mcp](https://github.com/dbt-labs/dbt-mcp) | prod<br>mcp<br>approval<br>write | Official dbt Labs MCP server for dbt Core, dbt Fusion, and dbt Platform context, including Discovery API, Semantic Layer, project search, and dbt CLI tools. |
 | [bytebase/dbhub](https://github.com/bytebase/dbhub) | prod<br>mcp<br>approval<br>write | Bytebase-maintained DBHub MCP server from an independent database DevSecOps vendor for Postgres, MySQL, MariaDB, SQL Server, and SQLite; supports execute_sql plus read-only mode, row limits, and timeouts, so use least-privilege DB credentials and approval gates. |
+| [rowsafe/rowsafe](https://github.com/rowsafe/rowsafe) | mcp<br>evidence<br>write | Official RowSafe CLI/MCP for PostgreSQL backup-health checks, isolated migration previews, and opt-in named restore points; uses authenticated service access. Apache-2.0 agent/CLI/MCP, separate hosted service. Full MCP also supports multiple engines and production/cloud writes; scope credentials and require operator approval. |
 
 ### Official FinOps and Cloud-Cost MCP Servers
 

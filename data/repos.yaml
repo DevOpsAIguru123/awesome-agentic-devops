@@ -1705,6 +1705,28 @@
     - approval
     - write
 
+- name: rowsafe/rowsafe
+  url: https://github.com/rowsafe/rowsafe
+  category: official-data-platform-mcp-servers
+  type: mcp-server
+  framework: MCP
+  primary_language: Go
+  cloud_provider: provider-independent
+  use_cases:
+    - database-backup-health
+    - migration-previews
+    - named-restore-points
+  action_level: write-capable
+  human_approval: unknown
+  evidence_tracing: partial
+  maturity: active-oss
+  risk_notes: "Uses authenticated service access; the Apache-2.0 agent, CLI, and MCP server are open source, while the hosted service is separate. The full local/remote MCP surface supports multiple database engines and can change production databases and cloud resources with the connected identity's rights. Scope credentials to the required organization/resources, separate read and write access, and keep tokens and connection strings out of model context. Isolated migration previews and opt-in restore-point/write tools are not universal per-action approval gates; require operator approval before disruptive or paid changes, review task/audit evidence, and verify restore coverage and recovery steps before relying on a Mark for rollback."
+  operator_note: "Official vendor CLI/MCP integration for PostgreSQL backup-health checks, isolated migration previews, and opt-in named restore points (Marks), with task results and audit-log access; broader database and cloud operations are also exposed."
+  labels:
+    - mcp
+    - evidence
+    - write
+
 - name: docker/hub-mcp
   url: https://github.com/docker/hub-mcp
   category: official-devops-mcp-servers
