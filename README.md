@@ -8,7 +8,7 @@ A curated, **official-first** catalog of MCP servers, agent skills, AI agents, f
 
 Most agent lists stop at discovery. This one is built for operators:
 
-- **Official-first, community-inclusive** — 80 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
+- **Official-first, community-inclusive** — 81 entries organized into 15 catalog sections; official vendor and project resources are prioritized, while community-driven entries are separated in a dedicated [community section](#community-discovery-and-skills).
 - **Scored, not just listed** — every entry records action capability, human-approval controls, tracing evidence, maturity, and operational risk ([how entries are scored](docs/scoring.md)).
 - **Audited by CI** — GitHub repository entries are checked weekly for reachability, archived status, and stale push activity; non-GitHub documentation links are outside this automated check and require curator review.
 - **Installable, not just readable** — [one command](#install-skills-into-your-coding-agent) installs hundreds of skills from cataloged Google, Microsoft, Azure, Azure DevOps, and Harness sources — plus a separate community set — into Claude Code, Cursor, Codex, VS Code, or Antigravity.
@@ -191,6 +191,7 @@ The source of truth is [data/repos.yaml](data/repos.yaml). The catalog combines 
 | --- | --- | --- |
 | [Docker MCP Catalog and Toolkit docs](https://docs.docker.com/ai/mcp-catalog-and-toolkit/) | prod<br>mcp<br>approval<br>write | Official Docker documentation for MCP Toolkit, MCP Catalog, profiles, CLI, and MCP Gateway. |
 | [Docker MCP Gateway docs](https://docs.docker.com/ai/mcp-catalog-and-toolkit/mcp-gateway/) | prod<br>mcp<br>approval<br>write | Official Docker MCP Gateway documentation for secure, centralized orchestration of containerized MCP tools. |
+| [scalekit-inc/scalekit-mcp-server](https://github.com/scalekit-inc/scalekit-mcp-server) | prod<br>mcp<br>approval<br>write | Official Scalekit hosted MCP server (Apache-2.0 source) for managing agent integrations: 600+ connectors and 35,000+ tools with per-user OAuth, tool scoping per agent, and per-call logs streamable to a SIEM. |
 | [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) | prod<br>mcp<br>approval | Official MCP reference server implementations and ecosystem pointers. |
 | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | prod<br>mcp<br>approval | Official Python SDK for building MCP servers and clients. |
 | [modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk) | prod<br>mcp<br>approval | Official TypeScript SDK for Model Context Protocol servers and clients. |
