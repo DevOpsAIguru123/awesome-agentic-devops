@@ -1039,6 +1039,29 @@
     - approval
     - write
 
+- name: scalekit-inc/scalekit-mcp-server
+  url: https://github.com/scalekit-inc/scalekit-mcp-server
+  category: official-devops-mcp-platforms
+  type: hosted-mcp-server
+  framework: MCP
+  primary_language: TypeScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - per-user-oauth-for-agent-tool-calls
+    - saas-connector-management
+    - scoped-mcp-tool-exposure
+  action_level: write-capable
+  human_approval: true
+  evidence_tracing: partial
+  maturity: production-adjacent
+  risk_notes: "Hosted service that stores users' OAuth tokens and can execute write actions in connected SaaS apps (GitHub, GitLab, Jira, Slack and others); scope connectors and tool allowlists per agent role, keep write tools behind approval, and review the call logs."
+  operator_note: "Official Scalekit hosted MCP server (Apache-2.0 source) for managing agent integrations: 600+ connectors and 35,000+ tools with per-user OAuth, tool scoping per agent, and per-call logs streamable to a SIEM."
+  labels:
+    - prod
+    - mcp
+    - approval
+    - write
+
 - name: modelcontextprotocol/servers
   url: https://github.com/modelcontextprotocol/servers
   category: official-mcp-reference-implementations
