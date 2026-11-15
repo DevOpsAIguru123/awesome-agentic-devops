@@ -90,6 +90,7 @@ New catalog entries appear below; notable non-entry changes (formatting, labels,
 | Date | Entry | Category |
 | --- | --- | --- |
 | 2026-08-07 | [heroku/heroku-mcp-server](https://github.com/heroku/heroku-mcp-server) | Cloud / Heroku PaaS operations |
+| 2026-11-15 | [No Stairs Please MCP](https://nostairsplease.com/mcp) | Domain / Live-music venues across all 50 US states ([directory](https://nostairsplease.com/venues)) |
 | 2026-07-25 | [opentofu/opentofu-mcp-server](https://github.com/opentofu/opentofu-mcp-server) | IaC / OpenTofu Registry MCP |
 | 2026-07-23 | [containers/kubernetes-mcp-server](https://github.com/containers/kubernetes-mcp-server) | Community / Kubernetes and OpenShift |
 | 2026-07-23 | [cisco-ai-defense/mcp-scanner](https://github.com/cisco-ai-defense/mcp-scanner) | Security / MCP server scanning |
