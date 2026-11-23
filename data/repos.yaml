@@ -1633,6 +1633,28 @@
     - evidence
     - write
 
+- name: zColdWater/mcp-launch-audit
+  url: https://github.com/zColdWater/mcp-launch-audit
+  category: community-mcp-servers
+  type: mcp-server
+  framework: MCP (Node.js stdio + Streamable HTTP)
+  primary_language: JavaScript
+  cloud_provider: multi-cloud
+  use_cases:
+    - web-app-security-audit
+    - email-dns-deliverability-audit
+    - pre-launch-verification
+    - ai-search-readiness
+  action_level: read-only
+  human_approval: false
+  evidence_tracing: partial
+  maturity: active-oss
+  risk_notes: "Strictly read-only passive HTTP GET, TLS 443, public DNS, and RDAP checks with zero cloud credentials required; operators should limit target domains to authorized assets and note that optional paid remediation packs are commercial add-ons outside the MIT open-source MCP server."
+  operator_note: "Community zero-dependency MIT MCP server (local npx stdio + remote Streamable HTTP endpoint) exposing 5 readOnlyHint pre-deploy audit tools across web/Supabase/Next.js security headers & secrets, SPF/DKIM/DMARC/MTA-STS email DNS, 78-TLD RDAP/USPTO checks, and /llms.txt readiness."
+  labels:
+    - mcp
+    - evidence
+
 - name: googleapis/mcp-toolbox
   url: https://github.com/googleapis/mcp-toolbox
   category: official-data-platform-mcp-servers
